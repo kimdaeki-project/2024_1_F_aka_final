@@ -183,7 +183,6 @@
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
     <!-- / Layout wrapper -->
 
     <div class="buy-now">

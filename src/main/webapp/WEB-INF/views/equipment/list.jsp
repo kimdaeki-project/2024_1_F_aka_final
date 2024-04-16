@@ -89,21 +89,21 @@
 
                 <c:if test="${!start}">
                   <li class="page-item first">
-                    <a class="page-link" href="./list?page=1&kind=${kind}$search=${search}" ><i class="tf-icon bx bx-chevrons-left"></i></a>
+                    <a class="page-link" href="/equipment/list?page=1&kind=${kind}$search=${search}" ><i class="tf-icon bx bx-chevrons-left"></i></a>
                   </li>
-                  <li class="page-item prev"> <a class="page-link" href="./list?page=${pager.page-1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-left"></i></a> </li>
+                  <li class="page-item prev"> <a class="page-link" href="/equipment/list?page=${pager.page-1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-left"></i></a> </li>
                 </c:if> 
                   
                   <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-                  <li class="page-item"> <a class="page-link" href="./list?page=${i}&kind=${kind}$search=${search}">${i}</a></li>
+                  <li class="page-item"><a class="page-link" href="/equipment/list?page=${i}&kind=${kind}$search=${search}">${i}</a></li>
                   </c:forEach>
   
   							
                   <li class="page-item next">
-                    <a class="page-link" href="./list?page=${pager.page+1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-right"></i></a>
+                    <a class="page-link" href="/equipment/list?page=${pager.page+1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-right"></i></a>
                   </li>
                   <li class="page-item last">
-                    <a class="page-link" href="./list?page=${pager.lastNum}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                    <a class="page-link" href="/equipment/list?page=${pager.lastNum}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevrons-right"></i></a>
                   </li>
   		
   					 <form class="d-flex" action="/equipment/list"  method="get">

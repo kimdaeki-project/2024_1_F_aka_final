@@ -63,7 +63,7 @@
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
-                      <form:form action="/product/create" modelAttribute="productVO" method="post">
+                      <form:form action="/product/create" modelAttribute="productVO" method="post" enctype="multipart/form-data">
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">상품 이름</label>
                           <div class="col-sm-10">
@@ -96,7 +96,7 @@
                           </div>
                         </div>
                        
-                        
+                        <form:input type="file" class="form-control" path="file" id="basic-default-name"  />
                         
                         
                         <div class="row justify-content-end">

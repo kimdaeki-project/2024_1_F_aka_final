@@ -62,10 +62,12 @@
               <h4 class="fw-bold py-3 mb-4">${vo.product_name} 상세</h4>
               <div class="row">
 			                <!-- Paragraph -->
+			                
                 <div class="col-lg">
                   <div class="card mb-4">
                     <h5 class="card-header">상품 번호 : ${vo.product_num}</h5>
                     <input type="hidden"  id="product_num"  value="${vo.product_num}" >
+                    
                     <table class="table table-borderless">
                       <tbody>
                         <tr>
@@ -89,12 +91,11 @@
                         <tr>
                           <td class="align-middle"><small class="text-light fw-semibold">상세 설명</small></td>
                           <td class="py-4">
-                           
+                            <p class="lead mb-0">${vo.product_detail}</p>
                           </td>
                         </tr>                                                
                       </tbody>
                     </table>
-                     <p class="lead mb-0">${vo.product_detail}</p>
                   </div>
                 </div>	
 	            </div>

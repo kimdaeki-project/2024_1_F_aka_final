@@ -95,7 +95,7 @@
                 </c:if> 
                   
                   <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-                  <li class="page-item"> <a class="page-link" href="./list?page=${i}&kind=${kind}$search=${search}">${i}</a> </li>
+                  <li class="page-item"> <a class="page-link" href="./list?page=${i}&kind=${kind}$search=${search}">${i}</a></li>
                   </c:forEach>
   
   							

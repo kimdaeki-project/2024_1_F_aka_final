@@ -70,4 +70,20 @@ public class MemberController {
 	    
 		return "commons/result";
 	}
+	
+	@GetMapping("/findPw")
+	public String findPw() throws Exception{
+		return "member/findPw";
+	}
+	
+	@PostMapping("/findPw")
+	public String findPw(Model model) throws Exception{
+		
+		
+		
+//		model.addAttribute("path",path);
+		
+		return "commons/result";
+	}
 }
+

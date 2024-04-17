@@ -166,7 +166,7 @@
                     <!-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> -->
                  </div>
                 <div class="d-flex justify-content-end mt-2">
-                  <a href="/test/test">
+                  <a href="/member/findPw">
                     <small>Forgot Password?</small>
                   </a>
                 </div>

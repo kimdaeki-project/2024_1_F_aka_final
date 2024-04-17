@@ -91,7 +91,7 @@
                   <li class="page-item first">
                     <a class="page-link" href="/equipment/list?page=1&kind=${kind}$search=${search}" ><i class="tf-icon bx bx-chevrons-left"></i></a>
                   </li>
-                  <li class="page-item prev"> <a class="page-link" href="/equipment/list?page=${pager.page-1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-left"></i></a> </li>
+                  <li class="page-item prev"> <a class="page-link" href="/equipment/list?page=${pager.startNum-1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-left"></i></a> </li>
                 </c:if> 
                   
                   <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="p">
@@ -101,13 +101,22 @@
   				
  				<c:if test="${!pager.last}">
                   <li class="page-item next">
-                    <a class="page-link" href="/equipment/list?page=${pager.page+1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-right"></i></a>
+                    <a class="page-link" href="/equipment/list?page=${pager.lastNum+1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-right"></i></a>
                   </li>
                   <li class="page-item last">
                     <a class="page-link" href="/equipment/list?page=${pager.totalPage}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevrons-right"></i></a>
                   </li>
   					</c:if>		
   		
+                </ul>
+                    
+              </nav>
+              
+               <div class="demo-inline-spacing ml-6">
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+                <li class="page-item first">
+                
   					 <form class="d-flex" action="/equipment/list"  method="get">
   				    <div class="col-md-3">
                       <select id="selectTypeOpt" name="kind" class="form-select color-dropdown">
@@ -119,13 +128,12 @@
                       <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" />
                       <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
-                    
-  					
-  			
-                </ul>
-				<a class=" btn btn-primary" href="/equipment/create">추가</a>
-              </nav>
-
+					</li>
+				</ul>
+					<a class=" btn btn-primary" href="/equipment/create">추가</a>
+				</nav>
+				</div>
+				
 
            </div>
               </div>

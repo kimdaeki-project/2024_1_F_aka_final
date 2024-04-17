@@ -16,7 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<if test="product_name != null and product_name != ''">PRODUCT_NAME=#{product_name},</if>
 	<if test="product_price != null and product_price != ''">PRODUCT_PRICE=#{product_price},</if>
 	<if test="product_date != null and product_date != ''">PRODUCT_DATE=#{product_date},</if>
-	<if test="product_detail != null and product_detail != ''">PRODUCT_DETAIL=#{product_detail}</if>	
+	<if test="product_detail != null and product_detail != ''">PRODUCT_DETAIL=#{product_detail},</if>
+	<if test="product_photos != null and product_photos != ''">PRODUCT_PHOTOS=#{product_photos}</if>	
 	</set>
 	WHERE PRODUCT_NUM = #{product_num}
 	</update>

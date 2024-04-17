@@ -98,7 +98,7 @@
                             <input type="text" class="form-control" name="equipment_contents" value="${vo.equipment_contents}" id="basic-default-name"/>
                           </div>
                         </div>
-                
+                	
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
                             <button type="submit" class="btn btn-primary">Send</button>

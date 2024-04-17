@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 
 
@@ -65,6 +66,14 @@
 			                
                 <div class="col-lg">
                   <div class="card mb-4">
+			                <c:set var="str" value="assets"/>
+                 		<c:if test="${fn:contains(vo,'assets')}">
+                    		<img class="card-img-top" src="${vo.product_photos}" alt="Card image cap" />                 	
+                 		</c:if>
+                         
+                        <c:if test="${!fn:contains(vo,'assets')}">
+                 			<img class="card-img-top" src="/files/product/${vo.product_photos}" alt="image" />
+                        </c:if>
                     <h5 class="card-header">상품 번호 : ${vo.product_num}</h5>
                     <input type="hidden"  id="product_num"  value="${vo.product_num}" >
                     

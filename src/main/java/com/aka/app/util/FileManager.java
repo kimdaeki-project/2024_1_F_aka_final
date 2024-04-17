@@ -18,9 +18,6 @@ public class FileManager {
 		fileName =  fileName+"_"+multipartFile.getOriginalFilename();
 		file = new File(file,fileName);
 		multipartFile.transferTo(file);
-		
-		
-		
 		return fileName;
 	}
 	

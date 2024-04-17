@@ -8,15 +8,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class FileMapping implements WebMvcConfigurer {
 	
-	@Value("${app.upload.url}")
+	@Value("${app.url.path}")  // 외부 요청 경로
 	private String urlPath;
-	@Value("${app.upload.base}")
+	@Value("${app.upload.base}") 
 	private String filePath;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler(urlPath)
-		.addResourceLocations(filePath);
+				.addResourceLocations(filePath);
 	}
 
 	

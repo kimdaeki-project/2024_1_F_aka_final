@@ -96,8 +96,13 @@
                           </div>
                         </div>
                        
-                        <form:input type="file" class="form-control" path="file" id="basic-default-name"  />
-                        
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">사진 업로드</label>
+                          <div class="col-sm-10">
+                          	<form:input type="file" class="form-control" path="files" id="basic-default-name" placeholder="상세 설명을 입력하세요" />
+                        	<form:errors path="files"></form:errors>
+                          </div>
+                        </div>
                         
                         <div class="row justify-content-end">
                           <div class="col-sm-10">

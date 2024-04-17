@@ -32,7 +32,7 @@ public class EquipmentService {
 	
 	public List<EquipmentVO> getEquimentList (Pager pager) throws Exception {
 		pager.makeIndex();
-		pager.makeNum(equipmentDAO.getTotalCount());
+		pager.makeNum(equipmentDAO.getTotalCount(pager));
 		return  equipmentDAO.getEquimentList(pager);
 	}
 }

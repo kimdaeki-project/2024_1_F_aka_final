@@ -103,7 +103,7 @@
                         <c:if test="${!fn:contains(vo,'assets')}">
                  			<img class="card-img-top" src="/files/product/${vo.product_photos}" alt="image" />
                         </c:if>
-                    
+       
                     <div class="card-body">
                       <h5 class="card-title">${vo.product_name}</h5>
                     	  <p class="card-text"> 상품 가격 : ${vo.product_price} 원</p>

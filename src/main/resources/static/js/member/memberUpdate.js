@@ -1,4 +1,4 @@
-console.log("member update");
+/*console.log("member update");
 
 let btn = document.getElementById("pwUpdateBtn");
 let errCode = document.getElementById("errCode");
@@ -13,7 +13,7 @@ btn.addEventListener("click",()=>{
 
 email.addEventListener("focusout",()=>{
 	errCode.innerHTML = `<span id="errCode" style="color:red">nono</span>`;
-	/* 가입자중에 입력받은 이메일/이름 을 가진 회원이있는지 */
+	 가입자중에 입력받은 이메일/이름 을 가진 회원이있는지 
 	fetch("/member/findPw",{
 		method:"POST",
 		headers:{
@@ -27,3 +27,4 @@ email.addEventListener("focusout",()=>{
 	.then((res) => console.log(res));
 });
 
+*/

@@ -11,13 +11,14 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Getter
 @Setter
 @ToString
 public class MemberVO implements UserDetails, OAuth2User{
-	
+
 	private Long member_id;
 	private Long department_id;
 	private String email;
@@ -25,6 +26,8 @@ public class MemberVO implements UserDetails, OAuth2User{
 	private Date retire_date;
 	private String phone;
 	private String address;
+	private String detail_address;
+	private String postCode;
 	private String user_id;
 	private String password;
 	private String passwordCheck;
@@ -72,7 +75,6 @@ public class MemberVO implements UserDetails, OAuth2User{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }
 

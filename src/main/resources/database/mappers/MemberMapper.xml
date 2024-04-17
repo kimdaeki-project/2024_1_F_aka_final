@@ -39,7 +39,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			HIRE_DATE, 
 			RETIRE_DATE, 
 			PHONE, 
-			ADDRESS, 
+			ADDRESS,
+			DETAIL_ADDRESS,
+			POSTCODE, 
 			USER_ID, 
 			PASSWORD, 
 			USERNAME, 
@@ -49,6 +51,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			PROFIL_ORI, 
 			POSITION_ID, 
 			DEPARTMENT_ID)
-		VALUES(#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{user_id}, #{password}, #{username}, #{role_id}, 'key',null,null,1,1);
+		VALUES(#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, #{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, 'key',null,null,1,1);
 	</insert>
+	
+	<update id="updatePw" parameterType="MemberVO">
+		UPDATE MEMBER 
+		SET PASSWORD = #{password} 
+		WHERE EMAIL = #{email} 
+		AND USER_ID = #{user_id}
+	</update>
 </mapper>

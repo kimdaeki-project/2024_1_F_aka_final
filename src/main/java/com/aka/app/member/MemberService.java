@@ -123,14 +123,25 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		return check;
 	}
 	
-	public String updatePassword() {
-		return "";
+	// 임시 비밀번호 생성 메서드
+	public String createPassword() throws Exception{
+		String temporaryPw = (int)(Math.random()*1000000)+"";
+		log.info("======================random num : "+temporaryPw);
+		return temporaryPw;
 	}
 	
-	public boolean updateMail(MemberVO memberVO) {
+	// 비밀번호 UPDATE 및 전송 메서드 실행
+	public int updateMail(MemberVO memberVO) throws Exception{
 //		memberVO.getEmail(), 바꿔줄 비밀번호
-		sendMail("rhalsgy@naver.com", "1234");
-		return true;
+		
+		String pw = createPassword();
+		memberVO.setPassword(passwordEncoder.encode(pw));
+		
+		int result = memberDAO.updatePw(memberVO);
+		
+		sendMail(memberVO.getEmail(), pw);
+		
+		return result;
 	}
 	
 	// mail을 보내줄 메서드 (메일 수신자, 변경한 비밀번호)
@@ -141,16 +152,18 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 			// 메일받는사람
 			mimeHelper.setTo(to);
 			// 메일제목
-			mimeHelper.setSubject("A.K.A 비밀번호 변경");
+			mimeHelper.setSubject("A.K.A 임시비밀번호");
 			
 			// 메일본문
 			mimeHelper.setText(
 					"<hr>"
 					+"<h3>비밀번호 : "+password+"</h3>"
+					+"<p>로그인 후 비밀번호를 변경해주세요</p>"
 					+"<hr>"
 					,true);
 			javaMailSender.send(mime);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException("실패");
 		}
 	}

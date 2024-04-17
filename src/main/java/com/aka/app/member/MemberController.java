@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -77,11 +78,22 @@ public class MemberController {
 	}
 	
 	@PostMapping("/findPw")
-	public String findPw(Model model) throws Exception{
+	public String findPw(Model model,@RequestParam("email")String email, @RequestParam("user_id")String user_id) throws Exception{
 		
+		String msg = "일치하는 정보가 없습니다.";
+		String path = "./findPw";
 		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setEmail(email);
+		memberVO.setUser_id(user_id);
 		
-//		model.addAttribute("path",path);
+		int result = memberService.updateMail(memberVO);
+		if(result > 0) {
+			msg = "임시비밀번호가 메일로 전송되었습니다.";
+			path = "./login";
+		}
+		model.addAttribute("msg",msg);
+		model.addAttribute("path",path);
 		
 		return "commons/result";
 	}

@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<if test="equipment_ea != null and equipment_ea != ''">EQUIPMENT_EA=#{equipment_ea},</if>
 	<if test="equipment_contents != null and equipment_contents != ''">EQUIPMENT_CONTENTS=#{equipment_contents}</if>	
 	</set>
-	WHERE EQUIPMENT_ID = #{equipment_id}
+	WHERE EQUIPMENT_NUM = #{equipment_num}
 	</update>
 	
 	<insert id="createEquiment" parameterType="EquipmentVO">

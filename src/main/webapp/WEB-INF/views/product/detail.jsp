@@ -67,11 +67,11 @@
                 <div class="col-lg">
                   <div class="card mb-4">
 			                <c:set var="str" value="assets"/>
-                 		<c:if test="${fn:contains(vo,'assets')}">
+                 		<c:if test="${fn:contains(vo.product_photos,'assets')}">
                     		<img class="card-img-top" src="${vo.product_photos}" alt="Card image cap" />                 	
                  		</c:if>
                          
-                        <c:if test="${!fn:contains(vo,'assets')}">
+                        <c:if test="${!fn:contains(vo.product_photos,'assets')}">
                  			<img class="card-img-top" src="/files/product/${vo.product_photos}" alt="image" />
                         </c:if>
                     <h5 class="card-header">상품 번호 : ${vo.product_num}</h5>

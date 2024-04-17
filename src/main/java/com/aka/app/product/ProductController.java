@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aka.app.util.FileManager;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 @Transactional
 @Controller
@@ -72,13 +73,13 @@ public class ProductController {
 	}
 	
 	@PostMapping("create")
-	public String createProduct (@Valid ProductVO productVO,BindingResult bindingResult,Model model) throws Exception {
+	public String createProduct (@Valid ProductVO productVO,BindingResult bindingResult,Model model,HttpSession session) throws Exception {
 		int result=0;
 		String msg = "상품 추가 실패";
 		if(bindingResult.hasErrors()) {  //폼 검증 실패시
 			return "product/create"; 
 		}
-		result = productService.createProduct(productVO,productVO.getFiles());
+		result = productService.createProduct(productVO,productVO.getFiles(),session);
 		if(result==1) msg="상품 추가 성공";
 		model.addAttribute("msg",msg);
 		model.addAttribute("path","/product/list");

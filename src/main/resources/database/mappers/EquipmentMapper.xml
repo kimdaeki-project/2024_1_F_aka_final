@@ -22,17 +22,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<insert id="createEquiment" parameterType="EquipmentVO">
-	INSERT INTO EQUIPMENT (MEMBER_ID,EQUIPMENT_NAME,EQUIPMENT_DATE,EQUIPMENT_EA,EQUIPMENT_CONTENTS)
-	VALUES (#{member_id},#{equipment_name},#{equipment_date},#{equipment_ea},#{equipment_contents})
+	INSERT INTO EQUIPMENT 
+	(MEMBER_ID,EQUIPMENT_NAME,EQUIPMENT_DATE,EQUIPMENT_EA,EQUIPMENT_CONTENTS)
+	VALUES 
+	(#{member_id},#{equipment_name},#{equipment_date},#{equipment_ea},#{equipment_contents})
 	</insert>
 	
 	
-	<select id="getEquimentDetail" resultType="EquipmentVO" parameterType="EquipmentVO">
-	SELECT  FROM MEMBER M LEFT OUTER JOIN EQUIPMENT E ON (M.MEMBER_ID=E.MEMBER_ID)
-	
-	WHERE EQUIPMENT_NUM = #{equipment_num}
+	<select id="getEquimentDetail" parameterType="EquipmentVO" resultType="EquipmentVO">
+	SELECT M.USERNAME member_name,E.* 
+	FROM MEMBER M LEFT OUTER JOIN EQUIPMENT E ON (M.MEMBER_ID=E.MEMBER_ID)
+	WHERE EQUIPMENT_NUM = #{equipment_num};
 	</select>
-	
+	<!-- <resultMap type="EquipmentVO" id="getEquipmentDetailResult">
+        <id column="EQUIPMENT_NUM" property="equipment_num"/>
+        <result column="MEMBER_ID" property="member_id"/>
+        <result column="EQUIPMENT_NAME" property="equipment_name"/>
+        <result column="EQUIPMENT_DATE" property="equipment_date"/>
+        <result column="EQUIPMENT_EA" property="equipment_ea"/>
+        <result column="EQUIPMENT_CONTENTS" property="equipment_contents"/>
+        <result column="MEMBER_NAME" property="member_name"/>
+	</resultMap> -->
 	
 	<sql id="search">
 	<where>

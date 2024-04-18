@@ -24,7 +24,7 @@ public class EquipmentVO {
 	@NotNull(message = "비품 수량을 입력해 주세요")
 	private Long equipment_ea;
 	private String equipment_contents;
-	
+	private String member_name;
 	
 	
 	

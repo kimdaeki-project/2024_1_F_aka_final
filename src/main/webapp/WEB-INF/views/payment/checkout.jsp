@@ -71,8 +71,8 @@
 								<div style="padding-left: 25px">
 									<div class="checkable typography--p">
 										<label for="coupon-box" class="checkable__label typography--regular"> 
-										<!-- <input id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true"/> 
-										<span class="checkable__label-text">5,000원 쿠폰 적용</span></label> -->
+										<input id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true"/> 
+										<span class="checkable__label-text"></span></label>
 									</div>
 								</div>
 								<!-- 결제하기 버튼 -->

@@ -68,6 +68,12 @@
                     <input type="hidden"  id="equipment_num" value="${vo.equipment_num}" >
                     <table class="table table-borderless">
                       <tbody>
+                       <tr>
+                          <td class="align-middle"><small class="text-light fw-semibold">관리자 사원 이름</small></td>
+                          <td class="py-3">
+                            <p class="mb-0">${vo.member_name}</p>
+                          </td>
+                        </tr>
                         <tr>
                           <td class="align-middle"><small class="text-light fw-semibold">관리자 사원 번호</small></td>
                           <td class="py-3">

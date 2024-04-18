@@ -20,7 +20,7 @@
   dir="ltr"
   data-theme="theme-default"
   data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
+  data-template="verticalrenu-template-free"
 >
   <head>
     <meta charset="UTF-8" />
@@ -148,7 +148,7 @@
                     type="text"
                     class="form-control"
                     id="user_id"
-                    name="userId"
+                    name="user_id"
                     placeholder="UserID"
                     autofocus
                   />
@@ -172,8 +172,8 @@
                 </div>
                 <div class="mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe"/>
-                    <label class="form-check-label" for="rememberMe"> Remember Me </label>
+                    <input class="form-check-input" type="checkbox" id="remember-me" name="remember-me"/>
+                    <label class="form-check-label" for="remember-me"> Remember Me </label>
                   </div>
                 </div>
                 <div class="mb-3">

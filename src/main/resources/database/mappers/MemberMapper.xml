@@ -4,12 +4,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.aka.app.member.MemberDAO">
-	<select id="getDetail" parameterType="MemberVO" resultMap="getDetailResult">
+	<select id="getDetail" parameterType="MemberVO">
 		SELECT * 
 			FROM MEMBER M
 		WHERE USER_ID = #{user_id}			 
 	</select>
-	
+	 <!-- resultMap="getDetailResult" -->
 	<resultMap type="MemberVO" id="getDetailResult">
 		<id column="MEMBER_ID" property="member_id"/>
 		<result column="DEPARTMENT_ID" property="department_id"/>

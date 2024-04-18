@@ -23,5 +23,6 @@ public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler
 		
 		// 로그인 성공 후 이동할 경로 설정
 		response.sendRedirect("/");
+		
 	}
 }

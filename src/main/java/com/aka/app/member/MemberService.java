@@ -68,11 +68,12 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String user_id) throws UsernameNotFoundException {
 		MemberVO memberVO = new MemberVO();
-		memberVO.setUser_id(username);
+		log.info("user_id ==== {} =="+user_id);
+		memberVO.setUser_id(user_id);
 		
-		log.info("로그인~ : {}",username);
+		log.info("로그인~ : {}",user_id);
 		
 		try {
 			memberVO = memberDAO.getDetail(memberVO);
@@ -88,7 +89,7 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		log.info("회원가입~");
 		// pw -> 암호화
 		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
-
+		
 		int result = memberDAO.add(memberVO);
 		
 		// 회원 권한 정보

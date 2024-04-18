@@ -85,6 +85,7 @@ passwordCheck.addEventListener("blur",()=>{
 	}
 });
 
+/* null, empty, 빈값들 체크메서드*/
 const isEmpty = (input) => {
 	if(typeof input === "undefined" ||
 		input === null || 
@@ -97,6 +98,7 @@ const isEmpty = (input) => {
 }
 
 console.log(isEmpty(userid.value));
+/* input값이 null이면 submit하지 않도록 막는 method */
 registerBtn.addEventListener("click",(event)=>{
 	/*userid,username,email,phone,password,passwordCheck,termsConditions*/
 	let msg = "";
@@ -115,7 +117,10 @@ registerBtn.addEventListener("click",(event)=>{
 	if(!termsConditions){
 		msg += ",체크박스";
 	}
-	msg = msg.replace(",","");
+	if(msg.charAt(0) == ','){
+		msg = msg.replace(",","");		
+	}
+	
 	alert(msg+"를 확인해주세요");
 	
 	event.preventDefault(); // 클릭 동작 취소

@@ -56,7 +56,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(
 						(authorizeRequests)->
 											authorizeRequests
-											.requestMatchers("/", "/login**", "/edms/**").authenticated()
+											.requestMatchers("/", "/edms/**").authenticated()
 //											.requestMatchers("/").permitAll()
 //											.requestMatchers("/member/login").permitAll()
 											.anyRequest().permitAll()
@@ -67,7 +67,7 @@ public class SecurityConfig {
 								login	
 								.loginPage("/member/login")
 								.successHandler(loginSuccessHandler)
-								.usernameParameter("userId") 
+								.usernameParameter("user_id")
 								.defaultSuccessUrl("/")
 								.failureHandler(loginFailureHandler)
 								
@@ -80,18 +80,18 @@ public class SecurityConfig {
 										.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 										.logoutSuccessUrl("/member/login")
 										.invalidateHttpSession(true) // 로그아웃 성공시 session만료
-										.deleteCookies("JSESSIONID")
+										.deleteCookies("JSESSIONID", "remember-me")
 										.permitAll()
 						)// 로그아웃 끝 부분
 						.rememberMe(
 								(rememberMe ->
 									rememberMe
-										.rememberMeParameter("rememberMe")
+										.rememberMeParameter("remember-me")
 										.tokenValiditySeconds(600)				// 초단위
-										.key("rememberMe")
-										.userDetailsService(memberService)
+										.key("rememberKey")
+										.alwaysRemember(true)
+										.userDetailsService(memberService)										
 										.authenticationSuccessHandler(loginSuccessHandler)
-										.useSecureCookie(false)
 								)		
 						)// rememberMe 끝부분
 						.sessionManagement(

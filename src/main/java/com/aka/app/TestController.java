@@ -18,11 +18,5 @@ public class TestController {
 	public String test (Model model) {
 		return "temp/sample";
 	}
-	
-	
-	@GetMapping("/test/test")
-	public String test2(MemberVO memberVO) {
-		memberService.updateMail(null);
-		return "redirect:/";
-	}
+
 }

@@ -19,10 +19,14 @@ public class Pager {
 	private Long startNum;
 	private Long lastNum;
 	
-	//이전 블럭이 없으면 true;
+	//이전 페이지 없으면 true;
 	private boolean start;
-	//다음 블럭이 없으면 true;
+	//다음 페이지 없으면 true;
 	private boolean last;
+	//이전 블럭이 없으면 true;
+	private boolean before;
+	//다음 블럭이 없으면 true;
+	private boolean after;
 	
 	//검색 관련
 	private String search;
@@ -75,8 +79,14 @@ public class Pager {
 		if(this.getPage()==1) {
 			this.setStart(true);
 		}
+		
+		
 		if(curBlock==totalBlock) {
 			this.setLastNum(totalPage);
+			this.setAfter(true);
+		}
+		if(curBlock==1L) {
+			this.setBefore(true);
 		}
 		
 		if(this.getPage()==this.totalPage) {

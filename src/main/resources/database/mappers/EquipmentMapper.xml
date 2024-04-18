@@ -26,8 +26,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	VALUES (#{member_id},#{equipment_name},#{equipment_date},#{equipment_ea},#{equipment_contents})
 	</insert>
 	
+	
 	<select id="getEquimentDetail" resultType="EquipmentVO" parameterType="EquipmentVO">
-	SELECT * FROM EQUIPMENT WHERE EQUIPMENT_NUM = #{equipment_num}
+	SELECT  FROM MEMBER M LEFT OUTER JOIN EQUIPMENT E ON (M.MEMBER_ID=E.MEMBER_ID)
+	
+	WHERE EQUIPMENT_NUM = #{equipment_num}
 	</select>
 	
 	

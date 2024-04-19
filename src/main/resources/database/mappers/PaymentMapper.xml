@@ -9,22 +9,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="search">
 	<where>
 	<choose>
-	<when test="kind=='kind1'">EQUIPMENT_NAME</when>
-	<when test="kind=='kind2'">EQUIPMENT_NUM</when>
-	<otherwise>MEMBER_ID</otherwise>
+	<when test="kind=='kind1'">ORDER_NAME</when>
+	<when test="kind=='kind2'">AMOUNT</when>
+	<when test="kind=='kind3'">CUSTOMER_NAME</when>
+	<when test="kind=='kind4'">CUSTOMER_PHONE</when>
+	<when test="kind=='kind5'">CUSTOMER_EMAIL</when>
+	<when test="kind=='kind6'">COUNTRY</when>
+	<when test="kind=='kind7'">CURRENCY</when>
+	<when test="kind=='kind8'">METHOD</when>
+	<when test="kind=='kind9'">PAYMENT_NUM</when>
+	<when test="kind=='kind10'">PRODUCT_NUM</when>
+	<when test="kind=='kind11'">MEMBER_ID</when>
+	<when test="kind=='kind12'">ORDER_ID</when>	
+	<otherwise>PAYMENT_KEY</otherwise>
 	</choose>
 	LIKE CONCAT('%',#{search},'%')
 	</where>
 	</sql>
 	
 	<select id="getTotalCount" resultType="Long" parameterType="Pager">
-	SELECT COUNT(EQUIPMENT_NUM) FROM EQUIPMENT
+	SELECT COUNT(PAYMENT_NUM) FROM PAYMENT
 	<include refid="search"></include>
 	</select>
 	
 	<select id="getPaymentList" parameterType="Pager">
 	SELECT * FROM PAYMENT
-	
+	<include refid="search"></include>
 	ORDER BY PAYMENT_NUM DESC 
 	LIMIT #{startIndex},#{perPage}
 	</select>

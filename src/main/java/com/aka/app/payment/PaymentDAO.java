@@ -12,4 +12,6 @@ public interface PaymentDAO {
 	public List<PaymentVO> getPaymentList(Pager pager)throws Exception;
 	
 	public int createPayment(PaymentVO paymentVO)throws Exception;
+	
+	public Long getTotalCount(Pager pager)throws Exception;
 }

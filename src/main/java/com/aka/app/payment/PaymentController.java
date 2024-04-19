@@ -107,6 +107,7 @@ public class PaymentController {
         responseStream.close();
         return ResponseEntity.status(code).body(jsonObject);
     }
+        
     @GetMapping("success")
     public String paymentRequest(HttpServletRequest request, Model model,ProductVO productVO) throws Exception {
     	model.addAttribute("memberid",productVO.getMember_id());
@@ -140,8 +141,6 @@ public class PaymentController {
     public String failPayment(HttpServletRequest request, Model model) throws Exception {
         String failCode = request.getParameter("code");
         String failMessage = request.getParameter("message");
-        model.addAttribute("msg","결제 실패!!!");
-    	model.addAttribute("path","/product/list");
-        return "commons/result";
+        return "payment/fail";
     }
 }

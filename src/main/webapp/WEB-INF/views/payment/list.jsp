@@ -46,18 +46,56 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-					<div>
-
-						<div class="result wrapper">
-							<div class="box_section">
-								<h2 style="padding: 20px 0px 10px 0px">
-									<img width="25px" src="https://static.toss.im/3d-emojis/u1F6A8-apng.png" /> 결제 실패 </h2>
-								<p id="code"></p>
-								<p id="message"></p>
-							</div>
-						</div>
-					</div>
-					<!-- / Content -->
+			<div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4">Payment<span class="text-muted fw-light">/list</span></h4>
+				<div class="card">
+                <h5 class="card-header">결제 목록</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th>결제 번호</th>
+                        <th>상품 번호</th>
+                        <th>결제자 번호</th>
+                        <th>주문 번호</th>
+                        <th>가격</th>
+                      	<th>페이먼트키</th>
+                      	<th>상품 이름</th>
+                      	<th>결제 시작 날짜</th>
+                      	<th>결제 승인 날짜</th>
+                      	<th>결제한 국가</th>
+                      	<th>결제된 화폐</th>
+                      	<th>결제 수단</th>
+                      	<th>부가세</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                     <c:forEach items="${list}" var="vo">
+                    
+                      <tr>
+                        <td>${vo.payment_num}</td>
+                        <td>${vo.product_num}</td>
+                        <td>${vo.member_id}</td>
+                        <td>${vo.order_id}</td>
+                        <td>${vo.amount}</td>
+                        <td>${vo.payment_key}</td>
+                        <td>${vo.order_name}</td>
+                        <td>${vo.requested_at}</td>
+                        <td>${vo.approved_at}</td>
+                        <td>${vo.country}</td>
+                        <td>${vo.currency}</td>
+                        <td>${vo.method}</td>
+                        <td>${vo.vat}</td>
+                        
+                      </tr>
+                      
+                     </c:forEach>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+			
+            <!-- / Content -->
 
            
 
@@ -73,14 +111,7 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-      <a
-        href="https://github.com/dirokim/aka_final.git"
-        target="_blank"
-        class="btn btn-primary btn-buy-now"
-        >git-hub</a
-      >
-    </div>
+    
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -103,7 +134,5 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- 토스페이먼츠 -->
-        <script src="/js/payment/fail.js"></script>
   </body>
 </html>

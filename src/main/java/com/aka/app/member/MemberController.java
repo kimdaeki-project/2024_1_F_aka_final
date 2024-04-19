@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,13 +31,14 @@ public class MemberController {
 	@GetMapping("/login")
 	public String memberLogin(@ModelAttribute MemberVO memberVO, HttpSession session, Model model)throws Exception {
 		
-		
 		Object obj=session.getAttribute("SPRING_SECURITY_CONTEXT");
-		log.info("===============obj : {}",obj);
-		log.info("===============memberVO : {}",memberVO);
-		session.setAttribute("user", memberVO);
-		
-		log.info("user session ===> {}",session.getAttribute("user"));
+//		log.info("===============obj : {}",obj);
+//		
+//		log.info("===============memberVO : {}",memberVO);
+//		session.setAttribute("user", memberVO);
+//		
+//		log.info("user session ===> {}",session.getAttribute("user"));
+		log.info("=====getName : {}=======",memberVO.getName());
 		if(obj == null) {
 			return "member/memberLogin";
 		}

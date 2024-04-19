@@ -171,10 +171,10 @@
                   </a>
                 </div>
                 <div class="mb-3">
-                  <div class="form-check">
+<!--                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="remember-me" name="remember-me"/>
                     <label class="form-check-label" for="remember-me"> Remember Me </label>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">로그인</button>

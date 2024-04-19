@@ -85,6 +85,18 @@ passwordCheck.addEventListener("blur",()=>{
 	}
 });
 
+phone.addEventListener("blur", ()=>{
+	let ps = phone.value;
+	console.log(ps.indexOf('-'));
+	if(ps.indexOf('-') > 1){
+		phoneErr.innerHTML = `<span style="color:red;">ㅤ-ㅤ빼고 입력해주세요.</span>`;	
+	}else{
+		phoneErr.innerHTML = "";
+	}
+});
+
+
+
 /* null, empty, 빈값들 체크메서드*/
 const isEmpty = (input) => {
 	if(typeof input === "undefined" ||
@@ -97,16 +109,16 @@ const isEmpty = (input) => {
 	else return false;
 }
 
-console.log(isEmpty(userid.value));
 /* input값이 null이면 submit하지 않도록 막는 method */
 registerBtn.addEventListener("click",(event)=>{
 	/*userid,username,email,phone,password,passwordCheck,termsConditions*/
 	let msg = "";
+
 	if(isEmpty(userid.value)){
 		msg += "아이디";
 	}
 	if(isEmpty(username.value)){
-		msg += ",유저명";
+		msg += ",사용자이름";
 	}
 	if(isEmpty(phone.value)){
 		msg += ",전화번호";
@@ -114,15 +126,16 @@ registerBtn.addEventListener("click",(event)=>{
 	if(isEmpty(password.value)){
 		msg += ",비밀번호";
 	}
-	if(!termsConditions){
+	if(!termsConditions.checked){
 		msg += ",체크박스";
 	}
 	if(msg.charAt(0) == ','){
 		msg = msg.replace(",","");		
 	}
-	
-	alert(msg+"를 확인해주세요");
-	
-	event.preventDefault(); // 클릭 동작 취소
+	console.log(isEmpty(msg))	
+	if(!isEmpty(msg)){
+		alert(msg+"를 확인해주세요");
+		event.preventDefault(); // 클릭 동작 취소
+	}	
 })
 

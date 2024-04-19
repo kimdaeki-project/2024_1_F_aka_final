@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getDetail" parameterType="MemberVO">
 		SELECT * 
 			FROM MEMBER M
-		WHERE USER_ID = #{user_id}			 
+		WHERE USER_ID = #{user_id}		 
 	</select>
 	 <!-- resultMap="getDetailResult" -->
 	<resultMap type="MemberVO" id="getDetailResult">
@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			PROFIL_ORI, 
 			POSITION_ID, 
 			DEPARTMENT_ID)
-		VALUES(#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, #{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, 'key',null,null,1,1);
+		VALUES(#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, #{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, #{customer_key},null,null,1,1);
 	</insert>
 	
 	<update id="updatePw" parameterType="MemberVO">

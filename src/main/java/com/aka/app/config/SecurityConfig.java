@@ -86,12 +86,12 @@ public class SecurityConfig {
 						.rememberMe(
 								(rememberMe ->
 									rememberMe
+										//.rememberMeCookieName("user_id")
 										.rememberMeParameter("remember-me")
-										.tokenValiditySeconds(600)				// 초단위
 										.key("rememberKey")
-										.alwaysRemember(true)
 										.userDetailsService(memberService)										
 										.authenticationSuccessHandler(loginSuccessHandler)
+										.tokenValiditySeconds(600)					// 초단위
 								)		
 						)// rememberMe 끝부분
 						.sessionManagement(

@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.aka.app.member.MemberService;
-import com.aka.app.member.MemberVO;
 
 @Controller
 public class TestController {
@@ -18,5 +17,9 @@ public class TestController {
 	public String test (Model model) {
 		return "temp/sample";
 	}
-
+	
+	@GetMapping("/test/test")
+	public String test2() {
+		return "member/mypage";
+	}
 }

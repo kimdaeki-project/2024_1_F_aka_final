@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
+
 <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar"
@@ -25,7 +27,7 @@
                 </div>
               </div>
               <!-- /Search -->
-
+			<sec:authorize access="isAuthenticated()">
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
@@ -100,5 +102,6 @@
                 </li>
                 <!--/ User -->
               </ul>
+              </sec:authorize>
             </div>
           </nav>

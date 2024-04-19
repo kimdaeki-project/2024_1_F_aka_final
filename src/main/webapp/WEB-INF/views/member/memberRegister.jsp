@@ -140,7 +140,7 @@
               
               <h4 class="mb-2 fw-bold">회원가입 🚀</h4>
               <br>
-
+ 				<!-- onsubmit="return false" -->
               <form id="formAuthentication" class="mb-3" action="./register" method="POST">
                 <div class="mb-3">
                   <label for="userId" class="form-label">ID</label>
@@ -152,9 +152,9 @@
                     placeholder="Enter your id"
                     autofocus
                   />
-                  <span id="errId"></span>
+                  <span style="color:gray; font-size:12px;" id="errId">문자로 시작하는 6자이상 12자 이하의 문자열입니다.</span>
                 </div>
-                                <div class="mb-3">
+                <div class="mb-3">
                   <label for="username" class="form-label">NAME</label>
                   <input
                     type="text"
@@ -164,8 +164,8 @@
                     placeholder="Enter your username"
                     autofocus
                   />
+	                <span style="color:gray; font-size:12px;" id="errUsername">본명으로 입력해주세요.</span>
                 </div>
-                <!-- <span id="errUsername"></span> -->
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label><br>
                   <input type="text" class="form-control w-auto d-inline" id="email" name="email" placeholder="Enter your email" />
@@ -191,6 +191,7 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
+                  <span style="color:gray; font-size:12px;">영문,숫자,특수문자를 포함한 8이상 12자 이하의 문자열입니다</span>
                   <span class="mb-5" id="passwordErr"></span>
 
                   <div class="my-3 form-password-toggle">
@@ -233,7 +234,7 @@
 
                 <div class="mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms-conditions" />
                     <label class="form-check-label" for="terms-conditions">
                       약관동의
                     </label>

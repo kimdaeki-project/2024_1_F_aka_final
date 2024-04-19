@@ -5,10 +5,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
 <mapper namespace="com.aka.app.payment.PaymentDAO">
 
-
+	
+	<sql id="search">
+	<where>
+	<choose>
+	<when test="kind=='kind1'">EQUIPMENT_NAME</when>
+	<when test="kind=='kind2'">EQUIPMENT_NUM</when>
+	<otherwise>MEMBER_ID</otherwise>
+	</choose>
+	LIKE CONCAT('%',#{search},'%')
+	</where>
+	</sql>
+	
+	<select id="getTotalCount" resultType="Long" parameterType="Pager">
+	SELECT COUNT(EQUIPMENT_NUM) FROM EQUIPMENT
+	<include refid="search"></include>
+	</select>
+	
+	<select id="getPaymentList" parameterType="Pager">
+	SELECT * FROM PAYMENT
+	
+	ORDER BY PAYMENT_NUM DESC 
+	LIMIT #{startIndex},#{perPage}
+	</select>
+	
 	<insert id="createPayment" parameterType="PaymentVO">
-	INSERT INTO PAYMENT (PRODUCT_NUM,MEMBER_ID,ORDER_ID,AMOUNT,PAYMENT_KEY,ORDER_NAME,REQUESTED_AT,APPROVED_AT,COUNTRY,CURRENCY,METHOD,VAT) 
-	VALUES (#{product_num},#{member_id},#{order_id},#{amount},#{payment_key},#{order_name},#{requested_at},#{approved_at},#{country},#{currency},#{method},#{vat})
+	INSERT INTO PAYMENT (PRODUCT_NUM,MEMBER_ID,ORDER_ID,AMOUNT,PAYMENT_KEY,ORDER_NAME,REQUESTED_AT,APPROVED_AT,COUNTRY,CURRENCY,METHOD,VAT,CUSTOMER_NAME,CUSTOMER_PHONE,CUSTOMER_EMAIL) 
+	VALUES (#{product_num},#{member_id},#{order_id},#{amount},#{payment_key},#{order_name},#{requested_at},#{approved_at},#{country},#{currency},#{method},#{vat},#{customer_name},#{customer_phone},#{customer_email})
 	</insert>
 
 

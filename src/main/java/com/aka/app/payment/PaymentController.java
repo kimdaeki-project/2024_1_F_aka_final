@@ -24,6 +24,7 @@ import com.aka.app.member.MemberVO;
 import com.aka.app.product.ProductDAO;
 import com.aka.app.product.ProductService;
 import com.aka.app.product.ProductVO;
+import com.aka.app.util.Pager;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -31,6 +32,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 @Controller
@@ -47,6 +49,14 @@ public class PaymentController {
 	private PaymentService paymentService;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    
+    
+    @GetMapping("list") 
+    public void getPaymentList(Model model,Pager pager) throws Exception {
+    	List<PaymentVO> list = paymentService.getPaymentList(pager);
+    	model.addAttribute("list",list);
+    	model.addAttribute("pager",pager);
+    }
     
     @Transactional
     @PostMapping("confirm")
@@ -103,6 +113,9 @@ public class PaymentController {
 		paymentVO.setCurrency((String)jsonObject.get("currency"));				//결제시 사용된 화폐
 		paymentVO.setMethod((String)jsonObject.get("method"));					//결제수단 예시=카드,가상계좌,간편결제,휴대폰,계좌이체,문화상품권,도서상품권,게임문화상품권
 		paymentVO.setVat((Long)jsonObject.get("vat"));							//부가세
+		paymentVO.setCustomer_name(memberVO.getUsername());
+		paymentVO.setCustomer_phone(memberVO.getPhone());
+		paymentVO.setCustomer_email(memberVO.getEmail());
 		paymentService.createPayment(paymentVO);
         responseStream.close();
         return ResponseEntity.status(code).body(jsonObject);

@@ -59,11 +59,11 @@
                 <div class="col-md-6 col-lg-4 mb-4">
                   <div class="card h-100">
                     <c:set var="str" value="assets"/>
-                 		<c:if test="${fn:contains(vo,'assets')}">
+                 		<c:if test="${fn:contains(vo.product_photos,'assets')}">
                     		<img class="card-img-top" src="${vo.product_photos}" alt="Card image cap" />                 	
                  		</c:if>
                          
-                        <c:if test="${!fn:contains(vo,'assets')}">
+                        <c:if test="${!fn:contains(vo.product_photos,'assets')}">
                  			<img class="card-img-top" src="/files/product/${vo.product_photos}" alt="image" />
                         </c:if>
        

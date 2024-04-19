@@ -22,5 +22,7 @@ public class PaymentVO {
 	private String currency;
 	private String method;
 	private Long vat;
-	
+	private String customer_name;
+	private String customer_phone;
+	private String customer_email;
 }

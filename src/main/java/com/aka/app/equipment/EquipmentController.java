@@ -51,7 +51,7 @@ public class EquipmentController {
 		String msg = "비품 수정 실패";
 		if(equipmentVO.getEquipment_num() != null) { 
 			result = equipmentService.updateEquipment(equipmentVO);
-			if(result == 1) msg = "비품 삭제 성공";
+			if(result == 1) msg = "비품 수정 성공";
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("path", "/equipment/list");

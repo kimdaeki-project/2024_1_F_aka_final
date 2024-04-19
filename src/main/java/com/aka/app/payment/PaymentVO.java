@@ -18,4 +18,9 @@ public class PaymentVO {
 	private String order_name;
 	private String requested_at;
 	private String approved_at;
+	private String country;
+	private String currency;
+	private String method;
+	private Long vat;
+	
 }

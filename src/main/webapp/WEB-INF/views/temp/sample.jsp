@@ -64,14 +64,7 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-      <a
-        href="https://github.com/dirokim/aka_final.git"
-        target="_blank"
-        class="btn btn-primary btn-buy-now"
-        >git-hub</a
-      >
-    </div>
+    
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

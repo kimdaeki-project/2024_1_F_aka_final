@@ -4,18 +4,6 @@
 <!DOCTYPE html>
 
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -93,9 +81,14 @@
                           </td>
                         </tr>
                         <tr>
-                          <td class="align-middle"><small class="text-light fw-semibold">상세 설명</small></td>
+                        <td class="align-middle"><small class="text-light fw-semibold">상세 설명</small></td>
                           <td class="py-4">
-                           <textarea class="lead mb-0">${vo.equipment_contents}</textarea>
+                       		 <div class="input-group input-group-merge speech-to-text">
+                        		<textarea class="form-control" placeholder="Say it" rows="2">${vo.equipment_contents}</textarea>
+                        		<span class="input-group-text">
+                          		<i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                        		</span>
+                    		 </div>
                           </td>
                         </tr>                                                
                       </tbody>

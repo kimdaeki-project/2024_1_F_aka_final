@@ -56,6 +56,8 @@
                        		<input type="hidden" name="customerEmail" value="${customerEmail}" id="customerEmail" readonly="readonly">
                        		<input type="hidden" name="customerName" value="${customerName}" id="customerName" readonly="readonly">
                        		<input type="hidden" name="customerMobilePhone" value="${customerMobilePhone}" id="customerMobilePhone" readonly="readonly">
+                       		<input type="hidden" name="memberid" value="${memberid}" id="memberid" readonly="readonly">
+                       		<input type="hidden" name="productnum" value="${productnum}" id="productnum" readonly="readonly">
                         </div>
 					
 					<div>
@@ -69,9 +71,9 @@
 								<div id="agreement"></div>
 								<!-- 쿠폰 체크박스 -->
 								<div style="padding-left: 25px">
-									<div class="checkable typography--p">
+									<div class="checkable typography--p" style="display: none">
 										<label for="coupon-box" class="checkable__label typography--regular"> 
-										<input id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true"/> 
+										<input id="coupon-box"  class="checkable__input" type="checkbox" aria-checked="true"/> 
 										<span class="checkable__label-text"></span></label>
 									</div>
 								</div>

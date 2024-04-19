@@ -2,12 +2,13 @@
       const paymentKey = urlParams.get("paymentKey");
       const orderId = urlParams.get("orderId");
       const amount = urlParams.get("amount");
-
+	  const productnum = document.getElementById("productnum").value;
       async function confirm() {
         const requestData = {
           paymentKey: paymentKey,
           orderId: orderId,
           amount: amount,
+          product_num:productnum,
         };
 
         const response = await fetch("/payment/confirm", {
@@ -30,6 +31,7 @@
       const orderIdElement = document.getElementById("orderId");
       const amountElement = document.getElementById("amount");
       alert("결제 성공 !!!");
+      location.href = "/product/list";
       orderIdElement.textContent = "주문번호: " + orderId;
       amountElement.textContent = "결제 금액: " + amount;
       paymentKeyElement.textContent = "paymentKey: " + paymentKey;

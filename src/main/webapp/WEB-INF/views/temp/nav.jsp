@@ -102,3 +102,12 @@
               </ul>
             </div>
           </nav>
+          
+       <div class="buy-now">
+      <a
+        href="https://github.com/dirokim/aka_final.git"
+        target="_blank"
+        class="btn btn-primary btn-buy-now"
+        >git-hub</a
+      >
+    </div>

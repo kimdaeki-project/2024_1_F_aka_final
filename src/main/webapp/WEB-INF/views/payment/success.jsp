@@ -48,6 +48,7 @@
             <!-- Content -->
 
 			<div class="result wrapper">
+                       		<input type="hidden" name="productnum" value="${productnum}" id="productnum" readonly="readonly">
 						<div class="box_section">
 							<h2 style="padding: 20px 0px 10px 0px">
 								<img width="35px"

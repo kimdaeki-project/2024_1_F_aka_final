@@ -7,8 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<insert id="createPayment" parameterType="PaymentVO">
-	INSERT INTO PAYMENT () 
-	VALUES ( )
+	INSERT INTO PAYMENT (PRODUCT_NUM,MEMBER_ID,ORDER_ID,AMOUNT,PAYMENT_KEY,ORDER_NAME,REQUESTED_AT,APPROVED_AT,COUNTRY,CURRENCY,METHOD,VAT) 
+	VALUES (#{product_num},#{member_id},#{order_id},#{amount},#{payment_key},#{order_name},#{requested_at},#{approved_at},#{country},#{currency},#{method},#{vat})
 	</insert>
 
 

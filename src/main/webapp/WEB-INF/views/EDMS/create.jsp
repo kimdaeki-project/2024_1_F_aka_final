@@ -235,7 +235,7 @@
 		<div id="appLine" class="appTable" style=" float: right;">
 			
 			
-			<!--  <div class="col-auto ps-0 pe-0">
+			<div class="col-auto ps-0 pe-0">
 				<div class="applineG">직급</div>
 				<div class="applineW">1</div>
 				<div class="applineG">날짜</div>
@@ -251,9 +251,9 @@
 				<div class="applineG">날짜</div>
 			</div>			
 		
-		 -->
+		 
 			
-			<c:set var="listLength" value="${fn:length(list)}" />
+		<%-- 	<c:set var="listLength" value="${fn:length(list)}" />
 			<c:forEach items="${list}" var="list" begin="0" end="${listLength -1}">		
 				
 				<div class="col-auto ps-0 pe-0">
@@ -262,7 +262,7 @@
 					<div class="applineG"></div>
 				</div> 
 			
-			</c:forEach>
+			</c:forEach> --%>
  			
 			
 		</div>
@@ -361,8 +361,7 @@
 		<tr>
 			<td class="userTdW" colspan="2">			
 				<span  style="width: 100%; font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
-				 <textarea id="summernote" name="edmsContent"></textarea>	
-				
+				 <textarea id="summernote" name="edmsContent"></textarea>
 			
 				</span> 
 			<br>				
@@ -425,19 +424,17 @@
 		<div class="modal-body" style="display: flex;">			
  			
 			<div id="people-box" style="overflow:scroll;">
-			  <div id="jstree">
-
-
-
-				
+			  <div id="jstree" style="height: 100vh;">				
 			  </div>
-			  <input id="schName" value="">
+			  <div style="display: flex;">
+				  <input id="schName" value=""><button type="button" class="btn btn-primary" onclick="fSch()">검색</button>
+			  </div>
 		    </div>
 		    
 			<div id="add-remove">
 				<span id="first-arrow">
-				    <button type="button" style="width: 30px; height: 30px; background-color:white; border:0;">
-			  			<img src="/img/arrow/right.svg" height="30px" width="30px" onclick="applyOn();" >
+				    <button type="button" style="width: 30px; height: 30px; background-color:white; border:0;" id="applyOn">
+			  			<img src="/img/arrow/right.svg" height="30px" width="30px">
 					</button>
 				</span>
 			
@@ -463,6 +460,10 @@
 		    <div id="line-refer-box">
 		    		<div id="line-box">
 		    			<p id="line-box-text">결재선</p>
+						<ol id="applyList">
+
+						</ol>
+
 		    		</div>
 		    		
 		    		<div id="refer-box">
@@ -471,8 +472,9 @@
 		    		</div>
 		    </div>
 		</div>
+		
 		<div class="modal-footer">
-			<button id="addBtn"  type="button" class="btn btn-primary">Send message</button>
+			<button id="addBtn"  type="button" class="btn btn-primary" data-bs-dismiss="modal">Send message</button>
 			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 		</div>
 		</div>
@@ -514,8 +516,8 @@
 	const applyBtn = document.getElementById('applyBtn');
 	const formelem = document.getElementById('formelem');
 	const jstree = document.getElementById('jstree_demo_div');
-	
-
+	const applyList = document.getElementById('applyList');
+	const applyOn = document.getElementById('applyOn');
 	
 	//모달 불러오는 함수
 
@@ -526,10 +528,20 @@
 	})
 
 	addLineBtn.addEventListener('shown.bs.modal',function(){		
-		myInput.focus()	
+		myInput.focus()				
 	});
-
 	
+	//모달 확인 버튼
+	addBtn.addEventListener('click',function(){
+		addApplyLine("appLine");
+
+		alert("결제선이 추가 되었습니다.");
+	})
+	
+
+
+
+
 	//파일 업로드
 	
 	// const dataTranster = new DataTransfer()
@@ -603,62 +615,21 @@
 	}
 
 	
-	//JsTree
-	
-	// $(function () { $('#jstree_demo_div').jstree(); });
-
-	
-	// $('#jstree_demo_div').on("changed.jstree", function (e, data) {
-	// 	  console.log(data.selected);
-	// 	});
-	
-	// $('button').on('click', function () {
-	// 	  $('#jstree').jstree(true).select_node('child_node_1');
-	// 	  $('#jstree').jstree('select_node', 'child_node_1');
-	// 	  $.jstree.reference('#jstree').select_node('child_node_1');
-	// 	});
-	
 
 
 
 // jstree 초기화 함수
 
-    
-	let jsonAr =[  { "id" : "S1", "parent" : "#", "text" : "SI 사업부", "icon" : "glyphicon glyphicon-home" },
-    { "id" : "S2", "parent" : "#", "text" : "솔루션 사업부","alias":"ㅋㅋㅋ" , "icon" : "glyphicon glyphicon-home"  },
-    { "id" : "S3", "parent" : "#", "text" : "AI 사업부", "icon" : "glyphicon glyphicon-home"  },
-    { "id" : "S11", "parent" : "S1", "text" : "공공SI" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S12", "parent" : "S1", "text" : "일반SI", "icon" : "glyphicon glyphicon-picture" },
-    { "id" : "S21", "parent" : "S2", "text" : "그룹웨어" ,"icon" : "glyphicon glyphicon-picture" },
-    { "id" : "S22", "parent" : "S2", "text" : "MES" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S23", "parent" : "S2", "text" : "ERP", "icon" : "glyphicon glyphicon-picture" },
-    { "id" : "S31", "parent" : "S3", "text" : "이미지처리" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S32", "parent" : "S3", "text" : "음성처리" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S33", "parent" : "S3", "text" : "자연어처리" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "J01", "parent" : "S11", "text" : "송불곰" , "icon": "glyphicon glyphicon-user" },
-    { "id" : "J02", "parent" : "S31", "text" : "강사자" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "J03", "parent" : "S22", "text" : "송호랑", "icon": "glyphicon glyphicon-user" },
-    { "id" : "J04", "parent" : "S32", "text" : "이늑대" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "J05", "parent" : "S33", "text" : "감여우", "icon": "glyphicon glyphicon-user" },
-    { "id" : "J06", "parent" : "S12", "text" : "공수달" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "J07", "parent" : "S23", "text" : "황악어" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "J08", "parent" : "S22", "text" : "홍문어" , "icon": "glyphicon glyphicon-user"}]
-
 
 	function fSch() {
             console.log("껌색할께영");
             $('#jstree').jstree(true).search($("#schName").val());
-        }
+		}
 
         //중요 속성, original, icon, state
         // root node는 parent를 #
-
         //Default 설정 바꾸깅, 아래를 주석 처리해보면 모양이 어케 바뀔깡?
-        $.jstree.defaults.core.themes.variant = "large";
-
-        //맹글기, 옵션없이(디폴트 옵션으로, 요렇게는 잘 안씀)
-        //$("#jstree").jstree();   // creates an instance
-        //$('#tree2').jstree(true); // get an existing instance (will not create new instance)
+        $.jstree.defaults.core.themes.variant = "large";      
 
         //일반적으로 요렇게만 사용해도 충분!
         $("#jstree").jstree({
@@ -669,7 +640,7 @@
                     "url": 'api/chart',
 					'dataType':'json' // ajax로 요청할 URL
                     } 
-				// 'data' : jsonAr,
+				
 				},
 			"types":{
 				"member" :{
@@ -679,8 +650,7 @@
 					"icon" : "bx bxs-building"
 				}
 
-			}
-                   
+			}           
                 
             
         });
@@ -719,35 +689,103 @@
 
         // Node 열렸을 땡
         let isAdded = false;
-        $('#jstree').on("open_node.jstree", function (e, data) {
-            console.log("open되었을땡", data.node);
+        // $('#jstree').on("open_node.jstree", function (e, data) {
+        //     console.log("open되었을땡", data.node);
 
-            // 자식 NODE 맹글기, NODE ID S22(MES)가 열렷을 때
-            // 한번만 김지은 추가하는 예제, 메소드 리스트에서 create_node검색
-            if (!isAdded && data.node.id == 'S22') {
-                let myNode = {
-                    "text": "김지은",
-                    "id": "J09",
-                    "whoisshe": "actress",
-                    "isBestFriend": "Y",
-                    "icon": "glyphicon glyphicon-user"
-                };
-                let myCallBack = () => {
-                    alert("추가했어용");
-                }
-                // NODE 추가
-                $('#jstree').jstree(true).create_node('S22', myNode, "last", myCallBack);
-                isAdded = true;
-            }
+        //     // 자식 NODE 맹글기, NODE ID S22(MES)가 열렷을 때
+        //     // 한번만 김지은 추가하는 예제, 메소드 리스트에서 create_node검색
+        //     if (!isAdded && data.node.id == 'S22') {
+        //         let myNode = {
+        //             "text": "김지은",
+        //             "id": "J09",
+        //             "whoisshe": "actress",
+        //             "isBestFriend": "Y",
+        //             "icon": "glyphicon glyphicon-user"
+        //         };
+        //         let myCallBack = () => {
+        //             alert("추가했어용");
+        //         }
+        //         // NODE 추가
+        //         $('#jstree').jstree(true).create_node('S22', myNode, "last", myCallBack);
+        //         isAdded = true;
+        //     }
 
-        });
+        // });
 
         // Node 선택했을 땡
+		//member임시 저장 변수
+			let temp;
+			let tempAr;
+
         $('#jstree').on("select_node.jstree", function (e, data) {
-            console.log("select했을땡", data.node);
+            temp=null;
+			console.log("select했을땡", data.node.type);
+			if(data.node.type=="member"){
+				temp = data.node;
+			}
+			console.log(temp);
         });
 
+		applyOn.addEventListener("click", function(){
+			applyAdd(temp,applyList)
+		});
+
+
+		//결제선 저장 및 오른쪽 이동
+		function applyAdd(data, divId){
+			
+			if(data==null){
+
+				alert('결재자를 선택해 주세요');
+
+				return
+			}
+			let json = JSON.stringify(data.original);
+			let list = document.createElement('li');  
+			list.innerText = data.text;
+			list.setAttribute('data-person',json);
+			divId.appendChild(list);
+			data=null;
+			console.log('메홀ㅇ'+data);
+
+		}
 		
+
+		//결제선 div생성
+		function addApplyLine(divId){
+			
+			let dataPerson = document.querySelectorAll('data-person');
+
+			let dataAr = Array.from(dataPerson);
+
+			let divlist = document.getElementById(divId);
+			divlist.innerHTML="";
+			console.log(dataAr)
+
+			for(data in dataAr){
+
+				let divForm=document.createElement('div');
+				divForm.setAttribute('class',"col-auto ps-0 pe-0");
+				let divPsis=document.createElement('div');
+				divPsis.setAttribute('class',"applineG");
+				divPsis.innerText = data.POSITION_NAME;
+				divForm.appendChild(divPsis);
+				let divName=document.createElement('div');
+				divName.setAttribute('class',"applineW");
+				divName.innerText = data.USERNAME;
+				divForm.appendChild(divName);
+				let divDate=document.createElement('div');
+				divDate.setAttribute('class',"applineG");
+				divForm.appendChild(divDate);
+				
+				divId.appendChild(divForm);
+
+				console.log(data);
+			}
+				
+
+
+		}
 
     
 

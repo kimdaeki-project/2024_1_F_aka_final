@@ -153,12 +153,7 @@ public class EdmsController {
 			
 			
 		 }
-		 
-		 
-		 
-		  
-		 		 
-		 
+		 	 
 		 
 		 for(Map<String, Object> a : result) {			 
 			

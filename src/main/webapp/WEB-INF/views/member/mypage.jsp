@@ -17,9 +17,20 @@
 	<body>
 		<c:import url="../temp/nav.jsp"></c:import>
 		<c:import url="../temp/side.jsp"></c:import>
-	
 		
 		
+		<div class="bg-black d-flex justify-content-center m-5 py-5">
+			<img style="width:150px; height:150px;" class=" z-1 rounded-circle" src="../img/profile.jpg">
+		</div>
+ 	
+		<div class="bg-black d-flex justify-content-center m-5 py-5 h-100">
+			<label class="d-flex justify-content">아이디</label>
+			<input>
+			<label>아이디</label><br>
+			<input>
+			<label>아이디</label>
+			<input>
+		</div>
 	
 	    <!-- Core JS -->
 	    <!-- build:js assets/vendor/js/core.js -->

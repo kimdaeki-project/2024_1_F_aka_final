@@ -18,30 +18,45 @@
 		<c:import url="../temp/nav.jsp"></c:import>
 		<c:import url="../temp/side.jsp"></c:import>
 		
-		<div>마이페이지</div>
-		<div class="bg-black d-flex justify-content-center mt-5 pt-5">
-			<img style="width:150px; height:150px;" class=" z-1 rounded-circle" src="../img/profile.jpg">
 		
+		 <div class="container bg-white w-50 mt-5 py-2 rounded-2">
+			<div class=" d-flex justify-content-center mt-2 p-2">
+				<img style="width:150px; height:150px;" class="rounded-circle" src="../img/profile.jpg">
+			</div>
+			<div class="d-flex justify-content-center">
+				<span class="fs-4 py-2 d-flex justify-content-center">가나다 직급</span>
+			</div>
+			<div class="d-flex justify-content-center pb-3">
+				<button class="btn btn-primary">출근</button>
+			</div>
 		</div>
-		<span class="fs-4 py-2 bg-black d-flex justify-content-center">가나다</span>			
-		
  	
-		<div class="bg-black d-flex justify-content-center m-5 py-5 h-100">
-			<form class=" bg-white p-3">
-
-			  <div class="d-flex justify-content-center mx-3 mb-4">
-			    <label for="exampleInputPassword1" class="mx-3 form-label">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1">
-			    <label for="exampleInputPassword1" class="mx-3 form-label">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1">
+		<div class="d-flex justify-content-center my-5">
+			<form class="bg-white p-5 rounded-3">
+	
+			   <div class="d-flex justify-content-center mx-3 mb-5">
+		    	<label for="exampleInputPassword1" class="mt-2 form-label fw-semibold fs-6" style="width:130px;">부서명</label>
+		    	<input type="text" class="form-control mx-2" id="exampleInputPassword1" value="부서명" disabled>
+			    
+			    <label for="exampleInputPassword1" class="mt-2 ms-5 form-label fw-semibold fs-6" style="width:140px;">입사일</label>
+			    <input type="text" class="form-control mx-2" id="exampleInputPassword1" disabled>
 			  </div>
-
-			  <div class="mb-3 d-flex justify-content-center mx-3">
-			  	<label for="exampleInputPassword1" class="mx-3 form-label">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1">
-			    	
-			  	<label for="exampleInputPassword1" class="mx-3 form-label">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1">
+	
+	
+			  <div class="d-flex justify-content-center mx-3 mb-5">
+		    	<label for="exampleInputPassword1" class="mt-2 form-label fw-semibold fs-6" style="width:140px;">이메일</label>
+		    	<input type="password" class="form-control mx-2" id="exampleInputPassword1">
+			    
+			    <label for="exampleInputPassword1" class="mt-2 ms-5 form-label fw-semibold fs-6" style="width:170px">전화번호</label>
+			    <input type="password" class="form-control mx-2" id="exampleInputPassword1">
+			  </div>
+			  
+  			  <div class="d-flex justify-content-center mx-3 mb-5 w-50">
+		    	<label for="exampleInputPassword1" class="mt-2 form-label fw-semibold fs-6" style="width:90px">비밀번호</label><br>
+		    	<input type="password" class="form-control" id="exampleInputPassword1">
+			    
+			<!--     <label for="exampleInputPassword1" class="mt-2 ms-5 form-label">Password</label>
+			    <input type="password" class="form-control mx-2" id="exampleInputPassword1"> -->
 			  </div>
 
 				<div class="d-flex justify-content-end">

@@ -18,18 +18,36 @@
 		<c:import url="../temp/nav.jsp"></c:import>
 		<c:import url="../temp/side.jsp"></c:import>
 		
-		
-		<div class="bg-black d-flex justify-content-center m-5 py-5">
+		<div>마이페이지</div>
+		<div class="bg-black d-flex justify-content-center mt-5 pt-5">
 			<img style="width:150px; height:150px;" class=" z-1 rounded-circle" src="../img/profile.jpg">
+		
 		</div>
+		<span class="fs-4 py-2 bg-black d-flex justify-content-center">가나다</span>			
+		
  	
 		<div class="bg-black d-flex justify-content-center m-5 py-5 h-100">
-			<label class="d-flex justify-content">아이디</label>
-			<input>
-			<label>아이디</label><br>
-			<input>
-			<label>아이디</label>
-			<input>
+			<form class=" bg-white p-3">
+
+			  <div class="d-flex justify-content-center mx-3 mb-4">
+			    <label for="exampleInputPassword1" class="mx-3 form-label">Password</label>
+			    <input type="password" class="form-control" id="exampleInputPassword1">
+			    <label for="exampleInputPassword1" class="mx-3 form-label">Password</label>
+			    <input type="password" class="form-control" id="exampleInputPassword1">
+			  </div>
+
+			  <div class="mb-3 d-flex justify-content-center mx-3">
+			  	<label for="exampleInputPassword1" class="mx-3 form-label">Password</label>
+			    <input type="password" class="form-control" id="exampleInputPassword1">
+			    	
+			  	<label for="exampleInputPassword1" class="mx-3 form-label">Password</label>
+			    <input type="password" class="form-control" id="exampleInputPassword1">
+			  </div>
+
+				<div class="d-flex justify-content-end">
+			  		<button type="submit" class="btn btn-primary">Submit</button>
+			  	</div>
+			</form>
 		</div>
 	
 	    <!-- Core JS -->

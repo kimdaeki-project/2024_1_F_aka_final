@@ -27,6 +27,13 @@ public class BoardController {
 	private BoardService boardService;
 	
 	
+	public ModelAndView fileDownload(ModelAndView mv,BoardVO boardVO) throws Exception {
+		boardVO = boardService.getBoardDetail(boardVO);
+		mv.addObject("vo",boardVO);
+		mv.setViewName("BoardCustomView");
+		return mv;
+	}
+	
 	@PostMapping("delete")
 	public String deleteBoard(BoardVO boardVO,Model model) throws Exception {
 		int result=0;
@@ -62,10 +69,11 @@ public class BoardController {
 	}
 	
 	@GetMapping("detail")
-	public String getBoardDetail(BoardVO boardVO,Model model)throws Exception{
+	public ModelAndView getBoardDetail(BoardVO boardVO,ModelAndView mv)throws Exception{
 		boardVO = boardService.getBoardDetail(boardVO);
-		model.addAttribute("vo",boardVO);
-		return "board/detail";
+		mv.addObject("vo",boardVO);
+		mv.setViewName("board/detail");
+		return mv;
 	}
 	
 	@GetMapping("list")

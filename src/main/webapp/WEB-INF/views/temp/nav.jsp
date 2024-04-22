@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
@@ -15,13 +16,51 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
+                  <span>${region}</span>
+                     <span>${temp}</span>
+                    
+                     <c:if test="${status == 0}">
+                     <span>
+                     <i class="bi bi-brightness-high" style="font-size: 3rem" ></i> 
+                     </span>
+                     </c:if>
+                     
+                     <c:if test="${status ==1}">
+                     <span>
+                     <i class="bi bi-cloud-drizzle" style="font-size: 3rem"></i> 
+                     </span>
+                     </c:if>
+                    
+                     <c:if test="${status ==2}">
+                     <span>
+                     <i class="bi bi-cloud-drizzle" style="font-size: 3rem"></i>
+                     </span>
+                     </c:if>
+                   
+                     <c:if test="${status >3}">
+                     <span>
+                     <i class="bi bi-cloud-snow" style="font-size: 3rem"></i>
+                     </span>
+                     </c:if>
+                     
+                     <c:if test="${status ==5}">
+                     <span>
+                     <i class="bi bi-cloud-drizzle" style="font-size: 3rem"></i>
+                     </span>
+                     </c:if>
+                     
+                     <c:if test="${status ==6}">
+                     <span> 
+                     <i class="bi bi-cloud-snow" style="font-size: 3rem"></i>
+                     </span>
+                     </c:if>
+                     
+                     <c:if test="${status ==7}">
+                     <span> 
+                     <i class="bi bi-cloud-snow" style="font-size: 3rem"></i>
+                     </span>
+                     </c:if>
+                
                 </div>
               </div>
               <!-- /Search -->

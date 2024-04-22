@@ -18,7 +18,17 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+    		<groupId>com.fasterxml.jackson.core</groupId>
+    		<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
+		<!--Webclient-->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
 		<!--json simple-->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>

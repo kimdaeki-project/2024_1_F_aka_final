@@ -106,6 +106,7 @@
 #add-remove {
 	display: flex;
 	flex-direction: column;
+	vertical-align: middle;
 }
 
 #add-remove button {
@@ -418,7 +419,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" >
 		<div class="modal-header">
-			<h5 class="modal-title" id="largeModal">New message</h5>
+			<h5 class="modal-title" id="Modal">New message</h5>
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body" style="display: flex;">			
@@ -439,43 +440,28 @@
 				</span>
 			
 				<span id="second-arrow">
-						<button type="button" style="width: 30px; height: 30px; background-color:white; border:0;">
-						    <img src="/img/arrow/left.svg" height="30px" width="30px" onclick="applyOff();" >
+						<button type="button" style="width: 30px; height: 30px; background-color:white; border:0;" id="delBtn">
+						    <img src="/img/arrow/left.svg" height="30px" width="30px" >
 						</button>
-				</span>
-			
-				<span id="three-arrow">
-					<button type="button"style="width: 30px; height: 30px; background-color:white; border:0;">
-					  <img src="/img/arrow/right.svg" height="30px" width="30px" onclick="referOn();" >
-					</button>
-				</span>
+				</span>			
 				
-				<span id="four-arrow">
-					<button type="button"  style="width: 30px; height: 30px; background-color:white; border:0;">
-					  <img src="/img/arrow/left.svg" height="30px" width="30px" onclick="referOff();" >
-					</button>
-				</span>	
 			</div>
 		    
 		    <div id="line-refer-box">
 		    		<div id="line-box">
 		    			<p id="line-box-text">결재선</p>
-						<ol id="applyList">
+						<div id="applyList">
 
-						</ol>
+						</div>
 
-		    		</div>
+		    		</div>		    		
 		    		
-		    		<div id="refer-box">
-		    			<p id="refer-box-text">참조선</p>
-	
-		    		</div>
 		    </div>
 		</div>
 		
 		<div class="modal-footer">
-			<button id="addBtn"  type="button" class="btn btn-primary" data-bs-dismiss="modal">Send message</button>
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button id="addBtn"  type="button" class="btn btn-primary">추가 및 변경</button>
+			<button type="button" id="closeBtn" class="btn btn-secondary" data-bs-dismiss="modal">종료</button>
 		</div>
 		</div>
 	</div>
@@ -508,17 +494,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
 <script>
-
+	// const modal = bootstrap.Modal(document.getElementById("largeModal"));  // bootstrap modal 객체
 	const addLineBtn = document.getElementById("addLineBtn"); //모달 여는 버튼
 	const addBtn = document.getElementById("addBtn"); //모달 확인버튼
 	const myModal = document.getElementById('myModal');
+	const largeModal = new bootstrap.Modal(document.getElementById('largeModal'));
 	const myInput = document.getElementById('myInput');
 	const applyBtn = document.getElementById('applyBtn');
 	const formelem = document.getElementById('formelem');
 	const jstree = document.getElementById('jstree_demo_div');
 	const applyList = document.getElementById('applyList');
 	const applyOn = document.getElementById('applyOn');
-	
+	const closeBtn = document.getElementById('closeBtn');
+	const delBtn = document.getElementById('delBtn');//결제선에서 제거하는 버튼
+	let appLine = document.getElementById('appLine');
 	//모달 불러오는 함수
 
 	addLineBtn.addEventListener('click', e=>{
@@ -526,16 +515,17 @@
 		fSch();
 		
 	})
-
+	
 	addLineBtn.addEventListener('shown.bs.modal',function(){		
 		myInput.focus()				
 	});
 	
 	//모달 확인 버튼
 	addBtn.addEventListener('click',function(){
-		addApplyLine("appLine");
+		
+		//결제선 DIV 생성
+		addApplyLine(appLine);
 
-		alert("결제선이 추가 되었습니다.");
 	})
 	
 
@@ -565,22 +555,27 @@
 		
 	// }
 	
-	let ar = new Array();
-	
-	ar.push("a");
-	ar.push("b");
 
+	// let ar = new Array();
+	
+	// ar.push("a");
+	// ar.push("b");
+	
+	
+	 
 	applyBtn.addEventListener('click',function(e){	
 		e.preventDefault();
 		if(confirm('제출하시겠습니까??')){			
 			let formData = new FormData(formelem);
-			
-			//배열생성후 formdata에 값 추가
-			ar.forEach((vlaue, index) => {
-				
-				formData.append("ar",vlaue);
+			let appAr = document.querySelectorAll('.appForm');
 
-			})
+			//배열생성후 formdata에 값 추가
+			for(let ar of appAr){
+				let apAr =ar.getAttribute('value');				
+				console.log("apAR   "+apAr)
+				formData.append('appAr',apAr);
+
+			}
 			for(const key of formData.keys()){
 
 				console.log(key);
@@ -595,7 +590,7 @@
 				alert("놉");
 			}		
 	})
-	
+		//summit
 		// applyBtn.addEventListener('click', function(e){
 		// 	e.preventDefault;
 		// 	formelem.setAttribute("action","apply");
@@ -627,8 +622,7 @@
 		}
 
         //중요 속성, original, icon, state
-        // root node는 parent를 #
-        //Default 설정 바꾸깅, 아래를 주석 처리해보면 모양이 어케 바뀔깡?
+        // root node는 parent를 #       
         $.jstree.defaults.core.themes.variant = "large";      
 
         //일반적으로 요렇게만 사용해도 충분!
@@ -639,8 +633,7 @@
                 'data':{
                     "url": 'api/chart',
 					'dataType':'json' // ajax로 요청할 URL
-                    } 
-				
+                    } 				
 				},
 			"types":{
 				"member" :{
@@ -650,35 +643,9 @@
 					"icon" : "bx bxs-building"
 				}
 
-			}           
-                
+			}                        
             
-        });
-
-
-        /* 보통은 위 방식으로 충분하지만, 좀더 세밀한 제어를 하고 싶다면, 
-           직접 ajax구현 및 데이터 조작후 callback함수 cb를 이용하여 data세팅
-        $("#jstree").jstree({
-            "plugins": ["search"],
-            'core': {
-                'data': function (obj, cb) {
-                    console.log("ck1:", obj,this);
-
-                    let xhr = new XMLHttpRequest();
-                    xhr.open("get", "alldata.json", true);
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            console.log(xhr.responseText);
-                            cb.call(obj, JSON.parse(xhr.responseText));
-                            $('#jstree').jstree(true)
-                        }
-                    }
-                    xhr.send();
-                },
-               "check_callback": true  // 요거이 없으면, create_node 안먹음
-            }
-        });
-        */
+        });    
 
 
 
@@ -688,34 +655,11 @@
         });
 
         // Node 열렸을 땡
-        let isAdded = false;
-        // $('#jstree').on("open_node.jstree", function (e, data) {
-        //     console.log("open되었을땡", data.node);
-
-        //     // 자식 NODE 맹글기, NODE ID S22(MES)가 열렷을 때
-        //     // 한번만 김지은 추가하는 예제, 메소드 리스트에서 create_node검색
-        //     if (!isAdded && data.node.id == 'S22') {
-        //         let myNode = {
-        //             "text": "김지은",
-        //             "id": "J09",
-        //             "whoisshe": "actress",
-        //             "isBestFriend": "Y",
-        //             "icon": "glyphicon glyphicon-user"
-        //         };
-        //         let myCallBack = () => {
-        //             alert("추가했어용");
-        //         }
-        //         // NODE 추가
-        //         $('#jstree').jstree(true).create_node('S22', myNode, "last", myCallBack);
-        //         isAdded = true;
-        //     }
-
-        // });
-
+        let isAdded = false;     
         // Node 선택했을 땡
 		//member임시 저장 변수
 			let temp;
-			let tempAr;
+			let tempAr=[];
 
         $('#jstree').on("select_node.jstree", function (e, data) {
             temp=null;
@@ -726,7 +670,9 @@
 			console.log(temp);
         });
 
+		// 결제선 추가 이동버튼
 		applyOn.addEventListener("click", function(){
+			//결제선 추가
 			applyAdd(temp,applyList)
 		});
 
@@ -734,57 +680,118 @@
 		//결제선 저장 및 오른쪽 이동
 		function applyAdd(data, divId){
 			
+			console.log(tempAr);
+			
+			for(let t of tempAr){
+
+				if(data.original.id==t.id){
+					return;
+				}
+
+			}
+
 			if(data==null){
 
 				alert('결재자를 선택해 주세요');
 
-				return
+				return;
 			}
 			let json = JSON.stringify(data.original);
-			let list = document.createElement('li');  
-			list.innerText = data.text;
-			list.setAttribute('data-person',json);
+			let list = document.createElement('div'); 			
+			list.setAttribute('class','draggable');
+			list.setAttribute('draggable', 'true');
+			let icoDrag= document.createElement('span');
+			icoDrag.setAttribute('class', 'ico-drag');
+			list.appendChild(icoDrag);
+			let elDiv = document.createElement('div');
+			elDiv.setAttribute('class', 'appline');
+			elDiv.setAttribute('data-person',json);
+			elDiv.innerText =  data.original.dept+" "+data.text;
+			icoDrag.appendChild(elDiv)
 			divId.appendChild(list);
+			console.log('메홀ㅇ'+data.original.dept);
+			tempAr.push(data.original);
 			data=null;
-			console.log('메홀ㅇ'+data);
 
 		}
 		
+		//결재선 추가명단에서 제거할 사람 선택
+			let target;
+			
+			applyList.addEventListener('click',function(e){
+				target = e.target;
+				console.log(target);
+				
+			})	
+			// 제거버튼
+			delBtn.addEventListener('click', e=>{	
+				let ancester = target.closest('.draggable');	
+				ancester.remove(); //element 제거
+				let index = tempAr.indexOf(target.getAttribute('data-person'));
+				console.log(index+"  "+target.getAttribute('data-person'));
+				tempAr.splice(index,1);
+				console.log(tempAr);
+
+				target=null;
+				
+
+			})
+
+
+
 
 		//결제선 div생성
 		function addApplyLine(divId){
 			
-			let dataPerson = document.querySelectorAll('data-person');
+			let dataPeple = document.querySelectorAll('.appline');
+			console.log(dataPeple)
+			if(dataPeple.length<2){
 
-			let dataAr = Array.from(dataPerson);
+				alert("결제자는 최소 2인 입니다.")
+				return;
+			}
+			
+			let dataAr = []; 
+			for(let p of dataPeple){
+				let dataPerson = JSON.parse(p.getAttribute('data-person'))
+				dataAr.push(dataPerson);
+				console.log(dataAr)
 
-			let divlist = document.getElementById(divId);
-			divlist.innerHTML="";
+			}
+			
+			
+			divId.innerHTML="";
 			console.log(dataAr)
 
-			for(data in dataAr){
-
+			for(let data of dataAr){
+				console.log(data)
 				let divForm=document.createElement('div');
-				divForm.setAttribute('class',"col-auto ps-0 pe-0");
+				divForm.setAttribute('class',"col-auto ps-0 pe-0 ");
 				let divPsis=document.createElement('div');
-				divPsis.setAttribute('class',"applineG");
+				divPsis.setAttribute('class',"applineG ");
 				divPsis.innerText = data.POSITION_NAME;
 				divForm.appendChild(divPsis);
 				let divName=document.createElement('div');
-				divName.setAttribute('class',"applineW");
+				divName.setAttribute('class',"applineW ");
 				divName.innerText = data.USERNAME;
 				divForm.appendChild(divName);
 				let divDate=document.createElement('div');
-				divDate.setAttribute('class',"applineG");
+				divDate.setAttribute('class',"applineG ");
 				divForm.appendChild(divDate);
+				let dataInput = document.createElement('input');
+				dataInput.setAttribute('type', 'hidden');
+				dataInput.setAttribute('class','appForm');
+				dataInput.setAttribute('value',data.MEMBER_ID);
+				divForm.appendChild(dataInput);
 				
 				divId.appendChild(divForm);
 
-				console.log(data);
+				
 			}
 				
-
-
+			alert("결제선이 추가 되었습니다.");
+			console.log(largeModal);
+			largeModal.hide();
 		}
 
     

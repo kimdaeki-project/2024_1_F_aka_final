@@ -108,7 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 
 	</select>
 	<select id="getMemberChart" resultMap="memberList">
-		SELECT MEMBER_ID+1000 id, CONCAT(POSITION_NAME,' ',USERNAME) text, DEPARTMENT_SUPER_ID, MEMBER_ID, POSITION_NAME, USERNAME FROM `MEMBER` m 
+		SELECT MEMBER_ID+1000 id, CONCAT(POSITION_NAME,' ',USERNAME) text, DEPARTMENT_ID, MEMBER_ID, POSITION_NAME, USERNAME, DEPARTMENT_NAME FROM `MEMBER` m 
 				JOIN DEPARTMENT d 
 				USING (DEPARTMENT_ID)
 				JOIN POSITIONRANK p 
@@ -117,7 +117,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<resultMap type="Map" id="memberList">
 		<id column="id" property="id" javaType="String"/>	
-		<result column="DEPARTMENT_SUPER_ID" property="parent"  javaType="String"/>		
+		<result column="DEPARTMENT_ID" property="parent"  javaType="String"/>		
+		<result column="DEPARTMENT_NAME" property="dept" javaType="String"/>
 	</resultMap>
 
 

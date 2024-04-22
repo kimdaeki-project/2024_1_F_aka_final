@@ -1,5 +1,7 @@
 package com.aka.app.edms;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,14 +16,51 @@ public class EdmsService {
 	private EdmsDAO edmsDAO;
 	
 	
-	public int createEdms(EdmsVO edmsVO) throws Exception {
+	public int createEdms(EdmsVO edmsVO, Integer[] appAr) throws Exception {
 		
 		System.out.println("service 16    "+ edmsVO);
 		
 		
-		return edmsDAO.createEdms(edmsVO);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
+		//전자문서 저장
+		map.put("edmsVO", edmsVO);
+				
+		int count = appAr.length-1;
+		boolean check = true;
+		
+		LinkedList<Integer> ar = new LinkedList<Integer>();
+		
+		//결재선 저장
+		while (check) {
+			
+			System.out.println(appAr[count]);
+			
+			ar.add(Integer.parseInt(appAr[count].toString()));
+			count--;
+			
+			map.put("MEMBER_ID", ar);
+			if(count<0) {
+				
+				check = false;
+				
+			}
+		}
+		
+		System.out.println("service 47       "   +map);
+				
+		
+		
+		
+//		return edmsDAO.createEdms(edmsVO);
+		return 1;
 		
 	}
+	
+	
+	
+	
 	
 	
 	

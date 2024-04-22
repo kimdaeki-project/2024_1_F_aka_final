@@ -47,30 +47,25 @@
           <div class="content-wrapper">
             <!-- Content -->
              <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4">Equiment<span class="text-muted fw-light">/list</span></h4>
+              <h4 class="fw-bold py-3 mb-4">공지사항<span class="text-muted fw-light">/목록</span></h4>
 				<div class="card">
-                <h5 class="card-header">비품 관리 목록</h5>
+                <h5 class="card-header">공지사항 목록</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">
                     <thead class="table-light">
                       <tr>
-                        <th>비품 번호</th>
-                        <th>관리자 사원 번호</th>
-                        <th>비품 이름</th>
-                        <th>비품 추가 날짜</th>
-                        <th>수량</th>
-                      
+                        <th>공지사항 번호</th>
+                        <th>제목</th>
+                        <th>작성일</th>                      
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                      <c:forEach items="${list}" var="vo">
                     
                       <tr>
-                        <td >${vo.equipment_num}</td>
-                        <td>${vo.member_id}</td>
-                        <td class="w-25"><i class="fab fa-angular fa-lg text-danger me-3"></i><a href="/equipment/detail?equipment_num=${vo.equipment_num}"><strong>${vo.equipment_name}</strong></a></td>
-                        <td>${vo.equipment_date}</td>
-                        <td>${vo.equipment_ea}</td>
+                        <td class="w-25">${vo.board_num}</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i><a href="/board/detail?board_num=${vo.board_num}"><strong>${vo.board_head}</strong></a></td>
+                        <td class="w-25">${vo.board_date}</td>                       
                       </tr>
                       
                      </c:forEach>
@@ -122,12 +117,12 @@
                 <ul class="pagination">
                 <li class="page-item first">
                 
-  					 <form class="d-flex" action="/equipment/list"  method="get">
+  					 <form class="d-flex" action="/board/list"  method="get">
   				    <div class="col-md-3">
                       <select id="selectTypeOpt" name="kind" class="form-select color-dropdown">
-                        <option value="kind1" selected>비품 이름</option>
-                        <option value="kind2">비품 번호</option>
-                        <option value="kind3">관리자 사원 번호</option>
+                        <option value="kind1" selected>제목</option>
+                        <option value="kind2">공지사항 번호</option>
+                        <option value="kind3">공지사항 날짜</option>
                       </select>
                     </div>
                       <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" />
@@ -135,7 +130,7 @@
                     </form>
 					</li>
 				</ul>
-					<a class=" btn btn-primary" href="/equipment/create">추가</a>
+					<a class=" btn btn-primary" href="/board/create">추가</a>
 				</nav>
 				</div>
 				

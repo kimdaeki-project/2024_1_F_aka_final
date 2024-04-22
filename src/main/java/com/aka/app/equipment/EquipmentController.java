@@ -38,6 +38,7 @@ public class EquipmentController {
 		model.addAttribute("path","/equipment/list");				
 		return "commons/result";
 	}
+	
 	@GetMapping("update")
 	public ModelAndView updateEquipment(EquipmentVO equipmentVO,ModelAndView modelAndView) throws Exception {
 		equipmentVO = equipmentService.getEquimentDetail(equipmentVO);
@@ -45,6 +46,7 @@ public class EquipmentController {
 		modelAndView.setViewName("equipment/update");
 		return modelAndView;
 	}
+	
 	@PostMapping("update")
 	public String updateEquipment(EquipmentVO equipmentVO,Model model) throws Exception{
 		int result=0;
@@ -62,6 +64,7 @@ public class EquipmentController {
 	@GetMapping("create")
 	public void createEquipment(@ModelAttribute EquipmentVO equipmentVO) throws Exception{
 	}
+	
 	@PostMapping("create")
 	public String createEquipment(@Valid EquipmentVO equipmentVO,BindingResult bindingResult,Model model,HttpSession session) throws Exception{
 		int result=0;

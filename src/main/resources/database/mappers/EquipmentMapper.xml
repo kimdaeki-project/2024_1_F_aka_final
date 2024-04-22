@@ -6,8 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.aka.app.equipment.EquipmentDAO">
 	
 	<delete id="deleteEquipment" parameterType="EquipmentVO">
-	DELETE FROM EQUIPMENT WHERE EQUIPMENT_NUM=#{equipment_num}
+	DELETE 
+	FROM EQUIPMENT 
+	WHERE EQUIPMENT_NUM=#{equipment_num}
 	</delete>
+	
 	
 	<update id="updateEquipment" parameterType="EquipmentVO">
 	UPDATE EQUIPMENT 
@@ -21,17 +24,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE EQUIPMENT_NUM = #{equipment_num}
 	</update>
 	
+	
 	<insert id="createEquiment" parameterType="EquipmentVO">
 	INSERT INTO EQUIPMENT 
-	(MEMBER_ID,EQUIPMENT_NAME,EQUIPMENT_DATE,EQUIPMENT_EA,EQUIPMENT_CONTENTS)
+	(
+		MEMBER_ID
+		,EQUIPMENT_NAME
+		,EQUIPMENT_DATE
+		,EQUIPMENT_EA
+		,EQUIPMENT_CONTENTS
+	)
 	VALUES 
-	(#{member_id},#{equipment_name},#{equipment_date},#{equipment_ea},#{equipment_contents})
+	(		
+	   	#{member_id}
+		,#{equipment_name}
+		,#{equipment_date}
+		,#{equipment_ea}
+		,#{equipment_contents}
+	)
 	</insert>
+	
 	
 	
 	<select id="getEquimentDetail" parameterType="EquipmentVO" resultType="EquipmentVO">
 	SELECT M.USERNAME member_name,E.* 
-	FROM MEMBER M LEFT OUTER JOIN EQUIPMENT E ON (M.MEMBER_ID=E.MEMBER_ID)
+	FROM MEMBER M 
+	LEFT OUTER JOIN EQUIPMENT E 
+		ON (M.MEMBER_ID=E.MEMBER_ID)
 	WHERE EQUIPMENT_NUM = #{equipment_num};
 	</select>
 	<!-- <resultMap type="EquipmentVO" id="getEquipmentDetailResult">
@@ -65,7 +84,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 	<select id="getTotalCount" resultType="Long" parameterType="Pager">
-	SELECT COUNT(EQUIPMENT_NUM) FROM EQUIPMENT
+	SELECT COUNT(EQUIPMENT_NUM) 
+	FROM EQUIPMENT
 	<include refid="search"></include>
 	</select>
 

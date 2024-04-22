@@ -73,7 +73,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("create")
-	public String createProduct (@Valid ProductVO productVO,BindingResult bindingResult,Model model,HttpSession session) throws Exception {
+	public String createProduct (@Valid ProductVO productVO,BindingResult bindingResult,Model model,HttpSession session,MultipartFile[] attach) throws Exception {
 		int result=0;
 		String msg = "상품 추가 실패";
 		if(bindingResult.hasErrors()) {  //폼 검증 실패시

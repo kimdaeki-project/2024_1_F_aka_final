@@ -28,20 +28,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 	
 	<select id="getTotalCount" resultType="Long" parameterType="Pager">
-	SELECT COUNT(PAYMENT_NUM) FROM PAYMENT
+	SELECT COUNT(PAYMENT_NUM) 
+	FROM PAYMENT
 	<include refid="search"></include>
 	</select>
 	
 	<select id="getPaymentList" parameterType="Pager">
-	SELECT * FROM PAYMENT
+	SELECT * 
+	FROM PAYMENT
 	<include refid="search"></include>
 	ORDER BY PAYMENT_NUM DESC 
-	LIMIT #{startIndex},#{perPage}
+	LIMIT 
+	#{startIndex}
+	,#{perPage}
 	</select>
 	
 	<insert id="createPayment" parameterType="PaymentVO">
-	INSERT INTO PAYMENT (PRODUCT_NUM,MEMBER_ID,ORDER_ID,AMOUNT,PAYMENT_KEY,ORDER_NAME,REQUESTED_AT,APPROVED_AT,COUNTRY,CURRENCY,METHOD,VAT,CUSTOMER_NAME,CUSTOMER_PHONE,CUSTOMER_EMAIL) 
-	VALUES (#{product_num},#{member_id},#{order_id},#{amount},#{payment_key},#{order_name},#{requested_at},#{approved_at},#{country},#{currency},#{method},#{vat},#{customer_name},#{customer_phone},#{customer_email})
+	INSERT INTO PAYMENT 
+	(
+	PRODUCT_NUM
+	,MEMBER_ID
+	,ORDER_ID,AMOUNT
+	,PAYMENT_KEY
+	,ORDER_NAME
+	,REQUESTED_AT
+	,APPROVED_AT
+	,COUNTRY
+	,CURRENCY
+	,METHOD
+	,VAT
+	,CUSTOMER_NAME
+	,CUSTOMER_PHONE
+	,CUSTOMER_EMAIL
+	) 
+	VALUES 
+	(
+	#{product_num}
+	,#{member_id}
+	,#{order_id}
+	,#{amount}
+	,#{payment_key}
+	,#{order_name}
+	,#{requested_at}
+	,#{approved_at}
+	,#{country}
+	,#{currency}
+	,#{method}
+	,#{vat}
+	,#{customer_name}
+	,#{customer_phone}
+	,#{customer_email}
+	)
 	</insert>
 
 

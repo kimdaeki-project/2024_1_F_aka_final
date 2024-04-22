@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.aka.app.board.BoardVO;
 import com.aka.app.util.Pager;
 
 @Mapper

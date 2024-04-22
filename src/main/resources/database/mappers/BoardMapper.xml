@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.aka.app.board.BoardDAO">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<delete id="deleteBoard" parameterType="BoardVO">
+	DELETE 
+	FROM BOARD
+	WHERE BOARD_NUM=#{board_num}
+	</delete>
+	
+	
+	<update id="updateBoard" parameterType="BoardVO">
+	UPDATE BOARD
+	<set>
+	<if test="board_head != null and board_head != ''">BOARD_HEAD=#{board_head},</if>
+	<if test="board_contents != null and board_contents != ''">BOARD_CONTENTS=#{board_contents}</if>	
+	</set>
+	WHERE BOARD_NUM = #{board_num}
+	</update>
+	
+ 
+	<select id="getBoardDetail" parameterType="BoardVO" resultType="BoardVO">
+	SELECT M.USERNAME board_writer,B.* 
+	FROM MEMBER M 
+	LEFT OUTER JOIN BOARD B 
+		ON (M.MEMBER_ID=B.MEMBER_ID)
+	WHERE BOARD_NUM = #{board_num};
+	</select> 
+	<!-- <resultMap type="EquipmentVO" id="getEquipmentDetailResult">
+        <id column="EQUIPMENT_NUM" property="equipment_num"/>
+        <result column="MEMBER_ID" property="member_id"/>
+        <result column="EQUIPMENT_NAME" property="equipment_name"/>
+        <result column="EQUIPMENT_DATE" property="equipment_date"/>
+        <result column="EQUIPMENT_EA" property="equipment_ea"/>
+        <result column="EQUIPMENT_CONTENTS" property="equipment_contents"/>
+        <result column="MEMBER_NAME" property="member_name"/>
+	</resultMap> -->
+	
+	
+	
+	<insert id="createBoard" parameterType="BoardVO">
+	<selectKey keyProperty="board_writer" resultType="String" order="BEFORE">
+	SELECT USERNAME 
+	FROM MEMBER 
+	WHERE MEMBER_ID = ${member_id}
+	</selectKey>
+	INSERT INTO BOARD
+	(
+		MEMBER_ID
+		,BOARD_WRITER
+		,BOARD_HEAD
+		,BOARD_CONTENTS
+		,BOARD_DATE
+	)
+	VALUES 
+	(		
+	   	#{member_id}
+		,#{board_writer}
+		,#{board_head}
+		,#{board_contents}
+		,#{board_date}
+	)
+	</insert>
+	
+	<insert id="createBoardFiles" parameterType="BoardFileVO">
+	INSERT INTO BOARDFILES
+	(
+	MEMBER_ID
+	,
+	)
+	
+	</insert>
+	
+	
+	
+	
+	
+	<sql id="search">
+	<where>
+	<choose>
+	<when test="kind=='kind1'">BOARD_HEAD</when>
+	<when test="kind=='kind2'">BOARD_NUM</when>
+	<otherwise>BOARD_DATE</otherwise>
+	</choose>
+	LIKE CONCAT('%',#{search},'%')
+	</where>
+	</sql>
+	
+	<select id="getBoardList" resultType="BoardVO" parameterType="Pager">
+	SELECT * 
+	FROM BOARD 
+	<include refid="search"></include>
+	ORDER BY BOARD_NUM DESC 
+	LIMIT #{startIndex},#{perPage}
+	</select>
+
+	
+	<select id="getTotalCount" resultType="Long" parameterType="Pager">
+	SELECT COUNT(BOARD_NUM) 
+	FROM BOARD
+	<include refid="search"></include>
+	</select>
+	
+	
+	
+	
+	
+</mapper>

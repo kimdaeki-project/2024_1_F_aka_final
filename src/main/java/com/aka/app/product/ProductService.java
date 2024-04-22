@@ -24,6 +24,7 @@ public class ProductService {
 	@Value("${app.upload.product}")
 	private String uploadPath;
 	
+	
 	public int deleteProduct(ProductVO productVO) throws Exception {
 		return productDAO.deleteProduct(productVO);
 	}

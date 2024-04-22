@@ -81,7 +81,7 @@
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">첨부 파일</label>
                           <div class="col-sm-10">
-                            <form:input type="file" class="form-control" path="boardFileVO" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
+                            <form:input type="file" class="form-control" path="boardFile" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
                           </div>
                         </div>
  					
@@ -93,17 +93,12 @@
                           <div class="col-sm-10">
                         	<form:errors path="board_contents"></form:errors>
                             <form:textarea type="text" class="form-control" path="board_contents" id="summerBoard" placeholder="상세 설명을 입력하세요" />         	
-                          </div>
-                        
-                        
-                        </div>
-                       
-                        
-                        
+                          </div>        
+                       	 </div>
                         
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" class="btn btn-primary">공지사항 추가</button>
                           </div>
                         </div>
                       </form:form>

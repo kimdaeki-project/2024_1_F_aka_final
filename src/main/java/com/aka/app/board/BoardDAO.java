@@ -20,5 +20,7 @@ public interface  BoardDAO  {
 	public List<BoardVO> getBoardList(Pager pager)throws Exception;
 
 	public int createBoard(BoardVO boardVO)throws Exception;
-
+	
+	public int createBoardFiles(BoardFileVO boardFileVO)throws Exception;
+	
 }

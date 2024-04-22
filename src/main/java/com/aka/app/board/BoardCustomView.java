@@ -7,26 +7,26 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public abstract class BoardCustomView extends AbstractView{
+@Component("BoardCustomView")
+public  class BoardCustomView extends AbstractView{
 
-	
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		BoardVO boardVO = (BoardVO)model.get("vo");
-		List<BoardFileVO> boardFileVOs = boardVO.getBoardFilesVO();
-		for(BoardFileVO a : boardFileVOs) {
-			File file = new File("/Users/seungkyun/workspace/upload/board/",a.getFilename());
+			BoardVO	boardVO = (BoardVO) model.get("vo");
+			BoardFileVO boardFileVO = boardVO.getBoardFileVO();
+			File file = new File("D:/upload/board/",boardFileVO.getFilename());
 			response.setCharacterEncoding("UTF-8");
 			response.setContentLengthLong(file.length());
-			String oriName = URLEncoder.encode(a.getOrifilename(),"UTF-8");
+			String oriName = URLEncoder.encode(boardFileVO.getOrifilename(),"UTF-8");
 			response.setHeader("Content-Disposition","attachment;filename=\""+oriName+"\"");
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			FileInputStream fi = new FileInputStream(file);
@@ -34,8 +34,7 @@ public abstract class BoardCustomView extends AbstractView{
 			FileCopyUtils.copy(fi,os);
 			os.close();
 			fi.close();
-		}
-		
+			response.encodeRedirectURL("/board/detail?board_num="+boardVO.getBoard_num());
 	}
 	
 }

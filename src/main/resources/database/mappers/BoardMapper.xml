@@ -30,30 +30,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
  
-	<select id="getBoardDetail" parameterType="BoardVO" resultType="BoardVO">
-	SELECT M.USERNAME board_writer,B.* 
-	FROM MEMBER M 
-	LEFT OUTER JOIN BOARD B 
-		ON (M.MEMBER_ID=B.MEMBER_ID)
-	WHERE BOARD_NUM = #{board_num};
+	<select id="getBoardDetail" parameterType="BoardVO" resultMap="getBoardResult">
+	SELECT B.*,F.* 
+	FROM BOARD B
+	LEFT OUTER JOIN BOARDFILES F
+		ON (B.BOARD_NUM=F.BOARD_NUM) 
+	WHERE B.BOARD_NUM = #{board_num};
 	</select> 
-	<!-- <resultMap type="EquipmentVO" id="getEquipmentDetailResult">
-        <id column="EQUIPMENT_NUM" property="equipment_num"/>
+	<resultMap type="BoardVO" id="getBoardResult">
+        <id column="BOARD_NUM" property="board_num"/>
         <result column="MEMBER_ID" property="member_id"/>
-        <result column="EQUIPMENT_NAME" property="equipment_name"/>
-        <result column="EQUIPMENT_DATE" property="equipment_date"/>
-        <result column="EQUIPMENT_EA" property="equipment_ea"/>
-        <result column="EQUIPMENT_CONTENTS" property="equipment_contents"/>
-        <result column="MEMBER_NAME" property="member_name"/>
-	</resultMap> -->
+        <result column="BOARD_WRITER" property="board_writer"/>
+        <result column="BOARD_HEAD" property="board_head"/>
+        <result column="BOARD_CONTENTS" property="board_contents"/>
+        <result column="BOARD_DATE" property="board_date"/>
+		<association property="boardFileVO" javaType="BoardFileVO" >
+		<id column="BOARDFILE_NUM" property="boardfile_num"/>
+		<result column="BOARD_NUM" property="board_num"/>
+		<result column="MEMBER_ID" property="member_id"/>
+		<result column="FILENAME" property="filename"/>
+		<result column="BOARD_NUM" property="board_num"/>
+		<result column="ORIFILENAME" property="orifilename"/>
+		</association>
+	</resultMap>	
+	
 	
 	
 	
 	<insert id="createBoard" parameterType="BoardVO">
-	<selectKey keyProperty="board_writer" resultType="String" order="BEFORE">
-	SELECT USERNAME 
-	FROM MEMBER 
-	WHERE MEMBER_ID = ${member_id}
+	<selectKey keyProperty="board_num" resultType="long" order="AFTER">
+		SELECT MAX(BOARD_NUM) FROM BOARD
 	</selectKey>
 	INSERT INTO BOARD
 	(
@@ -76,10 +82,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createBoardFiles" parameterType="BoardFileVO">
 	INSERT INTO BOARDFILES
 	(
-	MEMBER_ID
-	,
+	 BOARD_NUM
+	,MEMBER_ID
+	,FILENAME
+	,ORIFILENAME
 	)
-	 
+	VALUES
+	(
+	 #{board_num}
+	,#{member_id}
+	,#{filename}
+	,#{orifilename}
+	) 
 	</insert>
 	
 	

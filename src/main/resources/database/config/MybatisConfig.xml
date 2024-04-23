@@ -16,5 +16,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.aka.app.payment.PaymentVO" alias="PaymentVO"/>
 		<typeAlias type="com.aka.app.board.BoardVO" alias="BoardVO"/>
 		<typeAlias type="com.aka.app.board.BoardFileVO" alias="BoardFileVO"/>
+		<typeAlias type="com.aka.app.department.DepartmentVO" alias="DepartmentVO"/>
 	</typeAliases>
 </configuration>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.aka.app.department.DepartmentDAO">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- <delete id="deleteBoard" parameterType="BoardVO">
+	DELETE 
+	FROM BOARD
+	WHERE BOARD_NUM=#{board_num}
+	</delete> -->
+	
+	
+	<!-- <update id="updateBoard" parameterType="BoardVO">
+	UPDATE BOARD
+	<set>
+	<if test="board_head != null and board_head != ''">BOARD_HEAD=#{board_head},</if>
+	<if test="board_contents != null and board_contents != ''">BOARD_CONTENTS=#{board_contents}</if>	
+	</set>
+	WHERE BOARD_NUM = #{board_num}
+	</update> -->
+	
+ 
+		
+	
+	
+	
+	
+	<!-- <insert id="createBoard" parameterType="BoardVO">
+	<selectKey keyProperty="board_num" resultType="long" order="AFTER">
+		SELECT MAX(BOARD_NUM) FROM BOARD
+	</selectKey>
+	INSERT INTO BOARD
+	(
+		MEMBER_ID
+		,BOARD_WRITER
+		,BOARD_HEAD
+		,BOARD_CONTENTS
+		,BOARD_DATE
+	)
+	VALUES 
+	(		
+	   	#{member_id}
+		,#{board_writer}
+		,#{board_head}
+		,#{board_contents}
+		,#{board_date}
+	)
+	</insert> -->
+	
+	
+	<select id="getDepartmentMemberList" resultType="DepartmentVO">
+		SELECT * 
+		FROM MEMBER
+		WHERE DEPARTMENT_ID = #{department_id} 
+	</select>
+	
+	<select id="getDepartmentList" resultType="DepartmentVO">
+	SELECT DEPA.DEPARTMENT_ID
+	,DEPA.DEPARTMENT_SUPER_ID
+	,DEPA.DEPARTMENT_NAME
+	,DEPA.SORTORDER
+	FROM DEPARTMENT DEPA
+	INNER JOIN DEPARTMENT DEPAA
+	ON (DEPA.DEPARTMENT_SUPER_ID = DEPAA.DEPARTMENT_ID) 
+	GROUP BY DEPARTMENT_NAME
+	</select>
+
+	
+	
+	
+	
+	
+	
+</mapper>

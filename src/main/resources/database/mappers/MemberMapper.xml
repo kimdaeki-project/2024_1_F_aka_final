@@ -60,4 +60,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE EMAIL = #{email} 
 		AND USER_ID = #{user_id}
 	</update>
+	
+	<update id="updateMyinfo" parameterType="MemberVO">
+		UPDATE MEMBER 
+		SET 
+		PASSWORD = #{password},
+		EMAIL = #{email}, 
+		USER_ID = #{user_id}
+		WHERE MEMBER_ID = #{member_id}
+	</update>
 </mapper>

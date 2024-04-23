@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 
@@ -30,39 +31,43 @@
 				<button class="btn btn-primary">출근</button>
 			</div>
 		</div>
- 	
+ 		
 		<div class="d-flex justify-content-center my-5">
-			<form class="bg-white p-5 rounded-3">
-	
-			   <div class="d-flex justify-content-center mx-3 mb-5">
+<%-- 			<form class="bg-white p-5 rounded-3" action="POST"> --%>
+			<form:form modelAttribute="member"  class="bg-white p-5 rounded-3">
+				<form:input path="phone" id="phone"/>
+				<form:input path="user_id" id="user_id"/>
+				<form:input path="password" id="password"/>
+				
+<!-- 			   <div class="d-flex justify-content-center mx-3 mb-5">
 		    	<label for="exampleInputPassword1" class="mt-2 form-label fw-semibold fs-6" style="width:130px;">부서명</label>
 		    	<input type="text" class="form-control mx-2" id="exampleInputPassword1" value="부서명" disabled>
 			    
-			    <label for="exampleInputPassword1" class="mt-2 ms-5 form-label fw-semibold fs-6" style="width:140px;">입사일</label>
-			    <input type="text" class="form-control mx-2" id="exampleInputPassword1" disabled>
+			    <label for="hire_date" class="mt-2 ms-5 form-label fw-semibold fs-6" style="width:140px;">입사일</label>
+			    <input type="text" class="form-control mx-2" id="hire_date" disabled>
 			  </div>
 	
-	
 			  <div class="d-flex justify-content-center mx-3 mb-5">
-		    	<label for="exampleInputPassword1" class="mt-2 form-label fw-semibold fs-6" style="width:140px;">이메일</label>
-		    	<input type="password" class="form-control mx-2" id="exampleInputPassword1">
+		    	<label for="email" class="mt-2 form-label fw-semibold fs-6" style="width:140px;">이메일</label>
+		    	<input type="text" class="form-control mx-2" id="email">
 			    
-			    <label for="exampleInputPassword1" class="mt-2 ms-5 form-label fw-semibold fs-6" style="width:170px">전화번호</label>
-			    <input type="password" class="form-control mx-2" id="exampleInputPassword1">
+			    <label for="phone" class="mt-2 ms-5 form-label fw-semibold fs-6" style="width:170px">전화번호</label>
+			    <input type="text" class="form-control mx-2" id="phone">
 			  </div>
 			  
   			  <div class="d-flex justify-content-center mx-3 mb-5 w-50">
-		    	<label for="exampleInputPassword1" class="mt-2 form-label fw-semibold fs-6" style="width:90px">비밀번호</label><br>
-		    	<input type="password" class="form-control" id="exampleInputPassword1">
+		    	<label for="password" class="mt-2 form-label fw-semibold fs-6" style="width:90px">비밀번호</label><br>
+		    	<input type="password" class="form-control" id="password">
 			    
-			<!--     <label for="exampleInputPassword1" class="mt-2 ms-5 form-label">Password</label>
-			    <input type="password" class="form-control mx-2" id="exampleInputPassword1"> -->
+			    <label for="exampleInputPassword1" class="mt-2 ms-5 form-label">Password</label>
+			    <input type="password" class="form-control mx-2" id="exampleInputPassword1">
 			  </div>
 
 				<div class="d-flex justify-content-end">
-			  		<button type="submit" class="btn btn-primary">Submit</button>
-			  	</div>
-			</form>
+			  		<button type="submit" class="btn btn-danger">수정</button>
+			  	</div> -->
+			</form:form>
+			
 		</div>
 	
 	    <!-- Core JS -->

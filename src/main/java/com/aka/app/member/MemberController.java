@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.aka.app.member.groups.MemberUpdateGroup;
+
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +33,7 @@ public class MemberController {
 	public String memberLogin(@ModelAttribute MemberVO memberVO, HttpSession session, Model model)throws Exception {
 		
 		Object obj=session.getAttribute("SPRING_SECURITY_CONTEXT");
-
+		
 		log.info("=====getName : {}=======",memberVO.getName());
 		if(obj == null) {
 			return "member/memberLogin";
@@ -68,15 +70,19 @@ public class MemberController {
 	}
 	
 	@GetMapping("/mypage")
-	public String update(Model model) throws Exception{
-		MemberVO member = new MemberVO();
-		model.addAttribute("member", member);
+	public String update(@Validated(MemberUpdateGroup.class) MemberVO memberVO, HttpSession session, Model model) throws Exception{
+		log.info("mypage memberVO ====== {} ======",memberVO);
+		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+		
+		log.info("session : {}",obj);
+		
+		model.addAttribute("member", obj);
 		return "member/mypage";
 	}
 	
 	@PostMapping("/mypage")
 	public String update(@RequestParam("user_id")String user_id, Model model)throws Exception{
-		return "member/mypage";
+		return "redirect:./";
 	}
 	
 	@GetMapping("/findPw")

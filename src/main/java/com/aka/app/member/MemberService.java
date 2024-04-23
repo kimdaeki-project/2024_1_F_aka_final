@@ -60,6 +60,8 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		Map<String, Object> map = oAuth2User.getAttribute("properties");
 		MemberVO memberVO = new MemberVO();
 		memberVO.setUsername(oAuth2User.getName());
+		log.info("oAuth2User == {} == ",oAuth2User.toString());
+		log.info("oAuth2User, Map == {} == ",map.toString());
 		RoleVO roleVO = new RoleVO();
 		roleVO.setName("NORMAL");
 		

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.jose.shaded.gson.JsonArray;
-import com.nimbusds.jose.shaded.gson.JsonObject;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
+import com.aka.app.member.MemberVO;
 
 
 @Controller
@@ -52,8 +48,13 @@ public class EdmsController {
 		
 	}
 	
-	@GetMapping("create")
-	public String createEdms(Model model) throws Exception {
+	@GetMapping("create")     //로그인한 유저 정보 불러오기
+	public String createEdms(@AuthenticationPrincipal MemberVO memberVO,Model model) throws Exception {
+		
+		
+		//부서이름, 직급 불러오기
+		Map<String, Object> deptName = edmsService.getDeptName(memberVO);
+		
 		
 		
 		//직원목록 불러오기
@@ -61,33 +62,14 @@ public class EdmsController {
 		
 //		List<ChartVO> chartAr = edmsService.getDeptList();
 		
-		Map<String, String> list = new HashMap<>();
 		
-//		System.out.println(chartAr.get(0).getName());
-//		
-		JsonArray jsonAr = new JsonArray();		
-		//chart list에 부서 넣기
-//		for (Map<String, String> a : deptList) {
-//			
-//			
-//			
-//			list.put("id", a.get("DEPARTMENT_ID"));
-//			list.put("name", a.get("DEPARTMENT_NAME"));
-//			list.put("type", "dept");
-//			list.put("depth", a.get("depth"));			
-//			list.put("parent", a.get(" DEPARTMENT_SUPER_ID"));
-//		JsonObject jsonObject = new JsonObject();
-//		
-//			
-//		}
-//		System.out.println(result);
-				
-		
-		
-				
-		
-		
+//		System.out.println(chartAr.get(0).getName());	
+				System.out.println(memberVO);
+		model.addAttribute("member", memberVO);
+		model.addAttribute("deptName", deptName);
 		model.addAttribute("list",result);		
+		
+		System.out.println(model);
 		
 		return "EDMS/create";
 		
@@ -115,7 +97,7 @@ public class EdmsController {
 		// 기안서 내용을 저장.		
 		int result = edmsService.createEdms(edmsVO, appAr);
 		
-		String msg = "성골";
+		String msg = "성공";
 		
 		if(result!=1) {			
 			msg = "실패";
@@ -123,12 +105,6 @@ public class EdmsController {
 		
 		
 		map.put("result", msg);		
-		
-		
-		
-		
-		
-		
 		
 		
 		return map; 		
@@ -157,27 +133,23 @@ public class EdmsController {
 		 
 		 
 		 for(Map<String, Object> m : temp) {			 
-			
-			 
+				 
 			 m.replace("parent", "0", "#");
 			 m.put("type", "member");
-			
-			
+					
 		 }
 		 	 
 		 
 		 for(Map<String, Object> a : result) {			 
-			
-			 
+				 
 			 a.replace("parent", "0", "#");
 			 a.put("type", "dept");
-			
-			
+				
 		 }
 		 
 		 result.addAll(temp);		 
 		 
-		 System.out.println(result);
+//		 System.out.println(result);
 		
 		
 		 

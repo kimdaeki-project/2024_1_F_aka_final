@@ -9,6 +9,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aka.app.member.MemberVO;
+
 @Service
 public class EdmsService {
 	
@@ -27,16 +29,11 @@ public class EdmsService {
 		
 	}
 	
-	
 		
-	
 	 
-	//결재저장
-
-	
+	//결재저장	
 	//매개변수 int 1=저장 2=임시저장
-	public int SaveEDMS(EdmsVO edmsVO, Integer[] appAr, int c) throws Exception{
-				
+	public int SaveEDMS(EdmsVO edmsVO, Integer[] appAr, int c) throws Exception{				
 		
 		int result;
 		
@@ -81,6 +78,22 @@ public class EdmsService {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	//부서이름 조회
+	
+	public Map<String, Object> getDeptName(MemberVO memberVO) throws Exception{	
+		
+	
+		return edmsDAO.getDeptName(memberVO);
+		
+	}
+	
 	//직원목록 불러오기
 	public List<Map<String, String>> getMemberList()throws Exception{
 		
@@ -88,13 +101,6 @@ public class EdmsService {
 		return edmsDAO.getMemberList(); 
 		
 	}
-	
-//	public List<ChartVO> getDeptList() throws Exception{
-//		
-//		return edmsDAO.getDeptList();
-//	}
-	
-	
 	
 	// 차트 불러오기
 	//부서

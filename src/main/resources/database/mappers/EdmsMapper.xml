@@ -17,22 +17,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey keyProperty="edmsNo" resultType="Long" order="BEFORE">
 			SELECT MAX(EDMS_NO) FROM EDMS
 		</selectKey>
-			INSERT INTO EDMS (EDMS_NO, EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS)
-				VALUES(NEXTVAL(EDMS_SEQ), #{edmsFromNo}, #{edmsCreator}, #{edmsTitle}, #{edmsContent}, #{edmsStatus})
+			INSERT INTO EDMS (EDMS_NO, EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
+				VALUES(NEXTVAL(EDMS_SEQ), #{edmsFromNo}, #{edmsCreator}, #{edmsTitle}, #{edmsContent}, #{edmsStatus}, #{edmsCreateDate}, #{edmsCreatorPosition})
 	</insert>
 	
 	<insert id="createApproval" parameterType="java.util.List">
 		
-		INSERT INTO APRROVAL( APPROVAL_NO ,EDMS_NO ,MEMBER_ID ,APPROVAL_RANK)
+		INSERT INTO APRROVAL( EDMS_NO ,MEMBER_ID ,APPROVAL_RANK)
 					VALUES
 		<foreach collection="list" index="index" item="member"  separator=",">
-					(#{member.MEMBER_ID}, #{member.EDMS_NO}, #{member.MEMBER_ID}, #{member.APPROVAL_RANK})
+					( #{member.EDMS_NO}, #{member.MEMBER_ID}, #{member.APPROVAL_RANK})
 		</foreach>
 	
 	
 	</insert>
 
 
+
+<!-- 로그인한 사용자 부서이름 가져오기  -->
+
+	<select id="getDeptName" parameterType="MemberVO" resultType="Map">
+		
+		SELECT MEMBER_ID, DEPARTMENT_NAME, POSITION_NAME FROM `MEMBER` m 
+			JOIN DEPARTMENT d 
+			USING (DEPARTMENT_ID)
+			JOIN POSITIONRANK p 
+			USING (POSITION_ID)
+		WHERE MEMBER_ID = #{member_id}
+	
+	</select>
 
 <!-- 결재선 직원 불러오기  -->
 
@@ -52,42 +65,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getDeptChart" resultMap="deptList">
 	
-	<!-- 
-		WITH RECURSIVE CTE AS (
-		    SELECT 
-		        DEPARTMENT_ID, 
-		        DEPARTMENT_NAME, 
-		        DEPARTMENT_SUPER_ID, 
-		        0 AS depth,
-		        CAST(DEPARTMENT_ID AS CHAR(200)) AS path
-		    FROM 
-		        DEPARTMENT
-		    WHERE 
-		        DEPARTMENT_SUPER_ID = 0
-		
-		    UNION ALL
-		
-		    SELECT 
-		        d.DEPARTMENT_ID, 
-		        d.DEPARTMENT_NAME, 
-		        d.DEPARTMENT_SUPER_ID, 
-		        depth + 1, 
-		        CONCAT(CTE.path, ',', d.DEPARTMENT_ID)
-		    FROM 
-		        DEPARTMENT d
-		    INNER JOIN 
-		        CTE ON d.DEPARTMENT_SUPER_ID = CTE.DEPARTMENT_ID
-		)
-		SELECT 
-		    CTE.*,
-		    JSON_ARRAYAGG(child.DEPARTMENT_ID) AS department_child
-		FROM 
-		    CTE
-		LEFT JOIN 
-		    DEPARTMENT AS child ON CTE.DEPARTMENT_ID = child.DEPARTMENT_SUPER_ID
-		GROUP BY 
-		    CTE.DEPARTMENT_ID;
-	 -->
 	 WITH RECURSIVE CTE AS (
 		    SELECT 
 		        DEPARTMENT_ID, 

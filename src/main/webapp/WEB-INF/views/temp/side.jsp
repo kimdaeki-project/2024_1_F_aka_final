@@ -121,6 +121,11 @@
                     <div data-i18n="Alerts">임시 저장</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="/edms/create" class="menu-link">
+                    <div data-i18n="Alerts">결재서작성</div>
+                  </a>
+                </li>
       
               </ul>
             </li>

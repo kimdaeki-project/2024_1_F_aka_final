@@ -106,6 +106,7 @@
 #add-remove {
 	display: flex;
 	flex-direction: column;
+	vertical-align: middle;
 }
 
 #add-remove button {
@@ -235,7 +236,7 @@
 		<div id="appLine" class="appTable" style=" float: right;">
 			
 			
-			<!--  <div class="col-auto ps-0 pe-0">
+			<div class="col-auto ps-0 pe-0">
 				<div class="applineG">직급</div>
 				<div class="applineW">1</div>
 				<div class="applineG">날짜</div>
@@ -251,9 +252,9 @@
 				<div class="applineG">날짜</div>
 			</div>			
 		
-		 -->
+		 
 			
-			<c:set var="listLength" value="${fn:length(list)}" />
+		<%-- 	<c:set var="listLength" value="${fn:length(list)}" />
 			<c:forEach items="${list}" var="list" begin="0" end="${listLength -1}">		
 				
 				<div class="col-auto ps-0 pe-0">
@@ -262,7 +263,7 @@
 					<div class="applineG"></div>
 				</div> 
 			
-			</c:forEach>
+			</c:forEach> --%>
  			
 			
 		</div>
@@ -361,8 +362,7 @@
 		<tr>
 			<td class="userTdW" colspan="2">			
 				<span  style="width: 100%; font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
-				 <textarea id="summernote" name="edmsContent"></textarea>	
-				
+				 <textarea id="summernote" name="edmsContent"></textarea>
 			
 				</span> 
 			<br>				
@@ -419,61 +419,49 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" >
 		<div class="modal-header">
-			<h5 class="modal-title" id="largeModal">New message</h5>
+			<h5 class="modal-title" id="Modal">New message</h5>
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body" style="display: flex;">			
  			
 			<div id="people-box" style="overflow:scroll;">
-			  <div id="jstree">
-
-
-
-				
+			  <div id="jstree" style="height: 100vh;">				
 			  </div>
-			  <input id="schName" value="">
+			  <div style="display: flex;">
+				  <input id="schName" value=""><button type="button" class="btn btn-primary" onclick="fSch()">검색</button>
+			  </div>
 		    </div>
 		    
 			<div id="add-remove">
 				<span id="first-arrow">
-				    <button type="button" style="width: 30px; height: 30px; background-color:white; border:0;">
-			  			<img src="/img/arrow/right.svg" height="30px" width="30px" onclick="applyOn();" >
+				    <button type="button" style="width: 30px; height: 30px; background-color:white; border:0;" id="applyOn">
+			  			<img src="/img/arrow/right.svg" height="30px" width="30px">
 					</button>
 				</span>
 			
 				<span id="second-arrow">
-						<button type="button" style="width: 30px; height: 30px; background-color:white; border:0;">
-						    <img src="/img/arrow/left.svg" height="30px" width="30px" onclick="applyOff();" >
+						<button type="button" style="width: 30px; height: 30px; background-color:white; border:0;" id="delBtn">
+						    <img src="/img/arrow/left.svg" height="30px" width="30px" >
 						</button>
-				</span>
-			
-				<span id="three-arrow">
-					<button type="button"style="width: 30px; height: 30px; background-color:white; border:0;">
-					  <img src="/img/arrow/right.svg" height="30px" width="30px" onclick="referOn();" >
-					</button>
-				</span>
+				</span>			
 				
-				<span id="four-arrow">
-					<button type="button"  style="width: 30px; height: 30px; background-color:white; border:0;">
-					  <img src="/img/arrow/left.svg" height="30px" width="30px" onclick="referOff();" >
-					</button>
-				</span>	
 			</div>
 		    
 		    <div id="line-refer-box">
 		    		<div id="line-box">
 		    			<p id="line-box-text">결재선</p>
-		    		</div>
+						<div id="applyList">
+
+						</div>
+
+		    		</div>		    		
 		    		
-		    		<div id="refer-box">
-		    			<p id="refer-box-text">참조선</p>
-	
-		    		</div>
 		    </div>
 		</div>
+		
 		<div class="modal-footer">
-			<button id="addBtn"  type="button" class="btn btn-primary">Send message</button>
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button id="addBtn"  type="button" class="btn btn-primary">추가 및 변경</button>
+			<button type="button" id="closeBtn" class="btn btn-secondary" data-bs-dismiss="modal">종료</button>
 		</div>
 		</div>
 	</div>
@@ -506,17 +494,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
 <script>
-
+	// const modal = bootstrap.Modal(document.getElementById("largeModal"));  // bootstrap modal 객체
 	const addLineBtn = document.getElementById("addLineBtn"); //모달 여는 버튼
 	const addBtn = document.getElementById("addBtn"); //모달 확인버튼
 	const myModal = document.getElementById('myModal');
+	const largeModal = new bootstrap.Modal(document.getElementById('largeModal'));
 	const myInput = document.getElementById('myInput');
 	const applyBtn = document.getElementById('applyBtn');
 	const formelem = document.getElementById('formelem');
 	const jstree = document.getElementById('jstree_demo_div');
-	
-
-	
+	const applyList = document.getElementById('applyList');
+	const applyOn = document.getElementById('applyOn');
+	const closeBtn = document.getElementById('closeBtn');
+	const delBtn = document.getElementById('delBtn');//결제선에서 제거하는 버튼
+	let appLine = document.getElementById('appLine');
 	//모달 불러오는 함수
 
 	addLineBtn.addEventListener('click', e=>{
@@ -524,12 +515,23 @@
 		fSch();
 		
 	})
-
-	addLineBtn.addEventListener('shown.bs.modal',function(){		
-		myInput.focus()	
-	});
-
 	
+	addLineBtn.addEventListener('shown.bs.modal',function(){		
+		myInput.focus()				
+	});
+	
+	//모달 확인 버튼
+	addBtn.addEventListener('click',function(){
+		
+		//결제선 DIV 생성
+		addApplyLine(appLine);
+
+	})
+	
+
+
+
+
 	//파일 업로드
 	
 	// const dataTranster = new DataTransfer()
@@ -553,22 +555,27 @@
 		
 	// }
 	
-	let ar = new Array();
-	
-	ar.push("a");
-	ar.push("b");
 
+	// let ar = new Array();
+	
+	// ar.push("a");
+	// ar.push("b");
+	
+	
+	 
 	applyBtn.addEventListener('click',function(e){	
 		e.preventDefault();
 		if(confirm('제출하시겠습니까??')){			
 			let formData = new FormData(formelem);
-			
-			//배열생성후 formdata에 값 추가
-			ar.forEach((vlaue, index) => {
-				
-				formData.append("ar",vlaue);
+			let appAr = document.querySelectorAll('.appForm');
 
-			})
+			//배열생성후 formdata에 값 추가
+			for(let ar of appAr){
+				let apAr =ar.getAttribute('value');				
+				console.log("apAR   "+apAr)
+				formData.append('appAr',apAr);
+
+			}
 			for(const key of formData.keys()){
 
 				console.log(key);
@@ -583,7 +590,7 @@
 				alert("놉");
 			}		
 	})
-	
+		//summit
 		// applyBtn.addEventListener('click', function(e){
 		// 	e.preventDefault;
 		// 	formelem.setAttribute("action","apply");
@@ -603,62 +610,20 @@
 	}
 
 	
-	//JsTree
-	
-	// $(function () { $('#jstree_demo_div').jstree(); });
-
-	
-	// $('#jstree_demo_div').on("changed.jstree", function (e, data) {
-	// 	  console.log(data.selected);
-	// 	});
-	
-	// $('button').on('click', function () {
-	// 	  $('#jstree').jstree(true).select_node('child_node_1');
-	// 	  $('#jstree').jstree('select_node', 'child_node_1');
-	// 	  $.jstree.reference('#jstree').select_node('child_node_1');
-	// 	});
-	
 
 
 
 // jstree 초기화 함수
 
-    
-	let jsonAr =[  { "id" : "S1", "parent" : "#", "text" : "SI 사업부", "icon" : "glyphicon glyphicon-home" },
-    { "id" : "S2", "parent" : "#", "text" : "솔루션 사업부","alias":"ㅋㅋㅋ" , "icon" : "glyphicon glyphicon-home"  },
-    { "id" : "S3", "parent" : "#", "text" : "AI 사업부", "icon" : "glyphicon glyphicon-home"  },
-    { "id" : "S11", "parent" : "S1", "text" : "공공SI" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S12", "parent" : "S1", "text" : "일반SI", "icon" : "glyphicon glyphicon-picture" },
-    { "id" : "S21", "parent" : "S2", "text" : "그룹웨어" ,"icon" : "glyphicon glyphicon-picture" },
-    { "id" : "S22", "parent" : "S2", "text" : "MES" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S23", "parent" : "S2", "text" : "ERP", "icon" : "glyphicon glyphicon-picture" },
-    { "id" : "S31", "parent" : "S3", "text" : "이미지처리" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S32", "parent" : "S3", "text" : "음성처리" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S33", "parent" : "S3", "text" : "자연어처리" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "J01", "parent" : "S11", "text" : "송불곰" , "icon": "glyphicon glyphicon-user" },
-    { "id" : "J02", "parent" : "S31", "text" : "강사자" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "J03", "parent" : "S22", "text" : "송호랑", "icon": "glyphicon glyphicon-user" },
-    { "id" : "J04", "parent" : "S32", "text" : "이늑대" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "J05", "parent" : "S33", "text" : "감여우", "icon": "glyphicon glyphicon-user" },
-    { "id" : "J06", "parent" : "S12", "text" : "공수달" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "J07", "parent" : "S23", "text" : "황악어" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "J08", "parent" : "S22", "text" : "홍문어" , "icon": "glyphicon glyphicon-user"}]
-
 
 	function fSch() {
             console.log("껌색할께영");
             $('#jstree').jstree(true).search($("#schName").val());
-        }
+		}
 
         //중요 속성, original, icon, state
-        // root node는 parent를 #
-
-        //Default 설정 바꾸깅, 아래를 주석 처리해보면 모양이 어케 바뀔깡?
-        $.jstree.defaults.core.themes.variant = "large";
-
-        //맹글기, 옵션없이(디폴트 옵션으로, 요렇게는 잘 안씀)
-        //$("#jstree").jstree();   // creates an instance
-        //$('#tree2').jstree(true); // get an existing instance (will not create new instance)
+        // root node는 parent를 #       
+        $.jstree.defaults.core.themes.variant = "large";      
 
         //일반적으로 요렇게만 사용해도 충분!
         $("#jstree").jstree({
@@ -668,8 +633,7 @@
                 'data':{
                     "url": 'api/chart',
 					'dataType':'json' // ajax로 요청할 URL
-                    } 
-				// 'data' : jsonAr,
+                    } 				
 				},
 			"types":{
 				"member" :{
@@ -679,36 +643,9 @@
 					"icon" : "bx bxs-building"
 				}
 
-			}
-                   
-                
+			}                        
             
-        });
-
-
-        /* 보통은 위 방식으로 충분하지만, 좀더 세밀한 제어를 하고 싶다면, 
-           직접 ajax구현 및 데이터 조작후 callback함수 cb를 이용하여 data세팅
-        $("#jstree").jstree({
-            "plugins": ["search"],
-            'core': {
-                'data': function (obj, cb) {
-                    console.log("ck1:", obj,this);
-
-                    let xhr = new XMLHttpRequest();
-                    xhr.open("get", "alldata.json", true);
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            console.log(xhr.responseText);
-                            cb.call(obj, JSON.parse(xhr.responseText));
-                            $('#jstree').jstree(true)
-                        }
-                    }
-                    xhr.send();
-                },
-               "check_callback": true  // 요거이 없으면, create_node 안먹음
-            }
-        });
-        */
+        });    
 
 
 
@@ -718,36 +655,144 @@
         });
 
         // Node 열렸을 땡
-        let isAdded = false;
-        $('#jstree').on("open_node.jstree", function (e, data) {
-            console.log("open되었을땡", data.node);
-
-            // 자식 NODE 맹글기, NODE ID S22(MES)가 열렷을 때
-            // 한번만 김지은 추가하는 예제, 메소드 리스트에서 create_node검색
-            if (!isAdded && data.node.id == 'S22') {
-                let myNode = {
-                    "text": "김지은",
-                    "id": "J09",
-                    "whoisshe": "actress",
-                    "isBestFriend": "Y",
-                    "icon": "glyphicon glyphicon-user"
-                };
-                let myCallBack = () => {
-                    alert("추가했어용");
-                }
-                // NODE 추가
-                $('#jstree').jstree(true).create_node('S22', myNode, "last", myCallBack);
-                isAdded = true;
-            }
-
-        });
-
+        let isAdded = false;     
         // Node 선택했을 땡
+		//member임시 저장 변수
+			let temp;
+			let tempAr=[];
+
         $('#jstree').on("select_node.jstree", function (e, data) {
-            console.log("select했을땡", data.node);
+            temp=null;
+			console.log("select했을땡", data.node.type);
+			if(data.node.type=="member"){
+				temp = data.node;
+			}
+			console.log(temp);
         });
 
+		// 결제선 추가 이동버튼
+		applyOn.addEventListener("click", function(){
+			//결제선 추가
+			applyAdd(temp,applyList)
+		});
+
+
+		//결제선 저장 및 오른쪽 이동
+		function applyAdd(data, divId){
+			
+			console.log(tempAr);
+			
+			for(let t of tempAr){
+
+				if(data.original.id==t.id){
+					return;
+				}
+
+			}
+
+			if(data==null){
+
+				alert('결재자를 선택해 주세요');
+
+				return;
+			}
+			let json = JSON.stringify(data.original);
+			let list = document.createElement('div'); 			
+			list.setAttribute('class','draggable');
+			list.setAttribute('draggable', 'true');
+			let icoDrag= document.createElement('span');
+			icoDrag.setAttribute('class', 'ico-drag');
+			list.appendChild(icoDrag);
+			let elDiv = document.createElement('div');
+			elDiv.setAttribute('class', 'appline');
+			elDiv.setAttribute('data-person',json);
+			elDiv.innerText =  data.original.dept+" "+data.text;
+			icoDrag.appendChild(elDiv)
+			divId.appendChild(list);
+			console.log('메홀ㅇ'+data.original.dept);
+			tempAr.push(data.original);
+			data=null;
+
+		}
 		
+		//결재선 추가명단에서 제거할 사람 선택
+			let target;
+			
+			applyList.addEventListener('click',function(e){
+				target = e.target;
+				console.log(target);
+				
+			})	
+			// 제거버튼
+			delBtn.addEventListener('click', e=>{	
+				let ancester = target.closest('.draggable');	
+				ancester.remove(); //element 제거
+				let index = tempAr.indexOf(target.getAttribute('data-person'));
+				console.log(index+"  "+target.getAttribute('data-person'));
+				tempAr.splice(index,1);
+				console.log(tempAr);
+
+				target=null;
+				
+
+			})
+
+
+
+
+		//결제선 div생성
+		function addApplyLine(divId){
+			
+			let dataPeple = document.querySelectorAll('.appline');
+			console.log(dataPeple)
+			if(dataPeple.length<2){
+
+				alert("결제자는 최소 2인 입니다.")
+				return;
+			}
+			
+			let dataAr = []; 
+			for(let p of dataPeple){
+				let dataPerson = JSON.parse(p.getAttribute('data-person'))
+				dataAr.push(dataPerson);
+				console.log(dataAr)
+
+			}
+			
+			
+			divId.innerHTML="";
+			console.log(dataAr)
+
+			for(let data of dataAr){
+				console.log(data)
+				let divForm=document.createElement('div');
+				divForm.setAttribute('class',"col-auto ps-0 pe-0 ");
+				let divPsis=document.createElement('div');
+				divPsis.setAttribute('class',"applineG ");
+				divPsis.innerText = data.POSITION_NAME;
+				divForm.appendChild(divPsis);
+				let divName=document.createElement('div');
+				divName.setAttribute('class',"applineW ");
+				divName.innerText = data.USERNAME;
+				divForm.appendChild(divName);
+				let divDate=document.createElement('div');
+				divDate.setAttribute('class',"applineG ");
+				divForm.appendChild(divDate);
+				let dataInput = document.createElement('input');
+				dataInput.setAttribute('type', 'hidden');
+				dataInput.setAttribute('class','appForm');
+				dataInput.setAttribute('value',data.MEMBER_ID);
+				divForm.appendChild(dataInput);
+				
+				divId.appendChild(divForm);
+
+				
+			}
+				
+			alert("결제선이 추가 되었습니다.");
+			console.log(largeModal);
+			largeModal.hide();
+		}
 
     
 

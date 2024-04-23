@@ -1,7 +1,8 @@
 package com.aka.app.edms;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -18,48 +19,69 @@ public class EdmsService {
 	
 	public int createEdms(EdmsVO edmsVO, Integer[] appAr) throws Exception {
 		
-		System.out.println("service 16    "+ edmsVO);
+		System.out.println("service 16    "+ appAr.length);
 		
+		int result = SaveEDMS(edmsVO, appAr, 1);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		
-		//전자문서 저장
-		map.put("edmsVO", edmsVO);
 				
-		int count = appAr.length-1;
-		boolean check = true;
-		
-		LinkedList<Integer> ar = new LinkedList<Integer>();
-		
-		//결재선 저장
-		while (check) {
-			
-			System.out.println(appAr[count]);
-			
-			ar.add(Integer.parseInt(appAr[count].toString()));
-			count--;
-			
-			map.put("MEMBER_ID", ar);
-			if(count<0) {
-				
-				check = false;
-				
-			}
-		}
-		
-		System.out.println("service 47       "   +map);
-				
-		
 		
 		
 //		return edmsDAO.createEdms(edmsVO);
-		return 1;
+		return result;
 		
 	}
 	
 	
 	
+	
+	
+	 
+	//결재저장
+
+	
+	
+	public int SaveEDMS(EdmsVO edmsVO, Integer[] appAr, int c) throws Exception{
+				
+		
+		int result;
+		
+		//전자문서 저장
+		if(c == 1) {			
+			result = edmsDAO.createEdms(edmsVO);			
+		}
+		if(c == 2) {
+			
+		}
+		
+		int i = 0;		
+		int count = appAr.length-1;
+		List<Map<String, Object>> list = new ArrayList<>();
+		System.out.println(count);
+		//결재선 저장
+		while (count>=0) {
+			
+			System.out.println(appAr[count]);
+			Map<String, Object> member = new HashMap<String, Object>();
+			member.put("MEMBER_ID", appAr[count]);
+			member.put("APPROVAL_RANK", i);
+			member.put("EDMS_NO", edmsVO.getEdmsNo());
+			count--;
+			i++;
+			list.add(member);
+			System.out.println("service 57" + member);
+		}
+		
+		System.out.println("service 47       "   +list);
+		
+		if(c==1 ) {
+			
+			result = edmsDAO.createApproval(list);
+			
+		}
+							
+		return 1;
+								
+	}
 	
 	
 	

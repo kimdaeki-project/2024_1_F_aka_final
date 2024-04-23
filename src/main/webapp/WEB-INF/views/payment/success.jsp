@@ -4,18 +4,6 @@
 <!DOCTYPE html>
 
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -59,7 +47,22 @@
           <div class="content-wrapper">
             <!-- Content -->
 
-			<c:import url="../temp/body.jsp"></c:import>
+			<div class="result wrapper">
+                       		<input type="hidden" name="productnum" value="${productnum}" id="productnum" readonly="readonly">
+						<div class="box_section">
+							<h2 style="padding: 20px 0px 10px 0px">
+								<img width="35px"
+									src="https://static.toss.im/3d-emojis/u1F389_apng.png" />
+								결제 성공
+							</h2>
+
+							<p id="paymentKey"></p>
+							<p id="orderId"></p>
+							<p id="amount"></p>
+						</div>
+					</div>
+				</div>
+                        
             <!-- / Content -->
 
            
@@ -78,10 +81,10 @@
 
     <div class="buy-now">
       <a
-        href="https://www.naver.com/"
+        href="https://github.com/dirokim/aka_final.git"
         target="_blank"
         class="btn btn-primary btn-buy-now"
-        >naver</a
+        >git-hub</a
       >
     </div>
 
@@ -106,5 +109,6 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+     <script src="/js/payment/success.js"></script>
   </body>
 </html>

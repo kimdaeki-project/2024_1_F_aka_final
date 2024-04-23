@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-
 
 <html
   lang="en"
@@ -47,61 +47,59 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4">${vo.equipment_name} 상세</h4>
+              <h4 class="fw-bold py-3 mb-4">${vo.board_head} 상세</h4>
               <div class="row">
 			                <!-- Paragraph -->
+			                
                 <div class="col-lg">
-                  <div class="card mb-4">
-                    <h5 class="card-header">비품 번호 : ${vo.equipment_num}</h5>
-                    <input type="hidden"  id="equipment_num" value="${vo.equipment_num}" >
+                  <div class="card mb-4">			             
+                    <h5 class="card-header">공지사항 번호 : ${vo.board_num}</h5>
+                    <input type="hidden"  id="board_num"  value="${vo.board_num}" >
                     <table class="table table-borderless">
                       <tbody>
-                       <tr>
-                          <td class="align-middle"><small class="text-light fw-semibold">관리자 사원 이름</small></td>
+                        <tr>
+                          <td class="align-middle"><small class="text-light fw-semibold">작성자</small></td>
                           <td class="py-3">
-                            <p class="mb-0">${vo.member_name}</p>
+                            <p class="mb-0">${vo.board_writer}</p>
                           </td>
-                        </tr>
-                        <tr>
-                          <td class="align-middle"><small class="text-light fw-semibold">관리자 사원 번호</small></td>
-                          <td class="py-3">
-                            <p class="mb-0">${vo.member_id}</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="align-middle"><small class="text-light fw-semibold">구매 날짜</small></td>
+                          
+                          <td class="align-middle"><small class="text-light fw-semibold">제목</small></td>
                           <td class="py-4">
-                            <p class="lead mb-0">${vo.equipment_date}</p>
+                            <p class="lead mb-0">${vo.board_head}</p>
+                          </td>
+                          
+                          <td class="align-middle"><small class="text-light fw-semibold">날짜</small></td>
+                          <td class="py-4">
+                            <p class="lead mb-0">${vo.board_date}</p>
+                          </td>
+                          </tr>
+                          <tr>
+                    		<td><a href="/board/filedown?board_num=${vo.board_num}">첨부 파일 다운</a></td>
+                    		<td>파일명 : ${vo.boardFileVO.orifilename}</td>
+                          </tr>
+                        <tr>
+                          <td class="align-middle"><small class="text-light fw-semibold">공지사항 내용</small></td>
+                          <td class="py-4">
+                          </td>
+                        </tr>   
+                        <tr>                    
+                       	
+                          <td>
+                            <p class="lead mb-0">${vo.board_contents}</p>
                           </td>
                         </tr>
-                        <tr>
-                          <td class="align-middle"><small class="text-light fw-semibold">수량</small></td>
-                          <td class="py-4">
-                            <p class="lead mb-0">${vo.equipment_ea}</p>
-                          </td>
-                        </tr>
-                        <tr>
-                        <td class="align-middle"><small class="text-light fw-semibold">상세 설명</small></td>
-                          <td class="py-4">
-                       		 <div class="input-group input-group-merge speech-to-text">
-                        		<textarea class="form-control" placeholder="Say it" rows="2">${vo.equipment_contents}</textarea>
-                        		<span class="input-group-text">
-                          		<i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
-                        		</span>
-                    		 </div>
-                          </td>
-                        </tr>                                                
+                                                                     
                       </tbody>
                     </table>
                   </div>
                 </div>	
 	            </div>
 					<div class="demo-inline-spacing ml-6">	
-						<a class="btn btn-primary" href="/equipment/update?equipment_num=${vo.equipment_num}">수정</a>
-						<form action="/equipment/delete" method="post">
-						<input type="hidden" name="equipment_num" value="${vo.equipment_num}">
-						<button class="btn btn-danger" id="deleteEquipmentBtn">삭제</button>									
-						</form>	
+						<a class=" btn btn-primary" href="/board/update?board_num=${vo.board_num}">수정</a>
+						<form action="/board/delete" method="post">
+						<input type="hidden" name="board_num" value="${vo.board_num}">
+						<button class="btn btn-danger" id="deleteProductBtn">삭제</button>									
+						</form>
 					</div>
           		  </div>		
             <!-- / Content -->
@@ -127,20 +125,7 @@
       >
     </div>
 	
-	<!-- <script>
-	const deleteEquipmentBtn = document.getElementById("deleteEquipmentBtn");
-  const equipmentNum = document.getElementById("equipment_num").value;	
-    deleteEquipmentBtn.addEventListener("click",()=>{
-    fetch("/equipment/delete",{
-      method:"POST",
-      headers: {'Content-type': ' application/x-www-form-urlencoded;charset=utf-8'},
-      body:"equipment_num="+equipmentNum
-    }).then(result=>result.json())
-    .then(result=>{
-      result.parse
-    })
-  })
-	</script> -->
+	
 	
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

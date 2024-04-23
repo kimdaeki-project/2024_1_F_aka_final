@@ -1,7 +1,5 @@
 package com.aka.app.util;
 
-import org.springframework.stereotype.Component;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,10 +19,14 @@ public class Pager {
 	private Long startNum;
 	private Long lastNum;
 	
-	//이전 블럭이 없으면 true;
+	//이전 페이지 없으면 true;
 	private boolean start;
-	//다음 블럭이 없으면 true;
+	//다음 페이지 없으면 true;
 	private boolean last;
+	//이전 블럭이 없으면 true;
+	private boolean before;
+	//다음 블럭이 없으면 true;
+	private boolean after;
 	
 	//검색 관련
 	private String search;
@@ -32,7 +34,7 @@ public class Pager {
 	
 	
 	public void makeIndex() {
-		this.startIndex= (this.getPage()-1)*this.getPage();
+		this.startIndex= (this.getPage()-1)*this.getPerPage();
 		
 	}
 	
@@ -70,18 +72,27 @@ public class Pager {
 		Long lastNum=curBlock*perBlock;
 		startNum=lastNum-perBlock+1;
 		
-		this.setStartNum(startNum);
 		this.setLastNum(lastNum);
+		this.setStartNum(startNum);
 		
 		//이전, 다음 블럭 유무
-		if(curBlock==1) {
+		if(this.getPage()==1) {
 			this.setStart(true);
 		}
 		
+		
 		if(curBlock==totalBlock) {
 			this.setLastNum(totalPage);
+			this.setAfter(true);
+		}
+		if(curBlock==1L) {
+			this.setBefore(true);
+		}
+		
+		if(this.getPage()==this.totalPage) {
 			this.setLast(true);
 		}
+		
 	}
 
 	
@@ -95,7 +106,7 @@ public class Pager {
 	}
 	
 	public Long getPerPage() {
-		if(this.perPage==null || this.perPage<1) {
+		if(this.perPage==null || this.perPage<1) {	
 			this.perPage=10L;
 		}
 		return this.perPage;

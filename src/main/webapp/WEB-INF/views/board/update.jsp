@@ -23,10 +23,15 @@
     />
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
     <meta name="description" content="" />
+
     <script src="/assets/vendor/js/helpers.js"></script>
     <script src="/assets/js/config.js"></script>
    <!--link import  -->
     <c:import url="../temp/head.jsp"></c:import>
+
+   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> 	
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
   </head>
 
   <body>
@@ -51,7 +56,7 @@
             <!-- Content -->
 
 			            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>상품 목록 추가</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>공지사항</h4>
 
               <!-- Basic Layout & Basic with Icons -->
               <div class="row">
@@ -59,65 +64,52 @@
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">상품 목록 추가</h5>
+                      <h5 class="mb-0">공지사항 수정</h5>
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
-                      <form:form action="/product/create" modelAttribute="productVO" method="post" enctype="multipart/form-data">
+                      <form action="/board/update"  method="post" >
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-name">상품 이름</label>
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">공지사항 제목</label>
                           <div class="col-sm-10">
-                            <form:input type="text" class="form-control" path="product_name" id="basic-default-name" placeholder="이름을 입력하세요" />
-                            <form:errors path="product_name"></form:errors>
+                            <input type="text" class="form-control" name="board_head" id="basic-default-name" value="${vo.board_head}" placeholder="제목을 입력하세요" />
                           </div>
                         </div>
-                      
-                      	<div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-name">상품 가격</label>
+                      	
+                      	 <input type="hidden" name="board_num" value="${vo.board_num}">
+                          
+                          <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">상세 설명</label>
                           <div class="col-sm-10">
-                            <form:input type="text" class="form-control" path="product_price" id="basic-default-name" placeholder="상품 가격을 입력하세요" />
-                          	<form:errors path="product_price"></form:errors>
+                            <textarea  class="form-control" name="board_contents" id="summerBoard" placeholder="상세 설명을 입력하세요">${vo.board_contents}</textarea>         	
                           </div>
-                        </div>
                         
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-name">상품 기간 개월수</label>
+                        <%-- <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">첨부 파일</label>
                           <div class="col-sm-10">
-                            <form:input type="text" class="form-control" path="product_date" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <form:errors path="product_date"></form:errors>
+                            <form:input type="text" class="form-control" path="equipment_ea" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
                           </div>
-                        </div>
+                        </div> --%>
                         
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-name">상품 상세 설명</label>
-                          <div class="col-sm-10">
-                          	<form:textarea class="form-control" path="product_detail" id="basic-default-name" placeholder="상세 설명을 입력하세요" />
-                        	<form:errors path="product_detail"></form:errors>
-                          </div>
                         </div>
                        
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-name">사진 업로드</label>
-                          <div class="col-sm-10">
-                          	<form:input type="file" class="form-control" path="files" id="basic-default-name" placeholder="상세 설명을 입력하세요" />
-                        	<form:errors path="files"></form:errors>
-                          </div>
-                        </div>
+                        
+                        
                         
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
                             <button type="submit" class="btn btn-primary">Send</button>
                           </div>
                         </div>
-                      </form:form>
+                      </form>
                     </div>
                   </div>
                 </div>
-              
               </div>
             </div>
 			
             <!-- / Content -->
+              
 
            
 
@@ -143,6 +135,23 @@
     </div>
 
     <!-- Core JS -->
+    
+    <script>
+      $('#summerBoard').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 400,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+    </script>
     <!-- build:js assets/vendor/js/core.js -->
     <script src="/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="/assets/vendor/libs/popper/popper.js"></script>
@@ -157,10 +166,9 @@
 
     <!-- Main JS -->
     <script src="/assets/js/main.js"></script>
-
+	
     <!-- Page JS -->
     <script src="/assets/js/dashboards-analytics.js"></script>
-
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>

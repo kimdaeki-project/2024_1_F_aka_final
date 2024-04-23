@@ -8,6 +8,7 @@ import com.aka.app.util.Pager;
 
 @Mapper
 public interface EquipmentDAO {
+	
 	public int deleteEquipment (EquipmentVO equipmentVO) throws Exception;
 	
 	public int createEquiment (EquipmentVO equipmentVO)throws Exception;
@@ -16,7 +17,7 @@ public interface EquipmentDAO {
 	
 	public List<EquipmentVO> getEquimentList (Pager pager)throws Exception;  
 	
-	public Long getTotalCount ()throws Exception;
+	public Long getTotalCount (Pager pager)throws Exception;
 	
 	public int updateEquipment (EquipmentVO equipmentVO)throws Exception;
 }

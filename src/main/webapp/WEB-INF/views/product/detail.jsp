@@ -1,21 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 
-
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -62,10 +50,20 @@
               <h4 class="fw-bold py-3 mb-4">${vo.product_name} 상세</h4>
               <div class="row">
 			                <!-- Paragraph -->
+			                
                 <div class="col-lg">
                   <div class="card mb-4">
+			                <c:set var="str" value="assets"/>
+                 		<c:if test="${fn:contains(vo.product_photos,'assets')}">
+                    		<img class="card-img-top" src="${vo.product_photos}" alt="Card image cap" />                 	
+                 		</c:if>
+                         
+                        <c:if test="${!fn:contains(vo.product_photos,'assets')}">
+                 			<img class="card-img-top" src="/files/product/${vo.product_photos}" alt="image" />
+                        </c:if>
                     <h5 class="card-header">상품 번호 : ${vo.product_num}</h5>
                     <input type="hidden"  id="product_num"  value="${vo.product_num}" >
+                    
                     <table class="table table-borderless">
                       <tbody>
                         <tr>
@@ -89,12 +87,11 @@
                         <tr>
                           <td class="align-middle"><small class="text-light fw-semibold">상세 설명</small></td>
                           <td class="py-4">
-                           
+                            <p class="lead mb-0">${vo.product_detail}</p>
                           </td>
                         </tr>                                                
                       </tbody>
                     </table>
-                     <p class="lead mb-0">${vo.product_detail}</p>
                   </div>
                 </div>	
 	            </div>
@@ -104,6 +101,7 @@
 						<input type="hidden" name="product_num" value="${vo.product_num}">
 						<button class="btn btn-danger" id="deleteProductBtn">삭제</button>									
 						</form>	
+						<a href="/payment/checkout?product_num=${vo.product_num}" class="btn btn-outline-primary">상품 결제 하기</a>
 					</div>
           		  </div>		
             <!-- / Content -->

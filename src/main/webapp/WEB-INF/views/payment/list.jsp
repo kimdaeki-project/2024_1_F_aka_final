@@ -46,70 +46,88 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4">Equiment<span class="text-muted fw-light">/list</span></h4>
+			<div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4">Payment<span class="text-muted fw-light">/list</span></h4>
 				<div class="card">
-                <h5 class="card-header">비품 관리 목록</h5>
+                <h5 class="card-header">결제 목록</h5>
                 <div class="table-responsive text-nowrap">
-                  <table class="table table-hover">
+                  <table class="table">
                     <thead class="table-light">
                       <tr>
-                        <th>비품 번호</th>
-                        <th>관리자 사원 번호</th>
-                        <th>비품 이름</th>
-                        <th>비품 추가 날짜</th>
-                        <th>수량</th>
-                      
+                      	<th>상품 이름</th>
+                        <th>상품 가격</th>
+                        <th>결제자 이름</th>
+                        <th>전화 번호</th>
+                        <th>이메일</th>
+                      	<th>결제한 국가</th>
+                      	<th>결제된 화폐</th>
+                      	<th>결제 수단</th>
+                        <th>결제 번호</th>
+                        <th>상품 번호</th>
+                        <th>결제자 사원 번호</th>
+                        <th>주문 번호</th>
+                      	<th>페이먼트키</th>
+                      	<th>결제 시작 날짜</th>
+                      	<th>결제 승인 날짜</th>
+                      	<th>부가세</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                      <c:forEach items="${list}" var="vo">
-                    
                       <tr>
-                        <td >${vo.equipment_num}</td>
+                        <td>${vo.order_name}</td>
+                        <td>${vo.amount}</td>
+                        <td>${vo.customer_name}</td>
+                        <td>${vo.customer_phone}</td>
+                        <td>${vo.customer_email}</td>
+                        <td>${vo.country}</td>
+                        <td>${vo.currency}</td>
+                        <td>${vo.method}</td>
+                        <td>${vo.payment_num}</td>
+                        <td>${vo.product_num}</td>
                         <td>${vo.member_id}</td>
-                        <td class="w-25"><i class="fab fa-angular fa-lg text-danger me-3"></i><a href="/equipment/detail?equipment_num=${vo.equipment_num}"><strong>${vo.equipment_name}</strong></a></td>
-                        <td>${vo.equipment_date}</td>
-                        <td>${vo.equipment_ea}</td>
+                        <td>${vo.order_id}</td>
+                        <td>${vo.payment_key}</td>
+                        <td>${vo.requested_at}</td>
+                        <td>${vo.approved_at}</td>
+                        <td>${vo.vat}</td>
                       </tr>
-                      
                      </c:forEach>
                     </tbody>
                   </table>
                 </div>
               </div>
-
-                
-
-
-            <div class="demo-inline-spacing ml-6">
+			</div>
+			
+			
+			<div class="demo-inline-spacing ml-6">
 
               <nav aria-label="Page navigation">
                 <ul class="pagination">
 
                 <c:if test="${!pager.start}">
                   <li class="page-item first">
-                    <a class="page-link" href="/equipment/list?page=1&kind=${kind}$search=${search}" ><i class="tf-icon bx bx-chevrons-left"></i></a>
+                    <a class="page-link" href="/payment/list?page=1&kind=${kind}$search=${search}" ><i class="tf-icon bx bx-chevrons-left"></i></a>
                   </li>
                 </c:if> 
 				<c:if test="${!pager.before}">
-                  <li class="page-item prev"> <a class="page-link" href="/equipment/list?page=${pager.startNum-1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-left"></i></a> </li>
+                  <li class="page-item prev"> <a class="page-link" href="/payment/list?page=${pager.startNum-1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-left"></i></a> </li>
 				</c:if>                  
                   
                   <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="p">
-                  <li class="page-item"><a class="page-link" href="/equipment/list?page=${p}&kind=${kind}$search=${search}">${p}</a></li>
+                  <li class="page-item"><a class="page-link" href="/payment/list?page=${p}&kind=${kind}$search=${search}">${p}</a></li>
                   </c:forEach>
   
   				
                  <c:if test="${!pager.after}">
                   <li class="page-item next">
-                    <a class="page-link" href="/equipment/list?page=${pager.lastNum+1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-right"></i></a>
+                    <a class="page-link" href="/payment/list?page=${pager.lastNum+1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-right"></i></a>
                   </li>
                  </c:if>
                  
  				<c:if test="${!pager.last}">
                   <li class="page-item last">
-                    <a class="page-link" href="/equipment/list?page=${pager.totalPage}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                    <a class="page-link" href="/payment/list?page=${pager.totalPage}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevrons-right"></i></a>
                   </li>
   					</c:if>		
   		
@@ -122,12 +140,22 @@
                 <ul class="pagination">
                 <li class="page-item first">
                 
-  					 <form class="d-flex" action="/equipment/list"  method="get">
+  					 <form class="d-flex" action="/payment/list"  method="get">
   				    <div class="col-md-3">
                       <select id="selectTypeOpt" name="kind" class="form-select color-dropdown">
-                        <option value="kind1" selected>비품 이름</option>
-                        <option value="kind2">비품 번호</option>
-                        <option value="kind3">관리자 사원 번호</option>
+                        <option value="kind1" selected>상품 이름</option>
+                        <option value="kind2">상품 가격</option>
+                        <option value="kind3">결제자 이름</option>
+                        <option value="kind4">결제자 전화번호</option>
+                        <option value="kind5">결제자 이메일</option>
+                        <option value="kind6">결제된 국가</option>
+                        <option value="kind7">결제된 화폐</option>
+                        <option value="kind8">결제 수단</option>
+                        <option value="kind9">결제 번호</option>
+                        <option value="kind10">상품 번호</option>
+                        <option value="kind11">결제자 사원 번호</option>
+                        <option value="kind12">주문 번호</option>
+                        <option value="kind13">페이먼트 키</option>                     
                       </select>
                     </div>
                       <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" />
@@ -135,14 +163,13 @@
                     </form>
 					</li>
 				</ul>
-					<a class=" btn btn-primary" href="/equipment/create">추가</a>
 				</nav>
-				</div>
+				</div>	
+			  </div>
 				
-
-           </div>
-              </div>
             <!-- / Content -->
+
+           
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -156,14 +183,7 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-      <a
-        href="https://github.com/dirokim/aka_final.git"
-        target="_blank"
-        class="btn btn-primary btn-buy-now"
-        >git-hub</a
-      >
-    </div>
+    
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

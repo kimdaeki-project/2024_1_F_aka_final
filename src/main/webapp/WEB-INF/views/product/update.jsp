@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 
 
@@ -58,12 +59,20 @@
                 <!-- Basic Layout -->
                 <div class="col-xxl">
                   <div class="card mb-4">
+                    <c:set var="str" value="assets"/>
+                 		<c:if test="${fn:contains(vo.product_photos,'assets')}">
+                    		<img class="card-img-top" src="${vo.product_photos}" alt="Card image cap" />                 	
+                 		</c:if>
+                         
+                        <c:if test="${!fn:contains(vo.product_photos,'assets')}">
+                 			<img class="card-img-top" src="/files/product/${vo.product_photos}" alt="image" />
+                        </c:if>
                     <div class="card-header d-flex align-items-center justify-content-between">
                       <h5 class="mb-0">상품 번호 : ${vo.product_num}</h5>
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
-                      <form action="/product/update"  method="post">
+                      <form action="/product/update"  method="post" enctype="multipart/form-data">
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">상품 이름</label>
                           <div class="col-sm-10">
@@ -89,6 +98,13 @@
                           <label class="col-sm-2 col-form-label" for="basic-default-name">가격</label>
                           <div class="col-sm-10">
                             <input type="text" class="form-control" name="product_price" value="${vo.product_price}" id="basic-default-name"/>
+                          </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">이미지</label>
+                          <div class="col-sm-10">
+                            <input type="file" class="form-control" name="attach"  id="basic-default-name"/>
                           </div>
                         </div>
                         

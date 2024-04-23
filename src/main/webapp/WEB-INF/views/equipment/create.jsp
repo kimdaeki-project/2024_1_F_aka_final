@@ -63,7 +63,7 @@
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
-                      <form:form action="/equipment/create" modelAttribute="equipmentVO" method="post">
+                      <form:form action="/equipment/create" modelAttribute="equipmentVO" method="post" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">비품 이름</label>
                           <div class="col-sm-10">

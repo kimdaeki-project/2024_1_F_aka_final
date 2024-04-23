@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
+
 
 <html
   lang="en"
@@ -46,60 +46,20 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">ProductList /</span>상품 리스트</h4>
+					<div>
 
-              <!-- Examples -->
-              <div class="row mb-5">
-               
-                
-                
-                <c:forEach items="${list}"  var="vo">
-                
-                <div class="col-md-6 col-lg-4 mb-4">
-                  <div class="card h-100">
-                    <c:set var="str" value="assets"/>
-                 		<c:if test="${fn:contains(vo.product_photos,'assets')}">
-                    		<img class="card-img-top" src="${vo.product_photos}" alt="Card image cap" />                 	
-                 		</c:if>
-                         
-                        <c:if test="${!fn:contains(vo.product_photos,'assets')}">
-                 			<img class="card-img-top" src="/files/product/${vo.product_photos}" alt="image" />
-                        </c:if>
-       
-                    <div class="card-body">
-                      <h5 class="card-title">${vo.product_name}</h5>
-                    	  <p class="card-text"> 상품 가격 : ${vo.product_price} 원</p>
-                      <p class="card-text">상품 개월수 : ${vo.product_date}</p>
-                      <a href="/product/detail?product_num=${vo.product_num}" class="btn btn-outline-primary">상품 상세 보기</a>
-                      <a href="/payment/checkout?product_num=${vo.product_num}" class="btn btn-outline-primary">상품 결제 하기</a>
-                    </div>
-                  </div>
-                </div>
-                
-                </c:forEach>
-                
-                
-                
-                
-                
-                
-                
-                
-              
-                <nav aria-label="Page navigation">
-                <a class=" btn btn-primary" href="/product/create">상품 추가</a>
-                </nav>
-              </div>
-              
-              
-              
-              
+						<div class="result wrapper">
+							<div class="box_section">
+								<h2 style="padding: 20px 0px 10px 0px">
+									<img width="25px" src="https://static.toss.im/3d-emojis/u1F6A8-apng.png" /> 결제 실패 </h2>
+								<p id="code"></p>
+								<p id="message"></p>
+							</div>
+						</div>
+					</div>
+					<!-- / Content -->
 
-
-           </div>
-              </div>
-            <!-- / Content -->
+           
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -110,6 +70,7 @@
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
     <!-- / Layout wrapper -->
 
     <div class="buy-now">
@@ -142,5 +103,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- 토스페이먼츠 -->
+        <script src="/js/payment/fail.js"></script>
   </body>
 </html>

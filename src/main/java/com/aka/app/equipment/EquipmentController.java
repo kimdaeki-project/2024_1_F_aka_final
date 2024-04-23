@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.aka.app.util.Pager;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -39,20 +38,22 @@ public class EquipmentController {
 		model.addAttribute("path","/equipment/list");				
 		return "commons/result";
 	}
+	
 	@GetMapping("update")
 	public ModelAndView updateEquipment(EquipmentVO equipmentVO,ModelAndView modelAndView) throws Exception {
 		equipmentVO = equipmentService.getEquimentDetail(equipmentVO);
 		modelAndView.addObject("vo",equipmentVO);
-		modelAndView.setViewName("product/update");
+		modelAndView.setViewName("equipment/update");
 		return modelAndView;
 	}
+	
 	@PostMapping("update")
 	public String updateEquipment(EquipmentVO equipmentVO,Model model) throws Exception{
 		int result=0;
 		String msg = "비품 수정 실패";
 		if(equipmentVO.getEquipment_num() != null) { 
 			result = equipmentService.updateEquipment(equipmentVO);
-			if(result == 1) msg = "비품 삭제 성공";
+			if(result == 1) msg = "비품 수정 성공";
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("path", "/equipment/list");
@@ -63,17 +64,16 @@ public class EquipmentController {
 	@GetMapping("create")
 	public void createEquipment(@ModelAttribute EquipmentVO equipmentVO) throws Exception{
 	}
+	
 	@PostMapping("create")
-	public String createEquipment(@Valid EquipmentVO equipmentVO,BindingResult bindingResult,Model model) throws Exception{
+	public String createEquipment(@Valid EquipmentVO equipmentVO,BindingResult bindingResult,Model model,HttpSession session) throws Exception{
 		int result=0;
 		String msg = "비품 추가 실패";
 		if(bindingResult.hasErrors()) {
 			//form 검증 실패시 
 			return "equipment/create";
 		}
-		
-		equipmentVO.setMember_id(1L);
-		result = equipmentService.createEquiment(equipmentVO);
+		result = equipmentService.createEquiment(equipmentVO,session);
 		if(result ==1) msg = "비품 추가 성공";
 		model.addAttribute("msg", msg);
 		model.addAttribute("path", "/equipment/list");

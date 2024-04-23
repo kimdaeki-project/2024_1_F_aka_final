@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "payments.secret.key",
+    "type": "java.lang.String",
+    "description": "A description for 'payments.secret.key'"
+  },
+  {
+    "name": "payments.client.key",
+    "type": "java.lang.String",
+    "description": "A description for 'payments.client.key'"
+  },
+  {
+    "name": "weather.encoding.key",
+    "type": "java.lang.String",
+    "description": "A description for 'weather.encoding.key'"
+  }
+]}

@@ -20,26 +20,21 @@ public class EdmsService {
 	public int createEdms(EdmsVO edmsVO, Integer[] appAr) throws Exception {
 		
 		System.out.println("service 16    "+ appAr.length);
-		
+		//매개변수 int 1=저장 2=임시저장
 		int result = SaveEDMS(edmsVO, appAr, 1);
-		
-				
-		
-		
-//		return edmsDAO.createEdms(edmsVO);
+
 		return result;
 		
 	}
 	
 	
-	
-	
+		
 	
 	 
 	//결재저장
 
 	
-	
+	//매개변수 int 1=저장 2=임시저장
 	public int SaveEDMS(EdmsVO edmsVO, Integer[] appAr, int c) throws Exception{
 				
 		

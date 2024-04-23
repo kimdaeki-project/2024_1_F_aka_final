@@ -86,10 +86,10 @@ public class TestController {
 			 							 status = map2.get("obsrValue").toString();
 			 						  }	  
 			 					  }
-		        String region = "현재 날씨 : 금천구";
+		        String region = "현재 날씨  /  금천구";
 		        model.addAttribute("region",region);
 		        model.addAttribute("status",status);
-		        model.addAttribute("temp",temp);
+		        model.addAttribute("temp",temp+"°");
 		return "temp/sample";
 	}
 	

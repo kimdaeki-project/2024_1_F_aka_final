@@ -23,6 +23,6 @@ public class TestController {
 	@GetMapping("/test/test")
 	public String test2(@ModelAttribute MemberVO member) {
 		
-		return "member/mypage";
+		return "calendar/calendar";
 	}
 }

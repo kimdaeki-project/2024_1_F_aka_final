@@ -25,7 +25,22 @@
 				<img style="width:150px; height:150px;" class="rounded-circle" src="../img/profile.jpg">
 			</div>
 			<div class="d-flex justify-content-center">
-				<span class="fs-4 py-2 d-flex justify-content-center">가나다 직급</span>
+				<span class="fs-4 py-2 d-flex justify-content-center">${member.username}</span>&nbsp;
+				<c:if test="${member.position_id == 1}">
+					<span class="fs-4 py-2 d-flex justify-content-center">사원</span>
+				</c:if>
+				<c:if test="${member.position_id == 2}">
+					<span class="fs-4 py-2 d-flex justify-content-center">관리자</span>
+				</c:if>
+				<c:if test="${member.position_id == 3}">
+					<span class="fs-4 py-2 d-flex justify-content-center"></span>
+				</c:if>
+				<c:if test="${member.position_id == 4}">
+					<span class="fs-4 py-2 d-flex justify-content-center"></span>
+				</c:if>
+				<c:if test="${member.position_id == 5}">
+					<span class="fs-4 py-2 d-flex justify-content-center"></span>
+				</c:if>
 			</div>
 			<div class="d-flex justify-content-center pb-3">
 				<button class="btn btn-primary">출근</button>
@@ -33,39 +48,39 @@
 		</div>
  		
 		<div class="d-flex justify-content-center my-5">
-<%-- 			<form class="bg-white p-5 rounded-3" action="POST"> --%>
-			<form:form modelAttribute="member"  class="bg-white p-5 rounded-3">
-				<form:input path="phone" id="phone"/>
-				<form:input path="user_id" id="user_id"/>
-				<form:input path="password" id="password"/>
+			<form:form modelAttribute="member" class="bg-white p-5 rounded-3">
+			<%-- <form class="bg-white p-5 rounded-3" action="POST"> --%>
 				
-<!-- 			   <div class="d-flex justify-content-center mx-3 mb-5">
+			   <div class="d-flex justify-content-center mx-3 mb-5">
 		    	<label for="exampleInputPassword1" class="mt-2 form-label fw-semibold fs-6" style="width:130px;">부서명</label>
 		    	<input type="text" class="form-control mx-2" id="exampleInputPassword1" value="부서명" disabled>
 			    
 			    <label for="hire_date" class="mt-2 ms-5 form-label fw-semibold fs-6" style="width:140px;">입사일</label>
-			    <input type="text" class="form-control mx-2" id="hire_date" disabled>
+			    <input type="text" class="form-control mx-2" id="hire_date" value="${member.hire_date}" disabled>
+			    
 			  </div>
 	
 			  <div class="d-flex justify-content-center mx-3 mb-5">
 		    	<label for="email" class="mt-2 form-label fw-semibold fs-6" style="width:140px;">이메일</label>
-		    	<input type="text" class="form-control mx-2" id="email">
+		    	<form:input path="email" cssClass="form-control mx-2" id="email"/>
 			    
 			    <label for="phone" class="mt-2 ms-5 form-label fw-semibold fs-6" style="width:170px">전화번호</label>
-			    <input type="text" class="form-control mx-2" id="phone">
+			    <form:input path="phone" cssClass="form-control mx-2" id="phone"/>
 			  </div>
 			  
   			  <div class="d-flex justify-content-center mx-3 mb-5 w-50">
 		    	<label for="password" class="mt-2 form-label fw-semibold fs-6" style="width:90px">비밀번호</label><br>
-		    	<input type="password" class="form-control" id="password">
+		    	<!-- password 보이도록 --><!-- showPassword="true" -->
+		    	<form:password path="password" cssClass="form-control" id="password"/>
 			    
-			    <label for="exampleInputPassword1" class="mt-2 ms-5 form-label">Password</label>
-			    <input type="password" class="form-control mx-2" id="exampleInputPassword1">
+			    <!-- <label for="exampleInputPassword1" class="mt-2 ms-5 form-label">Password</label>
+			    <input type="password" class="form-control mx-2" id="exampleInputPassword1"> -->
 			  </div>
 
 				<div class="d-flex justify-content-end">
 			  		<button type="submit" class="btn btn-danger">수정</button>
-			  	</div> -->
+			  	</div>
+			  	<%-- </form> --%>
 			</form:form>
 			
 		</div>

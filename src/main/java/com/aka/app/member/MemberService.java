@@ -137,13 +137,14 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	public int updateMail(MemberVO memberVO) throws Exception{
 //		memberVO.getEmail(), 바꿔줄 비밀번호
 		
-		String pw = createPassword();
-		memberVO.setPassword(passwordEncoder.encode(pw));
-		
-		int result = memberDAO.updatePw(memberVO);
-		
-		sendMail(memberVO.getEmail(), pw);
-		
+		log.info("update member ====== {}",memberVO.toString());
+		int result = 0;
+		if(memberDAO.getFindUser(memberVO) > 0) {
+			String pw = createPassword();
+			memberVO.setPassword(passwordEncoder.encode(pw));
+			result = memberDAO.updatePw(memberVO);			
+			sendMail(memberVO.getEmail(), pw);
+		}		
 		return result;
 	}
 	

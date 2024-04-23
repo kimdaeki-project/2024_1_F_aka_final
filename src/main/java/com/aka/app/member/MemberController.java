@@ -1,6 +1,7 @@
 package com.aka.app.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -70,13 +71,15 @@ public class MemberController {
 	}
 	
 	@GetMapping("/mypage")
-	public String update(@Validated(MemberUpdateGroup.class) MemberVO memberVO, HttpSession session, Model model) throws Exception{
-		log.info("mypage memberVO ====== {} ======",memberVO);
+//	@Validated(MemberUpdateGroup.class) MemberVO memberVO,
+	public String update( HttpSession session, Model model) throws Exception{
+//		log.info("mypage memberVO ====== {} ======",memberVO);
 		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+		SecurityContextImpl securityContextImpl = (SecurityContextImpl)obj;
+		log.info("SecurityContextImpl === {}",securityContextImpl.getAuthentication().getPrincipal());
 		
-		log.info("session : {}",obj);
 		
-		model.addAttribute("member", obj);
+		model.addAttribute("member", securityContextImpl.getAuthentication().getPrincipal());
 		return "member/mypage";
 	}
 	
@@ -100,8 +103,7 @@ public class MemberController {
 		memberVO.setEmail(email);
 		memberVO.setUser_id(user_id);
 		
-		int result = memberService.updateMail(memberVO);
-		if(result > 0) {
+		if(memberService.updateMail(memberVO) > 0) {
 			msg = "임시비밀번호가 메일로 전송되었습니다.";
 			path = "./login";
 		}

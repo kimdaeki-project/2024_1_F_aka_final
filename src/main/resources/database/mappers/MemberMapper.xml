@@ -4,6 +4,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.aka.app.member.MemberDAO">
+
+	<!-- 로그인한 유저정보 -->
 	<select id="getDetail" parameterType="MemberVO">
 		SELECT * 
 			FROM MEMBER M
@@ -32,6 +34,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</association>
 	</resultMap>
 	
+	<!-- user_id 와 email 을 동시에 가진 유저가 존재하면 1이상 -->
+	<select id="getFindUser">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_ID = #{user_id}
+		AND EMAIL = #{email}
+	</select>
+	
+	<!-- 회원가입시 -->
 	<insert id="add" parameterType="MemberVO">
 		INSERT INTO MEMBER
 			(MEMBER_ID, 
@@ -54,6 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES(#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, #{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, #{customer_key},null,null,1,1);
 	</insert>
 	
+	<!-- password 찾기했을때 -->
 	<update id="updatePw" parameterType="MemberVO">
 		UPDATE MEMBER 
 		SET PASSWORD = #{password} 
@@ -61,6 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND USER_ID = #{user_id}
 	</update>
 	
+	<!-- mypage 에서 개인정보들을 수정해줄때  -->
 	<update id="updateMyinfo" parameterType="MemberVO">
 		UPDATE MEMBER 
 		SET 

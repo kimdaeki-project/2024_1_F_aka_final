@@ -10,4 +10,6 @@ public interface MemberDAO {
 	public int add(MemberVO memberVO) throws Exception;
 	
 	public int updatePw(MemberVO memberVO) throws Exception;
+	
+	public int getFindUser(MemberVO memberVO)throws Exception;
 }

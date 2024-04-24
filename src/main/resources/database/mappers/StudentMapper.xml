@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.aka.app.student.StudentDAO">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<delete id="deleteStudent" parameterType="MemberVO">
+	DELETE 
+	FROM MEMBER
+	WHERE MEMBER_ID=#{member_id}
+	</delete>
+	
+	
+	<update id="updateStudent" parameterType="MemberVO">
+	UPDATE MEMBER
+	<set>
+	<if test="email != null and email != ''">EMAIL=#{email},</if>
+	<if test="phone != null and phone != ''">PHONE=#{phone},</if>	
+	<if test="address != null and address != ''">ADDRESS=#{address},</if>	
+	<if test="user_id != null and user_id != ''">USER_ID=#{user_id},</if>	
+	<if test="username != null and username != ''">USERNAME=#{username}</if>	
+	</set>
+	WHERE MEMBER_ID = #{member_id}
+	</update>
+	
+ 
+	<select id="getStudentDetail" parameterType="MemberVO" resultType="MemberVO">
+	SELECT * 
+	FROM MEMBER 
+	WHERE MEMBER_ID=#{member_id}
+	</select> 
+		
+	
+
+	<sql id="search">
+	<where>
+	<choose>
+	<when test="kind=='kind1'">USERNAME</when>
+	<when test="kind=='kind2'">MEMBER_ID</when>
+	<when test="kind=='kind3'">PHONE</when>	
+	<when test="kind=='kind4'">EMAIL</when>
+	<when test="kind=='kind5'">USER_ID</when>
+	<otherwise>ADDRESS</otherwise>
+	</choose>
+	LIKE CONCAT('%',#{search},'%')
+	AND
+	DEPARTMENT_ID = 15
+	</where>
+	</sql>
+	
+	<select id="getStudentList" resultType="MemberVO" parameterType="Pager">
+	SELECT * 
+	FROM MEMBER
+	<include refid="search"></include>
+	ORDER BY MEMBER_ID DESC 
+	LIMIT #{startIndex},#{perPage}
+	</select>
+
+	
+	<select id="getTotalCount" resultType="Long" parameterType="Pager">
+	SELECT COUNT(MEMBER_ID) 
+	FROM MEMBER
+	<include refid="search"></include>
+	</select>
+	
+	
+	
+	
+	
+</mapper>

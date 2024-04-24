@@ -14,11 +14,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<insert id="createEdms" parameterType="EdmsVO">
-	
-		INSERT INTO EDMS (EDMS_NO, EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS)
-					VALUES(NEXTVAL(EDMS_SEQ), #{edmsFromNo}, #{edmsCreator}, #{edmsTitle}, #{edmsContent}, #{edmsStatus})
+		<selectKey keyProperty="edmsNo" resultType="Long" order="BEFORE">
+			SELECT MAX(EDMS_NO) FROM EDMS
+		</selectKey>
+			INSERT INTO EDMS (EDMS_NO, EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS)
+				VALUES(NEXTVAL(EDMS_SEQ), #{edmsFromNo}, #{edmsCreator}, #{edmsTitle}, #{edmsContent}, #{edmsStatus})
 	</insert>
-
+	
+	<insert id="createApproval" parameterType="java.util.List">
+		
+		INSERT INTO APRROVAL( APPROVAL_NO ,EDMS_NO ,MEMBER_ID ,APPROVAL_RANK)
+					VALUES
+		<foreach collection="list" index="index" item="member"  separator=",">
+					(#{member.MEMBER_ID}, #{member.EDMS_NO}, #{member.MEMBER_ID}, #{member.APPROVAL_RANK})
+		</foreach>
+	
+	
+	</insert>
 
 
 
@@ -34,8 +46,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					
 	
 	</select>
-
-
+	
+	
 <!-- 부서정보 가져오기  -->
 
 	<select id="getDeptChart" resultMap="deptList">
@@ -108,20 +120,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 
 	</select>
 	<select id="getMemberChart" resultMap="memberList">
-		SELECT MEMBER_ID+1000 id, USERNAME, DEPARTMENT_ID, POSITION_NAME FROM `MEMBER` m 
-			JOIN DEPARTMENT d 
-			USING (DEPARTMENT_ID)
-			JOIN POSITIONRANK p 
-			USING (POSITION_ID)
-	
+		SELECT MEMBER_ID+1000 id, CONCAT(POSITION_NAME,' ',USERNAME) text, DEPARTMENT_ID, MEMBER_ID, POSITION_NAME, USERNAME, DEPARTMENT_NAME FROM `MEMBER` m 
+				JOIN DEPARTMENT d 
+				USING (DEPARTMENT_ID)
+				JOIN POSITIONRANK p 
+				USING (POSITION_ID)
 	</select>
-	
+
 	<resultMap type="Map" id="memberList">
-		<id column="id" property="id" javaType="String"/> 
-		<result column="USERNAME" property="text"  javaType="String"/>
+		<id column="id" property="id" javaType="String"/>	
 		<result column="DEPARTMENT_ID" property="parent"  javaType="String"/>		
-	
+		<result column="DEPARTMENT_NAME" property="dept" javaType="String"/>
 	</resultMap>
+
 
 	<resultMap type="Map" id="deptList">
 		<id column="DEPARTMENT_ID" property="id" javaType="String"/>

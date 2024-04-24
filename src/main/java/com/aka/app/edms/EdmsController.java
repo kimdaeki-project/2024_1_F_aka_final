@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.shaded.gson.JsonArray;
 import com.nimbusds.jose.shaded.gson.JsonObject;
 
@@ -94,13 +95,12 @@ public class EdmsController {
 	
 	@PostMapping("apply")
 	@ResponseBody
-	public Map<String, Object> apply(String [] ar, EdmsVO edmsVO, Model model, MultipartFile[] file) throws Exception {		
+	public Map<String, Object> apply(Integer[] appAr, EdmsVO edmsVO, Model model, MultipartFile[] file) throws Exception {		
 
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		 
-		System.out.println("edms65 AR   "+ar.length);
-		System.out.println("edms65 AR   "+ar[0]);
+		System.out.println("edms65 AR   "+appAr.length);
 		System.out.println(edmsVO.getEdmsContent());
 		//기안서 파일을 저장
 		if(file!=null) {
@@ -108,18 +108,29 @@ public class EdmsController {
 			System.out.println(file[0].getOriginalFilename());
 		}
 		
+		System.out.println("edms65 AR   "+appAr[0]);		
 		
-		map.put("edmsVO", edmsVO);
 		
+	
 		// 기안서 내용을 저장.		
-//		int result = edmsService.createEdms(edmsVO);
-//		
-//		String msg = "성골";
-//		
-//		if(result!=1) {			
-//			msg = "실패";
-//		}				
-//		map.put("result", msg);		
+		int result = edmsService.createEdms(edmsVO, appAr);
+		
+		String msg = "성골";
+		
+		if(result!=1) {			
+			msg = "실패";
+		}				
+		
+		
+		map.put("result", msg);		
+		
+		
+		
+		
+		
+		
+		
+		
 		return map; 		
 		 
 	}
@@ -153,12 +164,7 @@ public class EdmsController {
 			
 			
 		 }
-		 
-		 
-		 
-		  
-		 		 
-		 
+		 	 
 		 
 		 for(Map<String, Object> a : result) {			 
 			

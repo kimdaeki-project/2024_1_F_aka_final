@@ -94,7 +94,7 @@
                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="modalScrollableTitle">Modal title</h5>
+                              <h5 class="modal-title" id="modalScrollableTitle">사원 목록</h5>
                               <button
                                 type="button"
                                 class="btn-close"
@@ -109,7 +109,7 @@
                               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                 Close
                               </button>
-                              <button type="button" class="btn btn-primary">Save changes</button>
+                              
                             </div>
                           </div>
                         </div>

@@ -69,7 +69,7 @@
                     <c:if test="${li.department_super_id ne 1}">
                     	<div class="card accordion-item"> 
                    			 <h2 class="accordion-header" id="headingTwo">
-                       		 	<button type="button"  data-department_id="${li.department_id}" style="display: none" data-department_name="${li.department_name}" data-department_super_id="${li.department_super_id}" class="accordion-button collapsed departmentBtn ${li.department_name}">
+                       		 	<button type="button"  data-department_id="${li.department_id}"  data-department_name="${li.department_name}" data-department_super_id="${li.department_super_id}" class="accordion-button collapsed departmentBtn ${li.department_name}" data-bs-toggle="modal" data-bs-target="#modalScrollable">
                          		 ${li.department_name}
                        	 		</button>
                      	 	</h2>
@@ -80,7 +80,7 @@
                     
                  
                     
-                    
+                    <div id="result"></div>
                     
                    
                   </div>
@@ -90,7 +90,34 @@
                 </div>
               </div>
               <!--/ Accordion -->
-
+              <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="modalScrollableTitle">Modal title</h5>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body" id="modalResult">
+                              dd
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Close
+                              </button>
+                              <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+              
+              
+              
+		
               <!--/ Advance Styling Options -->
             </div>
             <!-- / Content -->

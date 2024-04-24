@@ -17,11 +17,12 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService; 
 	
-	@ResponseBody
+
 	@GetMapping("member")
 	public String getDepartmentMemberList(DepartmentVO departmentVO,Model model)throws Exception {
-		List<MemberVO> list = departmentService.getDepartmentMemberList(departmentVO);
-		model.addAttribute("list",list);
+		System.out.println(departmentVO.getDepartment_id());
+		List<MemberVO> mlist = departmentService.getDepartmentMemberList(departmentVO);
+		model.addAttribute("mlist",mlist);
 		return "department/member";
 	}
 	

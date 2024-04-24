@@ -25,6 +25,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import reactor.core.publisher.Mono;
 
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class TestController {
 	
@@ -102,10 +106,9 @@ public class TestController {
 		return "temp/sample";
 	}
 	
-	
 	@GetMapping("/test/test")
-	public String test2(MemberVO memberVO) {
-		memberService.updateMail(null);
-		return "redirect:/";
+	public String test2(@ModelAttribute MemberVO member) {
+		
+		return "calendar/calendar";
 	}
 }

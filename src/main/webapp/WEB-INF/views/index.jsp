@@ -545,7 +545,7 @@
                     <li>
                       <a class="dropdown-item" href="#">
                         <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
+                        <span class="align-middle">My Page</span>
                       </a>
                     </li>
                     <li>

@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
+import com.aka.app.schedule.ScheduleVO;
+
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +37,12 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
+	
+	public int createCheck(ScheduleVO scheduleVO) throws Exception{
+		
+		memberDAO.createCheck(scheduleVO);
+		return 1;
+	}
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -60,6 +68,8 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		Map<String, Object> map = oAuth2User.getAttribute("properties");
 		MemberVO memberVO = new MemberVO();
 		memberVO.setUsername(oAuth2User.getName());
+		log.info("oAuth2User == {} == ",oAuth2User.toString());
+		log.info("oAuth2User, Map == {} == ",map.toString());
 		RoleVO roleVO = new RoleVO();
 		roleVO.setName("NORMAL");
 		
@@ -69,6 +79,7 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
 		MemberVO memberVO = new MemberVO();
 		memberVO.setUser_id(username);
 		
@@ -88,7 +99,7 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		log.info("회원가입~");
 		// pw -> 암호화
 		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
-
+		memberVO.setCustomer_key("TEST_customer1234abc-"+System.currentTimeMillis());
 		int result = memberDAO.add(memberVO);
 		
 		// 회원 권한 정보
@@ -123,14 +134,26 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		return check;
 	}
 	
-	public String updatePassword() {
-		return "";
+	// 임시 비밀번호 생성 메서드
+	public String createPassword() throws Exception{
+		String temporaryPw = (int)(Math.random()*1000000)+"";
+		log.info("======================random num : "+temporaryPw);
+		return temporaryPw;
 	}
 	
-	public boolean updateMail(MemberVO memberVO) {
+	// 비밀번호 UPDATE 및 전송 메서드 실행
+	public int updateMail(MemberVO memberVO) throws Exception{
 //		memberVO.getEmail(), 바꿔줄 비밀번호
-		sendMail("rhalsgy@naver.com", "1234");
-		return true;
+		
+		log.info("update member ====== {}",memberVO.toString());
+		int result = 0;
+		if(memberDAO.getFindUser(memberVO) > 0) {
+			String pw = createPassword();
+			memberVO.setPassword(passwordEncoder.encode(pw));
+			result = memberDAO.updatePw(memberVO);			
+			sendMail(memberVO.getEmail(), pw);
+		}		
+		return result;
 	}
 	
 	// mail을 보내줄 메서드 (메일 수신자, 변경한 비밀번호)
@@ -141,16 +164,18 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 			// 메일받는사람
 			mimeHelper.setTo(to);
 			// 메일제목
-			mimeHelper.setSubject("A.K.A 비밀번호 변경");
+			mimeHelper.setSubject("A.K.A 임시비밀번호");
 			
 			// 메일본문
 			mimeHelper.setText(
 					"<hr>"
 					+"<h3>비밀번호 : "+password+"</h3>"
+					+"<p>로그인 후 비밀번호를 변경해주세요</p>"
 					+"<hr>"
 					,true);
 			javaMailSender.send(mime);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException("실패");
 		}
 	}

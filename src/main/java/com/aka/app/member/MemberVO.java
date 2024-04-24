@@ -8,8 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import com.aka.app.department.DepartmentVO;
+import com.aka.app.member.groups.MemberUpdateGroup;
+
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,26 +22,33 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MemberVO implements UserDetails, OAuth2User{
-	
+
 	private Long member_id;
 	private Long department_id;
+	@Email(groups= {MemberUpdateGroup.class})
 	private String email;
 	private Date hire_date;
 	private Date retire_date;
+	@NotNull(groups= {MemberUpdateGroup.class})
 	private String phone;
 	private String address;
-	@NotEmpty(message = "이름을 입력해 주세요")
+	private String detail_address;
+	private String postCode;
+	@NotNull(groups= {MemberUpdateGroup.class}, message="아이디는 6자이상 12자이하입니다.")
 	private String user_id;
-	@NotNull(message = "비밀번호를 입력해 주세요")
+	@NotNull(groups= {MemberUpdateGroup.class}, message="비밀번호는 8자 이상 12자 이하이며, 영문, 숫자, 특수문자를 포함해야 합니다.")
 	private String password;
 	private String passwordCheck;
-	@NotBlank(message = "아이디를 입력해 주세요")
+	@NotNull
 	private String username;
 	private Long role_id;
 	private String customer_key;
 	private String profil;
 	private String profil_ori;
 	private Long position_id;
+	
+	private RoleVO roleVO;
+	private DepartmentVO departmentVO;
 	
 	// security
 	@Override
@@ -78,7 +87,6 @@ public class MemberVO implements UserDetails, OAuth2User{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }
 

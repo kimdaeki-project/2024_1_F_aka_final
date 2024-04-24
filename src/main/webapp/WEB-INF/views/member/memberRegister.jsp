@@ -77,7 +77,7 @@
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
-                <a href="index.html" class="app-brand-link gap-2">
+                <a href="/" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     <svg
                       width="25"
@@ -140,7 +140,7 @@
               
               <h4 class="mb-2 fw-bold">회원가입 🚀</h4>
               <br>
-
+ 				<!-- onsubmit="return false" -->
               <form id="formAuthentication" class="mb-3" action="./register" method="POST">
                 <div class="mb-3">
                   <label for="userId" class="form-label">ID</label>
@@ -152,9 +152,9 @@
                     placeholder="Enter your id"
                     autofocus
                   />
-                  <span id="errId" style="color: red;">1111111</span>
+                  <span style="color:gray; font-size:12px;" id="errId">문자로 시작하는 6자이상 12자 이하의 문자열입니다.</span>
                 </div>
-                                <div class="mb-3">
+                <div class="mb-3">
                   <label for="username" class="form-label">NAME</label>
                   <input
                     type="text"
@@ -164,18 +164,19 @@
                     placeholder="Enter your username"
                     autofocus
                   />
+	                <span style="color:gray; font-size:12px;" id="errUsername">본명으로 입력해주세요.</span>
                 </div>
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label><br>
                   <input type="text" class="form-control w-auto d-inline" id="email" name="email" placeholder="Enter your email" />
-                    <select class="form-select w-auto float-end" aria-label="Default select example">
-                      <option selected>직접입력</option>
+                    <select class="form-select w-auto float-end" id="domainSelect" aria-label="Default select example">
+                      <option value="0" selected>직접입력</option>
                       <option value="1">@naver.com</option>
                       <option value="2">@gmail.com</option>
                       <option value="3">@daum.net</option>
                     </select>
                   <br>
-                  <span style="color: red">22222</span>
+                  <!-- <span style="color: red">22222</span> -->
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <label class="form-label" for="password">Password</label>
@@ -190,7 +191,8 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
-                  <span class="mb-5" style="color: red;">33333</span>
+                  <span style="color:gray; font-size:12px;">영문,숫자,특수문자를 포함한 8이상 12자 이하의 문자열입니다</span>
+                  <span class="mb-5" id="passwordErr"></span>
 
                   <div class="my-3 form-password-toggle">
                     <label class="form-label" for="passwordCheck">PasswordCheck</label>
@@ -205,7 +207,7 @@
                       />
                       <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                     </div>
-                    <span class="mb-5" style="color: red;">44444</span>
+                    <span class="mb-5" id="passwordChErr"></span>
                 </div>
                 <div class="mb-3">
                   <label for="id" class="form-label">TELEPHONE</label>
@@ -217,27 +219,29 @@
                     placeholder="Enter your Phone ( -없이 숫자만 입력)"
                     autofocus
                   />
+                  <span class="mb-5" id="phoneErr"></span>
                 </div>
                 	<div class="mb-3">
 	                 	<label class="form-label" for="address">ADDRESS</label><br>
-						<input class="form-control w-50 float-start" type="text" id="postcode" placeholder="우편번호">
+						<input class="form-control w-50 float-start" type="text" name="postCode" id="postCode" placeholder="우편번호">
 						<input class="form-control w-50 float-start" type="button" onclick="daumPostCode()" value="우편번호 찾기"><br>
-						<input class="form-control" type="text" id="normal_address" placeholder="주소"><br>
-						<input class="form-control" type="text" id="detailAddress" placeholder="상세주소">
+						<input class="form-control" type="text" name="address" id="address" placeholder="주소"><br>
+						<input class="form-control" type="text" name="detail_address" id="detail_address" placeholder="상세주소">
 						<input class="form-control" type="text" id="sample6_extraAddress" placeholder="참고항목" hidden>
 					</div>
                 </div>
+                <input type="text" class="form-control" id="department_id" name="department_id" value=1 hidden/>
                 <br>
 
                 <div class="mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms-conditions" />
                     <label class="form-check-label" for="terms-conditions">
                       약관동의
                     </label>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary d-grid w-100 fw-bold">가입하기</button>
+                <button id="registerBtn" type="submit" class="btn btn-primary d-grid w-100 fw-bold">가입하기</button>
               </form>
             </div>
           </div>
@@ -269,7 +273,7 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
    	<!-- address api -->
-    <!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript" src="../js/member/memberAddress.js"></script>
     <!-- register js -->
     <script type="text/javascript" src="../js/member/memberRegister.js"></script>

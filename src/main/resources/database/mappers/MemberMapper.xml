@@ -4,12 +4,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.aka.app.member.MemberDAO">
+
+	<!-- 로그인한 유저정보 -->
 	<select id="getDetail" parameterType="MemberVO" resultMap="getDetailResult">
 		SELECT * 
 			FROM MEMBER M
-		WHERE USER_ID = #{user_id}			 
+			INNER JOIN DEPARTMENT D
+			ON M.DEPARTMENT_ID = D.DEPARTMENT_ID
+			INNER JOIN ROLE R
+			ON M.ROLE_ID = R.ROLE_ID
+		WHERE USER_ID = #{user_id}		 
 	</select>
-	
+	 <!-- resultMap="getDetailResult" -->
 	<resultMap type="MemberVO" id="getDetailResult">
 		<id column="MEMBER_ID" property="member_id"/>
 		<result column="DEPARTMENT_ID" property="department_id"/>
@@ -27,28 +33,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="PROFIL_ORI" property="profil_ori"/>
 		<result column="POSITION_ID" property="position_id"/>
 		
-<!-- 		<association property="roleVO" javaType="RoleVO">
-			<result column="NAME" property="NAME"/>
-		</association> -->
+		<association property="roleVO" javaType="RoleVO">
+			<result column="NAME" property="name"/>
+		</association>
+		<association property="departmentVO" javaType="DepartmentVO">
+			<result column="DEPARTMENT_SUPER_ID" property="department_super_id"/>
+			<result column="DEPARTMENT_NAME" property="department_name"/>
+			<result column="SORTORDER" property="sortorder"/>
+		</association>
 	</resultMap>
 	
+	<!-- user_id 와 email 을 동시에 가진 유저가 존재하면 1이상 -->
+	<select id="getFindUser">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_ID = #{user_id}
+		AND EMAIL = #{email}
+	</select>
+	
+	<!-- 회원가입시 -->
 	<insert id="add" parameterType="MemberVO">
 		INSERT INTO MEMBER
-			(MEMBER_ID, 
-			EMAIL, 
-			HIRE_DATE, 
-			RETIRE_DATE, 
-			PHONE, 
-			ADDRESS, 
-			USER_ID, 
-			PASSWORD, 
-			USERNAME, 
-			ROLE_ID, 
-			CUSTOMER_KEY, 
-			PROFIL, 
-			PROFIL_ORI, 
-			POSITION_ID, 
+			(MEMBER_ID, EMAIL, HIRE_DATE, RETIRE_DATE, PHONE, ADDRESS, DETAIL_ADDRESS, POSTCODE, 
+			USER_ID, PASSWORD, USERNAME, ROLE_ID, CUSTOMER_KEY, PROFIL, PROFIL_ORI, POSITION_ID, 
 			DEPARTMENT_ID)
-		VALUES(#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{user_id}, #{password}, #{username}, #{role_id}, 'key',null,null,1,1);
+		VALUES(#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, #{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, #{customer_key},null,null,#{position_id},#{department_id})
 	</insert>
+	
+	<!-- 출석 -->
+	<insert id="createCheck" parameterType="scheduleVO">
+		INSERT INTO SCHEDULE 
+		(MEMBER_ID,SCHEDULE_ID,START_DATE,DATE) 
+		VALUES (#{member_id},#{schedule_id},NOW(),NOW())
+	</insert>
+	
+	<!-- password 찾기했을때 -->
+	<update id="updatePw" parameterType="MemberVO">
+		UPDATE MEMBER 
+		SET PASSWORD = #{password} 
+		WHERE EMAIL = #{email} 
+		AND USER_ID = #{user_id}
+	</update>
+	
+	<!-- mypage 에서 개인정보들을 수정해줄때  -->
+	<update id="updateMyinfo" parameterType="MemberVO">
+		UPDATE MEMBER 
+		SET 
+		PASSWORD = #{password},
+		EMAIL = #{email}, 
+		USER_ID = #{user_id}
+		WHERE MEMBER_ID = #{member_id}
+	</update>
 </mapper>

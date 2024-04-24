@@ -138,27 +138,35 @@
               <!-- /Logo -->
               <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
 				  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="1" checked>
-				  <label class="btn btn-outline-primary" for="btnradio1">아이디 찾기</label>
+				  <label class="btn btn-outline-primary" for="btnradio1">비밀번호 찾기</label>
 				
 				  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-				  <label class="btn btn-outline-primary" for="btnradio2">비밀번호 찾기</label>
+				  <label class="btn btn-outline-primary" for="btnradio2">아이디 찾기</label>
 			  </div>
 				<div>
-	              <p class="my-3">회원가입에 입력했던 이메일을 입력해주세요</p>
-	              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+	              <p class="my-3">회원가입에 사용한 이메일/아이디을 입력해주세요</p>
+	              <form id="formAuthentication" class="mb-3" action="#" method="POST">
 	                <div class="mb-3">
-	                  <label for="email" class="form-label fw-bold fs-5">Email</label>
+	                  <label for="email" class="form-label fw-bold fs-6">Email</label>
 	                  <input
 	                    type="text"
-	                    class="form-control"
+	                    class="form-control mb-4"
 	                    id="email"
 	                    name="email"
 	                    placeholder="Enter your email"
 	                    autofocus
 	                  />
-	                  <span style="color:red">Not Found</span>
+	                  <label for="user_id" class="form-label fw-bold fs-6">userId</label>
+	                  <input
+	                    type="text"
+	                    class="form-control mb-4"
+	                    id="user_id"
+	                    name="user_id"
+	                    placeholder="Enter your ID"
+	                    autofocus
+	                  />
 	                </div>
-	                <button class="btn btn-primary d-grid w-100">비밀번호 변경</button>
+	                <button id="pwUpdateBtn" class="btn btn-primary d-grid w-100">비밀번호 변경</button>
 	              </form>
 				</div>
               <div class="text-center">
@@ -190,9 +198,9 @@
 
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
-
+	<script type="text/javascript" src="../js/member/memberUpdate.js"></script>
     <!-- Page JS -->
-
+	
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>

@@ -34,10 +34,5 @@ public class TestController {
 		
 		return "temp/sample";
 	}
-	
-	@GetMapping("/test/test")
-	public String test2(@ModelAttribute MemberVO member) {
-		
-		return "calendar/calendar";
-	}
+
 }

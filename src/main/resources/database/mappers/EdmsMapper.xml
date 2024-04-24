@@ -12,9 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					VALUES(NEXTVAL(EDMS_SEQ), edmsFromNo, edmsCreator, edmsTitle, ,edmsContent, edmsStatus, edmsApplovalDate, edmsCreateDate, edmsExpDate, edms_use, edmsExtraDate1, edmsExtraDate2, edmsExtraContent, edmsExtraNumber, edmsCreatorPosition)
 	</insert> -->
 
-
+<!-- 문서저장  -->
 	<insert id="createEdms" parameterType="EdmsVO">
 		<selectKey keyProperty="edmsNo" resultType="Long" order="BEFORE">
+		<!-- EDMS_NO 동시사용  -->
 			SELECT MAX(EDMS_NO) FROM EDMS
 		</selectKey>
 			INSERT INTO EDMS (EDMS_NO, EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
@@ -28,9 +29,92 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<foreach collection="list" index="index" item="member"  separator=",">
 					( #{member.EDMS_NO}, #{member.MEMBER_ID}, #{member.APPROVAL_RANK})
 		</foreach>
-	
-	
+		
 	</insert>
+	<insert id="createEdmsAttchFile" parameterType="List">
+			INSERT INTO EDMS_ATTECHFILE (EDMS_NO, EDMS_ATTECHFILE_NAME,EDMS_ATTECHFILE_ORI_NAME)
+		<foreach collection="list" index="index" item="EdmsFileVO"  separator=",">
+			VALUES(#{EdmsFileVO.edmsNo}, #{EdmsFileVO.edmsAttechfileName}, #{EdmsFileVO.edmsAttechfileOriName})
+		</foreach>
+	</insert>
+
+
+<!-- 임시문서 저장  -->
+
+	<insert id="createTempEdms" parameterType="EdmsVO">
+		<selectKey keyProperty="edmsNo" resultType="Long" order="BEFORE"> 
+		<!-- EDMS_NO 동시사용  -->
+			SELECT MAX(EDMS_NO) FROM TEMP_EDMS
+		</selectKey>
+			INSERT INTO TEMP_EDMS (EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
+				VALUES(#{edmsFromNo}, #{edmsCreator}, #{edmsTitle}, #{edmsContent}, #{edmsStatus}, #{edmsCreateDate}, #{edmsCreatorPosition})
+	</insert>
+	
+	<insert id="createTempApproval" parameterType="java.util.List">
+		
+		INSERT INTO TEMP_APRROVAL(EDMS_NO ,MEMBER_ID ,APPROVAL_RANK)
+					VALUES
+		<foreach collection="list" index="index" item="member"  separator=",">
+					(#{member.EDMS_NO}, #{member.MEMBER_ID}, #{member.APPROVAL_RANK})
+		</foreach>
+		
+	</insert>
+	<insert id="createTempEdmsAttchFile" parameterType="List">
+			INSERT INTO TEMP_EDMS_ATTECHFILE (EDMS_NO, EDMS_ATTECHFILE_NAME	,EDMS_ATTECHFILE_ORI_NAME)
+		<foreach collection="list" index="index" item="EdmsFileVO"  separator=",">
+			VALUES(#{EdmsFileVO.edmsNo}, #{EdmsFileVO.edmsAttechfileName}, #{EdmsFileVO.edmsAttechfileOriName})
+		</foreach>
+	</insert>
+	
+	
+
+<!-- 결재목록 가져오기 -->
+
+ <sql id="search">
+  	
+  		<choose>
+  			
+  			<when test="Pager.kind=='kind2'">and EDMS_CONTENT</when>
+  			<otherwise>and EDMS_TITLE</otherwise>  			
+  		</choose>  
+  		LIKE CONCAT('%', #{Pager.search}, '%')
+  	 		
+ </sql>
+ 
+
+
+<select id="getEdmsList" parameterType="Map" resultType="EdmsVO">
+
+	SELECT * FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id} 
+	
+	 <include refid="search">	
+		
+	</include> 
+	ORDER BY EDMS_NO DESC
+	LIMIT #{Pager.startIndex},#{Pager.perPage}
+	
+</select>
+
+<select id="getEdmsTotalCount" resultType="Long" parameterType="Map">
+	
+	SELECT COUNT(EDMS_NO) FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id} 	
+	 <include refid="search">
+	</include>
+	
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

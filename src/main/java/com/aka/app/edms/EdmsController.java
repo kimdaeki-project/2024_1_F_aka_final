@@ -1,5 +1,6 @@
 package com.aka.app.edms;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aka.app.member.MemberVO;
+import com.aka.app.util.Pager;
 
 
 @Controller
@@ -27,10 +29,38 @@ public class EdmsController {
 	@Autowired
 	private EdmsService edmsService;
 	
+	
+	
+	@ModelAttribute("edms")
+	public String edmsIng() {		
+		return "결재"; 
+	}	
+	
+	
+	
 	@GetMapping("pro/list")
-	public String getProlist() {
+	public String getProlist(@AuthenticationPrincipal MemberVO memberVO, EdmsVO edmsVO, Model model, Pager pager) throws Exception {
+			
+	
+	Map<String, Object> titles = new HashMap<>();
+	
+	titles.put("theme", "결재진행목록");
+	titles.put("no1","번호");
+	titles.put("no2", "제목");
+	titles.put("no3","내용");
+	titles.put("no4", "생성일");
+	titles.put("no5", "결재상태");
 		
-		return "EDMS/prolist";
+	model.addAttribute("titles", titles);
+	//리스트 내용 불러오기	
+	List<EdmsVO> edmsList = edmsService.getEdmsList(pager,memberVO);
+	System.out.println(edmsList);	
+	
+	
+	
+	
+	
+	return "EDMS/list";
 		 
 	}
 	
@@ -64,54 +94,48 @@ public class EdmsController {
 		
 		
 //		System.out.println(chartAr.get(0).getName());	
-				System.out.println(memberVO);
+//				System.out.println(memberVO);
 		model.addAttribute("member", memberVO);
 		model.addAttribute("deptName", deptName);
 		model.addAttribute("list",result);		
 		
-		System.out.println(model);
+//		System.out.println(model);
 		
 		return "EDMS/create";
 		
 	}
 	
-	@PostMapping("apply")
 	@ResponseBody
-	public Map<String, Object> apply(Integer[] appAr, EdmsVO edmsVO, Model model, MultipartFile[] file) throws Exception {		
-
+	@PostMapping("apply")	//check 1=문서저장 2= 임시문서저장
+	public Map<String, Object> apply(Integer[] appAr, EdmsVO edmsVO, Model model, MultipartFile[] file, int check) throws Exception {		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		 
-		System.out.println("edms65 AR   "+appAr.length);
-		System.out.println(edmsVO.getEdmsContent());
-		//기안서 파일을 저장
-		if(file!=null) {
-			
-			System.out.println(file[0].getOriginalFilename());
+		
+		// 기안서 내용을 저장.		
+		int result = edmsService.createEdms(edmsVO, appAr, check, file);
+		
+		String msg = "결재가 정상적으로 전송되었습니다.";
+		String path = "pro/list";
+		
+		if(check==2) {
+			msg="임시저장되었습니다.";			
+			map.put("path", "pro/list");
 		}
 		
-		System.out.println("edms65 AR   "+appAr[0]);		
-		
-		
-	
-		// 기안서 내용을 저장.		
-		int result = edmsService.createEdms(edmsVO, appAr);
-		
-		String msg = "성공";
-		
 		if(result!=1) {			
-			msg = "실패";
+			msg = "실패";			
 		}				
 		
-		
-		map.put("result", msg);		
-		
+		map.put("msg", msg);
+		map.put("path", path);		
+		map.put("result", result);		
 		
 		return map; 		
-		 
 	}
 	
-		
+	
+			
 	@GetMapping("form/draft")
 	
 	public String getformDraft(Model model) {
@@ -124,6 +148,18 @@ public class EdmsController {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//jstree
 	@GetMapping("api/chart")
 	@ResponseBody
 	public List<Map<String, Object>> getMethodName() throws Exception {		
@@ -131,7 +167,8 @@ public class EdmsController {
 		 List<Map<String, Object>> result =edmsService.getDeptChart();
 		 List<Map<String, Object>> temp = edmsService.getMemberChart();
 		 
-		 
+		 	 
+				  
 		 for(Map<String, Object> m : temp) {			 
 				 
 			 m.replace("parent", "0", "#");

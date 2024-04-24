@@ -405,7 +405,7 @@
 <br>
 <div style="float: right;">
 <button type="submit" class="btn btn-success" id="applyBtn">제출</button>
-<button type="button" class="btn btn-warning">임시저장</button>
+<button type="button" class="btn btn-warning" id="tempApplyBtn">임시저장</button>
 </div>
 
 
@@ -430,10 +430,10 @@
 		<div class="modal-body" style="display: flex;">			
  			
 			<div id="people-box" style="overflow:scroll;">
+				<div style="display: flex;">
+					<input id="schName" value=""><button type="button" class="btn btn-primary" onclick="fSch()">검색</button>
+				</div>
 			  <div id="jstree" style="height: 100vh;">				
-			  </div>
-			  <div style="display: flex;">
-				  <input id="schName" value=""><button type="button" class="btn btn-primary" onclick="fSch()">검색</button>
 			  </div>
 		    </div>
 		    
@@ -505,12 +505,12 @@
 	const largeModal = new bootstrap.Modal(document.getElementById('largeModal'));
 	const myInput = document.getElementById('myInput');
 	const applyBtn = document.getElementById('applyBtn');
-	const formelem = document.getElementById('formelem');
-	const jstree = document.getElementById('jstree_demo_div');
+	const formelem = document.getElementById('formelem');	
 	const applyList = document.getElementById('applyList');
 	const applyOn = document.getElementById('applyOn');
 	const closeBtn = document.getElementById('closeBtn');
 	const delBtn = document.getElementById('delBtn');//결제선에서 제거하는 버튼
+	const tempApplyBtn = document.getElementById('tempApplyBtn');
 	let today = document.getElementById('today');
 	let appLine = document.getElementById('appLine');
 	//모달 불러오는 함수
@@ -548,8 +548,8 @@
 	// let files= [];
 	
 	// inputFile.onchange=()=>{			
-	// 	/* files.push(inputFile.files); */
-	// 	/* fileUploadList.innerText =+ files[0].name; */
+	// 	// files.push(inputFile.files); 
+	// 	// fileUploadList.innerText =+ files[0].name; 
 			
 	// 	Array.from(files)
 	//     .filter(file => file.lastModified != removeTargetId)
@@ -561,27 +561,40 @@
 	// 	console.log( dataTranster.files);
 		
 	// }
+		
 	
+	//전자문서 저장 
+	applyBtn.addEventListener('click',function(e){			
+		applyFrom(1);
+	})
 
-	// let ar = new Array();
+	//전자문서 임시저장
+	tempApplyBtn.addEventListener('click',function(){
+
+		applyFrom(2);
+
+	})
 	
-	// ar.push("a");
-	// ar.push("b");
 	
-	
-	 
-	applyBtn.addEventListener('click',function(e){	
-		e.preventDefault();
+	//폼 저장 함수(1=저장, 2=임시저장)
+	function applyFrom(check, status){
+		//결재선 배열 생성
+		let appAr = document.querySelectorAll('.appForm');
+		//결재선 확인
+		if(appAr.length<2){
+			
+			alert("결재선을 추가하세요");
+			return;
+		}
+				
 		if(confirm('제출하시겠습니까??')){			
 			let formData = new FormData(formelem);
-			let appAr = document.querySelectorAll('.appForm');
-
+			formData.append('check', check);
 			//배열생성후 formdata에 값 추가
 			for(let ar of appAr){
 				let apAr =ar.getAttribute('value');				
 				console.log("apAR   "+apAr)
-				formData.append('appAr',apAr);
-
+				formData.append('appAr',apAr);			
 			}
 			for(const key of formData.keys()){
 
@@ -592,11 +605,25 @@
 				method: "POST",						
 				body: formData				
 				}).then(response => response.json())
-				.then(response=>check(response));							
-			}else{
-				alert("놉");
-			}		
-	})
+				.then(data=>{
+					console.log(data.path)
+					if(data.result==1){
+						alert(data.msg);
+						window.location.href=data.path;
+						
+					}else{
+						
+						alert("실패하였습니다.")
+					}
+					
+				})							
+			}
+
+
+	}
+
+
+
 		//summit
 		// applyBtn.addEventListener('click', function(e){
 		// 	e.preventDefault;

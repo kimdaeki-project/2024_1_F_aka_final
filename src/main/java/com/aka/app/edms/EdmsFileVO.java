@@ -9,13 +9,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class FileVO {
+public class EdmsFileVO {
 
 	private Long edmsAttechfileNo;
 	private Long edmsNo;
 	private String edmsAttechfileName;
 	private String edmsAttechfileOriName;	
 	private MultipartFile[] file; 		
+	
 	
 	
 }

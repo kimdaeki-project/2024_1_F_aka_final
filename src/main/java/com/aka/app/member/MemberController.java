@@ -71,9 +71,8 @@ public class MemberController {
 	}
 	
 	@GetMapping("/mypage")
-//	@Validated(MemberUpdateGroup.class) MemberVO memberVO,
-	public String update( HttpSession session, Model model) throws Exception{
-//		log.info("mypage memberVO ====== {} ======",memberVO);
+//	@Validated(MemberUpdateGroup.class) MemberVO memberVO, 
+	public String update(HttpSession session, Model model) throws Exception{
 		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl)obj;
 		log.info("SecurityContextImpl === {}",securityContextImpl.getAuthentication().getPrincipal());

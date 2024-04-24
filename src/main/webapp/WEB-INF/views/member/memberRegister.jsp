@@ -230,6 +230,7 @@
 						<input class="form-control" type="text" id="sample6_extraAddress" placeholder="참고항목" hidden>
 					</div>
                 </div>
+                <input type="text" class="form-control" id="department_id" name="department_id" value=1 hidden/>
                 <br>
 
                 <div class="mb-3">

@@ -6,9 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.aka.app.member.MemberDAO">
 
 	<!-- 로그인한 유저정보 -->
-	<select id="getDetail" parameterType="MemberVO">
+	<select id="getDetail" parameterType="MemberVO" resultMap="getDetailResult">
 		SELECT * 
 			FROM MEMBER M
+			INNER JOIN DEPARTMENT D
+			ON M.DEPARTMENT_ID = D.DEPARTMENT_ID
+			INNER JOIN ROLE R
+			ON M.ROLE_ID = R.ROLE_ID
 		WHERE USER_ID = #{user_id}		 
 	</select>
 	 <!-- resultMap="getDetailResult" -->
@@ -30,7 +34,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="POSITION_ID" property="position_id"/>
 		
 		<association property="roleVO" javaType="RoleVO">
-			<result column="NAME" property="NAME"/>
+			<result column="NAME" property="name"/>
+		</association>
+		<association property="departmentVO" javaType="DepartmentVO">
+			<result column="DEPARTMENT_SUPER_ID" property="department_super_id"/>
+			<result column="DEPARTMENT_NAME" property="department_name"/>
+			<result column="SORTORDER" property="sortorder"/>
 		</association>
 	</resultMap>
 	
@@ -45,24 +54,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원가입시 -->
 	<insert id="add" parameterType="MemberVO">
 		INSERT INTO MEMBER
-			(MEMBER_ID, 
-			EMAIL, 
-			HIRE_DATE, 
-			RETIRE_DATE, 
-			PHONE, 
-			ADDRESS,
-			DETAIL_ADDRESS,
-			POSTCODE, 
-			USER_ID, 
-			PASSWORD, 
-			USERNAME, 
-			ROLE_ID, 
-			CUSTOMER_KEY, 
-			PROFIL, 
-			PROFIL_ORI, 
-			POSITION_ID, 
+			(MEMBER_ID, EMAIL, HIRE_DATE, RETIRE_DATE, PHONE, ADDRESS, DETAIL_ADDRESS, POSTCODE, 
+			USER_ID, PASSWORD, USERNAME, ROLE_ID, CUSTOMER_KEY, PROFIL, PROFIL_ORI, POSITION_ID, 
 			DEPARTMENT_ID)
-		VALUES(#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, #{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, #{customer_key},null,null,1,1);
+		VALUES(#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, #{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, #{customer_key},null,null,#{position_id},#{department_id})
+	</insert>
+	
+	<!-- 출석 -->
+	<insert id="createCheck" parameterType="scheduleVO">
+		INSERT INTO SCHEDULE 
+		(MEMBER_ID,SCHEDULE_ID,START_DATE,DATE) 
+		VALUES (#{member_id},#{schedule_id},NOW(),NOW())
 	</insert>
 	
 	<!-- password 찾기했을때 -->

@@ -20,7 +20,7 @@ public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler
 			Authentication authentication) throws IOException, ServletException {
 		log.info("로그인 성공");
 		authentication.getPrincipal();		// MemberVO
-		
+		log.info("authentication : {}",authentication.getPrincipal());
 		// 로그인 성공 후 이동할 경로 설정
 		response.sendRedirect("/");
 		

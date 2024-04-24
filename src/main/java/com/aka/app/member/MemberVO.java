@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import com.aka.app.department.DepartmentVO;
 import com.aka.app.member.groups.MemberUpdateGroup;
 
 import jakarta.validation.constraints.Email;
@@ -45,6 +46,9 @@ public class MemberVO implements UserDetails, OAuth2User{
 	private String profil;
 	private String profil_ori;
 	private Long position_id;
+	
+	private RoleVO roleVO;
+	private DepartmentVO departmentVO;
 	
 	// security
 	@Override

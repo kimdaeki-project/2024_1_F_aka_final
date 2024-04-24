@@ -56,7 +56,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(
 						(authorizeRequests)->
 											authorizeRequests
-											.requestMatchers("/", "/edms/**").authenticated()
+											.requestMatchers("/", "/edms/**", "/member/mypage").authenticated()
 //											.requestMatchers("/").permitAll()
 //											.requestMatchers("/member/login").permitAll()
 											.anyRequest().permitAll()
@@ -68,7 +68,7 @@ public class SecurityConfig {
 								.loginPage("/member/login")
 								.successHandler(loginSuccessHandler)
 								.usernameParameter("user_id")
-								.defaultSuccessUrl("/")
+//								.defaultSuccessUrl("/")			
 								.failureHandler(loginFailureHandler)
 								
 								.permitAll()

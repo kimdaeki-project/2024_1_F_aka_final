@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 
@@ -30,7 +31,8 @@
 			<sec:authorize access="isAuthenticated()">
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
-                <li class="nav-item lh-1 me-3">
+				<!-- profile side btn -->
+<!--                 <li class="nav-item lh-1 me-3">
                   <a
                     class="github-button"
                     href="https://github.com/themeselection/sneat-html-admin-template-free"
@@ -40,27 +42,62 @@
                     aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
                     >Star</a
                   >
+                </li> -->
+                
+                <li class="nav-item lh-1 me-3">
+                	<!-- 사원정보 이름 직급 -->
+                	<span class="fs-6">${member.username}</span>
+					<c:if test="${member.position_id == 1}">
+						<small style="font-size:12px;">사원</small>
+					</c:if>
+					<c:if test="${member.position_id == 2}">
+						<small style="font-size:12px;"></small>
+					</c:if>
+					<c:if test="${member.position_id == 3}">
+						<small style="font-size:12px;"></small>
+					</c:if>
+					<c:if test="${member.position_id == 4}">
+						<small style="font-size:12px;"></small>
+					</c:if>
+					<c:if test="${member.position_id == 5}">
+						<small style="font-size:12px;"></small>
+					</c:if>
                 </li>
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="/img/profile.jpg" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
+                  
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                       <a class="dropdown-item" href="#">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="/img/profile.jpg" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block">${member.username}</span>
+							<c:if test="${member.position_id == 1}">
+								<small class="text-muted">사원</small>
+							</c:if>
+							<c:if test="${member.position_id == 2}">
+								<small class="text-muted"></small>
+							</c:if>
+							<c:if test="${member.position_id == 3}">
+								<small class="text-muted"></small>
+							</c:if>
+							<c:if test="${member.position_id == 4}">
+								<small class="text-muted"></small>
+							</c:if>
+							<c:if test="${member.position_id == 5}">
+								<span class="fs-4 py-2 d-flex justify-content-center"></span>
+							</c:if>
                           </div>
                         </div>
                       </a>
@@ -74,24 +111,7 @@
                         <span class="align-middle">My Page</span>
                       </a>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
+                    <hr>
                     <li>
                       <a class="dropdown-item" href="/member/logout">
                         <i class="bx bx-power-off me-2"></i>

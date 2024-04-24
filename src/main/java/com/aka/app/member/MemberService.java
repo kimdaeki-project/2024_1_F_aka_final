@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
+import com.aka.app.schedule.ScheduleVO;
+
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +37,12 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
+	
+	public int createCheck(ScheduleVO scheduleVO) throws Exception{
+		
+		memberDAO.createCheck(scheduleVO);
+		return 1;
+	}
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {

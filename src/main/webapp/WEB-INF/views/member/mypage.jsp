@@ -101,11 +101,11 @@
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				      	<span>정말 바꾸시겠습니까?</span>
+				      	<span>정말 수정하시겠습니까?</span>
 				      </div>
 				      <div class="modal-footer">
+				        <button type="button" class="btn btn-primary">수정</button>
 				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-				        <button type="button" class="btn btn-primary">변경</button>
 				      </div>
 				    </div>
 				  </div>

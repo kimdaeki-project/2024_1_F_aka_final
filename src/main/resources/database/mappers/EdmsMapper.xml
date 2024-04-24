@@ -12,27 +12,124 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					VALUES(NEXTVAL(EDMS_SEQ), edmsFromNo, edmsCreator, edmsTitle, ,edmsContent, edmsStatus, edmsApplovalDate, edmsCreateDate, edmsExpDate, edms_use, edmsExtraDate1, edmsExtraDate2, edmsExtraContent, edmsExtraNumber, edmsCreatorPosition)
 	</insert> -->
 
-
+<!-- 문서저장  -->
 	<insert id="createEdms" parameterType="EdmsVO">
 		<selectKey keyProperty="edmsNo" resultType="Long" order="BEFORE">
+		<!-- EDMS_NO 동시사용  -->
 			SELECT MAX(EDMS_NO) FROM EDMS
 		</selectKey>
-			INSERT INTO EDMS (EDMS_NO, EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS)
-				VALUES(NEXTVAL(EDMS_SEQ), #{edmsFromNo}, #{edmsCreator}, #{edmsTitle}, #{edmsContent}, #{edmsStatus})
+			INSERT INTO EDMS (EDMS_NO, EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
+				VALUES(NEXTVAL(EDMS_SEQ), #{edmsFromNo}, #{edmsCreator}, #{edmsTitle}, #{edmsContent}, #{edmsStatus}, #{edmsCreateDate}, #{edmsCreatorPosition})
 	</insert>
 	
 	<insert id="createApproval" parameterType="java.util.List">
 		
-		INSERT INTO APRROVAL( APPROVAL_NO ,EDMS_NO ,MEMBER_ID ,APPROVAL_RANK)
+		INSERT INTO APRROVAL( EDMS_NO ,MEMBER_ID ,APPROVAL_RANK)
 					VALUES
 		<foreach collection="list" index="index" item="member"  separator=",">
-					(#{member.MEMBER_ID}, #{member.EDMS_NO}, #{member.MEMBER_ID}, #{member.APPROVAL_RANK})
+					( #{member.EDMS_NO}, #{member.MEMBER_ID}, #{member.APPROVAL_RANK})
 		</foreach>
-	
-	
+		
+	</insert>
+	<insert id="createEdmsAttchFile" parameterType="List">
+			INSERT INTO EDMS_ATTECHFILE (EDMS_NO, EDMS_ATTECHFILE_NAME,EDMS_ATTECHFILE_ORI_NAME)
+		<foreach collection="list" index="index" item="EdmsFileVO"  separator=",">
+			VALUES(#{EdmsFileVO.edmsNo}, #{EdmsFileVO.edmsAttechfileName}, #{EdmsFileVO.edmsAttechfileOriName})
+		</foreach>
 	</insert>
 
 
+<!-- 임시문서 저장  -->
+
+	<insert id="createTempEdms" parameterType="EdmsVO">
+		<selectKey keyProperty="edmsNo" resultType="Long" order="BEFORE"> 
+		<!-- EDMS_NO 동시사용  -->
+			SELECT MAX(EDMS_NO) FROM TEMP_EDMS
+		</selectKey>
+			INSERT INTO TEMP_EDMS (EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
+				VALUES(#{edmsFromNo}, #{edmsCreator}, #{edmsTitle}, #{edmsContent}, #{edmsStatus}, #{edmsCreateDate}, #{edmsCreatorPosition})
+	</insert>
+	
+	<insert id="createTempApproval" parameterType="java.util.List">
+		
+		INSERT INTO TEMP_APRROVAL(EDMS_NO ,MEMBER_ID ,APPROVAL_RANK)
+					VALUES
+		<foreach collection="list" index="index" item="member"  separator=",">
+					(#{member.EDMS_NO}, #{member.MEMBER_ID}, #{member.APPROVAL_RANK})
+		</foreach>
+		
+	</insert>
+	<insert id="createTempEdmsAttchFile" parameterType="List">
+			INSERT INTO TEMP_EDMS_ATTECHFILE (EDMS_NO, EDMS_ATTECHFILE_NAME	,EDMS_ATTECHFILE_ORI_NAME)
+		<foreach collection="list" index="index" item="EdmsFileVO"  separator=",">
+			VALUES(#{EdmsFileVO.edmsNo}, #{EdmsFileVO.edmsAttechfileName}, #{EdmsFileVO.edmsAttechfileOriName})
+		</foreach>
+	</insert>
+	
+	
+
+<!-- 결재목록 가져오기 -->
+
+ <sql id="search">
+  	
+  		<choose>
+  			
+  			<when test="Pager.kind=='kind2'">and EDMS_CONTENT</when>
+  			<otherwise>and EDMS_TITLE</otherwise>  			
+  		</choose>  
+  		LIKE CONCAT('%', #{Pager.search}, '%')
+  	 		
+ </sql>
+ 
+
+
+<select id="getEdmsList" parameterType="Map" resultType="EdmsVO">
+
+	SELECT * FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id} 
+	
+	 <include refid="search">	
+		
+	</include> 
+	ORDER BY EDMS_NO DESC
+	LIMIT #{Pager.startIndex},#{Pager.perPage}
+	
+</select>
+
+<select id="getEdmsTotalCount" resultType="Long" parameterType="Map">
+	
+	SELECT COUNT(EDMS_NO) FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id} 	
+	 <include refid="search">
+	</include>
+	
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 로그인한 사용자 부서이름 가져오기  -->
+
+	<select id="getDeptName" parameterType="MemberVO" resultType="Map">
+		
+		SELECT MEMBER_ID, DEPARTMENT_NAME, POSITION_NAME FROM `MEMBER` m 
+			JOIN DEPARTMENT d 
+			USING (DEPARTMENT_ID)
+			JOIN POSITIONRANK p 
+			USING (POSITION_ID)
+		WHERE MEMBER_ID = #{member_id}
+	
+	</select>
 
 <!-- 결재선 직원 불러오기  -->
 
@@ -52,42 +149,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getDeptChart" resultMap="deptList">
 	
-	<!-- 
-		WITH RECURSIVE CTE AS (
-		    SELECT 
-		        DEPARTMENT_ID, 
-		        DEPARTMENT_NAME, 
-		        DEPARTMENT_SUPER_ID, 
-		        0 AS depth,
-		        CAST(DEPARTMENT_ID AS CHAR(200)) AS path
-		    FROM 
-		        DEPARTMENT
-		    WHERE 
-		        DEPARTMENT_SUPER_ID = 0
-		
-		    UNION ALL
-		
-		    SELECT 
-		        d.DEPARTMENT_ID, 
-		        d.DEPARTMENT_NAME, 
-		        d.DEPARTMENT_SUPER_ID, 
-		        depth + 1, 
-		        CONCAT(CTE.path, ',', d.DEPARTMENT_ID)
-		    FROM 
-		        DEPARTMENT d
-		    INNER JOIN 
-		        CTE ON d.DEPARTMENT_SUPER_ID = CTE.DEPARTMENT_ID
-		)
-		SELECT 
-		    CTE.*,
-		    JSON_ARRAYAGG(child.DEPARTMENT_ID) AS department_child
-		FROM 
-		    CTE
-		LEFT JOIN 
-		    DEPARTMENT AS child ON CTE.DEPARTMENT_ID = child.DEPARTMENT_SUPER_ID
-		GROUP BY 
-		    CTE.DEPARTMENT_ID;
-	 -->
 	 WITH RECURSIVE CTE AS (
 		    SELECT 
 		        DEPARTMENT_ID, 

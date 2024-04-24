@@ -29,9 +29,9 @@ public class EdmsVO {
 	private String edmsExtraContent;
 	private Long edmsExtraNumber;
 	private String edmsCreatorPosition;	
-
 	
-	private List<FileVO> fileVOs; 
+	
+	private List<EdmsFileVO> fileVOs; 
 	
 }
 	

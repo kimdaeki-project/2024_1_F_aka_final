@@ -8,6 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,9 +28,12 @@ public class MemberVO implements UserDetails, OAuth2User{
 	private Date retire_date;
 	private String phone;
 	private String address;
+	@NotEmpty(message = "이름을 입력해 주세요")
 	private String user_id;
+	@NotNull(message = "비밀번호를 입력해 주세요")
 	private String password;
 	private String passwordCheck;
+	@NotBlank(message = "아이디를 입력해 주세요")
 	private String username;
 	private Long role_id;
 	private String customer_key;

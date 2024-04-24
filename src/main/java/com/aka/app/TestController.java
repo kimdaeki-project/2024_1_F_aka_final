@@ -15,8 +15,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
 
+import com.aka.app.board.BoardService;
+import com.aka.app.board.BoardVO;
 import com.aka.app.member.MemberService;
 import com.aka.app.member.MemberVO;
+import com.aka.app.util.Pager;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,11 +32,12 @@ public class TestController {
 	private MemberService memberService;
 	@Value("${weather.encoding.key}")
 	private String servicekey;
+	@Autowired
+	private BoardService boardService;
 	
-	
-	//WebClient 사용
+		//WebClient 사용
 		@RequestMapping("/")
-		public String weatherApiWc(Model model) throws Exception {
+		public String weatherApiWc(Model model,Pager pager) throws Exception {
 			//현재 시간 구하기 
 			Date today = new Date();
 			SimpleDateFormat dataformat = new SimpleDateFormat("yyyyMMdd-HH,mm");
@@ -87,6 +91,11 @@ public class TestController {
 			 						  }	  
 			 					  }
 		        String region = "현재 날씨  /  금천구";
+		        
+		        
+		        List<BoardVO>listt = boardService.getBoardList(pager);
+				model.addAttribute("list",listt);
+				model.addAttribute("pager",pager);
 		        model.addAttribute("region",region);
 		        model.addAttribute("status",status);
 		        model.addAttribute("temp",temp+"°");

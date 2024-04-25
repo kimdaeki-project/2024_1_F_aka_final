@@ -41,8 +41,8 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	public int updateMyinfo(MemberVO memberVO) throws Exception{
 		// 변경할 password 암호화
 		/* memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword())); */
-		
 		int result = memberDAO.updateMyinfo(memberVO);
+		log.info("3 : {} , 4 : {}, {}",memberVO.getEmail(), memberVO.getPhone(),result);
 		
 		return result;
 	}
@@ -106,6 +106,8 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	public int add(MemberVO memberVO)throws Exception{
 		log.info("회원가입~");
 		// pw -> 암호화
+		log.info(memberVO.getPassword());
+		
 		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
 		memberVO.setCustomer_key("TEST_customer1234abc-"+System.currentTimeMillis());
 		int result = memberDAO.add(memberVO);
@@ -124,6 +126,8 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		
 		check = bindingResult.hasErrors();
 		log.info("회원가입 검증");
+		log.info("==={}",memberVO.getPassword());
+		log.info("{}===",memberVO.getPasswordCheck());
 		// 비번검증
 		if(!memberVO.getPassword().equals(memberVO.getPasswordCheck())) {
 			check = true;

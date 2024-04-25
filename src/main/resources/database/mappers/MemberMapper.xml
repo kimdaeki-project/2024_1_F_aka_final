@@ -9,10 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getDetail" parameterType="MemberVO" resultMap="getDetailResult">
 		SELECT * 
 			FROM MEMBER M
-			INNER JOIN DEPARTMENT D
+<!-- 			INNER JOIN DEPARTMENT D
 			ON M.DEPARTMENT_ID = D.DEPARTMENT_ID
 			INNER JOIN ROLE R
-			ON M.ROLE_ID = R.ROLE_ID
+			ON M.ROLE_ID = R.ROLE_ID -->
 		WHERE USER_ID = #{user_id}		 
 	</select>
 	 <!-- resultMap="getDetailResult" -->
@@ -54,10 +54,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원가입시 -->
 	<insert id="add" parameterType="MemberVO">
 		INSERT INTO MEMBER
-			(MEMBER_ID, EMAIL, HIRE_DATE, RETIRE_DATE, PHONE, ADDRESS, DETAIL_ADDRESS, POSTCODE, 
-			USER_ID, PASSWORD, USERNAME, ROLE_ID, CUSTOMER_KEY, PROFIL, PROFIL_ORI, POSITION_ID, 
-			DEPARTMENT_ID)
-		VALUES(#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, #{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, #{customer_key},null,null,#{position_id},#{department_id})
+			(MEMBER_ID, EMAIL, HIRE_DATE, RETIRE_DATE, PHONE, ADDRESS, DETAIL_ADDRESS, 
+			POSTCODE, USER_ID, PASSWORD, USERNAME, ROLE_ID, CUSTOMER_KEY, 
+			PROFIL, PROFIL_ORI, POSITION_ID,DEPARTMENT_ID)
+		VALUES(
+		#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, 
+		#{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, #{customer_key}
+		,null,null,#{position_id},#{department_id})
 	</insert>
 	
 	<!-- 출석 -->
@@ -81,7 +84,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET 
 		PASSWORD = #{password},
 		EMAIL = #{email}, 
-		USER_ID = #{user_id}
+		PHONE = #{phone}
 		WHERE MEMBER_ID = #{member_id}
+		AND USER_ID = #{user_id}
 	</update>
 </mapper>

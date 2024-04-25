@@ -59,7 +59,8 @@
 		<div class="d-flex justify-content-center my-5">
 			<form:form modelAttribute="member" id="updateMypage" class="bg-white p-5 rounded-3">
 			<%-- <form class="bg-white p-5 rounded-3" action="POST"> --%>
-				
+				<input type="text" id="member_id" name="member_id" value=${member.member_id} hidden>
+				<input type="text" id="user_id" name="user_id" value=${member.user_id} hidden>
 			   <div class="d-flex justify-content-center mx-3 mb-5">
 		    	<label for="exampleInputPassword1" class="mt-2 form-label fw-semibold fs-6" style="width:130px;">부서명</label>
 		    	<input type="text" class="form-control mx-2" id="exampleInputPassword1" value="부서명" disabled>

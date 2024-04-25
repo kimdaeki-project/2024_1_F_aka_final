@@ -13,21 +13,28 @@ check.addEventListener("click",()=>{
 
 let phone = document.getElementById("phone");
 let email = document.getElementById("email");
+let userId = document.getElementById("user_id");
+let memberId = document.getElementById("member_id");
 
 function update(){
 	console.log("수정");
-	
+	console.log(updateMypage.value);
 	let form = new FormData(updateMypage);
-	
 	form.append('phone',phone.value);
 	form.append('email',email.value);
+	console.log(form)
+	console.log(phone.value, email.value);
 	
 	fetch("/member/mypage",{
 		method:'POST',
-	    
-        body: form
+	    headers:{'content-Type':'application/json', 'charset':'utf-8'},
+        body:JSON.stringify({
+			member_id:memberId.value,
+			user_id:userId.value,
+			email:email.value,
+			phone:phone.value
+		})
 	})
-	.then(res => res.json())
 	.then(res => res)
-	.catch(error => console.error('Error:', error));
+	.then(res => res);
 }

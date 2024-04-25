@@ -105,10 +105,5 @@ public class TestController {
 		        model.addAttribute("temp",temp+"°");
 		return "temp/sample";
 	}
-	
-	@GetMapping("/test/test")
-	public String test2(@ModelAttribute MemberVO member) {
-		
-		return "calendar/calendar";
-	}
+
 }

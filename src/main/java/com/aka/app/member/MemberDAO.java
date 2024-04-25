@@ -13,6 +13,8 @@ public interface MemberDAO {
 	
 	public int updatePw(MemberVO memberVO) throws Exception;
 	
+	public int updateMyinfo(MemberVO memberVO) throws Exception;
+	
 	public int getFindUser(MemberVO memberVO)throws Exception;
 	
 	public int createCheck(ScheduleVO scheduleVO)throws Exception;

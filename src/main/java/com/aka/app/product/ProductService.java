@@ -60,4 +60,8 @@ public class ProductService {
 	public List<ProductVO> getProductList (ProductVO productVO) throws Exception {
 		return  productDAO.getProductList(productVO);
 	}
+	
+	public Long getProductCount() throws Exception {
+		return productDAO.getProductCount();
+	}
 }

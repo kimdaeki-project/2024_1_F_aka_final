@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="row">
@@ -56,31 +57,33 @@
                            <div  id="carouselExample-cf"  class="carousel carousel-dark slide carousel-fade"   data-bs-ride="carousel"  >
                     <ol class="carousel-indicators">
                       <li data-bs-target="#carouselExample-cf" data-bs-slide-to="0" class="active"></li>
-                      <li data-bs-target="#carouselExample-cf" data-bs-slide-to="1"></li>
-                      <li data-bs-target="#carouselExample-cf" data-bs-slide-to="2"></li>
+                     <c:forEach begin="1" end="${pCount}" var="i">                     
+                      <li data-bs-target="#carouselExample-cf" data-bs-slide-to="${i+1}"></li>
+                     </c:forEach>
                     </ol>
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <img class="d-block w-100" src="../assets/img/elements/18.jpg" alt="First slide" />
+                        <img class="d-block w-100" src="../assets/img/elements/18.jpg" alt="/" />
                         <div class="carousel-caption d-none d-md-block">
-                          <h3>First slide</h3>
-                          <p>Eos.</p>
+                          <h3>상품 리스트</h3>
                         </div>
                       </div>
+                      
+                      <c:forEach items="${plist}"  var="vo">
                       <div class="carousel-item">
-                        <img class="d-block w-100" src="../assets/img/elements/13.jpg" alt="Second slide" />
+                      	<c:set var="str" value="assets"/>
+                 		<c:if test="${fn:contains(vo.product_photos,'assets')}">
+                    	  <img class="d-block w-100" src="${vo.product_photos}" alt="/" />                	
+                 		</c:if>
+                        <c:if test="${!fn:contains(vo.product_photos,'assets')}">
+                      	  <img class="d-block w-100" src="/files/product/${vo.product_photos}" alt="/" />
+                        </c:if>
                         <div class="carousel-caption d-none d-md-block">
-                          <h3>Second slide</h3>
-                          <p>In numquam </p>
+                          <h3>${vo.product_name}</h3>
                         </div>
                       </div>
-                      <div class="carousel-item">
-                        <img class="d-block w-100" src="../assets/img/elements/2.jpg" alt="Third slide" />
-                        <div class="carousel-caption d-none d-md-block">
-                          <h3>Third slide</h3>
-                          <p>Lorem ipsum</p>
-                        </div>
-                      </div>
+                    </c:forEach>
+                   
                     </div>
                     <a class="carousel-control-prev" href="#carouselExample-cf" role="button" data-bs-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>

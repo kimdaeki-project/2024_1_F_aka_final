@@ -58,7 +58,7 @@
                     <ol class="carousel-indicators">
                       <li data-bs-target="#carouselExample-cf" data-bs-slide-to="0" class="active"></li>
                      <c:forEach begin="1" end="${pCount}" var="i">                     
-                      <li data-bs-target="#carouselExample-cf" data-bs-slide-to="${i+1}"></li>
+                      <li data-bs-target="#carouselExample-cf" data-bs-slide-to="${i}"></li>
                      </c:forEach>
                     </ol>
                     <div class="carousel-inner">
@@ -73,10 +73,10 @@
                       <div class="carousel-item">
                       	<c:set var="str" value="assets"/>
                  		<c:if test="${fn:contains(vo.product_photos,'assets')}">
-                    	  <img class="d-block w-100" src="${vo.product_photos}" alt="/" />                	
+                    	 <a href="/product/detail?product_num=${vo.product_num}"><img class="d-block w-100" src="${vo.product_photos}" alt="${vo.product_name}"/></a>                	
                  		</c:if>
                         <c:if test="${!fn:contains(vo.product_photos,'assets')}">
-                      	  <img class="d-block w-100" src="/files/product/${vo.product_photos}" alt="/" />
+                      	<a href="/product/detail?product_num=${vo.product_num}"><img class="d-block w-100" src="/files/product/${vo.product_photos}" alt="${vo.product_name}"/></a>
                         </c:if>
                         <div class="carousel-caption d-none d-md-block">
                           <h3>${vo.product_name}</h3>

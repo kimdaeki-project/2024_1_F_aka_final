@@ -56,7 +56,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(
 						(authorizeRequests)->
 											authorizeRequests
-											.requestMatchers("/", "/edms/**", "/member/mypage").authenticated()
+											.requestMatchers("/", "/edms/**", "/member/mypage", "/member/calendar").authenticated()
 //											.requestMatchers("/").permitAll()
 //											.requestMatchers("/member/login").permitAll()
 											.anyRequest().permitAll()

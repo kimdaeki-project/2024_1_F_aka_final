@@ -1,6 +1,7 @@
 package com.aka.app.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,10 +10,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.aka.app.member.groups.MemberUpdateGroup;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -83,8 +84,12 @@ public class MemberController {
 	}
 	
 	@PostMapping("/mypage")
-	public String update(@RequestParam("user_id")String user_id, Model model)throws Exception{
-		return "redirect:./";
+	@ResponseBody
+	public ResponseEntity<?> update(@RequestBody MemberVO memberVO)throws Exception{
+
+		memberService.updateMyinfo(memberVO);
+		log.info("update");
+		return ResponseEntity.ok().build();
 	}
 	
 	@GetMapping("/findPw")
@@ -110,6 +115,11 @@ public class MemberController {
 		model.addAttribute("path",path);
 		
 		return "commons/result";
+	}
+	
+	@GetMapping("/calendar")
+	public String calendar() throws Exception{
+		return "calendar/calendar";
 	}
 }
 

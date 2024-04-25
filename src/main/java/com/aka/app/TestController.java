@@ -32,10 +32,5 @@ public class TestController {
 		model.addAttribute("pCount",pCount);
 		return "temp/sample";
 	}
-	
-	@GetMapping("/test/test")
-	public String test2(@ModelAttribute MemberVO member) {
-		
-		return "calendar/calendar";
-	}
+
 }

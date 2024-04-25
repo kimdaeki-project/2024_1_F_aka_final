@@ -57,7 +57,7 @@
 		</div>
  		
 		<div class="d-flex justify-content-center my-5">
-			<form:form modelAttribute="member" class="bg-white p-5 rounded-3">
+			<form:form modelAttribute="member" id="updateMypage" class="bg-white p-5 rounded-3">
 			<%-- <form class="bg-white p-5 rounded-3" action="POST"> --%>
 				
 			   <div class="d-flex justify-content-center mx-3 mb-5">
@@ -79,7 +79,7 @@
   			  <div class="d-flex justify-content-center mx-3 mb-5 w-50">
 		    	<label for="password" class="mt-2 form-label fw-semibold fs-6" style="width:90px">비밀번호</label><br>
 		    	<!-- password 보이도록 --><!-- showPassword="true" -->
-		    	<form:password path="password" cssClass="form-control" name="password" id="password"/>
+		    	<form:password path="password" cssClass="form-control" id="password"/>
 			    
 			    <!-- <label for="exampleInputPassword1" class="mt-2 ms-5 form-label">Password</label>
 			    <input type="password" class="form-control mx-2" id="exampleInputPassword1"> -->
@@ -101,11 +101,11 @@
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				      	<span>정말 바꾸시겠습니까?</span>
+				      	<span>정말 수정하시겠습니까?</span>
 				      </div>
 				      <div class="modal-footer">
+				        <button type="button" id="updateBtn" class="btn btn-primary" onclick="update()">수정</button>
 				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-				        <button type="button" class="btn btn-primary">변경</button>
 				      </div>
 				    </div>
 				  </div>

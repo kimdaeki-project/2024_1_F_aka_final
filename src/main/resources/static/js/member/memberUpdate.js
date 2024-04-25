@@ -25,6 +25,5 @@ email.addEventListener("focusout",()=>{
 		
 	})
 	.then((res) => console.log(res));
-});
+});*/
 
-*/

@@ -37,9 +37,17 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
+	// mypage수정
+	public int updateMyinfo(MemberVO memberVO) throws Exception{
+		// 변경할 password 암호화
+		/* memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword())); */
+		
+		int result = memberDAO.updateMyinfo(memberVO);
+		
+		return result;
+	}
 	
 	public int createCheck(ScheduleVO scheduleVO) throws Exception{
-		
 		memberDAO.createCheck(scheduleVO);
 		return 1;
 	}

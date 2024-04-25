@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -131,9 +131,9 @@ public class EdmsService {
 				
 				String edmsAttechfileName = fileManager.fileSave(edmsFileUploadPath, f);
 				EdmsFileVO edmsFileVO = new EdmsFileVO();
-				edmsFileVO.setEdmsNo(edmsNum);
-				edmsFileVO.setEdmsAttechfileName(edmsAttechfileName);
-				edmsFileVO.setEdmsAttechfileOriName(f.getOriginalFilename());
+				edmsFileVO.setEdms_No(edmsNum);
+				edmsFileVO.setEdms_Attechfile_Name(edmsAttechfileName);
+				edmsFileVO.setEdms_AttechfileOri_Name(f.getOriginalFilename());
 				fileList.add(edmsFileVO);
 			}
 			int fileResult = 0;			
@@ -174,6 +174,8 @@ public class EdmsService {
 		return edmsDAO.getMemberList(); 
 		
 	}
+	
+	
 	
 	// 차트 불러오기
 	//부서

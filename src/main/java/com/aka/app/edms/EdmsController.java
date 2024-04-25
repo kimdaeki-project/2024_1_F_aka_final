@@ -51,11 +51,11 @@ public class EdmsController {
 	titles.put("no4", "생성일");
 	titles.put("no5", "결재상태");
 		
-	model.addAttribute("titles", titles);
 	//리스트 내용 불러오기	
 	List<EdmsVO> edmsList = edmsService.getEdmsList(pager,memberVO);
 	System.out.println(edmsList);	
-	
+	model.addAttribute("titles", titles);
+	model.addAttribute("list",edmsList);
 	
 	
 	
@@ -90,18 +90,22 @@ public class EdmsController {
 		//직원목록 불러오기
 		List<Map<String, String>> result = edmsService.getMemberList(); 
 		
-//		List<ChartVO> chartAr = edmsService.getDeptList();
-		
-		
-//		System.out.println(chartAr.get(0).getName());	
-//				System.out.println(memberVO);
+
 		model.addAttribute("member", memberVO);
 		model.addAttribute("deptName", deptName);
 		model.addAttribute("list",result);		
+		model.addAttribute("checkType","create");
 		
 //		System.out.println(model);
 		
-		return "EDMS/create";
+		return "EDMS/form";
+		
+	}
+	
+	public void getEdmsDetail(Long edms_no) {
+		
+		
+		
 		
 	}
 	

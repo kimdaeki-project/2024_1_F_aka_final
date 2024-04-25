@@ -14,12 +14,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 문서저장  -->
 	<insert id="createEdms" parameterType="EdmsVO">
-		<selectKey keyProperty="edmsNo" resultType="Long" order="BEFORE">
+		<selectKey keyProperty="edms_No" resultType="Long" order="BEFORE">
 		<!-- EDMS_NO 동시사용  -->
 			SELECT MAX(EDMS_NO) FROM EDMS
 		</selectKey>
 			INSERT INTO EDMS (EDMS_NO, EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
-				VALUES(NEXTVAL(EDMS_SEQ), #{edms_From_No}, #{edms_Creator}, #{edms_Title}, #{edms_Content}, #{edms_Status}, #{edms_Create_Date}, #{edms_Creator_Position})
+				VALUES(NEXTVAL(EDMS_SEQ), #{edms_From_No}, #{edms_Creator}, #{edms_Title}, #{edms_Content}, #{edms_Status}, NOW(), #{edms_Creator_Position})
 	</insert>
 	
 	<insert id="createApproval" parameterType="java.util.List">
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createEdmsAttchFile" parameterType="List">
 			INSERT INTO EDMS_ATTECHFILE (EDMS_NO, EDMS_ATTECHFILE_NAME,EDMS_ATTECHFILE_ORI_NAME)
 		<foreach collection="list" index="index" item="EdmsFileVO"  separator=",">
-			VALUES(#{EdmsFileVO.edmsNo}, #{EdmsFileVO.edmsAttechfileName}, #{EdmsFileVO.edmsAttechfileOriName})
+				VALUES(#{EdmsFileVO.edms_No}, #{EdmsFileVO.edms_Attechfile_Name}, #{EdmsFileVO.edms_AttechfileOri_Name})
 		</foreach>
 	</insert>
 
@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 임시문서 저장  -->
 
 	<insert id="createTempEdms" parameterType="EdmsVO">
-		<selectKey keyProperty="edmsNo" resultType="Long" order="BEFORE"> 
+		<selectKey keyProperty="edms_No" resultType="Long" order="BEFORE"> 
 		<!-- EDMS_NO 동시사용  -->
 			SELECT MAX(EDMS_NO) FROM TEMP_EDMS
 		</selectKey>
@@ -62,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createTempEdmsAttchFile" parameterType="List">
 			INSERT INTO TEMP_EDMS_ATTECHFILE (EDMS_NO, EDMS_ATTECHFILE_NAME	,EDMS_ATTECHFILE_ORI_NAME)
 		<foreach collection="list" index="index" item="EdmsFileVO"  separator=",">
-			VALUES(#{EdmsFileVO.edmsNo}, #{EdmsFileVO.edmsAttechfileName}, #{EdmsFileVO.edmsAttechfileOriName})
+				VALUES(#{EdmsFileVO.edms_No}, #{EdmsFileVO.edms_Attechfile_Name}, #{EdmsFileVO.edms_AttechfileOri_Name})
 		</foreach>
 	</insert>
 	
@@ -176,9 +176,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    INNER JOIN 
 		        CTE ON d.DEPARTMENT_SUPER_ID = CTE.DEPARTMENT_ID
 		)
-		SELECT *
-		FROM 
-		    CTE
+		SELECT * FROM  CTE
 	 
 	 
 	</select>

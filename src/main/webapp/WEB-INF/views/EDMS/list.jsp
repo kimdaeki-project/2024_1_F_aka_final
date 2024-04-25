@@ -76,7 +76,23 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+                    	// list= edmsvo list 
+                    <c:forEach items="${list}" var="list">
                       <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i>${list.edms_No}</td>
+                        <td>${list.edms_Title}</td>
+                        <td>
+                         	<a href="/edms/getDetail?${list.edms_No}">${list.edms_Content}</a>
+                        </td>
+                        <td>
+                        	${list.edms_Create_Date}
+                        </td>
+                        <td>
+                          	${list.edms_Status}
+                        </td>
+                      </tr>
+                    </c:forEach><!-- 
+                       <tr>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
                         <td>Albert Cook</td>
                         <td>
@@ -104,7 +120,9 @@
                             </div>
                           </div>
                         </td>
-                      </tr>                      
+                      </tr>      -->
+                      
+                                         
                     </tbody>
                   </table>
                 </div>

@@ -28,4 +28,15 @@ public class ProductVO {
 	private String product_detail;
 	private String product_photos;
 	private MultipartFile files;
+	private Long start=1L;
+	private Long last;
+	
+	
+	
+	public Long getLast() {
+		if(this.last==null || this.last<1) {
+			this.last=1L;
+		}
+		return this.last;
+	}
 }

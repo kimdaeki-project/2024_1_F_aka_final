@@ -25,9 +25,11 @@ public class TestController {
 	@GetMapping("/")
 	public String test(Pager pager,ProductVO productVO,Model model) throws Exception {
 		List<BoardVO>listt = boardService.getBoardList(pager);
-		List<ProductVO> list = productService.getProductList(productVO);   
+		List<ProductVO> list = productService.getProductList(productVO);
+		Long pCount = productService.getProductCount();
 		model.addAttribute("list",listt);
 		model.addAttribute("plist",list);
+		model.addAttribute("pCount",pCount);
 		return "temp/sample";
 	}
 	

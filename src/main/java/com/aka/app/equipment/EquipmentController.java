@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@Transactional
 @RequestMapping("/equipment/*")
 public class EquipmentController {
 	

@@ -19,7 +19,7 @@ import com.aka.app.util.FileManager;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-@Transactional
+
 @Controller
 @RequestMapping("/product/*")
 public class ProductController {

@@ -16,4 +16,6 @@ public interface ProductDAO {
 	public List<ProductVO> getProductList (ProductVO productVo) throws Exception;
 	
 	public int createProduct (ProductVO producVO) throws Exception;
+	
+	public Long getProductCount()throws Exception;
 }

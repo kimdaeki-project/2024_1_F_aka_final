@@ -87,7 +87,7 @@ public class EdmsService {
 			result = edmsDAO.createTempEdms(edmsVO);
 		}
 		
-		Long edmsNum = edmsVO.getEdmsNo();
+		Long edmsNum = edmsVO.getEdms_No();
 		int i = 0;		
 		int count = appAr.length-1;
 		List<Map<String, Object>> list = new ArrayList<>();

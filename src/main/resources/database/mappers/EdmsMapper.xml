@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT MAX(EDMS_NO) FROM EDMS
 		</selectKey>
 			INSERT INTO EDMS (EDMS_NO, EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
-				VALUES(NEXTVAL(EDMS_SEQ), #{edmsFromNo}, #{edmsCreator}, #{edmsTitle}, #{edmsContent}, #{edmsStatus}, #{edmsCreateDate}, #{edmsCreatorPosition})
+				VALUES(NEXTVAL(EDMS_SEQ), #{edms_From_No}, #{edms_Creator}, #{edms_Title}, #{edms_Content}, #{edms_Status}, #{edms_Create_Date}, #{edms_Creator_Position})
 	</insert>
 	
 	<insert id="createApproval" parameterType="java.util.List">
@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT MAX(EDMS_NO) FROM TEMP_EDMS
 		</selectKey>
 			INSERT INTO TEMP_EDMS (EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
-				VALUES(#{edmsFromNo}, #{edmsCreator}, #{edmsTitle}, #{edmsContent}, #{edmsStatus}, #{edmsCreateDate}, #{edmsCreatorPosition})
+				VALUES(#{edms_From_No}, #{edms_Creator}, #{edms_Title}, #{edms_Content}, #{edms_Status}, #{edms_Create_Date}, #{edms_Creator_Position})
 	</insert>
 	
 	<insert id="createTempApproval" parameterType="java.util.List">
@@ -74,8 +74,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	
   		<choose>
   			
-  			<when test="Pager.kind=='kind2'">and EDMS_CONTENT</when>
-  			<otherwise>and EDMS_TITLE</otherwise>  			
+  			<when test="Pager.kind=='kind2'">AND EDMS_CONTENT</when>
+  			<otherwise>AND EDMS_TITLE</otherwise>  			
   		</choose>  
   		LIKE CONCAT('%', #{Pager.search}, '%')
   	 		
@@ -85,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="getEdmsList" parameterType="Map" resultType="EdmsVO">
 
-	SELECT * FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id} 
+	SELECT * FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id}
 	
 	 <include refid="search">	
 		
@@ -94,6 +94,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	LIMIT #{Pager.startIndex},#{Pager.perPage}
 	
 </select>
+
+
 
 <select id="getEdmsTotalCount" resultType="Long" parameterType="Map">
 	
@@ -174,7 +176,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    INNER JOIN 
 		        CTE ON d.DEPARTMENT_SUPER_ID = CTE.DEPARTMENT_ID
 		)
-		SELECT *		   
+		SELECT *
 		FROM 
 		    CTE
 	 
@@ -202,5 +204,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 </mapper>
-
 

@@ -16,6 +16,7 @@
 
 ### :computer:개발 환경
 +   JAVA  : JAVA 17
++   FRONT : JSP
 +   FRAME WORK : SpringBoot 4.21.1
 +   DATA BASE : MariaDB
 +   SERVER : AWS EC2 DOCKER

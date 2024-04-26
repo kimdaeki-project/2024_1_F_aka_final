@@ -19,7 +19,7 @@
 +   FRAME WORK : SpringBoot 4.21.1
 +   DATA BASE : MariaDB
 +   SERVER : AWS EC2 DOCKER
-+   
+
 
 ---
 

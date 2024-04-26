@@ -17,7 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component("BoardCustomView")
 public  class BoardCustomView extends AbstractView{
-
+	
+	
+	//파일다운 
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

@@ -84,10 +84,10 @@ public class WeatherController {
 			 					  map = (Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) map.get("response")).get("body")).get("items");
 			 	List<Object> list = (List<Object>) map.get("item");
 			 					  for(Object a:list) {
-			 						  if(a.toString().contains("T1H")) {
+			 						  if(a.toString().contains("T1H")) {			//온도 구하기
 			 							  map = (Map<String, Object>) a;
 			 							 temp  = map.get("obsrValue").toString();		 							  
-			 						  }else if(a.toString().contains("PTY")) {
+			 						  }else if(a.toString().contains("PTY")) {		//날씨상태 구하기
 			 							  map2 = (Map<String, Object>) a;
 			 							 status = map2.get("obsrValue").toString();
 			 						  }	  
@@ -97,7 +97,7 @@ public class WeatherController {
 		        resultMap.put("region",region);
 		        resultMap.put("status",status);
 		        resultMap.put("temp",temp+"°");
-		        return resultMap;
+		        return resultMap;							//비동기 제이슨리턴
 		}
 		
 }

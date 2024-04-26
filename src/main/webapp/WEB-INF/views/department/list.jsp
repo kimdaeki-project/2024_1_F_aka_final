@@ -22,9 +22,13 @@
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
     <meta name="description" content="" />
     <script src="/assets/vendor/js/helpers.js"></script>
-    <script src="/assets/js/config.js"></script>
    <!--link import  -->
     <c:import url="../temp/head.jsp"></c:import>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <script src="/assets/js/config.js"></script>
+   <!-- jQuery CDN -->
+
+
   </head>
 
   <body>
@@ -53,10 +57,11 @@
               <div class="row">
                 <div class="col-md mb-4 mb-md-0">
                   <div class="accordion mt-3" id="accordionExample">
-                   
-                   
-                    
-                    <c:forEach items="${list}" var="li" >      
+
+
+								<div id="tree"></div>
+					
+								<%-- <c:forEach items="${list}" var="li" >      
                     <c:if test="${li.department_super_id eq 1}">
                     	<div class="card accordion-item"> 
                    			 <h2 class="accordion-header" id="headingTwo">
@@ -76,12 +81,13 @@
                     	 </div>                                   		                    
                     </c:if>
                         		
-                    </c:forEach>
+                    </c:forEach> --%>
                     
-                 
+                 <button style="display: none" id="modalButton"  type="button" class="btn btn-primary"  data-bs-toggle="modal"  data-bs-target="#modalScrollable" >
+                          Option 2
+                  </button>
                     
-                    <div id="result"></div>
-                    
+                  
                    
                   </div>
                 </div>
@@ -95,15 +101,16 @@
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title" id="modalScrollableTitle">사원 목록</h5>
+                            	<div class="modal-body" id="modalResult">
+                              </div>
+                           
                               <button
                                 type="button"
                                 class="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
                               ></button>
-                            </div>
-                            <div class="modal-body" id="modalResult">
-                              dd
+                             
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -165,5 +172,60 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="/js/department/departmentEvent.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <script>
+    let modalScrollable = document.getElementById("modalScrollable");
+    let modalResult = document.getElementById("modalResult");
+    $(function () {
+        // jstree 초기화 및 JSON 파일 로드
+        $('#tree').jstree({
+            core: {
+                'data': {
+                    'url': '/department/jstreeList',
+                    'dataType': 'json' // 데이터 타입이 JSON임을 명시
+                  }
+                }
+              })
+            
+    });
+    
+    var parentId = $('#tree').jstree('get_selected',true);
+    $("#tree").jstree("close_all");
+    $("#tree").jstree("open_all");
+    $("#tree").jstree("search");
+    
+   
+    $('#tree').on('select_node.jstree', function (e, data) {
+        console.log(data);
+        var deparid = data.node.id;
+        var deparSuperid = data.node.parent;
+        var children = data.node.children;
+        console.log(children);
+        console.log(deparSuperid);
+        if(children.length==0){
+          $.ajax({
+              url : "/department/member?department_id="+deparid,
+              dataType : "html",
+              type : "get",
+              success : function(res){
+                console.log(res);
+              $("#modalResult").html(res); 
+              $("#modalButton").click();
+              }
+              });
+
+        }
+          
+        
+       
+        
+      });
+  
+    
+
+     
+     
+    </script>
   </body>
 </html>

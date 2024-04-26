@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -10,8 +11,9 @@
   data-template="vertical-menu-template-free"
 >
   <head>
-  
+  	
     <meta charset='utf-8' />
+    <title>Calendar</title>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
     <script>
 
@@ -20,20 +22,24 @@
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
       	  expandRows: true,		 /* 크기조절 */
-          initialDate: '2023-01-12',
+          initialDate: '2024-04-01',		/* 초기시간설정 => 처음보여줄 달력 */
           editable: true,
           selectable: true,
           businessHours: true,
           dayMaxEvents: true, // allow "more" link when too many events
-          events: [
-            {
-              title: 'All Day Event',
-              start: '2023-01-01'
+          events: [							/* 날짜만 적어주면 하루종일 */
+            {								
+				title: 'All Day Event',
+				start: '2024-04-01'
             },
             {
-              title: 'Long Event',
-              start: '2023-01-07',
-              end: '2023-01-10'
+				title: 'Long Event',
+				start: '2024-04-07',
+				end: '2024-04-10'
+            },
+            {
+				title: 'Date tile',
+				start: '2024-04-07T20:00:00'
             }
 
           ]
@@ -45,19 +51,24 @@
     </script>
     <style>
     	  #calendar {
-		   max-width: 1300px;
+		   max-width: 1250px;
+		   max-height: 850px;
 		   margin: 0 auto;
 		 }
     </style>
 	<c:import url="../temp/head.jsp"></c:import>
-
+	</head>
 	<body>
   		<c:import url="../temp/nav.jsp"></c:import>
   		<c:import url="../temp/side.jsp"></c:import>
   	
   	
   	
-    	<div id='calendar'></div>	
+    	<div id='calendar'>
+    		<span class="d-flex justify-content-end">
+   				<button class="mt-3 btn btn-danger" style="width:120px;">일정추가</button>
+   			</span>
+    	</div>	
     
     
     

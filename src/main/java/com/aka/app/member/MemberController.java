@@ -86,12 +86,7 @@ public class MemberController {
 	@PostMapping("/mypage")
 	@ResponseBody
 	public ResponseEntity<?> update(@RequestBody MemberVO memberVO)throws Exception{
-		log.info("1 : {}, 2 : {}",memberVO.getPhone(), memberVO.getEmail());
-		log.info("memberVO : {}", memberVO);
-		
-		
 		memberService.updateMyinfo(memberVO);
-		log.info("update");
 		return ResponseEntity.ok().build();
 	}
 	
@@ -120,9 +115,6 @@ public class MemberController {
 		return "commons/result";
 	}
 	
-	@GetMapping("/calendar")
-	public String calendar() throws Exception{
-		return "calendar/calendar";
-	}
+
 }
 

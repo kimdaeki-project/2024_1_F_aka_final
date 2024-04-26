@@ -48,3 +48,7 @@
 +  3.강의실 관리
 
 
+
+![메인화면](https://github.com/dirokim/aka_final/blob/develop/20240426_163830.png)
+
+

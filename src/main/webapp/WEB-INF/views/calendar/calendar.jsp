@@ -66,12 +66,48 @@
   	
     	<div id='calendar'>
     		<span class="d-flex justify-content-end">
-   				<button class="mt-3 btn btn-danger" style="width:120px;">일정추가</button>
+   				<button class="mt-3 btn btn-danger" data-bs-toggle="modal" data-bs-target="#addSchedule" style="width:120px;">일정추가</button>
    			</span>
     	</div>	
     
-    
-    
+		<!-- Modal -->
+		<div class="modal fade" id="addSchedule" tabindex="-1" aria-labelledby="addScheduleLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="addScheduleLabel">일정추가</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        <div class="mb-3">
+				  <label for="exampleFormControlInput1" class="form-label">일정제목</label>
+				  <input type="email" class="form-control" id="exampleFormControlInput1">
+				</div>
+				<div class="mb-3">
+				  <label for="exampleFormControlInput1" class="form-label">시작일</label>
+				  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+				</div>
+				<div class="mb-3">
+				  <label for="exampleFormControlInput1" class="form-label">종료일</label>
+				  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+				</div>
+				<div class="mb-3">
+				  <label for="exampleFormControlTextarea1" class="form-label">일정내용</label>
+				  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+				</div>
+				<select class="form-select" aria-label="Default select example">
+				  <option value="1">개인일정</option>
+				  <option value="2">부서일정</option>
+				</select>
+		      </div>
+		      
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
     
     
     <!-- Core JS -->

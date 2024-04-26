@@ -1,20 +1,20 @@
-#AKA FINAL 
+# AKA FINAL 
 ---
 
-+###프로젝트 소개
+### 프로젝트 소개
 +  오프라인 학원에서 사용하는 사내 그룹웨어 
 
 
-+###:school:구디아카데미
+### :school:구디아카데미
 +  <https://www.gdu.co.kr/main/main.html>
 +  클라우드 활용 자바 개발자 양성과정 (팀 프로젝트) 
 
 
-+###:clock2:프로젝트 기간
+### :clock2:프로젝트 기간
 +  2024.3 ~ 2024.5
 
 
-+###:computer:개발 환경
+### :computer:개발 환경
 +   JAVA  : JAVA 17
 +   FRAME WORK : SpringBoot 4.21.1
 +   DATA BASE : MariaDB

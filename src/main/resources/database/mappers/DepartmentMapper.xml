@@ -17,9 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="getDepartmentMemberList" resultType="MemberVO">
-		SELECT * 
-		FROM MEMBER
-		WHERE DEPARTMENT_ID = #{department_id} 
+	SELECT * 
+	FROM MEMBER
+	WHERE DEPARTMENT_ID = #{department_id} 
 	</select>
 	
 	

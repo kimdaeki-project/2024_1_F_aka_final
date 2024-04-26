@@ -96,12 +96,13 @@
                 </div>	
 	            </div>
 					<div class="demo-inline-spacing ml-6">	
+						<a href="/payment/checkout?product_num=${vo.product_num}" class="btn btn-outline-primary">상품 결제 하기</a><br>
+						
 						<a class=" btn btn-primary" href="/product/update?product_num=${vo.product_num}">수정</a>
 						<form action="/product/delete" method="post">
 						<input type="hidden" name="product_num" value="${vo.product_num}">
 						<button class="btn btn-danger" id="deleteProductBtn">삭제</button>									
 						</form>	
-						<a href="/payment/checkout?product_num=${vo.product_num}" class="btn btn-outline-primary">상품 결제 하기</a>
 					</div>
           		  </div>		
             <!-- / Content -->

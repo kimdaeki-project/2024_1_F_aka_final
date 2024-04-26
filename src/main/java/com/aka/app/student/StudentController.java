@@ -62,17 +62,20 @@ public class StudentController {
 	}
 	
 	@GetMapping("create")
-	public void createStudent(@ModelAttribute MemberVO memberVO) throws Exception {	
+	public void createStudent() throws Exception {	
 	}
 	
 	@PostMapping("create")
-	public String createStudent(@Valid MemberVO memberVO,BindingResult bindingResult,Model model) throws Exception {
-		if(bindingResult.hasErrors()) {
-			return "student/create";
-		}
+	public String createStudent(MemberVO memberVO,Model model) throws Exception {
+		String msg = "수강생 등록 실패";
 		memberVO.setDepartment_id(15L);
-		memberService.add(memberVO);
-		return "student/list";
+		int result = memberService.add(memberVO);
+		if(result==1) {
+			msg = "수강생 등록 성공";
+		}
+		model.addAttribute("msg",msg);
+		model.addAttribute("path","/student/list");
+		return "commons/result";
 	}
 	
 	@GetMapping("list")

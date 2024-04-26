@@ -27,9 +27,9 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@GetMapping("filedown")
-	public ModelAndView filedown(ModelAndView mv,BoardVO boardVO) throws Exception {
-		boardVO = boardService.getBoardDetail(boardVO);
-		mv.addObject("vo",boardVO);
+	public ModelAndView filedown(ModelAndView mv,BoardFileVO boardFileVO) throws Exception {
+		boardFileVO = boardService.getBoardFileDetail(boardFileVO);
+		mv.addObject("vo",boardFileVO);
 		mv.setViewName("BoardCustomView");
 		return mv;
 	}
@@ -96,8 +96,7 @@ public class BoardController {
 			//form 검증 실패시 
 			return "board/create";
 		}
-		MultipartFile attach = boardVO.getBoardFile();
-		result = boardService.createBoard(boardVO,session,attach); 
+		result = boardService.createBoard(boardVO,session);
 		if(result ==1) msg = "공지사항 추가 성공";
 		model.addAttribute("msg", msg);
 		model.addAttribute("path", "/board/list");

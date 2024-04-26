@@ -22,5 +22,6 @@ public interface  BoardDAO  {
 	public int createBoard(BoardVO boardVO)throws Exception;
 	//공지사항 첨부파일
 	public int createBoardFiles(BoardFileVO boardFileVO)throws Exception;
-	
+	//첨푸파일 조회
+	public BoardFileVO getBoardFileDetail(BoardFileVO boardFileVO)throws Exception;
 }

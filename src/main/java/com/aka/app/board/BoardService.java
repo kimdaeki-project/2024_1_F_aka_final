@@ -37,6 +37,10 @@ public class BoardService {
 		return boardDAO.getBoardDetail(boardVO);
 	}
 	
+	public BoardFileVO getBoardFileDetail(BoardFileVO BoardFileVO) throws Exception {
+		return boardDAO.getBoardFileDetail(BoardFileVO);
+	}
+	
 	public List<BoardVO> getBoardList(Pager pager)throws Exception{
 		pager.makeIndex();
 		Long totalCount = boardDAO.getTotalCount(pager);
@@ -44,7 +48,7 @@ public class BoardService {
 		return boardDAO.getBoardList(pager);
 	}
 	
-	public int createBoard(BoardVO boardVO,HttpSession session,MultipartFile attach) throws Exception {
+	public int createBoard(BoardVO boardVO,HttpSession session) throws Exception {
 		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");  //세션에서 스프링 시큐리티 컨택스트 홀더 꺼내기
 		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;	   //홀더에서 컨텍스트 꺼내기
 		MemberVO memberVO = (MemberVO)contextImpl.getAuthentication().getPrincipal(); //컨택스트에서 유저 객체 꺼내기
@@ -54,14 +58,18 @@ public class BoardService {
 		boardVO.setBoard_date(date);
 		boardVO.setMember_id(memberVO.getMember_id());
 		boardVO.setBoard_writer(memberVO.getUsername());
+		List<MultipartFile>attach = boardVO.getBoardFile();
 		int result = boardDAO.createBoard(boardVO);
-		if(!attach.isEmpty()) {
-			String fileName = fileManager.fileSave(uploadPath, attach);
+		for(MultipartFile a : attach) {	
+			if(a == null) {
+				break;
+			}
+			String fileName = fileManager.fileSave(uploadPath, a);
 			BoardFileVO boardFileVO = new BoardFileVO();
 			boardFileVO.setBoard_num(boardVO.getBoard_num());
 			boardFileVO.setMember_id(memberVO.getMember_id());
 			boardFileVO.setFilename(fileName);
-			boardFileVO.setOrifilename(attach.getOriginalFilename());
+			boardFileVO.setOrifilename(a.getOriginalFilename());
 			boardDAO.createBoardFiles(boardFileVO);
 		}
 		return result;

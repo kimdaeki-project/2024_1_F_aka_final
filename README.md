@@ -26,18 +26,18 @@
 
 
 ### :two_men_holding_hands: 팀원소개
-#### 팀장 조민우
+#### 팀장 조민우  contact thezotico@gmail.com
 +  1.전자 결재 시스템 구현
 
 
-#### 팀원 김승균
+#### 팀원 김승균   contact dirokim7@gmail.com
 +  1.학원비 결제 시스템(tosspayment)
 +  2.학생,비품,상품 관리
 +  3.공지사항
 +  4.메인페이지(기상청api데이터 출력)
 
 
-#### 팀원 고민효
+#### 팀원 고민효   contact gohyo7@gmail.com
 +  1.스프링 시큐리티 구현
 +  2.로그인,로그아웃,회원가입,마이페이지 구현
 +  3.스케쥴 관리 구현(Full Calendar)

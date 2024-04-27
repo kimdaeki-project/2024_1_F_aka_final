@@ -80,25 +80,28 @@
 		      </div>
 		      <div class="modal-body">
 		        <div class="mb-3">
-				  <label for="exampleFormControlInput1" class="form-label">일정제목</label>
-				  <input type="email" class="form-control" id="exampleFormControlInput1">
+				  <label for="title" class="form-label">일정제목</label>
+				  <input type="text" class="form-control" name="title" id="title">
 				</div>
 				<div class="mb-3">
-				  <label for="exampleFormControlInput1" class="form-label">시작일</label>
-				  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+				  <label for="start_date" class="form-label">시작일</label>
+				  <input type="date" class="form-control" name="start_date" id="start_date">
 				</div>
 				<div class="mb-3">
-				  <label for="exampleFormControlInput1" class="form-label">종료일</label>
-				  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+				  <label for="end_date" class="form-label">종료일</label>
+				  <input type="date" class="form-control" name="end_date" id="end_date">
 				</div>
 				<div class="mb-3">
-				  <label for="exampleFormControlTextarea1" class="form-label">일정내용</label>
-				  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+				  <label for="content" class="form-label">일정내용</label>
+				  <textarea class="form-control" name="content" id="content" rows="3"></textarea>
 				</div>
 				<select class="form-select" aria-label="Default select example">
 				  <option value="1">개인일정</option>
 				  <option value="2">부서일정</option>
 				</select>
+				<input>
+				<input type="date" name="update_date" id="update_date">
+				<input type="text" name="member_id" id="member_id">
 		      </div>
 		      
 		      <div class="modal-footer">

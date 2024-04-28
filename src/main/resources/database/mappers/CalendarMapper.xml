@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aka.app.calendar.CalendarDAO">
+	
+	<insert id="create" parameterType="CalendarVO">
+		INSERT INTO CALENDAR 
+			(START_DATE, END_DATE, TITLE, CONTENT, UPDATE_DATE, TARGET_OBJECT, MEMBER_ID)
+		VALUES
+			(#{start_date}, #{end_date}, #{title}, #{content}, CURDATE(), #{target_object}, #{member_id})
+	</insert>
+</mapper>

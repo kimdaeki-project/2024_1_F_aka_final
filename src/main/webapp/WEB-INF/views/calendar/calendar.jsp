@@ -78,6 +78,7 @@
 		        <h5 class="modal-title" id="addScheduleLabel">일정추가</h5>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
+		      <form action="/calendar/create" method="POST">
 		      <div class="modal-body">
 		        <div class="mb-3">
 				  <label for="title" class="form-label">일정제목</label>
@@ -95,19 +96,19 @@
 				  <label for="content" class="form-label">일정내용</label>
 				  <textarea class="form-control" name="content" id="content" rows="3"></textarea>
 				</div>
-				<select class="form-select" aria-label="Default select example">
+				<select class="form-select" aria-label="Default select example" name="target_object" id="target_object">
 				  <option value="1">개인일정</option>
 				  <option value="2">부서일정</option>
 				</select>
-				<input>
-				<input type="date" name="update_date" id="update_date">
-				<input type="text" name="member_id" id="member_id">
+				<!-- <input type="date" name="update_date" id="update_date" hidden/> -->
+				<input type="text" name="member_id" id="member_id" value="${member.member_id}">
 		      </div>
 		      
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
+		        <button type="submit" class="btn btn-primary">일정추가</button>
 		      </div>
+		      </form>
 		    </div>
 		  </div>
 		</div>
@@ -134,5 +135,6 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script type="text/javascript" src="../js/member/calendar.js"></script>
   </body>
 </html>

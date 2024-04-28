@@ -38,6 +38,186 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
 	</insert>
 
+<!-- 문서 불러오기  -->
+
+
+	<select id="getDetail" parameterType="EdmsVO" resultType="Map">
+		
+		SELECT * FROM EDMS e 
+
+			LEFT JOIN `MEMBER` m 
+			ON e.EDMS_CREATOR =  m.MEMBER_ID 
+		
+		WHERE e.EDMS_NO  = #{edms_No}
+		
+		
+	</select>
+	
+	
+		
+
+<!-- 결재목록 가져오기 -->
+
+ <sql id="search">
+  	
+  		<choose>
+  			
+  			<when test="Pager.kind=='kind1'">AND EDMS_CONTENT</when>  			
+  			<otherwise>AND EDMS_TITLE</otherwise>  			
+  		</choose>  
+  		LIKE CONCAT('%', #{Pager.search}, '%')
+  	 		
+ </sql>
+  <sql id="searchDone">
+  	WHERE
+  		<choose>
+  			
+  			<when test="Pager.kind=='kind1'">EDMS_CONTENT</when>
+  			<when test="Pager.kind=='kind2'">EDMS_STATUS = 5</when>  
+  			<when test="Pager.kind=='kind3'">EDMS_STATUS = 3</when>    			
+  			<otherwise>EDMS_TITLE</otherwise>  			
+  		</choose>  
+  		LIKE CONCAT('%', #{Pager.search}, '%')
+  	 		
+ </sql>
+
+
+<select id="getEdmsList" parameterType="Map" resultType="EdmsVO">
+
+	SELECT * FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id}
+	
+	 <include refid="search">	
+		
+	</include> 
+	ORDER BY EDMS_NO DESC
+	LIMIT #{Pager.startIndex},#{Pager.perPage}
+	
+</select>
+
+
+
+<select id="getEdmsTotalCount" resultType="Long" parameterType="Map">
+	
+	SELECT COUNT(EDMS_NO) FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id} 	
+	 <include refid="search">
+	</include>
+	
+</select>
+
+<!-- 결재완료 문서 가져오기  -->
+	
+<select id="getEdmsDoneList" resultType="EdmsVO" parameterType="Map">
+
+	SELECT * FROM
+	(SELECT * FROM EDMS GROUP BY EDMS_CREATOR HAVING EDMS_CREATOR = 4 AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3))E
+	<include refid="searchDone"></include>
+
+</select>
+
+<select id="getEdmsDoneTotalCount" resultType="Long" parameterType="Map">
+	
+	SELECT COUNT(EDMS_NO) FROM 
+	(SELECT * FROM EDMS GROUP BY EDMS_CREATOR HAVING EDMS_CREATOR = 4 AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3))E
+	<include refid="searchDone"></include>
+	
+</select>
+	
+<!-- 수신결재  -->
+	
+	
+	<select id="getReciveEdmsList" parameterType="Map" resultType="EdmsVO">
+		SELECT * FROM APRROVAL 
+			LEFT JOIN EDMS e 
+			USING (EDMS_NO)
+		WHERE MEMBER_ID = #{MemberVO.member_id}  AND APRROVAL_RESULT = 1
+			
+			 <include refid="search">	
+				
+			</include> 
+			ORDER BY EDMS_NO DESC
+			LIMIT #{Pager.startIndex},#{Pager.perPage}
+			
+		</select>
+		
+		
+		
+		<select id="getReciveEdmsTotalCount" resultType="Long" parameterType="Map">
+			
+			SELECT COUNT(EDMS_NO) FROM APRROVAL 
+				LEFT JOIN EDMS e 
+				USING (EDMS_NO)
+			WHERE MEMBER_ID = #{MemberVO.member_id}  AND APRROVAL_RESULT = 1
+
+			 <include refid="search">
+			</include>
+			
+		</select>
+	<!-- 결재내역  -->
+	
+	
+	<select id="getAprovedEdmsList" parameterType="Map" resultType="EdmsVO">
+		SELECT * FROM APRROVAL 
+			LEFT JOIN EDMS e 
+			USING (EDMS_NO)
+		WHERE MEMBER_ID = #{MemberVO.member_id}  AND APRROVAL_RESULT = 1
+			
+			 <include refid="search">	
+				
+			</include> 
+			ORDER BY EDMS_NO DESC
+			LIMIT #{Pager.startIndex},#{Pager.perPage}
+			
+		</select>
+		
+		
+		
+		<select id="getAprovedEdmsTotalCount" resultType="Long" parameterType="Map">
+			
+			SELECT COUNT(EDMS_NO) FROM APRROVAL 
+				LEFT JOIN EDMS e 
+				USING (EDMS_NO)
+			WHERE MEMBER_ID = #{MemberVO.member_id}  AND APRROVAL_RESULT = 3 AND APRROVAL_RESULT = 5
+
+			 <include refid="search">
+			</include>
+			
+		</select>
+
+
+
+	
+	
+
+<!-- 임시문서 --> 
+
+<!-- 임시문서 삭제  -->
+
+	<delete id="delectTempEdms" parameterType="EdmsVO">
+	
+		DELETE FROM TEMP_EDMS WHERE EDMS_NO = ${edms_No}
+	
+	</delete>
+<!-- 임시문서 업데이트  -->
+
+	<update id="updateTempEdms" parameterType="EdmsVO">
+	
+		
+		UPDATE TEMP_EDMS SET EDMS_FORM_NO = edms_From_No							
+							,EDMS_TITLE = edms_Title
+							,EDMS_CONTENT = edms_Content											
+							,EDMS_CREATE_DATE = NOW()							
+							,EDMS_EXTRA_DATE1 = edms_Extra_Date1
+							,EDMS_EXTRA_DATE2 = edms_Extra_Date2
+							,EDMS_EXTRA_COINTENTS = edms_Extra_Content
+							,EDMS_EXTRA_NUMBER = edms_Extra_Number
+							,EDMS_CREATOR_POSITION = edms_Creator_Position
+		WHERE EDMS_NO = edms_No							
+									
+	
+	</update>
+
+
+
 
 <!-- 임시문서 저장  -->
 
@@ -65,48 +245,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				VALUES(#{EdmsFileVO.edms_No}, #{EdmsFileVO.edms_Attechfile_Name}, #{EdmsFileVO.edms_AttechfileOri_Name})
 		</foreach>
 	</insert>
-	
-	
-
-<!-- 결재목록 가져오기 -->
-
- <sql id="search">
-  	
-  		<choose>
-  			
-  			<when test="Pager.kind=='kind2'">AND EDMS_CONTENT</when>
-  			<otherwise>AND EDMS_TITLE</otherwise>  			
-  		</choose>  
-  		LIKE CONCAT('%', #{Pager.search}, '%')
-  	 		
- </sql>
- 
 
 
-<select id="getEdmsList" parameterType="Map" resultType="EdmsVO">
+<!-- 임시문서 불러오기  -->
 
-	SELECT * FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id}
-	
-	 <include refid="search">	
+
+	<select id="getTempDetail" parameterType="EdmsVO" resultType="Map">
 		
-	</include> 
-	ORDER BY EDMS_NO DESC
-	LIMIT #{Pager.startIndex},#{Pager.perPage}
+		SELECT * FROM TEMP_EDMS te 
+
+			LEFT JOIN `MEMBER` m 
+			ON te.EDMS_CREATOR =  m.MEMBER_ID 
+		
+		WHERE te.EDMS_NO  = #{edms_No}
+		
+		
+	</select>
+
+
+		
+
+<!-- 임시결재목록 가져오기 --> 
+		
+		
+		<select id="getTempEdmsList" parameterType="Map" resultType="EdmsVO">
+		
+			SELECT * FROM TEMP_EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id}
+			
+			 <include refid="search">	
+				
+			</include> 
+			ORDER BY EDMS_NO DESC
+			LIMIT #{Pager.startIndex},#{Pager.perPage}
+			
+		</select>
+		
+		
+		
+		<select id="getTempEdmsTotalCount" resultType="Long" parameterType="Map">
+			
+			SELECT COUNT(EDMS_NO) FROM TEMP_EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id} 	
+			 <include refid="search">
+			</include>
+			
+		</select>
+			
+
+
 	
-</select>
-
-
-
-<select id="getEdmsTotalCount" resultType="Long" parameterType="Map">
-	
-	SELECT COUNT(EDMS_NO) FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id} 	
-	 <include refid="search">
-	</include>
-	
-</select>
-
-
-
 
 
 

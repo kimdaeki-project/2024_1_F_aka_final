@@ -61,7 +61,7 @@
             <!-- {edmsIng=결재 진행, edmsDone=결재 완료, titles={boardContents=내용, boardNum=번호, boardStatus=결재상태, boardCreateDate=생성일, boardtitle=제목, theme=결재진행목록}} -->
 
 		  <div class="container-xxl flex-grow-1 container-p-y">
-		   <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">${edms} /</span> ${titles.theme}</h4> 
+		   <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">${edms} </span> ${titles.theme}</h4> 
 		  	<div class="card">
                 <h5 class="card-header"></h5>
                 <div class="table-responsive text-nowrap">
@@ -76,13 +76,13 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    	// list= edmsvo list 
+                    	<!-- // list= edmsvo list  -->
                     <c:forEach items="${list}" var="list">
                       <tr>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i>${list.edms_No}</td>
                         <td>${list.edms_Title}</td>
                         <td>
-                         	<a href="/edms/getDetail?${list.edms_No}">${list.edms_Content}</a>
+                         	<a href="/edms/getDetail?edms_No=${list.edms_No}&check=${check}">${list.edms_Content}</a>
                         </td>
                         <td>
                         	${list.edms_Create_Date}
@@ -120,8 +120,7 @@
                             </div>
                           </div>
                         </td>
-                      </tr>      -->
-                      
+                      </tr>      -->                      
                                          
                     </tbody>
                   </table>

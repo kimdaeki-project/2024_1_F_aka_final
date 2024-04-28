@@ -1,4 +1,6 @@
 
+
+
 const addLineBtn = document.getElementById("addLineBtn"); //모달 여는 버튼
 const addBtn = document.getElementById("addBtn"); //모달 확인버튼
 const myModal = document.getElementById('myModal');
@@ -13,6 +15,10 @@ const delBtn = document.getElementById('delBtn');//결제선에서 제거하는 
 const tempApplyBtn = document.getElementById('tempApplyBtn');
 let today = document.getElementById('today');
 let appLine = document.getElementById('appLine');
+
+
+
+
 //모달 불러오는 함수
 
 // addLineBtn.addEventListener('click', e=>{
@@ -192,22 +198,22 @@ function fSch() {
     let isAdded = false;     
     // Node 선택했을 땡
     //member임시 저장 변수
-        let temp;
+        let tem;
         let tempAr=[];
 
     $('#jstree').on("select_node.jstree", function (e, data) {
-        temp=null;
+        tem=null;
         console.log("select했을땡", data.node.type);
         if(data.node.type=="member"){
-            temp = data.node;
+            tem = data.node;
         }
-        console.log(temp);
+        console.log(tem);
     });
 
     // 결제선 추가 이동버튼
     applyOn.addEventListener("click", function(){
         //결제선 추가
-        applyAdd(temp,applyList)
+        applyAdd(tem,applyList)
     });
 
 

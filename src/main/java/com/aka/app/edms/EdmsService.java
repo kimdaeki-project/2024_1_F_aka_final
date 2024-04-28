@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,34 +35,124 @@ public class EdmsService {
 	
 	
 	
+	//문서 조회
+	@Transactional
+	public Map<String, Object> getDetail(EdmsVO edmsVO, String check) throws Exception{		
+		
+		Map<String, Object> edmsDetail = new HashMap<>();
+		
+		if(check.equals("pro")) {			
+		
+			edmsDetail.putAll(edmsDAO.getDetail(edmsVO));			
+			
+		}
+		if(check.equals("temp")) {
+
+			edmsDetail.putAll(edmsDAO.getTempDetail(edmsVO));			
+		
+		}
+		if(check.equals("done")) {
+			
+			edmsDetail.putAll(edmsDAO.getDetail(edmsVO));
+		}
+		if(check.equals("recive")) {
+
+			edmsDetail.putAll(edmsDAO.getDetail(edmsVO));			
+		
+		}
+		return edmsDetail;
+		
+	}
+	
+	//목록 불러오기
+	public List<EdmsVO> getEdmsList(Pager pager, MemberVO memberVO, String check) throws Exception {
+		
+		List<EdmsVO> result = getPages(pager, memberVO, check);			
+		
+		
+		return result;
+		
+		
+		
+	}
 	
 	
-	public List<EdmsVO> getEdmsList(Pager pager, MemberVO memberVO) throws Exception {
+	
+	//페이징 처리
+	public List<EdmsVO> getPages(Pager pager, MemberVO memberVO, String check) throws Exception{
+		
+		
+		List<EdmsVO> result = new ArrayList<>();		
 		
 		Map<String, Object> map = new HashMap<>();		
 		pager.makeIndex();		
 		map.put("Pager", pager);
-		map.put("MemberVO", memberVO);		
-		System.out.println("service MAP" + map.get("memberVO"));
-		
-		Long totalCount = edmsDAO.getEdmsTotalCount(map);
-		pager.makeNum(totalCount);
-		map.put("Pager", pager);
+		map.put("MemberVO", memberVO);
 		
 		
-		System.out.println("service MAP---------------------------------" + map);
-		return edmsDAO.getEdmsList(map);
+		
+		Long totalCount = 0L;
+		
+		if(check.equals("pro")) {
+			
+			totalCount=edmsDAO.getEdmsTotalCount(map);
+			pager.makeNum(totalCount);
+			map.put("Pager", pager);
+			result=edmsDAO.getEdmsList(map);	
+			
+		}
+		
+		if(check.equals("temp")) {
+			
+			totalCount=edmsDAO.getTempEdmsTotalCount(map);
+			pager.makeNum(totalCount);
+			map.put("Pager", pager);
+			result=edmsDAO.getTempEdmsList(map);
+		}	
+		
+		if(check.equals("done")) {
+			
+			totalCount=edmsDAO.getEdmsDoneTotalCount(map);
+			pager.makeNum(totalCount);
+			map.put("Pager", pager);
+			result=edmsDAO.getEdmsDoneList(map);
+			
+		}
+		
+		if(check.equals("recive")) {
+			
+			totalCount=edmsDAO.getReciveEdmsTotalCount(map);
+			pager.makeNum(totalCount);
+			map.put("Pager", pager);
+			result=edmsDAO.getReciveEdmsList(map);
+			
+		}
+		
+		if(check.equals("approved")) {
+			
+			totalCount=edmsDAO.getReciveEdmsTotalCount(map);
+			pager.makeNum(totalCount);
+			map.put("Pager", pager);
+			result=edmsDAO.getReciveEdmsList(map);
+			
+		}
+		
+		
+		return result;
 		
 	}
+
+	
 	
 	
 	
 	//전자문서 저장
 	public int createEdms(EdmsVO edmsVO, Integer[] appAr, int check, MultipartFile[] files) throws Exception {
 		
-		System.out.println("service 16    "+ appAr.length);
 		//매개변수 int 1=저장 2=임시저장
 		int result = SaveEDMS(edmsVO, appAr, check, files);
+		
+		
 		
 		
 		return result;
@@ -78,13 +169,26 @@ public class EdmsService {
 		int result = 0;
 		
 		//전자문서 저장
-		if(check == 1) {			
+		if(check == 1) {
+			//임시저장문서 삭제
+			if(edmsVO.getEdms_Status()==4) {							
+				result = edmsDAO.delectTempEdms(edmsVO);				
+			}
+			
 			result = edmsDAO.createEdms(edmsVO);
 	
 		}
 		
 		if(check == 2) {
-			result = edmsDAO.createTempEdms(edmsVO);
+			
+			//임시저장문서 업데이트
+			if(edmsVO.getEdms_Status()==4) {							
+				result = edmsDAO.updateTempEdms(edmsVO);
+				
+			}else {
+				
+				result = edmsDAO.createTempEdms(edmsVO);
+			}
 		}
 		
 		Long edmsNum = edmsVO.getEdms_No();

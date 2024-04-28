@@ -21,17 +21,7 @@
 
 
 
-<c:if test="${checkType=='get'}">
 
-	<style>
-
-		input{
-			display: none;
-		}
-		
-	</style>
-
-</c:if>
     
 	
 
@@ -62,7 +52,7 @@
 
 		<div id="appLine" class="appTable" style=" float: right;">			
 		
-		<c:if test="${checkType =='get' && not empty list}">
+		<c:if test="${checkType =='get'}">
 		<c:set var="listLength" value="${fn:length(list)}" />
 			<c:forEach items="${applyList}" var="list" begin="0" end="${listLength -1}">		
 				
@@ -93,7 +83,7 @@
        <col width="60"> 
        <col width="140"> 
       </colgroup> 
-    <c:if test="${checkType=='create'}">
+      
 	<tbody>
 		<tr>
 			<td class="userTdG">				
@@ -142,59 +132,6 @@
 			</td>
 		</tr>		
 	</tbody>
-   </c:if>
-   
-   
-   
-   
-   <c:if test="${checkType=='get'}">
-	<tbody>
-		<tr>
-			<td class="userTdG">				
-				문서종류 
-			</td>
-			<td class="userTdW">	
-				<input type="text" name="edms_From_No" value="1">
-			</td>
-			<td class="userTdG">				
- 				기&nbsp;안&nbsp;일
-			</td>
-			<td class="userTdW">	
-				<span>${edms.EDMS_CREATE_DATE}</span>
-			</td>
-		</tr>
-		<tr style="height: 32px;">
-			<td class="userTdG">
-				
- 				작&nbsp;성&nbsp;자
-			</td>
-			<td class="userTdW">	
-				<!-- <input type="hidden" name="edmsCreator" value="${member.username}"> -->
-				<span>${edms.USERNAME}</span>
-			</td>
-				<td class="userTdG">
-				사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;번
-			</td>
-			<td class="userTdW">					
-				<span>${edms.EDMS_CREATOR}</span>
-			</td>
-		</tr>
-		<tr>
-			<td class="userTdG">	
-				부&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서
-			</td>
-			<td class="userTdW">
-				<span>${edms.DEPARTMENT_NAME}</span>
-			</td>
-			<td class="userTdG">
-				직&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;급
-			</td>
-			<td class="userTdW">					
-				<span>${edms.EDMS_CREATOR_POSITION}</span>
-			</td>
-		</tr>		
-	</tbody>
-   </c:if>      
 </table>
  
  
@@ -217,17 +154,8 @@
 			<td class="userTdG">		
 				제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
 			</td>
-			<td class="userTdW">
-				<c:choose>
-					 
-					<c:when test="${checkType=='create'}">
-						<input name="edms_Title">						
-					</c:when>
-					<c:when test="${checkType=='get'}">
-						<span>${edms.EDMS_TITLE}</span>	
-					</c:when>
-				</c:choose> 
-				
+			<td class="userTdW">	
+				<input name="edms_Title">
 			</td>
 		</tr>
 		<tr>
@@ -238,18 +166,11 @@
 		<tr>
 			<td class="userTdW" colspan="2">			
 				<span  style="width: 100%; font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
-				<c:choose>
-					 
-					<c:when test="${checkType=='create'}">
-						 <textarea id="summernote" name="edms_Content"></textarea>
-					</c:when>
-					<c:when test="${checkType=='get'}">
-						${edms.EDMS_CONTENT}
-					</c:when>
-				</c:choose> 
-				</span> 
-			<br>			
+				 <textarea id="summernote" name="edms_Content"></textarea>
 			
+				</span> 
+			<br>				
+				
 			    
 			</td>
 		</tr>
@@ -281,12 +202,11 @@
 </table>
 
 <br>
-<c:if test="${checkType == 'create'}">
-	<div style="float: right;">
-	<button type="button" class="btn btn-success" id="applyBtn">제출</button>
-	<button type="button" class="btn btn-warning" id="tempApplyBtn">임시저장</button>
-	</div>
-</c:if>
+<div style="float: right;">
+<button type="button" class="btn btn-success" id="applyBtn">제출</button>
+<button type="button" class="btn btn-warning" id="tempApplyBtn">임시저장</button>
+</div>
+
 
 </span></span>
 <p style="font-family: &quot;맑은 고딕&quot;; font-size: 10pt; line-height: 20px; margin-top: 0px; margin-bottom: 0px;"><br></p>
@@ -297,7 +217,7 @@
 
 
 
-
+<c:if test="${checkType == 'create'}">
 <!-- modal  -->
 	<div class="modal fade" id="largeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -350,7 +270,7 @@
 		</div>
 	</div>
 	</div>
-
+</c:if>
 
 
 
@@ -382,6 +302,8 @@
 
 </c:if>
 
+
+s
 
 
 

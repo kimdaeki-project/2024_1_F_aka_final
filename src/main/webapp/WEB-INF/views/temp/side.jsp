@@ -107,18 +107,18 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item ">
-                  <a href="/edms/pro/list" class="menu-link">
+                  <a href="/edms/list?check=pro" class="menu-link">
                     <div data-i18n="Accordion">결제 진행</div>
                   </a>
                 </li>
                 <li class="menu-item ">
-                  <a href="/edms/done/list" class="menu-link">
+                  <a href="/edms/list?check=done" class="menu-link">
                     <div data-i18n="Alerts">결제 완료</div>
                   </a>
                 </li>
                  <li class="menu-item">
-                  <a href="/edms/temp/list" class="menu-link">
-                    <div data-i18n="Alerts">임시 저장</div>
+                  <a href="/edms/list?check=temp" class="menu-link">
+                    <div data-i18n="Alerts">임시 저장 목록</div>
                   </a>
                 </li>
                 <li class="menu-item">
@@ -138,12 +138,12 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/edms/rev/list" class="menu-link">
+                  <a href="/edms/list?check=recive" class="menu-link">
                     <div data-i18n="Perfect Scrollbar">수신 결제</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/edms/done/list" class="menu-link">
+                  <a href="/edms/list?check=approved" class="menu-link">
                     <div data-i18n="Text Divider">결제 내역</div>
                   </a>
                 </li>

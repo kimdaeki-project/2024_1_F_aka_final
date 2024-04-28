@@ -19,7 +19,7 @@ public class EdmsVO {
 	private Long edms_Creator;
 	private String edms_Title;	
 	private String edms_Content;
-	private String edms_Status;
+	private Long edms_Status;
 	private Date edms_Apploval_Date;
 	private Date edms_Create_Date;
 	private Date edms_Exp_Date;

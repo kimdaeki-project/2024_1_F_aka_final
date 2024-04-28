@@ -17,36 +17,6 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
     <script>
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-      	  expandRows: true,		 /* 크기조절 */
-          initialDate: '2024-04-01',		/* 초기시간설정 => 처음보여줄 달력 */
-          editable: true,
-          selectable: true,
-          businessHours: true,
-          dayMaxEvents: true, // allow "more" link when too many events
-          events: [							/* 날짜만 적어주면 하루종일 */
-            {								
-				title: 'All Day Event',
-				start: '2024-04-01'
-            },
-            {
-				title: 'Long Event',
-				start: '2024-04-07',
-				end: '2024-04-10'
-            },
-            {
-				title: 'Date tile',
-				start: '2024-04-07T20:00:00'
-            }
-
-          ]
-        });
-
-        calendar.render();
-      });
 
     </script>
     <style>
@@ -112,8 +82,7 @@
 		    </div>
 		  </div>
 		</div>
-    
-    
+
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

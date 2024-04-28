@@ -1,5 +1,7 @@
 package com.aka.app.calendar;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextImpl;
@@ -25,11 +27,23 @@ public class CalendarController {
 		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl)obj;
 		
+		List<CalendarVO> calendarVOs = calendarService.getCalendar();
+		
+		model.addAttribute("calendarList",calendarVOs);
 		model.addAttribute("member",securityContextImpl.getAuthentication().getPrincipal());
 		return "calendar/calendar";
 	}
 	
-	@PostMapping("create")
+	
+	  @GetMapping("/getSchedule")
+	  @ResponseBody 
+	  public List<CalendarVO> getCalendar()throws Exception{
+		  List<CalendarVO> calendarVOs = calendarService.getCalendar();
+		  return calendarVOs;
+	  }
+	 
+	
+	@PostMapping("/create")
 	@ResponseBody
 	public ResponseEntity<?> createCalendar(@RequestBody CalendarVO calendarVO, Model model)throws Exception{
 		calendarService.create(calendarVO);

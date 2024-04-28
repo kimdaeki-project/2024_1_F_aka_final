@@ -1,5 +1,7 @@
 package com.aka.app.calendar;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,5 +13,10 @@ public class CalendarService {
 	public int create(CalendarVO calendarVO) throws Exception{
 		int result = calendarDAO.create(calendarVO);
 		return result;
+	}
+	
+	public List<CalendarVO> getCalendar()throws Exception{
+		List<CalendarVO> calendarVOs = calendarDAO.getCalendar();
+		return calendarVOs;
 	}
 }

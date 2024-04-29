@@ -72,9 +72,7 @@ public class EdmsService {
 		
 		if(check.equals("pro")) {						
 		
-			appline = edmsDAO.getApplineList(edmsVO);
-			System.out.println(appline);
-			
+			appline = edmsDAO.getApplineList(edmsVO);			
 			
 		}
 		if(check.equals("temp")) { //수정요
@@ -99,11 +97,9 @@ public class EdmsService {
 	//목록 불러오기
 	public List<EdmsVO> getEdmsList(Pager pager, MemberVO memberVO, String check) throws Exception {
 		
-		List<EdmsVO> result = getPages(pager, memberVO, check);			
+		List<EdmsVO> result = getPages(pager, memberVO, check);					
 		
-		
-		return result;
-		
+		return result;	
 		
 		
 	}
@@ -174,18 +170,14 @@ public class EdmsService {
 		
 	}
 
-	
-	
+		
 	
 	
 	//전자문서 저장
 	public int createEdms(EdmsVO edmsVO, Integer[] appAr, int check, MultipartFile[] files) throws Exception {
 		
 		//매개변수 int 1=저장 2=임시저장
-		int result = SaveEDMS(edmsVO, appAr, check, files);
-		
-		
-		
+		int result = SaveEDMS(edmsVO, appAr, check, files);		
 		
 		return result;
 		
@@ -286,10 +278,7 @@ public class EdmsService {
 			if(type==1) fileResult = edmsDAO.createEdmsAttchFile(fileList);
 			if(type==2) fileResult = edmsDAO.createTempEdmsAttchFile(fileList);
 					
-		}
-	
-		
-			
+		}			
 		return result;
 								
 	}

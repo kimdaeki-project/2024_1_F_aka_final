@@ -40,10 +40,6 @@ public class EdmsController {
 	}	
 	
 	
-	
-
-	
-	
 	@GetMapping("list")
 	public String getlist(@AuthenticationPrincipal MemberVO memberVO, EdmsVO edmsVO, Model model, Pager pager, String check) throws Exception {
 			
@@ -51,27 +47,16 @@ public class EdmsController {
 	//temp : 임시저장	
 	//done : 결재완료	
 		
-		
 	Map<String, String> titles = chart.titles(check);
 	List<EdmsVO> edmsList = new ArrayList<>();
-	
-
-
-		
+			
 	//리스트 내용 불러오기
+			
+	edmsList = edmsService.getEdmsList(pager,memberVO, check);	
 	
-	
-		
-	edmsList = edmsService.getEdmsList(pager,memberVO, check);
-	
-	
-	System.out.println(edmsList);
 	model.addAttribute("check",check);
 	model.addAttribute("titles", titles);
 	model.addAttribute("list",edmsList);
-	
-	
-	
 	
 	return "EDMS/list";
 		 
@@ -88,11 +73,8 @@ public class EdmsController {
 		//3=결재반려
 		//4= 임시저장
 		//5= 결재완료		
-		
-				
-		Long type =(Long) map.get("EDMS_STATUS");
-		
-		
+						
+		Long type =(Long) map.get("EDMS_STATUS");		
 		
 		String checkType = "get";
 		
@@ -102,12 +84,9 @@ public class EdmsController {
 
 		model.addAttribute("appline", appline);
 		model.addAttribute("edms", map);
-		model.addAttribute("checkType",checkType);
+		model.addAttribute("checkType",checkType);	
 		
-		
-		
-		return "EDMS/form";
-		
+		return "EDMS/form";		
 		
 	}
 	
@@ -138,17 +117,8 @@ public class EdmsController {
 		model.addAttribute("deptName", deptName);//부서이름, 
 		model.addAttribute("list",result);		//직원목록 
 		model.addAttribute("checkType","create");
-		
-//		System.out.println(model);
-		
+
 		return "EDMS/form";
-		
-	}
-	
-	public void getEdmsDetail(Long edms_no) {
-		
-		
-		
 		
 	}
 	
@@ -181,8 +151,7 @@ public class EdmsController {
 		return map; 		
 	}
 	
-	
-			
+				
 	@GetMapping("form/draft")
 	
 	public String getformDraft(Model model) {
@@ -190,9 +159,6 @@ public class EdmsController {
 		return "EDMS/form/draft";
 		
 	}
-	
-	
-	
 	
 	
 	
@@ -231,18 +197,13 @@ public class EdmsController {
 				
 		 }
 		 
-		 result.addAll(temp);		 
-		 
-//		 System.out.println(result);
-		
-		
+		 result.addAll(temp);		 	
 		 
 		return result;		
 		
 		
 	}
-	
-	
+		
 	
 	
 	//직원목록 불러오기

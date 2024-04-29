@@ -89,7 +89,11 @@ public class EdmsController {
 		//4= 임시저장
 		//5= 결재완료		
 		
-		Long type =  (Long) map.get("EDMS_STATUS");
+		Long type =  0L;
+		if(type!=null) {
+			
+			type =(Long) map.get("EDMS_STATUS");
+		}
 		
 		model.addAttribute("edms", map);
 		
@@ -150,21 +154,21 @@ public class EdmsController {
 	}
 	
 	@ResponseBody
-	@PostMapping("apply")	//check 1=문서저장 2= 임시문서저장
-	public Map<String, Object> apply(Integer[] appAr, EdmsVO edmsVO, Model model, MultipartFile[] file, int check) throws Exception {		
+	@PostMapping("apply")	//type 1=문서저장 2= 임시문서저장 
+	public Map<String, Object> apply(Integer[] appAr, EdmsVO edmsVO, Model model, MultipartFile[] file, int type, String check) throws Exception {		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		 
 		
 		// 기안서 내용을 저장.		
-		int result = edmsService.createEdms(edmsVO, appAr, check, file);
+		int result = edmsService.createEdms(edmsVO, appAr, type, file);
 		
 		String msg = "결재가 정상적으로 전송되었습니다.";
-		String path = "pro/list";
+		String path = "list?check="+check;
 		
-		if(check==2) {
+		if(type==2) {
 			msg="임시저장되었습니다.";			
-			map.put("path", "pro/list");
+			map.put("path", "/list");
 		}
 		
 		if(result!=1) {			

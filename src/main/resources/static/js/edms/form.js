@@ -1,6 +1,4 @@
 
-
-
 const addLineBtn = document.getElementById("addLineBtn"); //모달 여는 버튼
 const addBtn = document.getElementById("addBtn"); //모달 확인버튼
 const myModal = document.getElementById('myModal');
@@ -71,19 +69,19 @@ addBtn.addEventListener('click',function(){
 
 //전자문서 저장 
 applyBtn.addEventListener('click',function(){			
-    applyFrom(1);
+    applyFrom(1,"pro");
 })
 
 //전자문서 임시저장
 tempApplyBtn.addEventListener('click',function(){
 
-    applyFrom(2);
+    applyFrom(2,"temp");
 
 })
 
 
 //폼 저장 함수(1=저장, 2=임시저장)
-function applyFrom(check, status){
+function applyFrom(check1, check){
     //결재선 배열 생성
     let appAr = document.querySelectorAll('.appForm');
     //결재선 확인
@@ -95,6 +93,7 @@ function applyFrom(check, status){
             
     if(confirm('제출하시겠습니까??')){			
         let formData = new FormData(formelem);
+        formData.append('type', check1);
         formData.append('check', check);
         //배열생성후 formdata에 값 추가
         for(let ar of appAr){

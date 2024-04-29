@@ -52,76 +52,87 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		
 	</select>
+
+
+<!-- 결재선 가져오기 -->
+
+<select id="applineList" parameterType="EdmsVO" resultType="Map">
+
+		SELECT * SELECT * FROM APRROVAL a  
+	
+
+</select>
+
 	
 	
 		
 
-<!-- 결재목록 가져오기 -->
 
- <sql id="search">
-  	
-  		<choose>
-  			
-  			<when test="Pager.kind=='kind1'">AND EDMS_CONTENT</when>  			
-  			<otherwise>AND EDMS_TITLE</otherwise>  			
-  		</choose>  
-  		LIKE CONCAT('%', #{Pager.search}, '%')
-  	 		
- </sql>
-  <sql id="searchDone">
-  	WHERE
-  		<choose>
-  			
-  			<when test="Pager.kind=='kind1'">EDMS_CONTENT</when>
-  			<when test="Pager.kind=='kind2'">EDMS_STATUS = 5</when>  
-  			<when test="Pager.kind=='kind3'">EDMS_STATUS = 3</when>    			
-  			<otherwise>EDMS_TITLE</otherwise>  			
-  		</choose>  
-  		LIKE CONCAT('%', #{Pager.search}, '%')
-  	 		
- </sql>
-
-
-<select id="getEdmsList" parameterType="Map" resultType="EdmsVO">
-
-	SELECT * FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id}
-	
-	 <include refid="search">	
+		<!-- 검색 -->
+		 <sql id="search">
+		  	
+		  		<choose>
+		  			
+		  			<when test="Pager.kind=='kind1'">AND EDMS_CONTENT</when>  			
+		  			<otherwise>AND EDMS_TITLE</otherwise>  			
+		  		</choose>  
+		  		LIKE CONCAT('%', #{Pager.search}, '%')
+		  	 		
+		 </sql>
+		  <sql id="searchDone">
+		  	WHERE
+		  		<choose>
+		  			
+		  			<when test="Pager.kind=='kind1'">EDMS_CONTENT</when>
+		  			<when test="Pager.kind=='kind2'">EDMS_STATUS = 5</when>  
+		  			<when test="Pager.kind=='kind3'">EDMS_STATUS = 3</when>    			
+		  			<otherwise>EDMS_TITLE</otherwise>  			
+		  		</choose>  
+		  		LIKE CONCAT('%', #{Pager.search}, '%')
+		  	 		
+		 </sql>
 		
-	</include> 
-	ORDER BY EDMS_NO DESC
-	LIMIT #{Pager.startIndex},#{Pager.perPage}
-	
-</select>
-
-
-
-<select id="getEdmsTotalCount" resultType="Long" parameterType="Map">
-	
-	SELECT COUNT(EDMS_NO) FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id} 	
-	 <include refid="search">
-	</include>
-	
-</select>
+	<!-- 결재목록 가져오기 -->	
+		<select id="getEdmsList" parameterType="Map" resultType="EdmsVO">
+		
+			SELECT * FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id}
+			
+			 <include refid="search">	
+				
+			</include> 
+			ORDER BY EDMS_NO DESC
+			LIMIT #{Pager.startIndex},#{Pager.perPage}
+			
+		</select>
+		
+		
+		
+		<select id="getEdmsTotalCount" resultType="Long" parameterType="Map">
+			
+			SELECT COUNT(EDMS_NO) FROM EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id} 	
+			 <include refid="search">
+			</include>
+			
+		</select>
 
 <!-- 결재완료 문서 가져오기  -->
+		
+	<select id="getEdmsDoneList" resultType="EdmsVO" parameterType="Map">
 	
-<select id="getEdmsDoneList" resultType="EdmsVO" parameterType="Map">
-
-	SELECT * FROM
-	(SELECT * FROM EDMS GROUP BY EDMS_CREATOR HAVING EDMS_CREATOR = 4 AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3))E
-	<include refid="searchDone"></include>
-
-</select>
-
-<select id="getEdmsDoneTotalCount" resultType="Long" parameterType="Map">
+		SELECT * FROM
+		(SELECT * FROM EDMS GROUP BY EDMS_CREATOR HAVING EDMS_CREATOR = 4 AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3))E
+		<include refid="searchDone"></include>
 	
-	SELECT COUNT(EDMS_NO) FROM 
-	(SELECT * FROM EDMS GROUP BY EDMS_CREATOR HAVING EDMS_CREATOR = 4 AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3))E
-	<include refid="searchDone"></include>
+	</select>
 	
-</select>
-	
+	<select id="getEdmsDoneTotalCount" resultType="Long" parameterType="Map">
+		
+		SELECT COUNT(EDMS_NO) FROM 
+		(SELECT * FROM EDMS GROUP BY EDMS_CREATOR HAVING EDMS_CREATOR = 4 AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3))E
+		<include refid="searchDone"></include>
+		
+	</select>
+		
 <!-- 수신결재  -->
 	
 	
@@ -293,11 +304,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	
-
-
-
-
-
 
 
 

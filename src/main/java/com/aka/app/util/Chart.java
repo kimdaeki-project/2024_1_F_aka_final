@@ -87,8 +87,7 @@ public class Chart {
 			titles.put("no4", "결재일");
 			titles.put("no5", "결재상태");		
 			
-		}
-		
+		}		
 		if(choose.equals("recive")) {
 			
 			titles.put("theme", "수신 결재");
@@ -98,8 +97,7 @@ public class Chart {
 			titles.put("no4", "결재일");
 			titles.put("no5", "결재상태");		
 			
-		}
-		
+		}		
 		if(choose.equals("approved")) {
 			
 			titles.put("theme", "결재 내역");

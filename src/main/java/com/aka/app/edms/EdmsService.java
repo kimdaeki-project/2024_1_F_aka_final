@@ -164,14 +164,20 @@ public class EdmsService {
 	//전자문서 저장	
 	//매개변수 int 1=저장 2=임시저장
 	@Transactional
-	public int SaveEDMS(EdmsVO edmsVO, Integer[] appAr, int check, MultipartFile[] files) throws Exception{				
+	public int SaveEDMS(EdmsVO edmsVO, Integer[] appAr, int type, MultipartFile[] files) throws Exception{				
 		
 		int result = 0;
+		Long status = 0L;
+		if(edmsVO.getEdms_Status()!=null) {
+			
+			status = edmsVO.getEdms_Status();
+			
+		}
 		
 		//전자문서 저장
-		if(check == 1) {
+		if(type == 1) {
 			//임시저장문서 삭제
-			if(edmsVO.getEdms_Status()==4) {							
+			if(status==4) {							
 				result = edmsDAO.delectTempEdms(edmsVO);				
 			}
 			
@@ -179,10 +185,10 @@ public class EdmsService {
 	
 		}
 		
-		if(check == 2) {
+		if(type == 2) {
 			
 			//임시저장문서 업데이트
-			if(edmsVO.getEdms_Status()==4) {							
+			if(status==4) {							
 				result = edmsDAO.updateTempEdms(edmsVO);
 				
 			}else {
@@ -214,13 +220,13 @@ public class EdmsService {
 		}
 			
 		
-		if(check ==1 ) {
+		if(type ==1 ) {
 			
 			result = edmsDAO.createApproval(list);
 			if (result>1) result=1;
 		}
 	
-		if(check == 2) {
+		if(type == 2) {
 			
 			result = edmsDAO.createTempApproval(list);
 			if (result>1) result=1;
@@ -241,8 +247,8 @@ public class EdmsService {
 				fileList.add(edmsFileVO);
 			}
 			int fileResult = 0;			
-			if(check==1) fileResult = edmsDAO.createEdmsAttchFile(fileList);
-			if(check==2) fileResult = edmsDAO.createTempEdmsAttchFile(fileList);
+			if(type==1) fileResult = edmsDAO.createEdmsAttchFile(fileList);
+			if(type==2) fileResult = edmsDAO.createTempEdmsAttchFile(fileList);
 					
 		}
 	

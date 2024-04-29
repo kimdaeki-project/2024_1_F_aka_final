@@ -58,7 +58,7 @@
                     </ol>
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <a> <img class="d-block w-100" src="../assets/img/elements/4.jpg" alt="/"/></a>                
+                        <a href="/product/list"> <img class="d-block w-100" src="../assets/img/elements/4.jpg" alt="/"/></a>                
                         <div class="carousel-caption d-none d-md-block">
                           <h3>상품 리스트</h3>
                         </div>

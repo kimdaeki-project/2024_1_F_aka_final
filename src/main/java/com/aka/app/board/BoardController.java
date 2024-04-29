@@ -38,7 +38,8 @@ public class BoardController {
 	public String deleteBoard(BoardVO boardVO,Model model) throws Exception {
 		int result=0;
 		String msg = "비품 삭제 실패";
-		if(boardVO.getBoard_num() != null) {		
+		if(boardVO.getBoard_num() != null) {
+			boardVO = boardService.getBoardDetail(boardVO);
 			result = boardService.deleteBoard(boardVO);
 			if(result == 1) msg = "비품 삭제 성공";
 		}

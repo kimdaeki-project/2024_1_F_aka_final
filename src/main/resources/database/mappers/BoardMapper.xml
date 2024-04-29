@@ -11,7 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
-	
+	<delete id="deleteBoardFile" parameterType="BoardFileVO">
+	DELETE
+	FROM BOARDFILES
+	WHERE BOARDFILE_NUM=#{boardfile_num}
+	</delete>
 	
 	<delete id="deleteBoard" parameterType="BoardVO">
 	DELETE 

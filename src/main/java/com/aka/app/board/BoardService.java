@@ -26,7 +26,13 @@ public class BoardService {
 	private String uploadPath;
 	
 	public int deleteBoard(BoardVO boardVO)throws Exception{
+		List<BoardFileVO>fileVOs = boardVO.getBoardFileVO();
+		for(BoardFileVO a:fileVOs) {
+			fileManager.fileDelete(uploadPath,a.getFilename());
+			boardDAO.deleteBoardFile(a);
+		}	
 		return boardDAO.deleteBoard(boardVO);
+		
 	}
 	
 	public int updateBoard(BoardVO boardVO) throws Exception {
@@ -61,16 +67,17 @@ public class BoardService {
 		List<MultipartFile>attach = boardVO.getBoardFile();
 		int result = boardDAO.createBoard(boardVO);
 		for(MultipartFile a : attach) {	
-			if(a == null) {
-				break;
+			if(!a.isEmpty()) {
+				String fileName = fileManager.fileSave(uploadPath, a);
+				BoardFileVO boardFileVO = new BoardFileVO();
+				boardFileVO.setBoard_num(boardVO.getBoard_num());
+				boardFileVO.setMember_id(memberVO.getMember_id());
+				boardFileVO.setFilename(fileName);
+				boardFileVO.setOrifilename(a.getOriginalFilename());
+				boardDAO.createBoardFiles(boardFileVO);
+			}else {
+				continue;
 			}
-			String fileName = fileManager.fileSave(uploadPath, a);
-			BoardFileVO boardFileVO = new BoardFileVO();
-			boardFileVO.setBoard_num(boardVO.getBoard_num());
-			boardFileVO.setMember_id(memberVO.getMember_id());
-			boardFileVO.setFilename(fileName);
-			boardFileVO.setOrifilename(a.getOriginalFilename());
-			boardDAO.createBoardFiles(boardFileVO);
 		}
 		return result;
 	}

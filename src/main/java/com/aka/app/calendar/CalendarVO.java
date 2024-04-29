@@ -12,8 +12,8 @@ import lombok.ToString;
 public class CalendarVO {
 	
 	private Long calendar_id;
-	private Date start;
-	private Date end;
+	private Date start_date;
+	private Date end_date;
 	private String title;
 	private String content;
 	private Date update_date;

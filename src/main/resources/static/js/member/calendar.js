@@ -1,13 +1,13 @@
 console.log("calendar.js");
 
 
-
-
 /*추가할때 fetch*/
 function create(){
 	fetch('/calendar/create',{
 		method:'POST',
-		headers:{'content-Type':'application/json;charset:utf-8'},
+		headers:{
+			"Content-Type": "application/json; charset=utf-8"
+		},
 		body:JSON.stringify({
 			member_id:memberId.value,
 			title:title.value,
@@ -16,8 +16,9 @@ function create(){
 			content:content.value,
 			target_object:targetOb.value
 		})
-		.then(res => console.log(res))
+		.then(res => res)
 	});
+	location.href="/calendar";
 }
 
 /* 페이지 불러오기 */
@@ -34,42 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 
 	let arr = [];
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-  	  expandRows: true,		  크기조절 
-      initialDate: '2024-04-01',		 초기시간설정 => 처음보여줄 달력 
-      locale : 'ko',
-      editable: true,
-      selectable: true,
-      businessHours: true,
-      dayMaxEvents: true, // allow "more" link when too many events
-      events:async function(info, successCallback, failureCallback){  
-	  	fetch('/calendar/getSchedule',{
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json"
-		}
-		})
-		.then(res => res.json())
-		.then((data) =>{
-			data.forEach((e)=>{
-				let title = e.title;
-				let start = e.start;
-				let end = e.end;
-				arr.push({
-					title:title,
-					start:start,
-					end:end
-				})
-			})
-		})
-		successCallback(arr);
-		}
-		
-	  
-    });
-
-	
-    calendar.render();*/
     
     fetch('/calendar/getSchedule',{
 		method: "GET",
@@ -84,13 +49,13 @@ document.addEventListener('DOMContentLoaded', function() {
 					title : data.title,
 					start : data.start_date,
 					end : data.end_date,
+					url:'https://naver.com'	/* url 설정 Detail page*/
+					
 				}
 				arr.push(dataObj);
-				console.log(dataObj);
-				
-				console.log(title, startDate, endDate);
 			})
 			var calendar = new FullCalendar.Calendar(calendarEl, {
+			  googleCalendarApiKey:'AIzaSyCzFcwzDWPTcM8eLqcBQ7nlSmig8VMDwGw',
 		  	  expandRows: true,		  //크기조절 
 		      initialDate: '2024-04-01',		 //초기시간설정 => 처음보여줄 달력 
 		      locale : 'ko',
@@ -98,14 +63,22 @@ document.addEventListener('DOMContentLoaded', function() {
 		      selectable: true,
 		      businessHours: true,
 		      dayMaxEvents: true, // allow "more" link when too many events
-		      events: arr
+		      events:arr,
+			  
+		      /*eventBackgroundColor:'red'*/
+		      eventSources:
+		      [
+				{
+					googleCalendarId:'ko.south_korea#holiday@group.v.calendar.google.com',
+				  	color:'red'
+			  },
+			  {
+				  arr
+			  }
+			  ]
     		});
     		calendar.render();
 		})
-	console.log(arr);
-    
-	
-    
   });
 
   

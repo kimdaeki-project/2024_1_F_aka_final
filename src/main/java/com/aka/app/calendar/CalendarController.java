@@ -45,7 +45,7 @@ public class CalendarController {
 	
 	@PostMapping("/create")
 	@ResponseBody
-	public ResponseEntity<?> createCalendar(@RequestBody CalendarVO calendarVO, Model model)throws Exception{
+	public ResponseEntity<?> createCalendar(CalendarVO calendarVO, Model model)throws Exception{
 		calendarService.create(calendarVO);
 		return ResponseEntity.ok().build();
 	}

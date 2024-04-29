@@ -12,10 +12,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="getCalendar">
-		SELECT 
-			START_DATE AS start, 
-			End_DATE AS end,
-			TITLE AS title
-		FROM CALENDAR
+		SELECT * FROM CALENDAR
 	</select>
 </mapper>

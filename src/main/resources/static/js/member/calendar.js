@@ -20,9 +20,6 @@ function create(){
 	});
 }
 
-
-let title, startDate, endDate;
-
 /* 페이지 불러오기 */
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -35,29 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	let targetOb = document.getElementById('target_object');
 	let memberId = document.getElementById('member_id');
  */
+
 	let arr = [];
-	
-	fetch('/calendar/getSchedule',{
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json"
-		}
-		})
-		.then(res => res.json())
-		.then(dataArray => {
-			dataArray.forEach(data =>{
-				const dataObj = {
-					title : data.title,
-					startDate : data.start_date,
-					endDate : data.end_date,
-				}
-				arr.push(dataObj);
-				console.log(dataObj);
-				
-				console.log(title, startDate, endDate);
-			})
-		})
-	console.log(arr);
     var calendar = new FullCalendar.Calendar(calendarEl, {
   	  expandRows: true,		 /* 크기조절 */
       initialDate: '2024-04-01',		/* 초기시간설정 => 처음보여줄 달력 */
@@ -66,15 +42,36 @@ document.addEventListener('DOMContentLoaded', function() {
       selectable: true,
       businessHours: true,
       dayMaxEvents: true, // allow "more" link when too many events
-      events: [
-			
-			{
-				title:'가나다',
-				start: '2024-04-07',
-				end: '2024-04-10'
-			}
-      ]
+      events:async function(info, successCallback, failureCallback){  
+	  	fetch('/calendar/getSchedule',{
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
+		}
+		})
+		.then(res => res.json())
+		.then((data) =>{
+			console.log(data);
+			console.log(arr);
+			data.forEach((e)=>{
+				console.log(e);
+				let title = e.title;
+				let start = e.start;
+				let end = e.end;
+				arr.push({
+					title:title,
+					start:start,
+					end:end
+				})
+			})
+		})
+		console.log("callBack : ",arr);
+		successCallback(arr);
+		}
+		
+	  
     });
+
 	
     calendar.render();
   });

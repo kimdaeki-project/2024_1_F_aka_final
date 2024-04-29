@@ -51,10 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.then(res => res.json())
 		.then((data) =>{
-			console.log(data);
-			console.log(arr);
 			data.forEach((e)=>{
-				console.log(e);
 				let title = e.title;
 				let start = e.start;
 				let end = e.end;
@@ -65,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				})
 			})
 		})
-		console.log("callBack : ",arr);
 		successCallback(arr);
 		}
 		

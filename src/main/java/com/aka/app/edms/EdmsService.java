@@ -63,6 +63,38 @@ public class EdmsService {
 		return edmsDetail;
 		
 	}
+
+	
+	//결재선 조회
+	public AprovalVO[] getApplineList(EdmsVO edmsVO, String check) throws Exception{
+		
+		AprovalVO[] appline = null ;
+		
+		if(check.equals("pro")) {						
+		
+			appline = edmsDAO.getApplineList(edmsVO);
+			System.out.println(appline);
+			
+			
+		}
+		if(check.equals("temp")) { //수정요
+
+			appline = edmsDAO.getApplineList(edmsVO);		
+		
+		}
+		if(check.equals("done")) {
+			
+			appline = edmsDAO.getApplineList(edmsVO);
+		}
+		if(check.equals("recive")) {
+
+			appline = edmsDAO.getApplineList(edmsVO);		
+		
+		}
+		
+		return appline;
+		
+	}
 	
 	//목록 불러오기
 	public List<EdmsVO> getEdmsList(Pager pager, MemberVO memberVO, String check) throws Exception {
@@ -202,17 +234,21 @@ public class EdmsService {
 		int count = appAr.length-1;
 		List<Map<String, Object>> list = new ArrayList<>();
 		System.out.println(count);
-		
+		System.out.println(); 
 				
 		//결재선 저장
 		//셜재선 순서 지정 (0번이 최종결재자가 됨)
 		while (count>=0) {
 			
-			System.out.println(appAr[count]);
+			
 			Map<String, Object> member = new HashMap<String, Object>();
 			member.put("MEMBER_ID", appAr[count]);
 			member.put("APPROVAL_RANK", i);
 			member.put("EDMS_NO", edmsNum);
+			if((appAr.length-1)==count) {
+				member.put("APRROVAL_RESULT", 1);
+			}
+			
 			count--;
 			i++;
 			list.add(member);

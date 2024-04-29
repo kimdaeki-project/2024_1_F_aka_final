@@ -62,9 +62,9 @@
 
 		<div id="appLine" class="appTable" style=" float: right;">			
 		
-		<c:if test="${checkType =='get' && not empty list}">
-		<c:set var="listLength" value="${fn:length(list)}" />
-			<c:forEach items="${applyList}" var="list" begin="0" end="${listLength -1}">		
+		<c:if test="${checkType =='get' && not empty appline}">
+		
+			<c:forEach items="${appline}" var="list">		
 				
 				<div class="col-auto ps-0 pe-0">
 					<div class="applineG">${list.POSITION_NAME}</div>

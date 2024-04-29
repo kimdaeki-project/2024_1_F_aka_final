@@ -80,7 +80,7 @@ public class EdmsController {
 	@GetMapping("getDetail")
 	public String getEdmsDetail(Model model, EdmsVO edmsVO, String check) throws Exception{
 		Map<String, Object> map = edmsService.getDetail(edmsVO, check);	
-		
+		AprovalVO[] appline = edmsService.getApplineList(edmsVO, check);	
 		//EDMS_STATUS
 		//0=결재서상신
 		//1=수신결재
@@ -89,20 +89,19 @@ public class EdmsController {
 		//4= 임시저장
 		//5= 결재완료		
 		
-		Long type =  0L;
-		if(type!=null) {
-			
-			type =(Long) map.get("EDMS_STATUS");
-		}
+				
+		Long type =(Long) map.get("EDMS_STATUS");
 		
-		model.addAttribute("edms", map);
+		
 		
 		String checkType = "get";
 		
 		if(type==4) {			
 			checkType = "create";			
 		}
-		
+
+		model.addAttribute("appline", appline);
+		model.addAttribute("edms", map);
 		model.addAttribute("checkType",checkType);
 		
 		

@@ -16,18 +16,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createEdms" parameterType="EdmsVO">
 		<selectKey keyProperty="edms_No" resultType="Long" order="BEFORE">
 		<!-- EDMS_NO 동시사용  -->
-			SELECT MAX(EDMS_NO) FROM EDMS
+			SELECT MAX(EDMS_NO)+1 FROM EDMS
 		</selectKey>
 			INSERT INTO EDMS (EDMS_NO, EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
-				VALUES(NEXTVAL(EDMS_SEQ), #{edms_From_No}, #{edms_Creator}, #{edms_Title}, #{edms_Content}, #{edms_Status}, NOW(), #{edms_Creator_Position})
+				VALUES(#{edms_No}, #{edms_From_No}, #{edms_Creator}, #{edms_Title}, #{edms_Content}, 0, NOW(), #{edms_Creator_Position})
 	</insert>
 	
 	<insert id="createApproval" parameterType="java.util.List">
 		
-		INSERT INTO APRROVAL( EDMS_NO ,MEMBER_ID ,APPROVAL_RANK)
-					VALUES
-		<foreach collection="list" index="index" item="member"  separator=",">
-					( #{member.EDMS_NO}, #{member.MEMBER_ID}, #{member.APPROVAL_RANK})
+		INSERT INTO APRROVAL (EDMS_NO ,MEMBER_ID ,APPROVAL_RANK) VALUES
+		<foreach collection="list" item="item"  separator=",">
+					(#{item.EDMS_NO}, #{item.MEMBER_ID}, #{item.APPROVAL_RANK})
 		</foreach>
 		
 	</insert>
@@ -43,22 +42,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getDetail" parameterType="EdmsVO" resultType="Map">
 		
-		SELECT * FROM EDMS e 
+		SELECT  EDMS_NO	,EDMS_FORM_NO	,EDMS_CREATOR	,EDMS_TITLE	,EDMS_CONTENT	,EDMS_STATUS	,EDMS_APPROVAL_DATE	,EDMS_CREATE_DATE	,EDMS_EXP_DATE	,EDMS_USE	,EDMS_EXTRA_DATE1	,EDMS_EXTRA_DATE2	,EDMS_EXTRA_COINTENTS	,EDMS_EXTRA_NUMBER	,EDMS_CREATOR_POSITION	,MEMBER_ID	,EMAIL ,USER_ID ,USERNAME ,ROLE_ID, POSITION_ID ,DEPARTMENT_ID
+		 FROM EDMS  
 
-			LEFT JOIN `MEMBER` m 
-			ON e.EDMS_CREATOR =  m.MEMBER_ID 
+			LEFT JOIN `MEMBER` 
+			ON EDMS_CREATOR =  MEMBER_ID 
 		
-		WHERE e.EDMS_NO  = #{edms_No}
+		WHERE EDMS_NO  = #{edms_No} 
 		
+	
 		
 	</select>
 
 
 <!-- 결재선 가져오기 -->
 
-<select id="applineList" parameterType="EdmsVO" resultType="Map">
+<select id="getApplineList" parameterType="EdmsVO" resultType="AprovalVO">
 
-		SELECT * SELECT * FROM APRROVAL a  
+		SELECT * FROM APRROVAL
+			JOIN MEMBER
+			USING (MEMBER_ID)
+			JOIN POSITIONRANK
+			USING (POSITION_ID)
+		WHERE EDMS_NO = #{edms_No} ORDER BY APPROVAL_RANK DESC
 	
 
 </select>
@@ -142,11 +148,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			USING (EDMS_NO)
 		WHERE MEMBER_ID = #{MemberVO.member_id}  AND APRROVAL_RESULT = 1
 			
-			 <include refid="search">	
+		<!-- 	 <include refid="search">	
 				
 			</include> 
 			ORDER BY EDMS_NO DESC
-			LIMIT #{Pager.startIndex},#{Pager.perPage}
+			LIMIT #{Pager.startIndex},#{Pager.perPage} -->
 			
 		</select>
 		

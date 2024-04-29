@@ -21,6 +21,8 @@ public interface EdmsDAO {
 	public int createEdmsAttchFile(List<Object> list) throws Exception;
 	//문서불러오기
 	public Map<String, Object> getDetail(EdmsVO edmsVO) throws Exception;
+	//결재자리스트 가져오기
+	public AprovalVO[] getApplineList(EdmsVO edmsVO) throws Exception;
 	
 	//상신
 		//결재진행목록 불러오기

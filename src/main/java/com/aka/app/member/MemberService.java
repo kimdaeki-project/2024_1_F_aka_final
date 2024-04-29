@@ -40,9 +40,14 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	// mypage수정
 	public int updateMyinfo(MemberVO memberVO) throws Exception{
 		// 변경할 password 암호화
-		/* memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword())); */
+		// 변경값을 입력해주었을때
+		String pass = passwordEncoder.encode(memberVO.getPassword());
+		if(memberVO.getPassword() == null || memberVO.getPassword().equals(" ") || memberVO.getPassword().isEmpty()) {
+			// 변경값을 입력해주지않았을때
+			pass = memberVO.getPasswordCheck();
+		}
+		memberVO.setPassword(pass);
 		int result = memberDAO.updateMyinfo(memberVO);
-		log.info("3 : {} , 4 : {}, {}",memberVO.getEmail(), memberVO.getPhone(),result);
 		
 		return result;
 	}

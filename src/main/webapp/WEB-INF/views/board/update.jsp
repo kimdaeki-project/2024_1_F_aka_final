@@ -68,7 +68,13 @@
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
-                      <form action="/board/update"  method="post" >
+                    <c:forEach items="${vo.boardFileVO}" var="fi">
+                          <tr>
+                    		<td><a href="/board/filedown?boardfile_num=${fi.boardfile_num}">첨부 파일 다운</a></td>
+                    		<td>파일명 : ${fi.orifilename}</td>
+                          </tr>
+                    </c:forEach>
+                      <form action="/board/update"  method="post" enctype="" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">공지사항 제목</label>
                           <div class="col-sm-10">
@@ -83,16 +89,17 @@
                           <div class="col-sm-10">
                             <textarea  class="form-control" name="board_contents" id="summerBoard" placeholder="상세 설명을 입력하세요">${vo.board_contents}</textarea>         	
                           </div>
-                        
-                        <%-- <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-name">첨부 파일</label>
-                          <div class="col-sm-10">
-                            <form:input type="text" class="form-control" path="equipment_ea" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                          </div>
-                        </div> --%>
-                        
+                                                                                                                       
                         </div>
                        
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">첨부 파일</label>
+                          <div class="col-sm-10">
+                            <input type="file" class="form-control" name="boardFileVO" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
+                            <input type="file" class="form-control" name="boardFileVO" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
+                            <input type="file" class="form-control" name="boardFileVO" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
+                          </div>
+                        </div>
                         
                         
                         

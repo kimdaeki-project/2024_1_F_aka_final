@@ -1,6 +1,7 @@
 package com.aka.app.department;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,11 @@ public class DepartmentService {
 		return departmentDAO.getDepartmentMemberList(departmentVO);
 	}
 	
-	public List<DepartmentVO> getDepartmentList()throws Exception {
-		return departmentDAO.getDepartmentList();
+	public List<Map<String,Object>> getDepartmentList()throws Exception {
+		List<Map<String,Object>> dlist = departmentDAO.getDepartmentList();
+		for(Map<String,Object> a: dlist) {
+			a.replace("parent","0","#");
+		}
+		return dlist;
 	}
 }

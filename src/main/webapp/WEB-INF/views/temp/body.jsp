@@ -39,15 +39,10 @@
             							 </div>
                     			</div>
             			<!-- 공지사항 끝 -->					  
-                    						  
-                    						  
-                    						  
-                    						 
+			 
                     </div>
                   </div>
                 </div>
-                
-                
                 <!-- 사진 시작 -->
                 <div class="col-lg-4 col-md-4 order-1">
                   <div class="row">
@@ -63,7 +58,7 @@
                     </ol>
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <img class="d-block w-100" src="../assets/img/elements/18.jpg" alt="/" />
+                        <a href="/product/list"> <img class="d-block w-100" src="../assets/img/elements/4.jpg" alt="/"/></a>                
                         <div class="carousel-caption d-none d-md-block">
                           <h3>상품 리스트</h3>
                         </div>
@@ -99,12 +94,14 @@
                     </div>
                   </div>
                 </div>
+                
+                
 
 				<!-- 사진 끝 -->
                 
                 
              <!-- Calender --> 
-            	<div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-2">
+            	<div class="col-12 col-lg-8 order-3 order-md-3 order-lg-2 mb-2">
                   <div class="card">
                     <div class="row row-bordered g-0">
                       <div class="col-md-10">          
@@ -116,7 +113,155 @@
               </div>
              <!-- Calender End-->
                   
-                  
+                  <div class="col-lg-4 col-md-4 order-4">
+                  <div class="row">
+                    <div class="">
+                      <div class="card">
+                        <div class="card-body">
+                           	<!-- Accordion -->
+              <h2 class="mt-4">프로젝트 소개</h2>
+              <div class="row">
+                <div class="col-md mb-4 mb-md-0">
+                  <small class="text-light fw-semibold">프로젝트 설명</small>
+                  <h6>오프라인 학원에서 사용하는 사내 그룹웨어</h6>
+                  <small class="text-light fw-semibold">구디아카데미</small>
+                  <h6>클라우드 활용 자바 개발자 양성과정 (팀 프로젝트)</h6>                  
+                  <small class="text-light fw-semibold">프로젝트 기간</small>
+                  <h6>2024.3 ~ 2024.5</h6>
+                  <small class="text-light fw-semibold">사용 기술</small>
+                  <h6>Java,SpringBoot,JSP,MariaDB,AWS EC2</h6>
+                  <div class="accordion mt-3" id="accordionExample">
+                    <div class="card accordion-item">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button
+                          type="button"
+                          class="accordion-button collapsed"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#accordionOne"
+                          aria-expanded="false"
+                          aria-controls="accordionOne"
+                        >
+                          팀장.조민우
+                        </button>
+                      </h2>
+                      <div
+                        id="accordionOne"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample"
+                      >
+                        <div class="accordion-body">
+                     	   <div>
+                      		    1.전자 결재 시스템 구현
+                     	   </div>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="card accordion-item">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button
+                          type="button"
+                          class="accordion-button collapsed"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#accordionTwo"
+                          aria-expanded="false"
+                          aria-controls="accordionTwo"
+                        >
+                          팀원.김승균
+                        </button>
+                      </h2>
+                      <div
+                        id="accordionTwo"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample"
+                      >
+                        <div class="accordion-body">
+                    	    <div>
+                     		     1.학원비 결제 시스템(tosspayment)
+                   	       </div>
+                    	  
+                    	    <div>
+                   		       2.학생,비품,상품 관리
+                   	       </div>
+                     	  
+                     	   <div>
+                      		    3.공지사항
+                     	   </div>
+                     	   
+                     	   <div>
+                      		    4.메인페이지(기상청api데이터 출력)
+                     	   </div>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="card accordion-item">
+                      <h2 class="accordion-header" id="headingThree">
+                        <button
+                          type="button"
+                          class="accordion-button collapsed"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#accordionThree"
+                          aria-expanded="false"
+                          aria-controls="accordionThree"
+                        >
+                          팀원.고민효
+                        </button>
+                      </h2>
+                      <div
+                        id="accordionThree"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="headingFour"
+                        data-bs-parent="#accordionExample"
+                      >
+                        <div class="accordion-body">
+                          <div>
+                          1.스프링 시큐리티 구현
+                          </div>
+                          <div>
+                          2.로그인,로그아웃,회원가입,마이페이지 구현
+                          </div>
+                          <div>
+                          3.스케쥴 관리 구현(Full Calendar)
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card accordion-item">
+                      <h2 class="accordion-header" id="headingFour">
+                        <button
+                          type="button"
+                          class="accordion-button collapsed"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#accordionFour"
+                          aria-expanded="false"
+                          aria-controls="accordionFour"
+                        >
+                          팀원.안인권 /중도 취업
+                        </button>
+                      </h2>
+                      <div
+                        id="accordionFour"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="headingFour"
+                        data-bs-parent="#accordionExample"
+                      >
+                        <div class="accordion-body">
+                          <div>인사관리 구현</div>
+                          <div>수업관리</div>
+                          <div>강의실 관리</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Accordion -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                   
                 </div>
               </div>

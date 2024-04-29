@@ -82,6 +82,8 @@
                           <label class="col-sm-2 col-form-label" for="basic-default-name">첨부 파일</label>
                           <div class="col-sm-10">
                             <form:input type="file" class="form-control" path="boardFile" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
+                            <form:input type="file" class="form-control" path="boardFile" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
+                            <form:input type="file" class="form-control" path="boardFile" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
                           </div>
                         </div>
  					

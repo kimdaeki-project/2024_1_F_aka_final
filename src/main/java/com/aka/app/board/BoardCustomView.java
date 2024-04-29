@@ -17,16 +17,17 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component("BoardCustomView")
 public  class BoardCustomView extends AbstractView{
-
+	
+	
+	//파일다운 
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-			BoardVO	boardVO = (BoardVO) model.get("vo");
-			BoardFileVO boardFileVO = boardVO.getBoardFileVO();
-			File file = new File("D:/upload/board/",boardFileVO.getFilename());
+			BoardFileVO vo = (BoardFileVO)model.get("vo");
+			File file = new File("D:/upload/board/",vo.getFilename());
 			response.setCharacterEncoding("UTF-8");
 			response.setContentLengthLong(file.length());
-			String oriName = URLEncoder.encode(boardFileVO.getOrifilename(),"UTF-8");
+			String oriName = URLEncoder.encode(vo.getOrifilename(),"UTF-8");
 			response.setHeader("Content-Disposition","attachment;filename=\""+oriName+"\"");
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			FileInputStream fi = new FileInputStream(file);
@@ -34,7 +35,7 @@ public  class BoardCustomView extends AbstractView{
 			FileCopyUtils.copy(fi,os);
 			os.close();
 			fi.close();
-			response.encodeRedirectURL("/board/detail?board_num="+boardVO.getBoard_num());
+			response.encodeRedirectURL("/board/detail?board_num="+vo.getBoard_num());
 	}
 	
 }

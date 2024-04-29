@@ -80,8 +80,8 @@
   			  <div class="d-flex justify-content-center mx-3 mb-5 w-50">
 		    	<label for="password" class="mt-2 form-label fw-semibold fs-6" style="width:90px">비밀번호</label><br>
 		    	<!-- password 보이도록 --><!-- showPassword="true" -->
-		    	<form:password path="password" cssClass="form-control" id="password"/>
-			    
+		    	<input type="password" name="password" class="form-control" id="password"/>
+			    <input type="password" name="passwordCheck" class="form-control" value=${member.password} id="passwordCheck" hidden>
 			    <!-- <label for="exampleInputPassword1" class="mt-2 ms-5 form-label">Password</label>
 			    <input type="password" class="form-control mx-2" id="exampleInputPassword1"> -->
 			  </div>
@@ -106,7 +106,7 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" id="updateBtn" class="btn btn-primary" onclick="update()">수정</button>
-				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				        <button type="button" id="modalClose" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 				      </div>
 				    </div>
 				  </div>

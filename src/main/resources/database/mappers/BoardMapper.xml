@@ -11,7 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
-	
+	<delete id="deleteBoardFile" parameterType="BoardFileVO">
+	DELETE
+	FROM BOARDFILES
+	WHERE BOARDFILE_NUM=#{boardfile_num}
+	</delete>
 	
 	<delete id="deleteBoard" parameterType="BoardVO">
 	DELETE 
@@ -30,6 +34,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
  
+ 	<select id="getBoardFileDetail" parameterType="BoardFileVO" resultType="BoardFileVO">
+ 	SELECT * FROM
+ 	BOARDFILES
+ 	WHERE BOARDFILE_NUM = #{boardfile_num}
+ 	</select>
+ 
 	<select id="getBoardDetail" parameterType="BoardVO" resultMap="getBoardResult">
 	SELECT B.*,F.* 
 	FROM BOARD B
@@ -44,14 +54,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result column="BOARD_HEAD" property="board_head"/>
         <result column="BOARD_CONTENTS" property="board_contents"/>
         <result column="BOARD_DATE" property="board_date"/>
-		<association property="boardFileVO" javaType="BoardFileVO" >
+		<collection property="boardFileVO"  javaType="List" ofType="BoardFileVO" >
 		<id column="BOARDFILE_NUM" property="boardfile_num"/>
 		<result column="BOARD_NUM" property="board_num"/>
 		<result column="MEMBER_ID" property="member_id"/>
 		<result column="FILENAME" property="filename"/>
 		<result column="BOARD_NUM" property="board_num"/>
 		<result column="ORIFILENAME" property="orifilename"/>
-		</association>
+		</collection>
 	</resultMap>	
 	
 	

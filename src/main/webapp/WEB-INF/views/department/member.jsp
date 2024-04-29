@@ -14,12 +14,10 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                      <c:forEach items="${mlist}"  var="voo">
-                    
                       <tr>
                         <td>${voo.member_id}</td>
                         <td>${voo.username}</td>
                       </tr>
-                      
                      </c:forEach>
                     </tbody>
                   </table>

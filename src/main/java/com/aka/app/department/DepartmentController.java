@@ -1,6 +1,7 @@
 package com.aka.app.department;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService; 
 	
-
+	
 	@GetMapping("member")
 	public String getDepartmentMemberList(DepartmentVO departmentVO,Model model)throws Exception {
 		System.out.println(departmentVO.getDepartment_id());
@@ -25,10 +26,17 @@ public class DepartmentController {
 		model.addAttribute("mlist",mlist);
 		return "department/member";
 	}
-	
+
 	@GetMapping("list")
 	public void getDepartmentList(Model model)throws Exception {
-		List<DepartmentVO> list = departmentService.getDepartmentList();
-		model.addAttribute("list",list);
 	}
+	
+	@ResponseBody
+	@GetMapping("jstreeList")
+	public List<Map<String,Object>> getDepartmentListTree()throws Exception{
+		List<Map<String,Object>>list =  departmentService.getDepartmentList();
+		return list;
+	}
+	
+	
 }

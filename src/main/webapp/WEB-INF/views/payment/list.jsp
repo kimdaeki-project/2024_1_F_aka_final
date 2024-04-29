@@ -97,10 +97,7 @@
                   </table>
                 </div>
               </div>
-			</div>
-			
-			
-			<div class="demo-inline-spacing ml-6">
+              <div class="demo-inline-spacing ml-6">
 
               <nav aria-label="Page navigation">
                 <ul class="pagination">
@@ -166,6 +163,10 @@
 				</nav>
 				</div>	
 			  </div>
+			</div>
+			
+			
+			
 				
             <!-- / Content -->
 

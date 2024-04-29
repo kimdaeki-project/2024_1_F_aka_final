@@ -67,14 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
       businessHours: true,
       dayMaxEvents: true, // allow "more" link when too many events
       events: [
-			arr.forEach(data=>{
-				let event = 
-				{
-					title: data.title,
-					start: data.startDate,
-					end: data.endDate
-				}
-			}),
+			
 			{
 				title:'가나다',
 				start: '2024-04-07',

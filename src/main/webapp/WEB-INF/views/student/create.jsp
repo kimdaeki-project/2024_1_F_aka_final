@@ -63,52 +63,46 @@
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
-                      <form:form action="/student/create" modelAttribute="memberVO" method="post" >
+                      <form action="/student/create" modelAttribute="memberVO" method="post" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">수강생 이름</label>
                           <div class="col-sm-10">
-                            <form:input type="text" class="form-control" path="username" id="basic-default-name" placeholder="이름을 입력하세요" />
-                            <form:errors path="username"></form:errors>
+                            <input type="text" class="form-control" name="username" id="basic-default-name" placeholder="이름을 입력하세요" />
                           </div>
                         </div>
                       
                       	<div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">전화 번호</label>
                           <div class="col-sm-10">
-                            <form:input type="text" class="form-control" path="phone" id="basic-default-name" placeholder="전화 번호를 입력하세요" />
-                          	<form:errors path="phone"></form:errors>
+                            <input type="text" class="form-control" name="phone" id="basic-default-name" placeholder="전화 번호를 입력하세요" />
                           </div>
                         </div>
                         
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">아이디</label>
                           <div class="col-sm-10">
-                            <form:input type="text" class="form-control" path="user_id" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <form:errors path="user_id"></form:errors>
+                            <input type="text" class="form-control" name="user_id" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
                           </div>
                         </div>
                         
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">패스워드</label>
                           <div class="col-sm-10">
-                            <form:input type="password" class="form-control" path="password" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <form:errors path="password"></form:errors>
+                            <input type="password" class="form-control" name="password" id="basic-default-name" placeholder="재고 수량을 입력하세요" />                        
                           </div>
                         </div>
                         
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">이메일</label>
                           <div class="col-sm-10">
-                            <form:input type="email" class="form-control" path="email" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <form:errors path="email"></form:errors>
+                            <input type="email" class="form-control" name="email" id="basic-default-name" placeholder="재고 수량을 입력하세요" />                         
                           </div>
                         </div>
                         
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">주소</label>
                           <div class="col-sm-10">
-                            <form:input type="text" class="form-control" path="address" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <form:errors path="address"></form:errors>
+                            <input type="text" class="form-control" name="address" id="basic-default-name" placeholder="재고 수량을 입력하세요" />                            
                           </div>
                         </div>
                   		
@@ -120,7 +114,7 @@
                             <button type="submit" class="btn btn-primary">Send</button>
                           </div>
                         </div>
-                      </form:form>
+                      </form>
                     </div>
                   </div>
                 </div>

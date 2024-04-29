@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	let arr = [];
     var calendar = new FullCalendar.Calendar(calendarEl, {
-  	  expandRows: true,		 /* 크기조절 */
-      initialDate: '2024-04-01',		/* 초기시간설정 => 처음보여줄 달력 */
+  	  expandRows: true,		  크기조절 
+      initialDate: '2024-04-01',		 초기시간설정 => 처음보여줄 달력 
       locale : 'ko',
       editable: true,
       selectable: true,
@@ -69,7 +69,43 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 	
-    calendar.render();
+    calendar.render();*/
+    
+    fetch('/calendar/getSchedule',{
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
+		}
+		})
+		.then(res => res.json())
+		.then(dataArray => {
+			dataArray.forEach(data =>{
+				const dataObj = {
+					title : data.title,
+					start : data.start_date,
+					end : data.end_date,
+				}
+				arr.push(dataObj);
+				console.log(dataObj);
+				
+				console.log(title, startDate, endDate);
+			})
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+		  	  expandRows: true,		  //크기조절 
+		      initialDate: '2024-04-01',		 //초기시간설정 => 처음보여줄 달력 
+		      locale : 'ko',
+		      editable: true,
+		      selectable: true,
+		      businessHours: true,
+		      dayMaxEvents: true, // allow "more" link when too many events
+		      events: arr
+    		});
+    		calendar.render();
+		})
+	console.log(arr);
+    
+	
+    
   });
 
   

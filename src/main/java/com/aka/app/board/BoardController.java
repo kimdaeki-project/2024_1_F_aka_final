@@ -27,9 +27,9 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@GetMapping("filedown")
-	public ModelAndView filedown(ModelAndView mv,BoardVO boardVO) throws Exception {
-		boardVO = boardService.getBoardDetail(boardVO);
-		mv.addObject("vo",boardVO);
+	public ModelAndView filedown(ModelAndView mv,BoardFileVO boardFileVO) throws Exception {
+		boardFileVO = boardService.getBoardFileDetail(boardFileVO);
+		mv.addObject("vo",boardFileVO);
 		mv.setViewName("BoardCustomView");
 		return mv;
 	}
@@ -38,7 +38,8 @@ public class BoardController {
 	public String deleteBoard(BoardVO boardVO,Model model) throws Exception {
 		int result=0;
 		String msg = "비품 삭제 실패";
-		if(boardVO.getBoard_num() != null) {		
+		if(boardVO.getBoard_num() != null) {
+			boardVO = boardService.getBoardDetail(boardVO);
 			result = boardService.deleteBoard(boardVO);
 			if(result == 1) msg = "비품 삭제 성공";
 		}
@@ -96,8 +97,7 @@ public class BoardController {
 			//form 검증 실패시 
 			return "board/create";
 		}
-		MultipartFile attach = boardVO.getBoardFile();
-		result = boardService.createBoard(boardVO,session,attach); 
+		result = boardService.createBoard(boardVO,session);
 		if(result ==1) msg = "공지사항 추가 성공";
 		model.addAttribute("msg", msg);
 		model.addAttribute("path", "/board/list");

@@ -52,8 +52,8 @@
 
            
 
-            <div class="content-backdrop fade"></div>
           </div>
+            <div class="content-backdrop fade"></div>
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->

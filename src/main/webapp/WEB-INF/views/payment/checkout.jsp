@@ -47,18 +47,7 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-                 		 <div>
-                 		 	<input type="hidden" name="orderName" value="${orderName}" id="orderName" readonly="readonly">
-                        	<input type="hidden" name="orderId" value="${odrdeid}" id="odrdeid" readonly="readonly">
-                        	<input type="hidden" name="amount" value="${amount}" id="amount" readonly="readonly">
-                        	<input type="hidden" name="customerkey" value="${customerkey}" id="customerkey" readonly="readonly">
-                        	<input type="hidden" name="clientkey" value="${clientkey}" id="clientkey" readonly="readonly">
-                       		<input type="hidden" name="customerEmail" value="${customerEmail}" id="customerEmail" readonly="readonly">
-                       		<input type="hidden" name="customerName" value="${customerName}" id="customerName" readonly="readonly">
-                       		<input type="hidden" name="customerMobilePhone" value="${customerMobilePhone}" id="customerMobilePhone" readonly="readonly">
-                       		<input type="hidden" name="memberid" value="${memberid}" id="memberid" readonly="readonly">
-                       		<input type="hidden" name="productnum" value="${productnum}" id="productnum" readonly="readonly">
-                        </div>
+                 		 
 					
 					<div>
 						<div id="main">
@@ -87,7 +76,18 @@
 
 						</div>
 						<!-- / Content -->
-
+						<div>
+                 		 	<input type="hidden" name="orderName" value="${orderName}" id="orderName" readonly="readonly">
+                        	<input type="hidden" name="orderId" value="${odrdeid}" id="odrdeid" readonly="readonly">
+                        	<input type="hidden" name="amount" value="${amount}" id="amount" readonly="readonly">
+                        	<input type="hidden" name="customerkey" value="${customerkey}" id="customerkey" readonly="readonly">
+                        	<input type="hidden" name="clientkey" value="${clientkey}" id="clientkey" readonly="readonly">
+                       		<input type="hidden" name="customerEmail" value="${customerEmail}" id="customerEmail" readonly="readonly">
+                       		<input type="hidden" name="customerName" value="${customerName}" id="customerName" readonly="readonly">
+                       		<input type="hidden" name="customerMobilePhone" value="${customerMobilePhone}" id="customerMobilePhone" readonly="readonly">
+                       		<input type="hidden" name="memberid" value="${memberid}" id="memberid" readonly="readonly">
+                       		<input type="hidden" name="productnum" value="${productnum}" id="productnum" readonly="readonly">
+                        </div>
 
 
 						<div class="content-backdrop fade"></div>

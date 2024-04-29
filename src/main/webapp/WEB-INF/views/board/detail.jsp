@@ -73,10 +73,12 @@
                             <p class="lead mb-0">${vo.board_date}</p>
                           </td>
                           </tr>
+                          <c:forEach items="${vo.boardFileVO}" var="fi">
                           <tr>
-                    		<td><a href="/board/filedown?board_num=${vo.board_num}">첨부 파일 다운</a></td>
-                    		<td>파일명 : ${vo.boardFileVO.orifilename}</td>
+                    		<td><a href="/board/filedown?boardfile_num=${fi.boardfile_num}">첨부 파일 다운</a></td>
+                    		<td>파일명 : ${fi.orifilename}</td>
                           </tr>
+                          </c:forEach>
                         <tr>
                           <td class="align-middle"><small class="text-light fw-semibold">공지사항 내용</small></td>
                           <td class="py-4">

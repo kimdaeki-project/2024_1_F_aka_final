@@ -11,10 +11,10 @@ import lombok.ToString;
 @ToString
 public class EdmsFileVO {
 
-	private Long edmsAttechfileNo;
-	private Long edmsNo;
-	private String edmsAttechfileName;
-	private String edmsAttechfileOriName;	
+	private Long edms_Attech_file_No;
+	private Long edms_No;
+	private String edms_Attechfile_Name;
+	private String edms_AttechfileOri_Name;	
 	private MultipartFile[] file; 		
 	
 	

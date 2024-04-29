@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.aka.app.member.MemberVO;
-import com.aka.app.util.Pager;
+
 
 @Mapper
 public interface EdmsDAO {
@@ -19,19 +19,45 @@ public interface EdmsDAO {
 	public int createApproval( List<Map<String, Object>>  list) throws Exception;
 	//파일저장
 	public int createEdmsAttchFile(List<Object> list) throws Exception;
-	//결재진행목록 불러오기
-	public List<EdmsVO> getEdmsList(Map<String, Object> map) throws Exception;
-	//총 글 갯수 가져오기 
-	public Long getEdmsTotalCount(Map<String, Object> map) throws Exception;
+	//문서불러오기
+	public Map<String, Object> getDetail(EdmsVO edmsVO) throws Exception;
+	//결재자리스트 가져오기
+	public AprovalVO[] getApplineList(EdmsVO edmsVO) throws Exception;
 	
+	//상신
+		//결재진행목록 불러오기
+		public List<EdmsVO> getEdmsList(Map<String, Object> map) throws Exception;
+		//총 글 갯수 가져오기 
+		public Long getEdmsTotalCount(Map<String, Object> map) throws Exception;
+		//결재완료목록 불러오기
+		public List<EdmsVO> getEdmsDoneList(Map<String, Object> map) throws Exception;
+		public Long getEdmsDoneTotalCount(Map<String,Object> map) throws Exception;
+	
+	//수신		
+		//결재완료목록 불러오기
+		public List<EdmsVO> getReciveEdmsList(Map<String, Object> map) throws Exception;
+		public Long getReciveEdmsTotalCount(Map<String,Object> map) throws Exception;
+		
 	
 	//임시문서
+	//임시문서 삭제
+	public int delectTempEdms(EdmsVO edmsVO) throws Exception;  
 	//임시문서저장
 	public int createTempEdms(EdmsVO edmsVO) throws Exception;
+		//임시문서 업데이트
+		public int updateTempEdms(EdmsVO edmsVO) throws Exception;
+	
 	//임시 결재선 저장
 	public int createTempApproval(List<Map<String, Object>>  list) throws Exception;
 	//임시 파일 저장
 	public int createTempEdmsAttchFile(List<Object> list) throws Exception;
+	//결재진행목록 불러오기
+	public List<EdmsVO> getTempEdmsList(Map<String, Object> map) throws Exception;
+	//총 글 갯수 가져오기 
+	public Long getTempEdmsTotalCount(Map<String, Object> map) throws Exception;
+	//문서불러오기
+	public Map<String, Object> getTempDetail(EdmsVO edmsVO) throws Exception;	
+	
 	//임시문서 삭제
 	
 	

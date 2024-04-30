@@ -5,6 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
 <mapper namespace="com.aka.app.edms.EdmsDAO">
 
+
+
+<!-- 도장사진저장 -->
+
+	<insert id="createStamp" parameterType="StampVO">
+	
+		INSERT INTO STAMP (#{stamp_No},#{member_Id},#{stamp_Img})
+	
+	</insert>
+
+
+
+
 	
 <!-- 	<insert id="createEdms" parameterType="EdmsVO">
 	
@@ -126,7 +139,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getEdmsDoneList" resultType="EdmsVO" parameterType="Map">
 	
 		SELECT * FROM
-		(SELECT * FROM EDMS GROUP BY EDMS_CREATOR HAVING EDMS_CREATOR = 4 AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3))E
+		(SELECT * FROM EDMS GROUP BY EDMS_CREATOR HAVING EDMS_CREATOR = #{MemberVO.member_id}  AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3))E
 		<include refid="searchDone"></include>
 	
 	</select>
@@ -134,7 +147,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getEdmsDoneTotalCount" resultType="Long" parameterType="Map">
 		
 		SELECT COUNT(EDMS_NO) FROM 
-		(SELECT * FROM EDMS GROUP BY EDMS_CREATOR HAVING EDMS_CREATOR = 4 AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3))E
+		(SELECT * FROM EDMS GROUP BY EDMS_CREATOR HAVING EDMS_CREATOR = #{MemberVO.member_id}  AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3))E
 		<include refid="searchDone"></include>
 		
 	</select>
@@ -176,7 +189,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM APRROVAL 
 			LEFT JOIN EDMS e 
 			USING (EDMS_NO)
-		WHERE MEMBER_ID = #{MemberVO.member_id}  AND APRROVAL_RESULT = 1
+		WHERE MEMBER_ID = #{MemberVO.member_id} AND APRROVAL_RESULT = 3 AND APRROVAL_RESULT = 5
 			
 			 <include refid="search">	
 				
@@ -378,6 +391,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 
 	 
 	</select>
+
 	<select id="getMemberChart" resultMap="memberList">
 		SELECT MEMBER_ID+1000 id, CONCAT(POSITION_NAME,' ',USERNAME) text, DEPARTMENT_ID, MEMBER_ID, POSITION_NAME, USERNAME, DEPARTMENT_NAME FROM `MEMBER` m 
 				JOIN DEPARTMENT d 
@@ -398,6 +412,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="DEPARTMENT_NAME" property="text"  javaType="String"/>
 		<result column="DEPARTMENT_SUPER_ID" property="parent"  javaType="String"/>		
 	</resultMap>
+
+
 	
 </mapper>
+
+
 

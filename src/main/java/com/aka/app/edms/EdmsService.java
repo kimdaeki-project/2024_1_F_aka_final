@@ -1,6 +1,7 @@
 package com.aka.app.edms;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 
 import java.util.List;
@@ -16,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.aka.app.member.MemberVO;
 import com.aka.app.util.FileManager;
+import com.aka.app.util.FileToPhotoEncoder;
 import com.aka.app.util.Pager;
+import com.aka.app.util.StampVO;
 
 
 @Service
@@ -26,6 +29,8 @@ public class EdmsService {
 	private EdmsDAO edmsDAO;
 	@Autowired
 	private FileManager fileManager;
+	@Autowired
+	private FileToPhotoEncoder fileToPhotoEncoder; 
 	@Value("${app.upload.edms}")
 	private String edmsFileUploadPath;
 	@Value("${app.upload.edmsTemp}")
@@ -158,10 +163,10 @@ public class EdmsService {
 		
 		if(check.equals("approved")) {
 			
-			totalCount=edmsDAO.getReciveEdmsTotalCount(map);
+			totalCount=edmsDAO.getAprovedEdmsTotalCount(map);
 			pager.makeNum(totalCount);
 			map.put("Pager", pager);
-			result=edmsDAO.getReciveEdmsList(map);
+			result=edmsDAO.getAprovedEdmsList(map);
 			
 		}
 		
@@ -286,7 +291,29 @@ public class EdmsService {
 	
 	
 	
+	//도장
 	
+	//도장저장
+	@Transactional
+	public int createStamp(StampVO stampVO, MultipartFile img)  throws Exception{
+		
+				
+		if(img.isEmpty()) {
+			return 0;
+		}//서명이없으면 false		
+		
+	
+		String img_result = fileToPhotoEncoder.encoderFPTS(img);
+		
+		stampVO.setStamp_Img(img_result);
+				
+			
+		int result = edmsDAO.createStamp(stampVO);		
+		
+		return result;
+		
+		
+	}
 	
 	
 	

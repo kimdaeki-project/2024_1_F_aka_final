@@ -281,6 +281,32 @@
 </table>
 
 <br>
+<c:if test="${document == 'recive'}">
+	<div style="float: right;">
+		<button type="button" class="btn btn-success" id="applyEdms"> 결재</button>
+		<button type="button" class="btn btn-warning" id="rejectEdms">반려</button>
+	</div>
+	<script>
+		const applyEdms = document.getElementById("applyEdms");
+		const rejectEdms = document.getElementById("rejectEdms");
+
+		applyEdms.addEventListener("click",function(){
+
+				alert("ㅇㅇ")		
+
+		})
+		rejectEdms.addEventListener("click", function(){
+
+				alert("리잭")
+
+		})
+
+
+
+	</script>
+
+</c:if>
+
 <c:if test="${checkType == 'create'}">
 	<div style="float: right;">
 	<button type="button" class="btn btn-success" id="applyBtn">제출</button>

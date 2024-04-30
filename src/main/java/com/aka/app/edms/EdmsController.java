@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.aka.app.member.MemberVO;
 import com.aka.app.util.Chart;
 import com.aka.app.util.Pager;
+import com.aka.app.util.StampVO;
 
 
 @Controller
@@ -81,7 +82,8 @@ public class EdmsController {
 		if(type==4) {			
 			checkType = "create";			
 		}
-
+		
+		model.addAttribute("document",check);
 		model.addAttribute("appline", appline);
 		model.addAttribute("edms", map);
 		model.addAttribute("checkType",checkType);	
@@ -164,12 +166,36 @@ public class EdmsController {
 	
 	
 	
+	@GetMapping("stamp")
+	public String creatStemp(@AuthenticationPrincipal MemberVO memberVO, Model model) {
+		
+		model.addAttribute("member",memberVO);
+		
+		return"EDMS/stamp";
+		
+	}
 	
 	
+	@PostMapping("crateStamp")
+	public String creatStemp(StampVO stampVO, MultipartFile img, Model model) throws Exception {
+		
+		int result = edmsService.createStamp(stampVO, img);
+		
+		String msg = "등록이 완료되었습니다.";
+		String path = "/edms/list?check=recive";
+		if(result==0) {
+			 msg = "등록실패.";			 
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("path", path);
+		
+		return "/commons/result";
+		
+		
+	}
 	
-	
-	
-	
+		
 	
 	
 	//jstree

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.aka.app.member.MemberVO;
+import com.aka.app.util.StampVO;
 
 
 @Mapper
@@ -37,6 +38,9 @@ public interface EdmsDAO {
 		//결재완료목록 불러오기
 		public List<EdmsVO> getReciveEdmsList(Map<String, Object> map) throws Exception;
 		public Long getReciveEdmsTotalCount(Map<String,Object> map) throws Exception;
+		//결재목록 불러오기
+		public List<EdmsVO> getAprovedEdmsList(Map<String, Object> map) throws Exception;
+		public Long getAprovedEdmsTotalCount(Map<String,Object> map) throws Exception;
 		
 	
 	//임시문서
@@ -59,6 +63,12 @@ public interface EdmsDAO {
 	public Map<String, Object> getTempDetail(EdmsVO edmsVO) throws Exception;	
 	
 	//임시문서 삭제
+	
+	
+	//도장
+	//도장저장
+	public int createStamp(StampVO stampVO) throws Exception;
+	
 	
 	
 	

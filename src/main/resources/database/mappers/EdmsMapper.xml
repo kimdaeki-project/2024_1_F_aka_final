@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="createStamp" parameterType="StampVO">
 	
-		INSERT INTO STAMP (#{stamp_No},#{member_Id},#{stamp_Img})
+		INSERT INTO STAMP (NEXTVAL(STAMP_NUM),#{member_Id},#{stamp_Img})
 	
 	</insert>
 

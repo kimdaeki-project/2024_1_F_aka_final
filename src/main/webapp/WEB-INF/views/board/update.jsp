@@ -68,12 +68,6 @@
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
-                    <c:forEach items="${vo.boardFileVO}" var="fi">
-                          <tr>
-                    		<td><a href="/board/filedown?boardfile_num=${fi.boardfile_num}">첨부 파일 다운</a></td>
-                    		<td>파일명 : ${fi.orifilename}</td>
-                          </tr>
-                    </c:forEach>
                       <form action="/board/update"  method="post" enctype="" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">공지사항 제목</label>
@@ -94,10 +88,15 @@
                        
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">첨부 파일</label>
-                          <div class="col-sm-10">
-                            <input type="file" class="form-control" name="boardFileVO" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <input type="file" class="form-control" name="boardFileVO" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <input type="file" class="form-control" name="boardFileVO" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
+                          <div class="col-sm-10" id="fileResult"> 
+                          
+                 		   <c:forEach items="${vo.boardFileVO}" var="fi">
+                    			<p>파일명 : ${fi.orifilename}</p>
+                    	  	<button type="button" data-file-num="${fi.boardfile_num}" class="btn btn-danger fileDelete">x</button>
+                 		   </c:forEach>
+
+                            <button class="btn btn-primary" type="button" id="fileAdd">파일추가</button>
+                            <input type="file" class="form-control" name="boardFileVO" id="basic-default-name"/>
                           </div>
                         </div>
                         
@@ -158,6 +157,51 @@
           ['view', ['fullscreen', 'codeview', 'help']]
         ]
       });
+      let fileDelete = document.getElementsByClassName("fileDelete");
+      for(let a of fileDelete){
+        let fileNum = a.getAttribute("data-file-num").value;
+        a.addEventListener('click',(fileNum)=>{
+          if(confirm("파일 삭제 하시겠습니까? (복구 불가능)")){
+            fetch("/board/fileDelete?"+fileNum,{
+              method:"get"
+            }).then(res=>{response.text()})
+            .then(res=>{
+              if(res==1){
+                alert("삭제 되었습니다.");
+              }
+            })
+	        }else{
+		        alert("삭제 안함");
+	        }
+
+        })
+      }
+
+  const fileAdd = document.getElementById("fileAdd");
+  const fileResult = document.getElementById("fileResult");
+  let count = 1;
+  fileAdd.addEventListener('click',()=>{ 
+    count++;
+    if(count==5){
+      alert("첨부파일은 5개까지 가능합니다");
+      fileAdd.style.display="none";
+    }
+    let formFileinput = document.createElement('input');
+    let sum; 
+    sum = document.createAttribute("type");
+    sum.value = "file";
+    formFileinput.setAttributeNode(sum);
+    sum = document.createAttribute("class");
+    sum.value = "form-control";
+    formFileinput.setAttributeNode(sum);
+    sum = document.createAttribute("path");
+    sum.value = "boardFile";
+    formFileinput.setAttributeNode(sum);
+    sum = document.createAttribute("id");
+    sum.value = "basic-default-name";
+    formFileinput.setAttributeNode(sum);
+    fileResult.appendChild(formFileinput);
+  });
     </script>
     <!-- build:js assets/vendor/js/core.js -->
     <script src="/assets/vendor/libs/jquery/jquery.js"></script>

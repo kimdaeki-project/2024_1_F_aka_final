@@ -16,11 +16,15 @@
 
 ### :computer:개발 환경
 +   JAVA  : JAVA 17
-+   FRONT : JSP
++   FRONT-END : HTML5 JavaScript JQuery JSP
++   BACK-END : Mybatis Spring Servlet
 +   FRAME WORK : SpringBoot 4.21.1
-+   DATA BASE : MariaDB
-+   SERVER : AWS EC2 DOCKER
-
++   DATA BASE : AWS Docker MariaDB
++   SERVER : Tomcat(v9.0)
++   OS : Windows10 MacOS
++   Document : Google Drive  KakaoOven ERDCloud
++   Libray&API : Spring Security Validation MailSender FileUpload
++   Lomnbok Full Calender KakaoLogin WebClient JsonSimple JsonJackson
 
 ---
 

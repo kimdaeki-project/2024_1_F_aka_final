@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-//@Transactional(rollbackFor = Exception.class)
+@Transactional(rollbackFor = Exception.class)
 public class MemberService extends DefaultOAuth2UserService implements UserDetailsService{
 
 	@Autowired

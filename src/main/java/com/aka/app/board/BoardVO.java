@@ -23,6 +23,5 @@ public class BoardVO {
 	@NotEmpty(message = "공지사항 내용을 입력해 주세요")
 	private String board_contents;
 	private String board_date;
-	private List<MultipartFile> boardFile;
 	private List<BoardFileVO> boardFileVO;
 }

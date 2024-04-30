@@ -82,8 +82,6 @@
                           <label class="col-sm-2 col-form-label" for="basic-default-name">첨부 파일</label>
                           <div class="col-sm-10" id="fileResult">
                           	<button class="btn btn-primary" type="button" id="fileAdd">파일추가</button>
-                            <form:input type="file" class="form-control" path="boardFile" id="basic-default-name"/>
-                            
                           </div>
                         </div>
  					

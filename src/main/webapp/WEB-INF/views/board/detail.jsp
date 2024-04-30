@@ -87,6 +87,7 @@
                         <tr>                    
                        	
                           <td>
+                          <hr>
                             <p class="lead mb-0">${vo.board_contents}</p>
                           </td>
                         </tr>

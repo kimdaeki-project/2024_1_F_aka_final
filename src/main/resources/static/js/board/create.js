@@ -15,14 +15,14 @@ $('#summerBoard').summernote({
   
   const fileAdd = document.getElementById("fileAdd");
   const fileResult = document.getElementById("fileResult");
-  let count = 1;
+  let count = 0;
   fileAdd.addEventListener('click',()=>{ 
     count++;
     if(count==5){
       alert("첨부파일은 5개까지 가능합니다");
       fileAdd.style.display="none";
     }
-    let formFileinput = document.createElement('input');
+    let formFileinput = document.createElement("input");
     let sum; 
     sum = document.createAttribute("type");
     sum.value = "file";
@@ -30,7 +30,7 @@ $('#summerBoard').summernote({
     sum = document.createAttribute("class");
     sum.value = "form-control";
     formFileinput.setAttributeNode(sum);
-    sum = document.createAttribute("path");
+    sum = document.createAttribute("name");
     sum.value = "boardFile";
     formFileinput.setAttributeNode(sum);
     sum = document.createAttribute("id");

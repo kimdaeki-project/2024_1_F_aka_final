@@ -25,17 +25,36 @@ public class BoardService {
 	@Value("${app.upload.board}")
 	private String uploadPath;
 	
+	public int fileDelete(BoardFileVO boardFileVO)throws Exception {
+		fileManager.fileDelete(uploadPath,boardFileVO.getFilename());
+		return boardDAO.deleteBoardFile(boardFileVO);
+	}
+	
 	public int deleteBoard(BoardVO boardVO)throws Exception{
 		List<BoardFileVO>fileVOs = boardVO.getBoardFileVO();
 		for(BoardFileVO a:fileVOs) {
-			fileManager.fileDelete(uploadPath,a.getFilename());
-			boardDAO.deleteBoardFile(a);
+			if(a !=null) {
+				fileManager.fileDelete(uploadPath,a.getFilename());
+				boardDAO.deleteBoardFile(a);
+			}
 		}	
 		return boardDAO.deleteBoard(boardVO);
 		
 	}
 	
-	public int updateBoard(BoardVO boardVO) throws Exception {
+	public int updateBoard(BoardVO boardVO,MultipartFile[]attach) throws Exception {
+		for(MultipartFile a : attach) {	
+			if(!a.isEmpty()) {
+				String fileName = fileManager.fileSave(uploadPath, a);
+				BoardFileVO boardFileVO = new BoardFileVO();
+				boardFileVO.setBoard_num(boardVO.getBoard_num());
+				boardFileVO.setMember_id(boardVO.getMember_id());
+				boardFileVO.setFilename(fileName);
+				boardFileVO.setOrifilename(a.getOriginalFilename());
+				boardDAO.createBoardFiles(boardFileVO);
+			}
+			
+		}
 		return boardDAO.updateBoard(boardVO);
 	}
 	
@@ -54,7 +73,7 @@ public class BoardService {
 		return boardDAO.getBoardList(pager);
 	}
 	
-	public int createBoard(BoardVO boardVO,HttpSession session) throws Exception {
+	public int createBoard(BoardVO boardVO,HttpSession session,MultipartFile[]attachs) throws Exception {
 		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");  //세션에서 스프링 시큐리티 컨택스트 홀더 꺼내기
 		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;	   //홀더에서 컨텍스트 꺼내기
 		MemberVO memberVO = (MemberVO)contextImpl.getAuthentication().getPrincipal(); //컨택스트에서 유저 객체 꺼내기
@@ -64,9 +83,8 @@ public class BoardService {
 		boardVO.setBoard_date(date);
 		boardVO.setMember_id(memberVO.getMember_id());
 		boardVO.setBoard_writer(memberVO.getUsername());
-		List<MultipartFile>attach = boardVO.getBoardFile();
 		int result = boardDAO.createBoard(boardVO);
-		for(MultipartFile a : attach) {	
+		for(MultipartFile a : attachs) {	
 			if(!a.isEmpty()) {
 				String fileName = fileManager.fileSave(uploadPath, a);
 				BoardFileVO boardFileVO = new BoardFileVO();

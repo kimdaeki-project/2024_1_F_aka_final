@@ -4,6 +4,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "https://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+<!-- 	<settings>
+		<setting name="logImpl" value="org.apache.ibatis.logging.stdout.StdOutImpl"/>
+	</settings> -->
 
 	<typeAliases>
 		<typeAlias type="java.lang.String" alias="String" />
@@ -18,6 +21,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.aka.app.board.BoardVO" alias="BoardVO"/>
 		<typeAlias type="com.aka.app.board.BoardFileVO" alias="BoardFileVO"/>
 		<typeAlias type="com.aka.app.department.DepartmentVO" alias="DepartmentVO"/>
+		<typeAlias type="com.aka.app.edms.AprovalVO" alias="AprovalVO"/>
 		<typeAlias type="com.aka.app.calendar.CalendarVO" alias="CalendarVO"/>
 	</typeAliases>
+	
 </configuration>

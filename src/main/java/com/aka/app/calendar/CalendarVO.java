@@ -17,7 +17,7 @@ public class CalendarVO {
 	private String title;
 	private String content;
 	private Date update_date;
-	private String target_object;
+	private int target_object;
 	private Long member_id;
 	
 }

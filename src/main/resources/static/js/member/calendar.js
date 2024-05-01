@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 
 	let arr = [];
+	//let target = document.getElementById('target_object');
     
     fetch('/calendar/getSchedule',{
 		method: "GET",
@@ -69,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				 },
 				 {
 					 googleCalendarId:'ko.south_korea#holiday@group.v.calendar.google.com',
-					 color:'red'
+					 color:'#FF9900'
 				 }
 			  ],
 		      events:arr
@@ -79,8 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
   });
 
-  
-  
+  /*  */
+  function getCalendar(){
+	  
+  }
   
   
   

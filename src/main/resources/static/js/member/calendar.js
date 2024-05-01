@@ -57,25 +57,23 @@ document.addEventListener('DOMContentLoaded', function() {
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 			  googleCalendarApiKey:'AIzaSyCzFcwzDWPTcM8eLqcBQ7nlSmig8VMDwGw',
 		  	  expandRows: true,		  //크기조절 
-		      initialDate: '2024-04-01',		 //초기시간설정 => 처음보여줄 달력 
+		      //initialDate: '2024-05-01',		 //초기시간설정 => 처음보여줄 달력 
 		      locale : 'ko',
 		      editable: true,
 		      selectable: true,
 		      businessHours: true,
 		      dayMaxEvents: true, // allow "more" link when too many events
-		      events:arr,
-			  
-		      /*eventBackgroundColor:'red'*/
-		      eventSources:
-		      [
-				{
-					googleCalendarId:'ko.south_korea#holiday@group.v.calendar.google.com',
-				  	color:'red'
-			  },
-			  {
-				  arr
-			  }
-			  ]
+		      eventSources:[
+				    {
+				    googleCalendarId: '5b75938aada2d3092b44447721c74a5887f74bffb5a36367bf9ac6f23209eba3@group.calendar.google.com'
+				 },
+				 {
+					 googleCalendarId:'ko.south_korea#holiday@group.v.calendar.google.com',
+					 color:'red'
+				 }
+			  ],
+		      events:arr
+		    
     		});
     		calendar.render();
 		})

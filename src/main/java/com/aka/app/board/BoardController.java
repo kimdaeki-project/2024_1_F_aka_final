@@ -1,6 +1,8 @@
 package com.aka.app.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +36,6 @@ public class BoardController {
 	public int fileDelete(BoardFileVO boardFileVO)throws Exception {
 		boardFileVO = boardService.getBoardFileDetail(boardFileVO);
 		int result = boardService.fileDelete(boardFileVO);
-		System.out.println(result);
 		return result;
 	}
 	

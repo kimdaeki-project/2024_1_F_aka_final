@@ -1,5 +1,6 @@
 package com.aka.app.board;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -87,18 +88,18 @@ public class BoardService {
 		boardVO.setBoard_writer(memberVO.getUsername());
 		int result = boardDAO.createBoard(boardVO);
 		for(MultipartFile a : attachs) {	
-			if(!a.isEmpty()) {
+			if(a.isEmpty()) {
+				continue;
+				} 
 				String fileName = fileManager.fileSave(uploadPath, a);
 				BoardFileVO boardFileVO = new BoardFileVO();
 				boardFileVO.setBoard_num(boardVO.getBoard_num());
 				boardFileVO.setMember_id(memberVO.getMember_id());
 				boardFileVO.setFilename(fileName);
 				boardFileVO.setOrifilename(a.getOriginalFilename());
-				boardDAO.createBoardFiles(boardFileVO);
-			}else {
-				continue;
-			}
+				result = boardDAO.createBoardFiles(boardFileVO);
 		}
+		
 		return result;
 	}
 }

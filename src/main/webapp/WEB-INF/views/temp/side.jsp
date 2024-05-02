@@ -84,7 +84,7 @@
             </li>
             <!-- 인사 -->
             <li class="menu-item">
-              <a href="/hrm/list" class="menu-link">
+              <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">직원 목록</div>
               </a>
@@ -177,12 +177,6 @@
              <!--수업 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">수업 관리</span></li>
 
-            <li class="menu-item">
-              <a href="/class/list" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Tables">수업 관리</div>
-              </a>
-            </li>
             
              <li class="menu-item">
               <a href="/student/list" class="menu-link">
@@ -190,12 +184,7 @@
                 <div data-i18n="Tables">학생 관리</div>
               </a>
             </li>           
-            <li class="menu-item">
-              <a href="/classRoom/list" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Tables">강의실 관리</div>
-              </a>
-            </li>
+
              <li class="menu-item">
               <a href="/equipment/list" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>

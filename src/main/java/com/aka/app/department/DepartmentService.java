@@ -13,15 +13,15 @@ public class DepartmentService {
 	
 	@Autowired
 	private DepartmentDAO departmentDAO;
-	
+	//사원 리스트
 	public List<MemberVO>getDepartmentMemberList(DepartmentVO departmentVO)throws Exception{
 		return departmentDAO.getDepartmentMemberList(departmentVO);
 	}
-	
+	//부서리스트
 	public List<Map<String,Object>> getDepartmentList()throws Exception {
 		List<Map<String,Object>> dlist = departmentDAO.getDepartmentList();
 		for(Map<String,Object> a: dlist) {
-			a.replace("parent","0","#");
+			a.replace("parent","0","#");  // jstree 상위 번호 # 변경
 		}
 		return dlist;
 	}

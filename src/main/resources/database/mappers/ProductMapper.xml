@@ -5,12 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
 <mapper namespace="com.aka.app.product.ProductDAO">
 
+	<!-- 상품 삭제 -->
 	<delete id="deleteProduct">
 	DELETE 
 	FROM PRODUCT 
 	WHERE PRODUCT_NUM=#{product_num}
 	</delete>
 
+	<!-- 상품 수정 -->
 	<update id="updateProduct" parameterType="ProductVO">
 	UPDATE PRODUCT 
 	<set>
@@ -30,13 +32,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE PRODUCT_NUM = #{product_num}
 	</update>
 
-
+	
+	<!-- 상품 상세 -->
 	<select id="getProductDetail" parameterType="ProductVO" resultType="ProductVO">
 	SELECT * 
 	FROM PRODUCT 
 	WHERE PRODUCT_NUM = #{product_num}
 	</select>
 
+	<!-- 상품 생성 -->
 	<insert id="createProduct">
 	INSERT INTO PRODUCT 
 	(
@@ -58,15 +62,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	)
 	</insert>
 
+	<!-- 상품 목록 -->
 	<select id="getProductList" resultType="ProductVO">
 	SELECT * 
 	FROM PRODUCT
 	</select>
 	
+	<!-- 상품 총 갯수 -->
 	<select id="getProductCount" resultType="Long">
 	SELECT COUNT(PRODUCT_NUM)FROM PRODUCT
 	</select>
-	
+
 	
 	
 

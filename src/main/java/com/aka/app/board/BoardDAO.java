@@ -8,6 +8,7 @@ import com.aka.app.util.Pager;
 
 @Mapper
 public interface  BoardDAO  {
+	//공지사항 파일 삭제
 	public int deleteBoardFile(BoardFileVO boardFileVO)throws Exception;
 	//공지사항 삭제
 	public int deleteBoard(BoardVO boardVO)throws Exception;

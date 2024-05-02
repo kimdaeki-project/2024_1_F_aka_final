@@ -38,7 +38,7 @@ public class BoardController {
 		int result = boardService.fileDelete(boardFileVO);
 		return result;
 	}
-	
+	//파일 다운로드
 	@GetMapping("filedown")
 	public ModelAndView filedown(ModelAndView mv,BoardFileVO boardFileVO) throws Exception {
 		boardFileVO = boardService.getBoardFileDetail(boardFileVO);
@@ -46,7 +46,7 @@ public class BoardController {
 		mv.setViewName("BoardCustomView");
 		return mv;
 	}
-	
+	//공지사항 삭제
 	@PostMapping("delete")
 	public String deleteBoard(BoardVO boardVO,Model model) throws Exception {
 		int result=0;
@@ -61,6 +61,7 @@ public class BoardController {
 		return "commons/result";
 	}
 	
+	//공지사항 수정
 	@PostMapping("update")
 	public ModelAndView updateBoard(BoardVO boardVO,ModelAndView mv,MultipartFile[]attach) throws Exception {
 		int result=0;
@@ -75,6 +76,7 @@ public class BoardController {
 		return mv;
 	}
 	
+	//공지사항 수정 페이지
 	@GetMapping("update")
 	public String updateBoard(BoardVO boardVO,Model model) throws Exception {
 		boardVO = boardService.getBoardDetail(boardVO);
@@ -82,6 +84,7 @@ public class BoardController {
 		return "board/update";
 	}
 	
+	//공지사항 상세
 	@GetMapping("detail")
 	public ModelAndView getBoardDetail(BoardVO boardVO,ModelAndView mv)throws Exception{
 		boardVO = boardService.getBoardDetail(boardVO);
@@ -90,6 +93,7 @@ public class BoardController {
 		return mv;
 	}
 	
+	//공지사항 목록
 	@GetMapping("list")
 	public String getBoardList(BoardVO boardVO,Pager pager,Model model)throws Exception{
 		List<BoardVO>list = boardService.getBoardList(pager);
@@ -98,10 +102,12 @@ public class BoardController {
 		return "board/list";
 	}
 	
+	//공지사항 생성 페이지
 	@GetMapping("create")
 	public void createBoard(@ModelAttribute BoardVO boardVO) throws Exception {
 	}
 	
+	//공지사항 생성
 	@PostMapping("create")
 	public String createBoard(@Valid BoardVO boardVO,BindingResult bindingResult,Model model,HttpSession session,MultipartFile[]boardFile) throws Exception {
 		int result=0;

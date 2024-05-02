@@ -25,11 +25,13 @@ public class BoardService {
 	@Value("${app.upload.board}")
 	private String uploadPath;
 	
+	
+	//파일 삭제
 	public int fileDelete(BoardFileVO boardFileVO)throws Exception {
 		fileManager.fileDelete(uploadPath,boardFileVO.getFilename());
 		return boardDAO.deleteBoardFile(boardFileVO);
 	}
-	
+	//공지사항 삭제
 	public int deleteBoard(BoardVO boardVO)throws Exception{
 		List<BoardFileVO>fileVOs = boardVO.getBoardFileVO();
 		for(BoardFileVO a:fileVOs) {
@@ -41,7 +43,7 @@ public class BoardService {
 		return boardDAO.deleteBoard(boardVO);
 		
 	}
-	
+	//공지사항 수정
 	public int updateBoard(BoardVO boardVO,MultipartFile[]attach) throws Exception {
 		for(MultipartFile a : attach) {	
 			if(!a.isEmpty()) {
@@ -57,22 +59,22 @@ public class BoardService {
 		}
 		return boardDAO.updateBoard(boardVO);
 	}
-	
+	//공지사항 상세
 	public BoardVO getBoardDetail(BoardVO boardVO) throws Exception {
 		return boardDAO.getBoardDetail(boardVO);
 	}
-	
+	//공지사항 파일 상세
 	public BoardFileVO getBoardFileDetail(BoardFileVO BoardFileVO) throws Exception {
 		return boardDAO.getBoardFileDetail(BoardFileVO);
 	}
-	
+	//공지사항 리스트
 	public List<BoardVO> getBoardList(Pager pager)throws Exception{
 		pager.makeIndex();
 		Long totalCount = boardDAO.getTotalCount(pager);
 		pager.makeNum(totalCount);
 		return boardDAO.getBoardList(pager);
 	}
-	
+	//공지사항 생성
 	public int createBoard(BoardVO boardVO,HttpSession session,MultipartFile[]attachs) throws Exception {
 		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");  //세션에서 스프링 시큐리티 컨택스트 홀더 꺼내기
 		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;	   //홀더에서 컨텍스트 꺼내기

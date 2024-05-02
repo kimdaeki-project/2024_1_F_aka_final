@@ -50,7 +50,7 @@ public class PaymentController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
-    
+    //목록 페이지
     @GetMapping("list") 
     public void getPaymentList(Model model,Pager pager) throws Exception {
     	List<PaymentVO> list = paymentService.getPaymentList(pager);
@@ -58,7 +58,7 @@ public class PaymentController {
     	model.addAttribute("pager",pager);
     }
     
-    @Transactional
+    //결제 컨펌
     @PostMapping("confirm")
     public ResponseEntity<JSONObject> confirmPayment(@RequestBody String jsonBody,HttpSession session) throws Exception {
         JSONParser parser = new JSONParser();
@@ -97,6 +97,7 @@ public class PaymentController {
         InputStream responseStream = isSuccess ? connection.getInputStream() : connection.getErrorStream();
         Reader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8); 	
         JSONObject	jsonObject = (JSONObject) parser.parse(reader);
+       
         Object sessionObj = session.getAttribute("SPRING_SECURITY_CONTEXT");  //세션에서 스프링 시큐리티 컨택스트 홀더 꺼내기
 		SecurityContextImpl contextImpl = (SecurityContextImpl)sessionObj;	   //홀더에서 컨텍스트 꺼내기
 		MemberVO memberVO = (MemberVO)contextImpl.getAuthentication().getPrincipal();
@@ -117,10 +118,11 @@ public class PaymentController {
 		paymentVO.setCustomer_phone(memberVO.getPhone());
 		paymentVO.setCustomer_email(memberVO.getEmail());
 		paymentService.createPayment(paymentVO);
+		
         responseStream.close();
         return ResponseEntity.status(code).body(jsonObject);
     }
-        
+    //사용자 결제 완료 후 이동 페이지
     @GetMapping("success")
     public String paymentRequest(HttpServletRequest request, Model model,ProductVO productVO) throws Exception {
     	model.addAttribute("memberid",productVO.getMember_id());
@@ -128,7 +130,7 @@ public class PaymentController {
         return "payment/success";
     }
 
-
+    //결제 페이지
     @GetMapping("checkout")
     public String index(HttpServletRequest request, Model model,ProductVO productVO,HttpSession session) throws Exception {	
     	productVO  =  productService.getProductDetail(productVO);
@@ -149,7 +151,7 @@ public class PaymentController {
         return "payment/checkout";
     }
 
- 
+    //에러 페이지
     @GetMapping("fail")
     public String failPayment(HttpServletRequest request, Model model) throws Exception {
         String failCode = request.getParameter("code");

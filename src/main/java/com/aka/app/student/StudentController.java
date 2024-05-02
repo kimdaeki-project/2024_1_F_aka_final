@@ -28,6 +28,7 @@ public class StudentController {
 	private StudentService studentService;
 	
 	
+	//학생 수정 페이지
 	@GetMapping("update")
 	public ModelAndView updateStudent(MemberVO memberVO,ModelAndView mv) throws Exception {
 		memberVO = studentService.getStudentDetail(memberVO);
@@ -35,6 +36,8 @@ public class StudentController {
 		mv.setViewName("student/update");
 		return mv;
 	}
+	
+	//학생 수정
 	@PostMapping("update")
 	public String updateStudent(MemberVO memberVO,Model model) throws Exception {
 		int result=0;
@@ -48,6 +51,7 @@ public class StudentController {
 		return "commons/result";
 	}
 	
+	//학생 삭제
 	@PostMapping("delete")
 	public String deleteStudent(MemberVO memberVO,Model model) throws Exception {
 		int result=0;
@@ -61,10 +65,12 @@ public class StudentController {
 		return "commons/result";
 	}
 	
+	//학생 생성 페이지
 	@GetMapping("create")
 	public void createStudent() throws Exception {	
 	}
 	
+	//학생 생성
 	@PostMapping("create")
 	public String createStudent(MemberVO memberVO,Model model) throws Exception {
 		String msg = "수강생 등록 실패";
@@ -78,6 +84,7 @@ public class StudentController {
 		return "commons/result";
 	}
 	
+	//학생 목록
 	@GetMapping("list")
 	public String getStudentList(Pager pager,Model model) throws Exception {
 		List<MemberVO>list = studentService.getStudentList(pager);

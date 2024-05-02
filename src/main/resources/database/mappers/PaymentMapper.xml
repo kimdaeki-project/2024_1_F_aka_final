@@ -6,6 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.aka.app.payment.PaymentDAO">
 
 	
+	
+	<!-- 결제 목록 찾기 -->
 	<sql id="search">
 	<where>
 	<choose>
@@ -27,12 +29,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</where>
 	</sql>
 	
+	
+	<!-- 결제 페이징 총 갯수 -->
 	<select id="getTotalCount" resultType="Long" parameterType="Pager">
 	SELECT COUNT(PAYMENT_NUM) 
 	FROM PAYMENT
 	<include refid="search"></include>
 	</select>
 	
+	<!-- 결제 목록 -->
 	<select id="getPaymentList" parameterType="Pager">
 	SELECT * 
 	FROM PAYMENT
@@ -43,6 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	,#{perPage}
 	</select>
 	
+	<!-- 결제 생성 -->
 	<insert id="createPayment" parameterType="PaymentVO">
 	INSERT INTO PAYMENT 
 	(

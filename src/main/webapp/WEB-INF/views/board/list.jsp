@@ -84,27 +84,27 @@
 
                 <c:if test="${!pager.start}">
                   <li class="page-item first">
-                    <a class="page-link" href="/equipment/list?page=1&kind=${kind}$search=${search}" ><i class="tf-icon bx bx-chevrons-left"></i></a>
+                    <a class="page-link" href="/board/list?page=1&kind=${kind}$search=${search}" ><i class="tf-icon bx bx-chevrons-left"></i></a>
                   </li>
                 </c:if> 
 				<c:if test="${!pager.before}">
-                  <li class="page-item prev"> <a class="page-link" href="/equipment/list?page=${pager.startNum-1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-left"></i></a> </li>
+                  <li class="page-item prev"> <a class="page-link" href="/board/list?page=${pager.startNum-1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-left"></i></a> </li>
 				</c:if>                  
                   
                   <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="p">
-                  <li class="page-item"><a class="page-link" href="/equipment/list?page=${p}&kind=${kind}$search=${search}">${p}</a></li>
+                  <li class="page-item"><a class="page-link" href="/board/list?page=${p}&kind=${kind}$search=${search}">${p}</a></li>
                   </c:forEach>
   
   				
                  <c:if test="${!pager.after}">
                   <li class="page-item next">
-                    <a class="page-link" href="/equipment/list?page=${pager.lastNum+1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-right"></i></a>
+                    <a class="page-link" href="/board/list?page=${pager.lastNum+1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-right"></i></a>
                   </li>
                  </c:if>
                  
  				<c:if test="${!pager.last}">
                   <li class="page-item last">
-                    <a class="page-link" href="/equipment/list?page=${pager.totalPage}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                    <a class="page-link" href="/board/list?page=${pager.totalPage}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevrons-right"></i></a>
                   </li>
   					</c:if>		
   		

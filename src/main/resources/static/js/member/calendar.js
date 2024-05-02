@@ -1,13 +1,21 @@
 console.log("calendar.js");
 
 
+function move(){
+	if(confirm("추가완료")){
+		location.href="../";	
+	}
+	location.href="../";
+}
+
 /*추가할때 fetch*/
-function create(){
+function create(e){
 	fetch('/calendar/create',{
 		method:'POST',
 		headers:{
 			"Content-Type": "application/json; charset=utf-8"
 		},
+		redirect:'manual',
 		body:JSON.stringify({
 			member_id:memberId.value,
 			title:title.value,
@@ -17,8 +25,9 @@ function create(){
 			target_object:targetOb.value
 		})
 		.then(res => res)
-	});
-	location.href="/calendar";
+		
+	})
+	move();
 }
 
 /* 페이지 불러오기 */
@@ -58,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 			  googleCalendarApiKey:'AIzaSyCzFcwzDWPTcM8eLqcBQ7nlSmig8VMDwGw',
 		  	  expandRows: true,		  //크기조절 
-		      //initialDate: '2024-05-01',		 //초기시간설정 => 처음보여줄 달력 
+		      initialDate: '2024-05-01 00:00:00',		 //초기시간설정 => 처음보여줄 달력 
 		      locale : 'ko',
 		      editable: true,
 		      selectable: true,
@@ -80,11 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
   });
 
-  /*  */
-  function getCalendar(){
-	  
-  }
-  
   
   
   

@@ -1,10 +1,13 @@
 package com.aka.app.member;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -53,7 +56,13 @@ public class MemberVO implements UserDetails, OAuth2User{
 	// security
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		
+		  GrantedAuthority g = new SimpleGrantedAuthority(roleVO.getName());
+		  authorities.add(g);
+		 
+				
+		return authorities;
 	}
 
 	@Override

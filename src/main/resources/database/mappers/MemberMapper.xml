@@ -9,10 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getDetail" parameterType="MemberVO" resultMap="getDetailResult">
 		SELECT * 
 			FROM MEMBER M
-<!-- 			INNER JOIN DEPARTMENT D
+			INNER JOIN DEPARTMENT D
 			ON M.DEPARTMENT_ID = D.DEPARTMENT_ID
 			INNER JOIN ROLE R
-			ON M.ROLE_ID = R.ROLE_ID -->
+			ON M.ROLE_ID = R.ROLE_ID
 		WHERE USER_ID = #{user_id}		 
 	</select>
 	 <!-- resultMap="getDetailResult" -->
@@ -34,6 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="POSITION_ID" property="position_id"/>
 		
 		<association property="roleVO" javaType="RoleVO">
+			<id column="ROLE_ID" property="role_id"/>
 			<result column="NAME" property="name"/>
 		</association>
 		<association property="departmentVO" javaType="DepartmentVO">
@@ -59,8 +60,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			PROFIL, PROFIL_ORI, POSITION_ID,DEPARTMENT_ID)
 		VALUES(
 		#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, 
-		#{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, #{customer_key}
-		,null,null,#{position_id},#{department_id})
+		#{postCode}, #{user_id}, #{password}, #{username}, 4, #{customer_key}
+		,null,null,#{position_id},0)
 	</insert>
 	
 	<!-- 출석 -->

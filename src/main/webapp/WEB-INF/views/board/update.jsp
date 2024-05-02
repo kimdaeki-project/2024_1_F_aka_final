@@ -93,7 +93,7 @@
                           <div class="col-sm-10" id="fileResult"> 
                           
                  		   <c:forEach items="${vo.boardFileVO}" var="fi" varStatus="status">
-                 		   <div class="mb-2">
+                 		   <div class="mb-3">
                  		   <a href="/board/filedown?boardfile_num=${fi.boardfile_num}">${fi.orifilename}</a>
                     	  	<button type="button" data-file-num="${fi.boardfile_num}" class="btn btn-danger fileDelete">x</button>                 		   
                  		   </div>                 		   
@@ -207,7 +207,7 @@
   for(let a of fileDelete){
     let fileNum = a.dataset.fileNum;
     a.addEventListener('click',()=>{
-     if(confirm("파일 삭제 하시겠습니까? (복구 불가능)")){
+     if(confirm("파일 삭제 하시겠습니까? (복구 불가능합니다)")){
             fileAjax(fileNum);
             a.parentElement.remove();
             fileTotal--;

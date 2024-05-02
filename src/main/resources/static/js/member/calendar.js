@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		      businessHours: true,
 		      dayMaxEvents: true, // allow "more" link when too many events
 		      eventSources:[
-				    {
+			     {
 				    googleCalendarId: '5b75938aada2d3092b44447721c74a5887f74bffb5a36367bf9ac6f23209eba3@group.calendar.google.com'
 				 },
 				 {

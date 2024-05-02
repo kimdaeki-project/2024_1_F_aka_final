@@ -15,14 +15,7 @@
   	
     <meta charset='utf-8' />
     <title>Calendar</title>
-    <script src='../js/member/dist/index.global.js'></script>
-    <script src='../js/member/dist/index.global.min.js'></script>
-    <!-- <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.11/index.global.min.js'></script> -->
     
-    
-    <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
-	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script> -->
-	
     <script>
 
 
@@ -114,7 +107,6 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script type="text/javascript" src="../js/member/calendar.js"></script>
     
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/googlecalendar@6.1.11/index.global.min.js"></script> -->
-<!--     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> -->
+    <script src='https://fastly.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.11/index.global.min.js'></script>
   </body>
 </html>

@@ -62,6 +62,7 @@ public class SecurityConfig {
 //											.requestMatchers("/member/login").permitAll()
 											.anyRequest().permitAll()
 											)
+	
 				
 				.formLogin(
 						(login)->

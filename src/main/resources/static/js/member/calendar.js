@@ -1,6 +1,32 @@
 console.log("calendar.js");
 
 
+function fixTime(){
+	
+	let startDate = document.getElementById('start_date');
+	let endDate = document.getElementById('end_date');
+	if(startDate.value){
+		let startDay = startDate.value.split('T')[0];
+		let startTime = startDate.value.split('T')[1];
+		
+		startDate.value = startDay+'T'+startTime.split(':')[0]+':00';
+	}
+	if(endDate.value){
+		let endDay	= endDate.value.split('T')[0];
+		let endTime	= endDate.value.split('T')[1];
+		
+		endDate.value = endDay+'T'+endTime.split(':')[0]+':00';		
+	}
+	
+}
+
+document.getElementById('start_date').addEventListener('change', function() {
+  fixTime();
+});
+document.getElementById('end_date').addEventListener('change', function() {
+  fixTime();
+});
+
 function move(){
 	if(confirm("추가완료")){
 		location.href="../";	
@@ -15,7 +41,6 @@ function create(e){
 		headers:{
 			"Content-Type": "application/json; charset=utf-8"
 		},
-		redirect:'manual',
 		body:JSON.stringify({
 			member_id:memberId.value,
 			title:title.value,
@@ -24,16 +49,22 @@ function create(e){
 			content:content.value,
 			target_object:targetOb.value
 		})
-		.then(res => res)
-		
 	})
-	move();
+		.then(res => {
+			console.log("왜 안돼?");
+			if(res.ok){
+				alert('일정추가');
+				location.href="../";
+			}
+	}).catch(error => {
+		console.log(error+"왜");
+	})
 }
 
 /* 페이지 불러오기 */
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-	
+	fixTime();
 /*
 	let title = document.getElementById('title');
 	let startDate = document.getElementById('start_date');

@@ -1,13 +1,21 @@
 console.log("calendar.js");
 
 
-
+function move(){
+	if(confirm("추가완료")){
+		location.href="../";	
+	}
+	location.href="../";
+}
 
 /*추가할때 fetch*/
-function create(){
+function create(e){
 	fetch('/calendar/create',{
 		method:'POST',
-		headers:{'content-Type':'application/json;charset:utf-8'},
+		headers:{
+			"Content-Type": "application/json; charset=utf-8"
+		},
+		redirect:'manual',
 		body:JSON.stringify({
 			member_id:memberId.value,
 			title:title.value,
@@ -16,12 +24,11 @@ function create(){
 			content:content.value,
 			target_object:targetOb.value
 		})
-		.then(res => console.log(res))
-	});
+		.then(res => res)
+		
+	})
+	move();
 }
-
-
-let title, startDate, endDate;
 
 /* 페이지 불러오기 */
 document.addEventListener('DOMContentLoaded', function() {
@@ -35,48 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	let targetOb = document.getElementById('target_object');
 	let memberId = document.getElementById('member_id');
  */
+
 	let arr = [];
-	
-	/*fetch('/calendar/getSchedule',{
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json"
-		}
-		})
-		.then(res => res.json())
-		.then(dataArray => {
-			dataArray.forEach(data =>{
-				const dataObj = {
-					title : data.title,
-					startDate : data.start_date,
-					endDate : data.end_date,
-				}
-				arr.push(dataObj);
-				console.log(dataObj);
-				
-				console.log(title, startDate, endDate);
-			})
-		})
-	console.log(arr);
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-  	  expandRows: true,		  크기조절 
-      initialDate: '2024-04-01',		 초기시간설정 => 처음보여줄 달력 
-      locale : 'ko',
-      editable: true,
-      selectable: true,
-      businessHours: true,
-      dayMaxEvents: true, // allow "more" link when too many events
-      events: [
-			
-			{
-				title:'가나다',
-				start: '2024-04-07',
-				end: '2024-04-10'
-			}
-      ]
-    });
-	
-    calendar.render();*/
+	//let target = document.getElementById('target_object');
     
     fetch('/calendar/getSchedule',{
 		method: "GET",
@@ -91,33 +59,36 @@ document.addEventListener('DOMContentLoaded', function() {
 					title : data.title,
 					start : data.start_date,
 					end : data.end_date,
+					url:'https://naver.com'	/* url 설정 Detail page*/
+					
 				}
 				arr.push(dataObj);
-				console.log(dataObj);
-				
-				console.log(title, startDate, endDate);
 			})
 			var calendar = new FullCalendar.Calendar(calendarEl, {
+			  googleCalendarApiKey:'AIzaSyCzFcwzDWPTcM8eLqcBQ7nlSmig8VMDwGw',
 		  	  expandRows: true,		  //크기조절 
-		      initialDate: '2024-04-01',		 //초기시간설정 => 처음보여줄 달력 
+		      initialDate: '2024-05-01 00:00:00',		 //초기시간설정 => 처음보여줄 달력 
 		      locale : 'ko',
 		      editable: true,
 		      selectable: true,
 		      businessHours: true,
 		      dayMaxEvents: true, // allow "more" link when too many events
-		      events: arr
+		      eventSources:[
+				    {
+				    googleCalendarId: '5b75938aada2d3092b44447721c74a5887f74bffb5a36367bf9ac6f23209eba3@group.calendar.google.com'
+				 },
+				 {
+					 googleCalendarId:'ko.south_korea#holiday@group.v.calendar.google.com',
+					 color:'#FF9900'
+				 }
+			  ],
+		      events:arr
+		    
     		});
     		calendar.render();
 		})
-	console.log(arr);
-    
-	
-    
   });
 
-  
-  
-  
   
   
   

@@ -13,5 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getCalendar">
 		SELECT * FROM CALENDAR
+<!-- 		<if test="target_object == 1">
+			WHERE TARGET_OBJECT = #{target_object}
+		</if> -->
 	</select>
 </mapper>

@@ -24,11 +24,12 @@ public class ProductService {
 	@Value("${app.upload.product}")
 	private String uploadPath;
 	
-	
+	//상품 삭제
 	public int deleteProduct(ProductVO productVO) throws Exception {
 		return productDAO.deleteProduct(productVO);
 	}
 	
+	//상품 수정
 	public int updateProduct(ProductVO productVO,MultipartFile attach) throws Exception {
 		if(!attach.isEmpty()) {
 			String fileName = fileManager.fileSave(uploadPath, attach);
@@ -38,10 +39,12 @@ public class ProductService {
 		return result;
 	}
 	
+	//상품 상세
 	public ProductVO getProductDetail (ProductVO productVO) throws Exception {
 		return productDAO.getProductDetail(productVO);
 	}
 	
+	//상품 생성
 	public int createProduct (ProductVO productVO,MultipartFile attach,HttpSession session) throws Exception {
 		if(attach.isEmpty()) {
 			Random random = new Random();
@@ -57,6 +60,7 @@ public class ProductService {
 		return productDAO.createProduct(productVO);
 	}
 	
+	//상품 목록
 	public List<ProductVO> getProductList (ProductVO productVO) throws Exception {
 		return  productDAO.getProductList(productVO);
 	}

@@ -1,14 +1,13 @@
 	  const button = document.getElementById("payment-button");
       const coupon = document.getElementById("coupon-box");
-      const generateRandomString = () =>
-        window.btoa(Math.random()).slice(0, 20);
-      var amount = document.getElementById("amount").value;
+      const amount = document.getElementById("amount").value;
       const customerKey = document.getElementById("customerkey").value;
       const clientKey = document.getElementById("clientkey").value;
-      const paymentWidget = PaymentWidget(clientKey, customerKey); // 회원 결제
       const memberid = document.getElementById("memberid").value;
       const productnum = document.getElementById("productnum").value;
-      
+      console.log(customerKey);
+      console.log(clientKey);
+      const paymentWidget = PaymentWidget(clientKey, customerKey); // 회원 결제
       paymentMethodWidget = paymentWidget.renderPaymentMethods(
         "#payment-method",
         { value: amount },

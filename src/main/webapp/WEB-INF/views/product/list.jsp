@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 
 <html
@@ -79,19 +80,14 @@
                 
                 </c:forEach>
                 
-                
-                
-                
-                
-                
-                
-                
-              
+              <sec:authorize access="hasAnyRole('HR')">
                 <nav aria-label="Page navigation">
                 <a class=" btn btn-primary" href="/product/create">상품 추가</a>
                 </nav>
+     		 </sec:authorize>       
+         
+         
               </div>
-              
               
               
               

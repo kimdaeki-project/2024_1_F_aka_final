@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aka.app.member.MemberVO;
+import com.aka.app.util.Chart;
 import com.aka.app.util.Pager;
 
 
@@ -29,6 +30,8 @@ public class EdmsController {
 	@Autowired
 	private EdmsService edmsService;
 	
+	@Autowired
+	private Chart chart; 
 	
 	
 	@ModelAttribute("edms")
@@ -38,24 +41,34 @@ public class EdmsController {
 	
 	
 	
-	@GetMapping("pro/list")
-	public String getProlist(@AuthenticationPrincipal MemberVO memberVO, EdmsVO edmsVO, Model model, Pager pager) throws Exception {
+
+	
+	
+	@GetMapping("list")
+	public String getlist(@AuthenticationPrincipal MemberVO memberVO, EdmsVO edmsVO, Model model, Pager pager, String check) throws Exception {
 			
-	
-	Map<String, Object> titles = new HashMap<>();
-	
-	titles.put("theme", "결재진행목록");
-	titles.put("no1","번호");
-	titles.put("no2", "제목");
-	titles.put("no3","내용");
-	titles.put("no4", "생성일");
-	titles.put("no5", "결재상태");
+	//list : 결재진행목록
+	//temp : 임시저장	
+	//done : 결재완료	
 		
-	model.addAttribute("titles", titles);
-	//리스트 내용 불러오기	
-	List<EdmsVO> edmsList = edmsService.getEdmsList(pager,memberVO);
-	System.out.println(edmsList);	
+		
+	Map<String, String> titles = chart.titles(check);
+	List<EdmsVO> edmsList = new ArrayList<>();
 	
+
+
+		
+	//리스트 내용 불러오기
+	
+	
+		
+	edmsList = edmsService.getEdmsList(pager,memberVO, check);
+	
+	
+	System.out.println(edmsList);
+	model.addAttribute("check",check);
+	model.addAttribute("titles", titles);
+	model.addAttribute("list",edmsList);
 	
 	
 	
@@ -64,12 +77,42 @@ public class EdmsController {
 		 
 	}
 	
-	/*
-	 * @GetMapping("form") public String getform(Model model) {
-	 * model.addAttribute("path","form"); return "EDMS/prolist";
-	 * 
-	 * }
-	 */
+	@GetMapping("getDetail")
+	public String getEdmsDetail(Model model, EdmsVO edmsVO, String check) throws Exception{
+		Map<String, Object> map = edmsService.getDetail(edmsVO, check);	
+		AprovalVO[] appline = edmsService.getApplineList(edmsVO, check);	
+		//EDMS_STATUS
+		//0=결재서상신
+		//1=수신결재
+		//2=결재중
+		//3=결재반려
+		//4= 임시저장
+		//5= 결재완료		
+		
+				
+		Long type =(Long) map.get("EDMS_STATUS");
+		
+		
+		
+		String checkType = "get";
+		
+		if(type==4) {			
+			checkType = "create";			
+		}
+
+		model.addAttribute("appline", appline);
+		model.addAttribute("edms", map);
+		model.addAttribute("checkType",checkType);
+		
+		
+		
+		return "EDMS/form";
+		
+		
+	}
+	
+	
+	
 	
 	@GetMapping("form")
 	public String getform(Model model) {
@@ -90,37 +133,41 @@ public class EdmsController {
 		//직원목록 불러오기
 		List<Map<String, String>> result = edmsService.getMemberList(); 
 		
-//		List<ChartVO> chartAr = edmsService.getDeptList();
-		
-		
-//		System.out.println(chartAr.get(0).getName());	
-//				System.out.println(memberVO);
-		model.addAttribute("member", memberVO);
-		model.addAttribute("deptName", deptName);
-		model.addAttribute("list",result);		
+
+		model.addAttribute("member", memberVO); //로그인한 사용자 정보
+		model.addAttribute("deptName", deptName);//부서이름, 
+		model.addAttribute("list",result);		//직원목록 
+		model.addAttribute("checkType","create");
 		
 //		System.out.println(model);
 		
-		return "EDMS/create";
+		return "EDMS/form";
+		
+	}
+	
+	public void getEdmsDetail(Long edms_no) {
+		
+		
+		
 		
 	}
 	
 	@ResponseBody
-	@PostMapping("apply")	//check 1=문서저장 2= 임시문서저장
-	public Map<String, Object> apply(Integer[] appAr, EdmsVO edmsVO, Model model, MultipartFile[] file, int check) throws Exception {		
+	@PostMapping("apply")	//type 1=문서저장 2= 임시문서저장 
+	public Map<String, Object> apply(Integer[] appAr, EdmsVO edmsVO, Model model, MultipartFile[] file, int type, String check) throws Exception {		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		 
 		
 		// 기안서 내용을 저장.		
-		int result = edmsService.createEdms(edmsVO, appAr, check, file);
+		int result = edmsService.createEdms(edmsVO, appAr, type, file);
 		
 		String msg = "결재가 정상적으로 전송되었습니다.";
-		String path = "pro/list";
+		String path = "list?check="+check;
 		
-		if(check==2) {
+		if(type==2) {
 			msg="임시저장되었습니다.";			
-			map.put("path", "pro/list");
+			map.put("path", "/list");
 		}
 		
 		if(result!=1) {			

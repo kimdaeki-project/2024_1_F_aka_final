@@ -121,6 +121,8 @@
     <script src="/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
+     <!-- 토스페이먼츠 -->
+        <script src="/js/payment/checkout.js"></script>
     <!-- Vendors JS -->
     <script src="/assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
@@ -132,7 +134,5 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-     <!-- 토스페이먼츠 -->
-        <script src="/js/payment/checkout.js"></script>
   </body>
 </html>

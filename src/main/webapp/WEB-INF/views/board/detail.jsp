@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 
 <html
@@ -87,7 +88,7 @@
                         <tr>                    
                        	
                           <td>
-                            <p class="lead mb-0">${vo.board_contents}</p>
+                          <div class="lead mb-0">${vo.board_contents}</div>                         
                           </td>
                         </tr>
                                                                      
@@ -96,6 +97,7 @@
                   </div>
                 </div>	
 	            </div>
+	            <sec:authorize access="hasAnyRole('HR')">
 					<div class="demo-inline-spacing ml-6">	
 						<a class=" btn btn-primary" href="/board/update?board_num=${vo.board_num}">수정</a>
 						<form action="/board/delete" method="post">
@@ -103,6 +105,7 @@
 						<button class="btn btn-danger" id="deleteProductBtn">삭제</button>									
 						</form>
 					</div>
+          		</sec:authorize>
           		  </div>		
             <!-- / Content -->
        			   

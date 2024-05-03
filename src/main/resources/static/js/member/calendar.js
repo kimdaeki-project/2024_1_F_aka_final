@@ -28,11 +28,11 @@ document.getElementById('end_date').addEventListener('change', function() {
 });
 
 function move(e){
-	if(confirm("추가완료")){
-		location.href="/calendar";	
-	}
-	
+	alert("추가완료");
+	location.href="/calendar";	
 }
+	
+
 
 let title = document.getElementById('title');
 let startDate = document.getElementById('start_date');

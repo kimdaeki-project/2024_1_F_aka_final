@@ -42,8 +42,10 @@ public class CalendarController {
 	  
 	  @GetMapping("/getSchedule")
 	  @ResponseBody 
-	  public List<CalendarVO> getCalendar(MemberVO memberVO)throws Exception{
-		  log.info(memberVO.toString());
+	  public List<CalendarVO> getCalendar(HttpSession session)throws Exception{
+		  Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+		  SecurityContextImpl securityContextImpl = (SecurityContextImpl)obj;
+		  MemberVO memberVO = (MemberVO)securityContextImpl.getAuthentication().getPrincipal();
 		  List<CalendarVO> calendarVOs = calendarService.getCalendar(memberVO);
 		  return calendarVOs;
 	  }

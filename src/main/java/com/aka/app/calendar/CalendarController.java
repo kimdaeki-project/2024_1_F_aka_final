@@ -42,6 +42,17 @@ public class CalendarController {
 		  return calendarVOs;
 	  }
 	 
+	  @GetMapping("/create")
+	  public String createCalendar(Model model)throws Exception{
+		  String msg = "일정추가";
+		  String path = "../";
+
+		  model.addAttribute("path",path);
+		  model.addAttribute("msg",msg);
+		  
+		  return "commons/result";
+	  }
+	  
 	
 	  @PostMapping("/create")
 	  @ResponseBody

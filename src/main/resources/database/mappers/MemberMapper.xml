@@ -61,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES(
 		#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, 
 		#{postCode}, #{user_id}, #{password}, #{username}, 4, #{customer_key}
-		,null,null,#{position_id},0)
+		,null,null,#{position_id},#{department_id})
 	</insert>
 	
 	<!-- 출석 -->

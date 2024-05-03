@@ -56,10 +56,9 @@ public class SecurityConfig {
 				.authorizeHttpRequests(
 						(authorizeRequests)->
 											authorizeRequests
-											.requestMatchers("/", "/member/mypage").authenticated()
-											.requestMatchers("/calendar", "/edms/**", "/product/**").hasAnyRole("CEO","EMPLOYEE","HR")
-//											.requestMatchers("/").permitAll()
-//											.requestMatchers("/member/login").permitAll()
+											.requestMatchers("/", "/member/mypage","/board/**","/product/**","/payment/**").authenticated()
+											.requestMatchers("/calendar", "/edms/**").hasAnyRole("CEO","HR","EMPLOYEE")
+											.requestMatchers("/department/**","/student/**","/equipment/**").hasAnyRole("HR")
 											.anyRequest().permitAll()
 											)
 	

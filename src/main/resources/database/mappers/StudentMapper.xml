@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</choose>
 	LIKE CONCAT('%',#{search},'%')
 	AND
-	DEPARTMENT_ID = 15
+	DEPARTMENT_ID = 5
 	</where>
 	</sql>
 	

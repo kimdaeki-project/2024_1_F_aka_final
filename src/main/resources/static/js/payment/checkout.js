@@ -5,6 +5,8 @@
       const clientKey = document.getElementById("clientkey").value;
       const memberid = document.getElementById("memberid").value;
       const productnum = document.getElementById("productnum").value;
+      console.log(customerKey);
+      console.log(clientKey);
       const paymentWidget = PaymentWidget(clientKey, customerKey); // 회원 결제
       paymentMethodWidget = paymentWidget.renderPaymentMethods(
         "#payment-method",

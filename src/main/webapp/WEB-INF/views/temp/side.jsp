@@ -79,23 +79,23 @@
             </li>
 
 			<!-- 인사 관리 -->
-            <li class="menu-header small text-uppercase">
+           <!--  <li class="menu-header small text-uppercase">
               <span class="menu-header-text">인사 관리</span>
-            </li>
+            </li> -->
             <!-- 인사 -->
-            <li class="menu-item">
+           <!--  <li class="menu-item">
               <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">직원 목록</div>
               </a>
-            </li>
+            </li> -->
             <!-- 부서 -->
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="/department/list" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">부서 목록</div>
               </a>
-            </li>
+            </li> -->
             
             <!-- 전자 결제 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">전자 결제</span></li>

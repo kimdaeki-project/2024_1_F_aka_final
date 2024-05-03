@@ -74,7 +74,7 @@ public class StudentController {
 	@PostMapping("create")
 	public String createStudent(MemberVO memberVO,Model model) throws Exception {
 		String msg = "수강생 등록 실패";
-		memberVO.setDepartment_id(15L);
+		memberVO.setDepartment_id(5L);
 		int result = memberService.add(memberVO);
 		if(result==1) {
 			msg = "수강생 등록 성공";

@@ -35,7 +35,11 @@ public class BoardController {
 	@ResponseBody
 	public int fileDelete(BoardFileVO boardFileVO)throws Exception {
 		boardFileVO = boardService.getBoardFileDetail(boardFileVO);
-		int result = boardService.fileDelete(boardFileVO);
+		int result = 0;
+		if(boardFileVO !=null) {
+			result = boardService.fileDelete(boardFileVO);
+			
+		}
 		return result;
 	}
 	//파일 다운로드
@@ -50,11 +54,11 @@ public class BoardController {
 	@PostMapping("delete")
 	public String deleteBoard(BoardVO boardVO,Model model) throws Exception {
 		int result=0;
-		String msg = "비품 삭제 실패";
+		String msg = "공지사항 삭제 실패";
 		if(boardVO.getBoard_num() != null) {
 			boardVO = boardService.getBoardDetail(boardVO);
 			result = boardService.deleteBoard(boardVO);
-			if(result == 1) msg = "비품 삭제 성공";
+			if(result == 1) msg = "공지사항 삭제 성공";
 		}
 		model.addAttribute("msg",msg);
 		model.addAttribute("path","/board/list");				

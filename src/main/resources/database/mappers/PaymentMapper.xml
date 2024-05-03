@@ -30,6 +30,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 	
 	
+	
+	
+	
+	
 	<!-- 결제 페이징 총 갯수 -->
 	<select id="getTotalCount" resultType="Long" parameterType="Pager">
 	SELECT COUNT(PAYMENT_NUM) 
@@ -87,7 +91,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	)
 	</insert>
 
-
+	
 
 	
 	

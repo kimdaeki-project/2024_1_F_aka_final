@@ -29,8 +29,12 @@ public class BoardService {
 	
 	//파일 삭제
 	public int fileDelete(BoardFileVO boardFileVO)throws Exception {
-		fileManager.fileDelete(uploadPath,boardFileVO.getFilename());
-		return boardDAO.deleteBoardFile(boardFileVO);
+		int result = 0 ;
+		if(boardFileVO != null) {
+			fileManager.fileDelete(uploadPath,boardFileVO.getFilename());
+			result = boardDAO.deleteBoardFile(boardFileVO);
+		}
+		return result;
 	}
 	//공지사항 삭제
 	public int deleteBoard(BoardVO boardVO)throws Exception{
@@ -38,7 +42,6 @@ public class BoardService {
 		for(BoardFileVO a:fileVOs) {
 			if(a !=null) {
 				fileManager.fileDelete(uploadPath,a.getFilename());
-				boardDAO.deleteBoardFile(a);
 			}
 		}	
 		return boardDAO.deleteBoard(boardVO);
@@ -46,6 +49,7 @@ public class BoardService {
 	}
 	//공지사항 수정
 	public int updateBoard(BoardVO boardVO,MultipartFile[]attach) throws Exception {
+		if(attach !=null) {
 		for(MultipartFile a : attach) {	
 			if(!a.isEmpty()) {
 				String fileName = fileManager.fileSave(uploadPath, a);
@@ -56,7 +60,7 @@ public class BoardService {
 				boardFileVO.setOrifilename(a.getOriginalFilename());
 				boardDAO.createBoardFiles(boardFileVO);
 			}
-			
+		}
 		}
 		return boardDAO.updateBoard(boardVO);
 	}

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 
 
@@ -130,7 +131,9 @@
                     </form>
 					</li>
 				</ul>
+					<sec:authorize access="hasRole('HR')">
 					<a class=" btn btn-primary" href="/board/create">추가</a>
+					</sec:authorize>
 				</nav>
 				</div>
 				

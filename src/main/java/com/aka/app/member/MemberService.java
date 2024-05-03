@@ -113,7 +113,8 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		// pw -> 암호화
 		log.info(memberVO.getPassword());
 		
-		memberVO.setDepartment_id(1L); 
+		memberVO.setDepartment_id(1L);
+		memberVO.setRole_id(4L);
 		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
 		memberVO.setCustomer_key("TEST_customer1234abc-"+System.currentTimeMillis());
 		int result = memberDAO.add(memberVO);

@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			PROFIL, PROFIL_ORI, POSITION_ID,DEPARTMENT_ID)
 		VALUES(
 		#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, 
-		#{postCode}, #{user_id}, #{password}, #{username}, 4, #{customer_key}
+		#{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, #{customer_key}
 		,null,null,#{position_id},#{department_id})
 	</insert>
 	

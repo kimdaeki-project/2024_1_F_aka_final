@@ -83,11 +83,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.then(res => res.json())
 		.then(dataArray => {
+			/* db에서 가져온 일정들 dataObj객체에 담아서 arr 리스트에 push */
 			dataArray.forEach(data =>{
 				const dataObj = {
 					title : data.title,
 					start : data.start_date,
 					end : data.end_date,
+					color:'#FF6600',
 					url:'https://naver.com'	/* url 설정 Detail page*/
 					
 				}
@@ -128,15 +130,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			    right: 'allButton,departmentButton,personalButton'
 			  },
 		      eventSources:[
-			     {
-				    googleCalendarId: '5b75938aada2d3092b44447721c74a5887f74bffb5a36367bf9ac6f23209eba3@group.calendar.google.com'
-				 },
-				 {
+				  {
 					 googleCalendarId:'ko.south_korea#holiday@group.v.calendar.google.com',
 					 color:'#FF9900'
-				 }
-			  ],
-		      events:arr
+				 },
+				 arr
+				 
+			  ]
+		      /*events:arr*/
+	
 		    
     		});
     		calendar.render();

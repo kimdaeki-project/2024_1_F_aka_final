@@ -11,8 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			(#{start_date}, #{end_date}, #{title}, #{content}, CURDATE(), #{target_object}, #{member_id})
 	</insert>
 	
-	<select id="getCalendar">
-		SELECT * FROM CALENDAR
+	<select id="getCalendar" parameterType="MemberVO">
+		SELECT * FROM CALENDAR WHERE MEMBER_ID = #{member_id}
 <!-- 		<if test="target_object == 1">
 			WHERE TARGET_OBJECT = #{target_object}
 		</if> -->

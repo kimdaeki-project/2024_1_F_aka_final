@@ -1,6 +1,7 @@
 package com.aka.app.payment;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,7 +12,7 @@ import com.aka.app.util.Pager;
 public interface PaymentDAO {
 	
 	//총 매출
-	public Long totalSales()throws Exception;
+	public List<Map<String,Object>> totalSales()throws Exception;
 	//결제 목록
 	public List<PaymentVO> getPaymentList(Pager pager)throws Exception;
 	//결제 목록 추가

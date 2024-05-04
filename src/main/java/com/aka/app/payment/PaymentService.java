@@ -1,6 +1,7 @@
 package com.aka.app.payment;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextImpl;
@@ -18,7 +19,7 @@ public class PaymentService {
 	private PaymentDAO paymentDAO;
 	
 	//총 매출
-	public Long totalSales() throws Exception {
+	public List<Map<String,Object>> totalSales() throws Exception {
 		return paymentDAO.totalSales();
 	}
 	

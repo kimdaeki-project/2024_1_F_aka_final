@@ -34,6 +34,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @Controller
@@ -54,8 +55,8 @@ public class PaymentController {
     //총 매출
     @ResponseBody
     @GetMapping("total")
-    public Long totalSales(Model model) throws Exception {
-    	Long total = paymentService.totalSales();
+    public List<Map<String,Object>> totalSales(Model model) throws Exception {
+    	List<Map<String,Object>> total = paymentService.totalSales();
     	return total;
     }
     

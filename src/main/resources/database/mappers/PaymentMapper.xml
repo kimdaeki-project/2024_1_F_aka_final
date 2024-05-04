@@ -13,11 +13,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 총매출 -->
- 	<select id="totalSales" resultType="Long">
- 	SELECT 
- 	SUM(AMOUNT)
- 	FROM PAYMENT 
+ 	<select id="totalSales" resultMap="getTotalResult">
+ 	SELECT DATE_FORMAT
+ 	(
+ 	REQUESTED_AT
+ 	,'%Y-%m'
+ 	) 
+ 	AS month 
+    ,SUM(AMOUNT) 
+    AS totalSales
+    FROM PAYMENT
+    GROUP BY month;
  	</select>
+ 	<resultMap type="Map"  id="getTotalResult" >
+	<id column="month" property="month" javaType="String"/>
+	<result column="totalSales" property="totalSales" javaType="Long"/>
+	</resultMap>
+ 	
  	
 	
 	<!-- 결제 목록 찾기 -->

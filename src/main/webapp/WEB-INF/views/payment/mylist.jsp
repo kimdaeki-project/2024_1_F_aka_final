@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
+
 
 <html
   lang="en"
@@ -47,55 +46,66 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">ProductList /</span>상품 리스트</h4>
-
-              <!-- Examples -->
-              <div class="row mb-5">
-               
-                
-                
-                <c:forEach items="${list}"  var="vo">
-                
-                <div class="col-md-6 col-lg-4 mb-4">
-                  <div class="card h-100">
-                    <c:set var="str" value="assets"/>
-                 		<c:if test="${fn:contains(vo.product_photos,'assets')}">
-                    		<img class="card-img-top" src="${vo.product_photos}" alt="Card image cap" />                 	
-                 		</c:if>
-                         
-                        <c:if test="${!fn:contains(vo.product_photos,'assets')}">
-                 			<img class="card-img-top" src="/files/product/${vo.product_photos}" alt="image" />
-                        </c:if>
-       
-                    <div class="card-body">
-                      <h5 class="card-title">${vo.product_name}</h5>
-                    	  <p class="card-text"> 상품 가격 : ${vo.product_price} 원</p>
-                      <p class="card-text">교육 기간 : ${vo.product_date} 개월</p>
-                      <a href="/product/detail?product_num=${vo.product_num}" class="btn btn-outline-primary">상품 상세 보기</a>
-                      <%-- <a href="/payment/checkout?product_num=${vo.product_num}" class="btn btn-outline-primary">상품 결제 하기</a> --%>
-                    </div>
-                  </div>
+			<div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4">Payment<span class="text-muted fw-light">/list</span></h4>
+				<div class="card">
+                <h5 class="card-header">나의 결제 목록</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                      	<th>상품 이름</th>
+                        <th>상품 가격</th>
+                        <th>결제자 이름</th>
+                        <th>전화 번호</th>
+                        <th>이메일</th>
+                      	<th>결제한 국가</th>
+                      	<th>결제된 화폐</th>
+                      	<th>결제 수단</th>
+                        <th>결제 번호</th>
+                        <th>상품 번호</th>
+                        <th>결제자 사원 번호</th>
+                        <th>주문 번호</th>
+                      	<th>페이먼트키</th>
+                      	<th>결제 시작 날짜</th>
+                      	<th>결제 승인 날짜</th>
+                      	<th>부가세</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                     <c:forEach items="${list}" var="vo">
+                      <tr>
+                        <td>${vo.order_name}</td>
+                        <td>${vo.amount}</td>
+                        <td>${vo.customer_name}</td>
+                        <td>${vo.customer_phone}</td>
+                        <td>${vo.customer_email}</td>
+                        <td>${vo.country}</td>
+                        <td>${vo.currency}</td>
+                        <td>${vo.method}</td>
+                        <td>${vo.payment_num}</td>
+                        <td>${vo.product_num}</td>
+                        <td>${vo.member_id}</td>
+                        <td>${vo.order_id}</td>
+                        <td>${vo.payment_key}</td>
+                        <td>${vo.requested_at}</td>
+                        <td>${vo.approved_at}</td>
+                        <td>${vo.vat}</td>
+                      </tr>
+                     </c:forEach>
+                    </tbody>
+                  </table>
                 </div>
-                
-                </c:forEach>
-                
-              <sec:authorize access="hasAnyRole('HR')">
-                <nav aria-label="Page navigation">
-                <a class=" btn btn-primary" href="/product/create">상품 추가</a>
-                </nav>
-     		 </sec:authorize>       
-         
-         
               </div>
-              
-              
-              
-
-
-           </div>
-              </div>
+             
+			</div>
+			
+			
+			
+				
             <!-- / Content -->
+
+           
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -106,16 +116,10 @@
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-      <a
-        href="https://github.com/dirokim/aka_final.git"
-        target="_blank"
-        class="btn btn-primary btn-buy-now"
-        >git-hub</a
-      >
-    </div>
+    
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

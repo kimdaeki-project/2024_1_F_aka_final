@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aka.app.member.MemberVO;
 import com.aka.app.product.ProductDAO;
@@ -49,6 +50,22 @@ public class PaymentController {
 	private PaymentService paymentService;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    
+    //총 매출
+    @ResponseBody
+    @GetMapping("total")
+    public Long totalSales(Model model) throws Exception {
+    	Long total = paymentService.totalSales();
+    	return total;
+    }
+    
+    //나의 결제 목록
+    @GetMapping("mylist")
+    public String getMyPaymentList(PaymentVO paymentVO,HttpSession session,Model model)throws Exception {
+    	List<PaymentVO>list = paymentService.getMyPaymentList(paymentVO, session);
+    	model.addAttribute("list",list);
+    	return "payment/mylist";
+    }
     
     //목록 페이지
     @GetMapping("list") 

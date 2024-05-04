@@ -284,7 +284,7 @@
                 <div class="col-12 col-lg-8 order-4 order-md-3 order-lg-2 mb-4">
                   <div class="card">
                     <div class="row row-bordered g-0">
-                      <div class="col-md-10">
+                      <div class="col-md-13">
                         <div class="card-body">
                           <div class="card-header m-0 me-2 pb-3" id='calendar'></div>
                         </div>

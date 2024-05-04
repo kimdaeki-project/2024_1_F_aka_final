@@ -30,8 +30,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	
-	
-	
+	<!-- 메인 캘린더 -->
+	<select id="departmentCalendar" resultType="CalendarVO" parameterType="MemberVO">
+	SELECT DATE_FORMAT(START_DATE, '%Y-%m-%d') 
+	AS START_DATE,DATE_FORMAT(END_DATE, '%Y-%m-%d') 
+	AS END_DATE
+	,TITLE 
+	FROM CALENDAR C 
+	LEFT OUTER JOIN MEMBER M
+	ON(C.MEMBER_ID=M.MEMBER_ID)
+	LEFT OUTER JOIN DEPARTMENT D
+	ON(M.DEPARTMENT_ID=D.DEPARTMENT_ID)
+	WHERE D.DEPARTMENT_ID = #{department_id}
+	AND C.TARGET_OBJECT = 2;
+	</select>
 	
 	
 	

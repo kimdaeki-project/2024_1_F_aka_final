@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	let arr = [];
 	//let target = document.getElementById('target_object');
     
-    fetch('/calendar/getSchedule',{
+    fetch('/calendar/prDetail',{
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json"
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					title : data.title,
 					start : data.start_date,
 					end : data.end_date,
-					color:'#FF6600',
+					/*color:'#FF6600',*/
 					url:'https://naver.com'	/* url 설정 Detail page*/
 					
 				}

@@ -3,6 +3,8 @@ package com.aka.app.calendar;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
+import com.aka.app.member.RoleVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

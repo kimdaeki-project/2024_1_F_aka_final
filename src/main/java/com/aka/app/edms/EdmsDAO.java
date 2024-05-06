@@ -19,7 +19,7 @@ public interface EdmsDAO {
 	//결재선 저장
 	public int createApproval( List<Map<String, Object>>  list) throws Exception;
 	//파일저장
-	public int createEdmsAttchFile(List<Object> list) throws Exception;
+	public int createEdmsAttchFile(List<Object> list) throws Exception;	
 	//문서불러오기
 	public Map<String, Object> getDetail(EdmsVO edmsVO) throws Exception;
 	//결재자리스트 가져오기
@@ -35,7 +35,10 @@ public interface EdmsDAO {
 	public int updateEdms(EdmsVO edmsVO) throws Exception;
 	//다음결재자 상태 변경
 	public int updateNextAproval(AprovalVO aprovalVO) throws Exception;
-	
+	//파일 불러오기
+	public EdmsFileVO[] fileList(EdmsVO edmsVO) throws Exception;
+	//파일 상세 조회
+	public EdmsFileVO getFileDetail(EdmsFileVO edmsFileVO) throws Exception;
  	
 	//상신
 		//결재진행목록 불러오기
@@ -73,9 +76,12 @@ public interface EdmsDAO {
 	public Long getTempEdmsTotalCount(Map<String, Object> map) throws Exception;
 	//문서불러오기
 	public Map<String, Object> getTempDetail(EdmsVO edmsVO) throws Exception;	
+	//파일불러오기
+	public EdmsFileVO[] tempFileList(EdmsVO edmsVO) throws Exception;
 	
 	//임시문서 삭제
 	
+ 	
 	
 	//도장
 	//도장저장

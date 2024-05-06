@@ -67,7 +67,8 @@ public class EdmsController {
 	@GetMapping("getDetail")
 	public String getEdmsDetail(@AuthenticationPrincipal MemberVO memberVO, Model model, EdmsVO edmsVO, String check) throws Exception{
 		Map<String, Object> map = edmsService.getDetail(edmsVO, check);	
-		AprovalVO[] appline = edmsService.getApplineList(edmsVO, check);	
+		AprovalVO[] appline = edmsService.getApplineList(edmsVO, check);
+		EdmsFileVO[] fileVOs = edmsService.getFileList(edmsVO, check);
 		//EDMS_STATUS
 		//0=결재서상신
 		//1=수신결재
@@ -94,6 +95,7 @@ public class EdmsController {
 			checkType = "create";			
 		}
 		
+		model.addAttribute("fileVOs", fileVOs);
 		model.addAttribute("memberVO", memberVO);
 		model.addAttribute("document",check);
 		model.addAttribute("appline", appline);
@@ -314,6 +316,17 @@ public class EdmsController {
 	
 	//직원목록 불러오기
 	
+	
+	
+	@GetMapping("fileDown")
+	public String fileDown(EdmsFileVO edmsFileVO, Model model)throws Exception{
+		
+		edmsFileVO = edmsService.getFileDetail(edmsFileVO);
+		
+		model.addAttribute("fileVO", edmsFileVO);
+		
+		return "fileDownView";
+	}
 	
 	
 }

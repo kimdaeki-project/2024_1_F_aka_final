@@ -280,9 +280,26 @@
 				첨&nbsp;&nbsp;부&nbsp;&nbsp;파&nbsp;&nbsp;일
 			</td>
 			<td class="userTdW" style="height: auto;">		
-				<div id="fileUploadList" style="float: left;">
+			<c:choose>					 
+					<c:when test="${checkType=='create'}">
+						<div id="fileUploadList" style="float: left;">
+						</div>
+					 <input type="file" id="file" name="file" multiple="multiple">
+				 
+				 
+					</c:when>
+					<c:when test="${checkType=='get' and not empty fileVOs}">
+						 <div>
+					<c:forEach items="${fileVOs}" var="file">
+						<a href="/edms/fileDown?edms_Attechfile_No=${file.edms_Attechfile_No}">${file.edms_Attechfile_Ori_Name}</a>
+					</c:forEach>
 				</div>
-				 <input type="file" id="file" name="file" multiple="multiple">
+					</c:when>
+				</c:choose> 
+				
+				
+				 
+				 
 			</td>
 		</tr>
 	

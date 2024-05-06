@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createEdmsAttchFile" parameterType="List">
 			INSERT INTO EDMS_ATTECHFILE (EDMS_NO, EDMS_ATTECHFILE_NAME,EDMS_ATTECHFILE_ORI_NAME)
 		<foreach collection="list" index="index" item="EdmsFileVO"  separator=",">
-				VALUES(#{EdmsFileVO.edms_No}, #{EdmsFileVO.edms_Attechfile_Name}, #{EdmsFileVO.edms_AttechfileOri_Name})
+				VALUES(#{EdmsFileVO.edms_No}, #{EdmsFileVO.edms_Attechfile_Name}, #{EdmsFileVO.edms_Attechfile_Ori_Name})
 		</foreach>
 	</insert>
 
@@ -77,6 +77,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE EDMS_NO  = #{edms_No} 
 		
 	
+		
+	</select>
+<!-- 파일 불러오기 -->
+	<select id="fileList" parameterType="EdmsVO" resultType="EdmsFileVO">
+		SELECT * FROM EDMS_ATTECHFILE WHERE EDMS_NO = #{edms_No}
+	</select>
+	
+	<select id="getFileDetail" parameterType="EdmsFileVO" resultType="EdmsFileVO">
+		
+		SELECT * FROM EDMS_ATTECHFILE WHERE EDMS_ATTECHFILE_NO = #{edms_Attechfile_No}		
 		
 	</select>
 
@@ -314,6 +324,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 임시문서 --> 
 
+	<select id="tempFileList" parameterType="EdmsVO" resultType="EdmsFileVO">
+		SELECT * FROM TEMP_EDMS_ATTECHFILE WHERE EDMS_NO = #{edms_No};
+	</select>
+
 <!-- 임시문서 삭제  -->
 
 	<delete id="delectTempEdms" parameterType="EdmsVO">
@@ -366,7 +380,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createTempEdmsAttchFile" parameterType="List">
 			INSERT INTO TEMP_EDMS_ATTECHFILE (EDMS_NO, EDMS_ATTECHFILE_NAME	,EDMS_ATTECHFILE_ORI_NAME)
 		<foreach collection="list" index="index" item="EdmsFileVO"  separator=",">
-				VALUES(#{EdmsFileVO.edms_No}, #{EdmsFileVO.edms_Attechfile_Name}, #{EdmsFileVO.edms_AttechfileOri_Name})
+				VALUES(#{EdmsFileVO.edms_No}, #{EdmsFileVO.edms_Attechfile_Name}, #{EdmsFileVO.edms_Attechfile_Ori_Name})
 		</foreach>
 	</insert>
 
@@ -417,14 +431,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	
-
-
-
-
-
-
-
-
+	
 <!-- 로그인한 사용자 부서이름 가져오기  -->
 
 	<select id="getDeptName" parameterType="MemberVO" resultType="Map">

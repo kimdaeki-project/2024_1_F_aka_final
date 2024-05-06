@@ -7,15 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 사원 리스트 -->
 	<select id="getDepartmentMemberList" resultType="MemberVO">
 	SELECT * 
 	FROM MEMBER
@@ -23,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	
+	<!-- 부서 리스트 Jstree -->
 	<select id="getDepartmentList" resultMap="getDepartmentListResult" >
 	SELECT 
 	 DEPARTMENT_ID

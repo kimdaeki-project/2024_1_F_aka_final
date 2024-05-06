@@ -79,23 +79,23 @@
             </li>
 
 			<!-- 인사 관리 -->
-            <li class="menu-header small text-uppercase">
+           <!--  <li class="menu-header small text-uppercase">
               <span class="menu-header-text">인사 관리</span>
-            </li>
+            </li> -->
             <!-- 인사 -->
-            <li class="menu-item">
-              <a href="/hrm/list" class="menu-link">
+           <!--  <li class="menu-item">
+              <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">직원 목록</div>
               </a>
-            </li>
+            </li> -->
             <!-- 부서 -->
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="/department/list" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">부서 목록</div>
               </a>
-            </li>
+            </li> -->
             
             <!-- 전자 결제 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">전자 결제</span></li>
@@ -165,28 +165,22 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">일정 관리</span></li>
 
             <li class="menu-item">
-              <a href="/calendar/urDetail" class="menu-link">
+              <a href="/calendar" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Tables">개인 일정</div>
+                <div data-i18n="Tables">일정</div>
               </a>
             </li>
             
-            <li class="menu-item">
+<!--             <li class="menu-item">
               <a href="/calendar/drDetail" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">부서 일정</div>
               </a>
-            </li>            
+            </li>             -->
       
              <!--수업 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">수업 관리</span></li>
 
-            <li class="menu-item">
-              <a href="/class/list" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Tables">수업 관리</div>
-              </a>
-            </li>
             
              <li class="menu-item">
               <a href="/student/list" class="menu-link">
@@ -194,12 +188,7 @@
                 <div data-i18n="Tables">학생 관리</div>
               </a>
             </li>           
-            <li class="menu-item">
-              <a href="/classRoom/list" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Tables">강의실 관리</div>
-              </a>
-            </li>
+
              <li class="menu-item">
               <a href="/equipment/list" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>

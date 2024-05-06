@@ -25,6 +25,7 @@ public class EquipmentController {
 	@Autowired
 	private EquipmentService equipmentService;
 	
+	//비품 삭제
 	@PostMapping("delete")
 	public String deleteEquipment(EquipmentVO equipmentVO,Model model) throws Exception {
 		int result=0;
@@ -37,7 +38,7 @@ public class EquipmentController {
 		model.addAttribute("path","/equipment/list");				
 		return "commons/result";
 	}
-	
+	// 비품 수정 페이지
 	@GetMapping("update")
 	public ModelAndView updateEquipment(EquipmentVO equipmentVO,ModelAndView modelAndView) throws Exception {
 		equipmentVO = equipmentService.getEquimentDetail(equipmentVO);
@@ -45,7 +46,7 @@ public class EquipmentController {
 		modelAndView.setViewName("equipment/update");
 		return modelAndView;
 	}
-	
+	//비품 수정
 	@PostMapping("update")
 	public String updateEquipment(EquipmentVO equipmentVO,Model model) throws Exception{
 		int result=0;
@@ -59,11 +60,12 @@ public class EquipmentController {
 		return"commons/result";
 	}
 	
-	
+	//비품 생성 페이지
 	@GetMapping("create")
 	public void createEquipment(@ModelAttribute EquipmentVO equipmentVO) throws Exception{
 	}
 	
+	//비품 생성
 	@PostMapping("create")
 	public String createEquipment(@Valid EquipmentVO equipmentVO,BindingResult bindingResult,Model model,HttpSession session) throws Exception{
 		int result=0;
@@ -79,6 +81,7 @@ public class EquipmentController {
 		return"commons/result";
 	}
 	
+	//비품 상세
 	@GetMapping("detail")
 	public String getEquimentDetail (Model model,EquipmentVO equipmentVO) throws Exception {
 		equipmentVO = equipmentService.getEquimentDetail(equipmentVO);
@@ -86,6 +89,7 @@ public class EquipmentController {
 		return "equipment/detail";
 	}
 	
+	//비품 목록
 	@GetMapping("list")
 	public String getEquimentList (Model model,Pager pager) throws Exception {
 		List<EquipmentVO> list = equipmentService.getEquimentList(pager);

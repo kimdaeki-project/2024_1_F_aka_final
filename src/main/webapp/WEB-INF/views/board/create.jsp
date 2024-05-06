@@ -30,8 +30,8 @@
     <c:import url="../temp/head.jsp"></c:import>
 
    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> 	
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <link href="https://fastly.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://fastly.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
   </head>
 
   <body>
@@ -80,10 +80,8 @@
                       
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">첨부 파일</label>
-                          <div class="col-sm-10">
-                            <form:input type="file" class="form-control" path="boardFile" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <form:input type="file" class="form-control" path="boardFile" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <form:input type="file" class="form-control" path="boardFile" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
+                          <div class="col-sm-10" id="fileResult">
+                          	<button class="btn btn-primary" type="button" id="fileAdd">파일추가</button>
                           </div>
                         </div>
  					
@@ -138,22 +136,7 @@
 
     <!-- Core JS -->
     
-    <script>
-      $('#summerBoard').summernote({
-        placeholder: 'Hello stand alone ui',
-        tabsize: 2,
-        height: 400,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
-    </script>
+    <script src="/js/board/create.js"></script>
     <!-- build:js assets/vendor/js/core.js -->
     <script src="/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="/assets/vendor/libs/popper/popper.js"></script>

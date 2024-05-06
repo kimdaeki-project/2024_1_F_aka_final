@@ -5,13 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
 <mapper namespace="com.aka.app.equipment.EquipmentDAO">
 	
+	
+	<!-- 비품 삭제 -->
 	<delete id="deleteEquipment" parameterType="EquipmentVO">
 	DELETE 
 	FROM EQUIPMENT 
 	WHERE EQUIPMENT_NUM=#{equipment_num}
 	</delete>
 	
-	
+	<!-- 비품 수정 -->
 	<update id="updateEquipment" parameterType="EquipmentVO">
 	UPDATE EQUIPMENT 
 	<set>
@@ -24,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE EQUIPMENT_NUM = #{equipment_num}
 	</update>
 	
-	
+	<!-- 비품 생성 -->
 	<insert id="createEquiment" parameterType="EquipmentVO">
 	INSERT INTO EQUIPMENT 
 	(
@@ -45,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	
-	
+	<!-- 비품 상세 -->
 	<select id="getEquimentDetail" parameterType="EquipmentVO" resultType="EquipmentVO">
 	SELECT M.USERNAME member_name,E.* 
 	FROM MEMBER M 
@@ -74,7 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</where>
 	</sql>
 	
-	
+	<!-- 비품 목록 -->
 	<select id="getEquimentList" resultType="EquipmentVO" parameterType="Pager">
 	SELECT * FROM EQUIPMENT 
 	<include refid="search"></include>
@@ -82,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	LIMIT #{startIndex},#{perPage}
 	</select>
 
-	
+	<!-- 비품 페이징 총 갯수 -->
 	<select id="getTotalCount" resultType="Long" parameterType="Pager">
 	SELECT COUNT(EQUIPMENT_NUM) 
 	FROM EQUIPMENT

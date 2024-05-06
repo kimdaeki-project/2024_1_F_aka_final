@@ -13,12 +13,13 @@ public class PaymentService {
 	@Autowired
 	private PaymentDAO paymentDAO;
 	
+	//결제 목록
 	public List<PaymentVO> getPaymentList(Pager pager) throws Exception{
 		pager.makeIndex();
 		pager.makeNum(paymentDAO.getTotalCount(pager));
 		return paymentDAO.getPaymentList(pager);
 	}
-	
+	//결제 생성
 	public int createPayment (PaymentVO paymentVO) throws Exception {
 		return paymentDAO.createPayment(paymentVO);
 	}

@@ -1,5 +1,6 @@
 package com.aka.app.board;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,36 +26,63 @@ public class BoardService {
 	@Value("${app.upload.board}")
 	private String uploadPath;
 	
+	
+	//파일 삭제
+	public int fileDelete(BoardFileVO boardFileVO)throws Exception {
+		int result = 0 ;
+		if(boardFileVO != null) {
+			fileManager.fileDelete(uploadPath,boardFileVO.getFilename());
+			result = boardDAO.deleteBoardFile(boardFileVO);
+		}
+		return result;
+	}
+	//공지사항 삭제
 	public int deleteBoard(BoardVO boardVO)throws Exception{
-		List<BoardFileVO>fileVOs = boardVO.getBoardFileVO();
-		for(BoardFileVO a:fileVOs) {
-			fileManager.fileDelete(uploadPath,a.getFilename());
-			boardDAO.deleteBoardFile(a);
-		}	
+			List<BoardFileVO>fileVOs = boardVO.getBoardFileVO();
+			for(BoardFileVO a:fileVOs) {
+				if(a.getFilename() == null) {
+					continue;
+				}
+				fileManager.fileDelete(uploadPath,a.getFilename());
+				}
+			
 		return boardDAO.deleteBoard(boardVO);
 		
 	}
-	
-	public int updateBoard(BoardVO boardVO) throws Exception {
+	//공지사항 수정
+	public int updateBoard(BoardVO boardVO,MultipartFile[]attach) throws Exception {
+		if(attach !=null) {
+		for(MultipartFile a : attach) {	
+			if(!a.isEmpty()) {
+				String fileName = fileManager.fileSave(uploadPath, a);
+				BoardFileVO boardFileVO = new BoardFileVO();
+				boardFileVO.setBoard_num(boardVO.getBoard_num());
+				boardFileVO.setMember_id(boardVO.getMember_id());
+				boardFileVO.setFilename(fileName);
+				boardFileVO.setOrifilename(a.getOriginalFilename());
+				boardDAO.createBoardFiles(boardFileVO);
+			}
+		}
+		}
 		return boardDAO.updateBoard(boardVO);
 	}
-	
+	//공지사항 상세
 	public BoardVO getBoardDetail(BoardVO boardVO) throws Exception {
 		return boardDAO.getBoardDetail(boardVO);
 	}
-	
+	//공지사항 파일 상세
 	public BoardFileVO getBoardFileDetail(BoardFileVO BoardFileVO) throws Exception {
 		return boardDAO.getBoardFileDetail(BoardFileVO);
 	}
-	
+	//공지사항 리스트
 	public List<BoardVO> getBoardList(Pager pager)throws Exception{
 		pager.makeIndex();
 		Long totalCount = boardDAO.getTotalCount(pager);
 		pager.makeNum(totalCount);
 		return boardDAO.getBoardList(pager);
 	}
-	
-	public int createBoard(BoardVO boardVO,HttpSession session) throws Exception {
+	//공지사항 생성
+	public int createBoard(BoardVO boardVO,HttpSession session,MultipartFile[]attachs) throws Exception {
 		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");  //세션에서 스프링 시큐리티 컨택스트 홀더 꺼내기
 		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;	   //홀더에서 컨텍스트 꺼내기
 		MemberVO memberVO = (MemberVO)contextImpl.getAuthentication().getPrincipal(); //컨택스트에서 유저 객체 꺼내기
@@ -64,21 +92,22 @@ public class BoardService {
 		boardVO.setBoard_date(date);
 		boardVO.setMember_id(memberVO.getMember_id());
 		boardVO.setBoard_writer(memberVO.getUsername());
-		List<MultipartFile>attach = boardVO.getBoardFile();
 		int result = boardDAO.createBoard(boardVO);
-		for(MultipartFile a : attach) {	
-			if(!a.isEmpty()) {
+		if(attachs != null) {
+			for(MultipartFile a : attachs) {	
+				if(a.isEmpty()) {
+					continue;
+				} 
 				String fileName = fileManager.fileSave(uploadPath, a);
 				BoardFileVO boardFileVO = new BoardFileVO();
 				boardFileVO.setBoard_num(boardVO.getBoard_num());
 				boardFileVO.setMember_id(memberVO.getMember_id());
 				boardFileVO.setFilename(fileName);
 				boardFileVO.setOrifilename(a.getOriginalFilename());
-				boardDAO.createBoardFiles(boardFileVO);
-			}else {
-				continue;
-			}
+				result = boardDAO.createBoardFiles(boardFileVO);
+			}			
 		}
+		
 		return result;
 	}
 }

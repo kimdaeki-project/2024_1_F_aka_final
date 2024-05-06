@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 
 
@@ -30,8 +31,8 @@
     <c:import url="../temp/head.jsp"></c:import>
 
    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> 	
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <link href="https://fastly.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://fastly.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
   </head>
 
   <body>
@@ -68,13 +69,7 @@
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
-                    <c:forEach items="${vo.boardFileVO}" var="fi">
-                          <tr>
-                    		<td><a href="/board/filedown?boardfile_num=${fi.boardfile_num}">첨부 파일 다운</a></td>
-                    		<td>파일명 : ${fi.orifilename}</td>
-                          </tr>
-                    </c:forEach>
-                      <form action="/board/update"  method="post" enctype="" >
+                      <form action="/board/update"  method="post" enctype="multipart/form-data" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">공지사항 제목</label>
                           <div class="col-sm-10">
@@ -83,6 +78,7 @@
                         </div>
                       	
                       	 <input type="hidden" name="board_num" value="${vo.board_num}">
+                      	 <input type="hidden" name="member_id" value="${vo.member_id}">
                           
                           <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">상세 설명</label>
@@ -94,10 +90,16 @@
                        
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">첨부 파일</label>
-                          <div class="col-sm-10">
-                            <input type="file" class="form-control" name="boardFileVO" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <input type="file" class="form-control" name="boardFileVO" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
-                            <input type="file" class="form-control" name="boardFileVO" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
+                          <div class="col-sm-10" id="fileResult"> 
+                          
+                 		   <c:forEach items="${vo.boardFileVO}" var="fi" varStatus="status">
+                 		   <div class="mb-3">
+                 		   <a href="/board/filedown?boardfile_num=${fi.boardfile_num}">${fi.orifilename}</a>
+                    	  	<button type="button" data-file-num="${fi.boardfile_num}" class="btn btn-danger fileDelete">x</button>                 		   
+                 		   </div>                 		   
+                 		   </c:forEach>
+                 		   <c:set var="size" value="${fn:length(vo.boardFileVO)}"/>	
+                            <button class="btn btn-primary mb-2" type="button" data-file-size="${size}" id="fileAdd">파일추가</button>
                           </div>
                         </div>
                         
@@ -144,6 +146,7 @@
     <!-- Core JS -->
     
     <script>
+      //섬머노트
       $('#summerBoard').summernote({
         placeholder: 'Hello stand alone ui',
         tabsize: 2,
@@ -158,6 +161,81 @@
           ['view', ['fullscreen', 'codeview', 'help']]
         ]
       });
+  //파일추가 버튼 
+  const fileAdd = document.getElementById("fileAdd");
+  //파일 추가될위치 div
+  const fileResult = document.getElementById("fileResult");
+  //출력된 파일 개수
+  let fileTotal = fileAdd.dataset.fileSize;
+  //파일 최대 저장 갯수
+  let count = 5;
+  //저장된 파일들 옆 삭제버튼
+  let fileDelete = document.getElementsByClassName("fileDelete");
+  //버튼 안보이기
+  if(fileTotal==count){
+      fileAdd.style.display="none";  
+    }
+
+    //파일추가
+    fileAdd.addEventListener('click',()=>{ 
+      //파일 개수 최대 5
+      if(fileTotal==count){
+        alert("첨부파일은 5개까지 가능합니다");
+        fileAdd.style.display="none";
+        return;
+      }
+      //파일 요소 생성
+      let formFileinput = document.createElement('input');
+      let sum; 
+      sum = document.createAttribute("type");
+      sum.value = "file";
+      formFileinput.setAttributeNode(sum);
+      sum = document.createAttribute("class");
+      sum.value = "form-control";
+      formFileinput.setAttributeNode(sum);
+      sum = document.createAttribute("name");
+      sum.value = "attach";
+      formFileinput.setAttributeNode(sum);
+      sum = document.createAttribute("id");
+      sum.value = "basic-default-name";
+      formFileinput.setAttributeNode(sum);
+      fileResult.appendChild(formFileinput);
+      fileTotal++;
+    });
+  
+  //파일 삭제
+  for(let a of fileDelete){
+    let fileNum = a.dataset.fileNum;
+    a.addEventListener('click',()=>{
+     if(confirm("파일 삭제 하시겠습니까? (복구 불가능합니다)")){
+            fileAjax(fileNum);
+            a.parentElement.remove();
+            fileTotal--;
+            fileAdd.style.display="block";
+	     }else{
+            
+          }
+        })
+      }
+
+
+  //파일 삭제 비동기 요청
+  function fileAjax(Num){
+    fetch("/board/fileDelete?boardfile_num="+Num,{
+      method:"get"        
+    }).then(res=>{return res.text()})
+    .then(res=>{
+      let result = res.trim();
+      if(result==1){
+        alert("삭제 성공");
+      }else{
+        alert("삭제 실패");
+      }
+    })
+  }
+  
+  
+  
     </script>
     <!-- build:js assets/vendor/js/core.js -->
     <script src="/assets/vendor/libs/jquery/jquery.js"></script>

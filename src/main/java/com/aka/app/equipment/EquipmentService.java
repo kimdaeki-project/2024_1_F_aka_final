@@ -16,15 +16,15 @@ public class EquipmentService {
 	
 	@Autowired
 	private EquipmentDAO equipmentDAO;
-	
+	//비품 삭제
 	public int deleteEquipment(EquipmentVO equipmentVO) throws Exception {
 		return equipmentDAO.deleteEquipment(equipmentVO);
 	}
-	
+	//비품 수정
 	public int updateEquipment (EquipmentVO equipmentVO) throws Exception {
 		return equipmentDAO.updateEquipment(equipmentVO);
 	}
-	
+	//비품 생성
 	public int createEquiment (EquipmentVO equipmentVO,HttpSession session) throws Exception {
 		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");  //세션에서 스프링 시큐리티 컨택스트 홀더 꺼내기
 		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;	   //홀더에서 컨텍스트 꺼내기
@@ -32,11 +32,11 @@ public class EquipmentService {
 		equipmentVO.setMember_id(memberVO.getMember_id());
 		return equipmentDAO.createEquiment(equipmentVO);
 	}
-	
+	//비품 상세
 	public EquipmentVO getEquimentDetail (EquipmentVO equipmentVO) throws Exception {
 		return equipmentDAO.getEquimentDetail(equipmentVO);
 	}
-	
+	//비품 목록
 	public List<EquipmentVO> getEquimentList (Pager pager) throws Exception {
 		pager.makeIndex();
 		pager.makeNum(equipmentDAO.getTotalCount(pager));

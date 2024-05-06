@@ -58,6 +58,7 @@ public class WeatherController {
 			//인코딩 모드 EncodingMode.VALUES_ONLY 로변경 
 			DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst");
 			factory.setEncodingMode(EncodingMode.VALUES_ONLY);
+			
 			WebClient webClient =  WebClient.builder()  //기본 설정
 					.uriBuilderFactory(factory)
 					.baseUrl("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst")

@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    
 <!DOCTYPE html>
 <html
   lang="en"
@@ -14,7 +15,7 @@
   	
     <meta charset='utf-8' />
     <title>Calendar</title>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    
     <script>
 
 
@@ -56,11 +57,11 @@
 				</div>
 				<div class="mb-3">
 				  <label for="start_date" class="form-label">시작일</label>
-				  <input type="date" class="form-control" name="start_date" id="start_date">
+				  <input type="datetime-local" class="form-control" name="start_date" id="start_date">
 				</div>
 				<div class="mb-3">
 				  <label for="end_date" class="form-label">종료일</label>
-				  <input type="date" class="form-control" name="end_date" id="end_date">
+				  <input type="datetime-local" class="form-control" name="end_date" id="end_date">
 				</div>
 				<div class="mb-3">
 				  <label for="content" class="form-label">일정내용</label>
@@ -76,7 +77,7 @@
 		      
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		        <button type="submit" class="btn btn-primary">일정추가</button>
+		        <button class="btn btn-primary" onclick='create()'>일정추가</button>
 		      </div>
 		      </form>
 		    </div>
@@ -105,5 +106,7 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script type="text/javascript" src="../js/member/calendar.js"></script>
+    
+    <script src='https://fastly.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.11/index.global.min.js'></script>
   </body>
 </html>

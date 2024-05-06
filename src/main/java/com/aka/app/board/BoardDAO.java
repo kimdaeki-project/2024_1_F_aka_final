@@ -8,6 +8,7 @@ import com.aka.app.util.Pager;
 
 @Mapper
 public interface  BoardDAO  {
+	//공지사항 파일 삭제
 	public int deleteBoardFile(BoardFileVO boardFileVO)throws Exception;
 	//공지사항 삭제
 	public int deleteBoard(BoardVO boardVO)throws Exception;
@@ -19,10 +20,10 @@ public interface  BoardDAO  {
 	public Long getTotalCount(Pager pager)throws Exception;
 	//공지사항 목록
 	public List<BoardVO> getBoardList(Pager pager)throws Exception;
-	//공지사항
+	//공지사항 추가
 	public int createBoard(BoardVO boardVO)throws Exception;
-	//공지사항 첨부파일
-	public int createBoardFiles(BoardFileVO boardFileVO)throws Exception;
+	//공지사항 첨부파일 추가
+ 	public int createBoardFiles(BoardFileVO boardFileVO)throws Exception;
 	//첨푸파일 조회
 	public BoardFileVO getBoardFileDetail(BoardFileVO boardFileVO)throws Exception;
 }

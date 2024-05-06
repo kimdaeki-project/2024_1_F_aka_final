@@ -62,6 +62,30 @@ public class EdmsService {
 	}
 
 	
+	//파일 불러오기
+	public EdmsFileVO[] getFileList(EdmsVO edmsVO, String check) throws Exception {
+		
+		EdmsFileVO[] fileVO = null;
+		
+		if(check.equals("temp")) {
+			
+			fileVO = edmsDAO.tempFileList(edmsVO);		
+			
+			return fileVO;
+			
+		}
+		
+		fileVO = edmsDAO.fileList(edmsVO);
+		return fileVO;
+	}
+	
+	
+	//파일 상세 조회
+	public EdmsFileVO getFileDetail(EdmsFileVO edmsFileVO) throws Exception {
+		
+		return edmsDAO.getFileDetail(edmsFileVO);
+	}
+	
 	//결재선 조회
 	public AprovalVO[] getApplineList(EdmsVO edmsVO, String check) throws Exception{
 		
@@ -257,7 +281,7 @@ public class EdmsService {
 				EdmsFileVO edmsFileVO = new EdmsFileVO();
 				edmsFileVO.setEdms_No(edmsNum);
 				edmsFileVO.setEdms_Attechfile_Name(edmsAttechfileName);
-				edmsFileVO.setEdms_AttechfileOri_Name(f.getOriginalFilename());
+				edmsFileVO.setEdms_Attechfile_Ori_Name(edmsAttechfileName);
 				fileList.add(edmsFileVO);
 			}
 			int fileResult = 0;			

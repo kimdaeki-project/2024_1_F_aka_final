@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		.then(res => res.json())
 		.then(dataArray => {
 			/* db에서 가져온 일정들 dataObj객체에 담아서 arr 리스트에 push */
-			dataArray.forEach(data =>{
+			dataArray.forEach(data => {
 				const dataObj = {
 					title : data.title,
 					start : data.start_date,

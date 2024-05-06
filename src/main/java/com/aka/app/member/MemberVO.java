@@ -54,7 +54,7 @@ public class MemberVO implements UserDetails, OAuth2User{
 	private RoleVO roleVO;
 	private DepartmentVO departmentVO;
 	
-	private CalendarVO calendarVO;
+	private List<CalendarVO> calendarVOs;
 	
 	// security
 	@Override

@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.aka.app.member.MemberVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class CalendarService {
 	@Autowired
 	private CalendarDAO calendarDAO;
@@ -17,8 +20,14 @@ public class CalendarService {
 		return result;
 	}
 	
-	public List<CalendarVO> getCalendar(MemberVO memberVO)throws Exception{
-		List<CalendarVO> calendarVOs = calendarDAO.getCalendar(memberVO);
-		return calendarVOs;
+	//개인일정
+	public List<MemberVO> getPersonal(MemberVO memberVO)throws Exception{
+		List<MemberVO> memberVOs = calendarDAO.getPersonal(memberVO);
+		return memberVOs;
+	}
+	
+	public List<MemberVO> getDepartment(MemberVO memberVO) throws Exception{
+		List<MemberVO> memberVOs = calendarDAO.getDepartment(memberVO);
+		return memberVOs;
 	}
 }

@@ -3,21 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 
-<!DOCTYPE html>
-
-<head>
-	<link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> 	
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	
-
-</head>
-
-
- <c:import url="../temp/head.jsp"></c:import>
- <c:import url="/js/edms/form.css"></c:import>
 
 
 
@@ -68,8 +53,25 @@
 				
 				<div class="col-auto ps-0 pe-0">
 					<div class="applineG">${list.POSITION_NAME}</div>
-					<div class="applineW">${list.USERNAME}</div>
+					<c:choose>
+						<c:when test="${list.APRROVAL_RESULT==3}">							
+							<div class="applineW" style="position: relative;">						
+								<span style="position: absolute;" >${list.USERNAME}</span>														
+								<img src="${list.stampVO.stamp_Img}" style="z-index: 1; height: 130%; width: 120%">								
+							</div>						
+						</c:when>
+						<c:otherwise>
+							<div class="applineW">${list.USERNAME}</div>
+						</c:otherwise>
+					
+					</c:choose>
+					
 					<div class="applineG">${list.APPROVAL_DATE }</div>
+					<input type="hidden" value="${list.APPROVAL_RANK}">
+					<c:if test="${list.APPROVAL_RANK==1}">					
+						<input type="hidden" name="EDMS_NO" value="${list.EDMS_NO}">
+						<input type="hidden" name="APPROVAL_NO" value="${list.APPROVAL_NO}">
+					</c:if>
 				</div> 
 			
 			</c:forEach> 
@@ -122,8 +124,8 @@
 				사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;번
 			</td>
 			<td class="userTdW">	
-				<input type="hidden" name="edms_Creator" value="${member.member_id}">
 				<span>${member.member_id}</span>
+				<input type="hidden" name="edms_Creator" value="${member.member_id}">
 			</td>
 		</tr>
 		<tr>
@@ -155,6 +157,7 @@
 			</td>
 			<td class="userTdW">	
 				<input type="text" name="edms_From_No" value="1">
+				<input type="hidden" name="edms_No" value="${edms.EDMS_NO}">
 			</td>
 			<td class="userTdG">				
  				기&nbsp;안&nbsp;일
@@ -241,7 +244,8 @@
 				<c:choose>
 					 
 					<c:when test="${checkType=='create'}">
-						 <textarea id="summernote" name="edms_Content"></textarea>
+						 <textarea id="summernote" name="edms_Content">
+						 </textarea>
 					</c:when>
 					<c:when test="${checkType=='get'}">
 						${edms.EDMS_CONTENT}
@@ -280,27 +284,145 @@
 
 </table>
 
+<c:choose>
+<c:when test="${document =='recive'}">
+	<colgroup> 
+		<col width="116"> 
+		<col width="660"> 
+	</colgroup> 
+	
+		<div class=" col-auto">		
+			<div class="col-12" style="background: rgb(221, 221, 221); 
+				padding: 5px; 
+				border: 1px solid black; 
+				height: 25px; 
+				text-align: center; 
+				color: rgb(0, 0, 0); 
+				font-size: 12px; 
+				font-weight: bold; 
+				vertical-align: middle">
+				추&nbsp;&nbsp;&nbsp;&nbsp;신
+			</div>			
+	
+			<div class="userTdG ">	
+				${memberVO.username}
+			</div>
+			<div class="userTdW" style="height: auto;">
+				<textarea  id="summernote"  name="APRROVAL_COMENT">
+					
+					
+				</textarea>
+				
+			</div>			
+		</div>		
+		
+		
+	</c:when>
+
+
+<c:when test="${document !='recive' && checkComent==1}">
+		
+				<div class="userTdG"  style="height: 30px;">	
+					<p>추신</p>
+				</div>
+<c:forEach items="${appline}" var="list">	
+	
+		<c:if test="${not empty list.APRROVAL_COMENT }">			
+			<div>
+				<div class="userTdG" style="height: 30px;">	
+					<P> ${list.USERNAME} &nbsp;&nbsp;  ${list.POSITION_NAME}</P>
+				</div>
+				<div class="userTdW" style="height: auto;" name="APRROVAL_COMENT">	
+
+					<textarea style="width:100%;">
+							${list.APRROVAL_COMENT}
+
+					</textarea>
+					
+				</div>
+			</div>
+		</c:if>
+		
+		
+
+
+</c:forEach> 
+</c:when>
+</c:choose>
+
+
 <br>
 <c:if test="${document == 'recive'}">
 	<div style="float: right;">
-		<button type="button" class="btn btn-success" id="applyEdms"> 결재</button>
+		<button type="button" class="btn btn-success" id="submitEdms"> 결재</button>
 		<button type="button" class="btn btn-warning" id="rejectEdms">반려</button>
 	</div>
+	<input type="hidden" name="edms_Creator" value="${member.member_id}">
+	<input type="hidden" name="MEMBER_ID" value="${edms.EDMS_CREATOR}" >
 	<script>
-		const applyEdms = document.getElementById("applyEdms");
+		const submitEdms = document.getElementById("submitEdms");
 		const rejectEdms = document.getElementById("rejectEdms");
 
-		applyEdms.addEventListener("click",function(){
 
-				alert("ㅇㅇ")		
+		submitEdms.addEventListener("click",function(){
+
+			if(confirm("결재하시겠습니까?")){
+				
+				submitForm(1);
+			}
 
 		})
+
 		rejectEdms.addEventListener("click", function(){
 
-				alert("리잭")
+			if(confirm("반려하시겠습니까??")){
+				
+				submitForm(5);
+			}else{
+				alert("취소하니다.")
+			}
 
 		})
 
+		// check
+		// tipo = 1 승인 5 = 반려
+	function submitForm(tipo){		
+
+			let formData = new FormData(formelem);
+			formData.append('tipo', tipo);
+			// formData.append('check', check);
+			//배열생성후 formdata에 값 추가
+		
+			for(const key of formData.keys()){
+
+				console.log(key);
+			}
+
+			fetch("submit",{
+				method: "POST",						
+				body: formData				
+				}).then(response => response.json())
+				.then(data=>{
+					console.log(data.path)
+					if(data.result==1 || data.result==3){
+						alert(data.msg);
+						window.location.href=data.path;
+						
+					}else if(data.result==5){
+						
+						alert(data.msg);
+						window.location.href=data.path;
+						
+					}
+					else{
+						
+						alert("실패하였습니다.")
+					}
+					
+				})	   
+
+
+	}
 
 
 	</script>
@@ -378,35 +500,27 @@
 	</div>
 
 
-
-
-<script>
-      $('#summernote').summernote({
-        placeholder: 'Hello stand alone ui',
-        tabsize: 2,
-        height: 400,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
+	
+	<script>
+		$('#summernote').summernote({
+				placeholder: '내용을 입력하세요',
+				tabsize: 2,
+				height: 400,
+				toolbar: [
+					['style', ['style']],
+					['font', ['bold', 'underline', 'clear']],
+					['color', ['color']],
+					['para', ['ul', 'ol', 'paragraph']],
+					['table', ['table']],
+					['insert', ['link', 'picture', 'video']],
+					['view', ['fullscreen', 'codeview', 'help']]
+				]
+			});
+		
     </script>
-<!-- include libraries(jQuery, bootstrap) -->
-<script src="/assets/vendor/js/bootstrap.js"></script>s
-<script src="/assets/vendor/libs/jquery/jquery.js"></script>   
 
-<c:if test="${checkType =='create'}">
 
- <!-- JSTREE -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<script src="/js/edms/form.js"></script>
 
-</c:if>
 
 
 

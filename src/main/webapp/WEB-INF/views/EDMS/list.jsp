@@ -71,8 +71,18 @@
                         <th>${titles.no1}</th>
                         <th>${titles.no2}</th>
                         <th>${titles.no3}</th>
-                        <th>${titles.no4}</th>
-                        <th>${titles.no5}</th>
+                        <th>${titles.no6}</th>
+                        <th>${titles.no4}</th>          
+                        
+                       <c:if test="${check == 'pro' or check == 'done'  or check == 'recive' or check == 'aproved'}">
+		                       
+                         <th>${titles.no7}</th> <!-- 결재일  -->
+                         
+                         <th>${titles.no5}</th> <!--  결재상태  -->
+                      
+                        </c:if>
+                        
+                        
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -84,12 +94,44 @@
                         <td>
                          	<a href="/edms/getDetail?edms_No=${list.edms_No}&check=${check}">${list.edms_Content}</a>
                         </td>
+                          <td>
+                        	${list.edms_From_No}
+                        </td>   
                         <td>
                         	${list.edms_Create_Date}
-                        </td>
-                        <td>
-                          	${list.edms_Status}
-                        </td>
+                        </td>   
+                          
+                        	 <c:if test="${check == 'pro' or check == 'done'  or check == 'recive' or check == 'aproved'}">
+		                       
+		                         <td>${list.edms_Apploval_Date}</td> <!-- 결재일  -->
+		                         
+		                         <c:choose>                        	
+		                        		<c:when test="${list.edms_Status eq 0}">
+			                        		<td>
+			                          			<span class="badge bg-label-success">결재전</span>
+			                        		</td>
+			                        	</c:when>
+			                        	
+			                        	<c:when test="${list.edms_Status eq 1}">
+			                        		<td>
+			                          			<span class="badge bg-label-success">결재중</span>
+			                        		</td>
+			                        	</c:when>                       	
+			                  
+			                        	
+			                        	<c:when test="${list.edms_Status eq 3}">
+			                        		<td>
+			                          			<span class="badge bg-label-primary">승인</span>
+			                        		</td>
+			                        	</c:when>                        	
+			                        	
+			                        	<c:when test="${list.edms_Status eq 5}">
+			                        		<td>
+			                          			<span class="badge bg-label-secondary">반려</span>
+			                        		</td>
+			                        	</c:when>   
+		                        </c:choose>
+	                        </c:if>
                       </tr>
                     </c:forEach><!-- 
                        <tr>

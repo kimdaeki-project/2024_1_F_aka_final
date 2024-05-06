@@ -24,7 +24,19 @@ public interface EdmsDAO {
 	public Map<String, Object> getDetail(EdmsVO edmsVO) throws Exception;
 	//결재자리스트 가져오기
 	public AprovalVO[] getApplineList(EdmsVO edmsVO) throws Exception;
+	//결재하기
+	//다음결재자 불러오기
+	public AprovalVO getNextAproval(AprovalVO aprovalVO) throws Exception;
+	//결재자 불러오기
+	public AprovalVO getAprovalInfo(AprovalVO aprovalVO) throws Exception;
+	//결재상태 변경
+	public int updateAproval(AprovalVO aprovalVO) throws Exception;
+	//문서의 상태를 변경
+	public int updateEdms(EdmsVO edmsVO) throws Exception;
+	//다음결재자 상태 변경
+	public int updateNextAproval(AprovalVO aprovalVO) throws Exception;
 	
+ 	
 	//상신
 		//결재진행목록 불러오기
 		public List<EdmsVO> getEdmsList(Map<String, Object> map) throws Exception;
@@ -68,6 +80,13 @@ public interface EdmsDAO {
 	//도장
 	//도장저장
 	public int createStamp(StampVO stampVO) throws Exception;
+	//도장유무 확인
+	public int stampCount(StampVO stampVO) throws Exception;
+	//도장변경
+	public int stampUpdate(StampVO stampVO) throws Exception;
+	
+	
+	
 	
 	
 	

@@ -147,7 +147,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/edms/list?check=approved" class="menu-link">
+                  <a href="/edms/list?check=aproved" class="menu-link">
                     <div data-i18n="Text Divider">결재 내역</div>
                   </a>
                 </li>

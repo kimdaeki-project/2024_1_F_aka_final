@@ -60,14 +60,20 @@ public class Chart {
 		Map<String, String> titles = new HashMap<>();
 		//결재진행목록
 		
-		if(choose.equals("pro")) {
-			
+		if(choose.equals("pro") 
+//			|| choose.equals("done") 
+//			|| choose.equals("recive") 
+//			|| choose.equals("approved")
+				){
+				
 			titles.put("theme", "결재진행목록");
 			titles.put("no1","번호");
 			titles.put("no2", "제목");
 			titles.put("no3","내용");
 			titles.put("no4", "생성일");
-			titles.put("no5", "결재상태");			
+			titles.put("no5", "결재상태");		
+			titles.put("no6", "문서종류");
+			titles.put("no7", "결재일");
 		}
 		if(choose.equals("temp")) {
 			
@@ -76,16 +82,19 @@ public class Chart {
 			titles.put("no2", "제목");
 			titles.put("no3","내용");
 			titles.put("no4", "생성일");
-			titles.put("no5", "결재상태");			
+			titles.put("no5", "결재상태");
+			titles.put("no6", "문서종류");
 		}		
 		if(choose.equals("done")) {
 			
-			titles.put("theme", "결재완료");
+			titles.put("theme", "결재완료목록");
 			titles.put("no1","번호");
 			titles.put("no2", "제목");
 			titles.put("no3","내용");
-			titles.put("no4", "결재일");
+			titles.put("no4", "생성일");
 			titles.put("no5", "결재상태");		
+			titles.put("no6", "문서종류");
+			titles.put("no7", "결재일");
 			
 		}		
 		if(choose.equals("recive")) {
@@ -96,16 +105,18 @@ public class Chart {
 			titles.put("no3","내용");
 			titles.put("no4", "결재일");
 			titles.put("no5", "결재상태");		
-			
+			titles.put("no6", "문서종류");
 		}		
-		if(choose.equals("approved")) {
+		if(choose.equals("aproved")) {
 			
-			titles.put("theme", "결재 내역");
+			titles.put("theme", "결재내역");
 			titles.put("no1","번호");
 			titles.put("no2", "제목");
 			titles.put("no3","내용");
-			titles.put("no4", "결재일");
+			titles.put("no4", "생성일");
 			titles.put("no5", "결재상태");		
+			titles.put("no6", "문서종류");
+			titles.put("no7", "결재일");
 			
 		}
 		

@@ -1,4 +1,6 @@
 
+
+
 const addLineBtn = document.getElementById("addLineBtn"); //모달 여는 버튼
 const addBtn = document.getElementById("addBtn"); //모달 확인버튼
 const myModal = document.getElementById('myModal');
@@ -155,23 +157,20 @@ function check(result){
 // jstree 초기화 함수
 
 
-function fSch() {
-        console.log("껌색할께영");
-        $('#jstree').jstree(true).search($("#schName").val());
-    }
 
     //중요 속성, original, icon, state
     // root node는 parent를 #       
     $.jstree.defaults.core.themes.variant = "large";      
 
     //일반적으로 요렇게만 사용해도 충분!
+
     $("#jstree").jstree({
         "plugins": ["search","wholerow","types" ],
         "check_callback": true,  // 요거이 없으면, create_node 안먹음
         'core': {
             'data':{
-                "url": 'api/chart',
-                'dataType':'json' // ajax로 요청할 URL
+                "url": '/edms/api/chart',
+                'dataType':'json' // ajax로 요청할 URL                
                 } 				
             },
         "types":{
@@ -186,6 +185,10 @@ function fSch() {
         
     });    
 
+function fSch() {
+        console.log("껌색할께영");
+        $('#jstree').jstree(true).search($("#schName").val());
+    }
 
 
     //이벤트
@@ -194,7 +197,7 @@ function fSch() {
     });
 
     // Node 열렸을 땡
-    let isAdded = false;     
+  		let isAdded = false;     
     // Node 선택했을 땡
     //member임시 저장 변수
         let tem;

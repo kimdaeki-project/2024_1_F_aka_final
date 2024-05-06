@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -64,7 +65,7 @@ public class EdmsController {
 	}
 	
 	@GetMapping("getDetail")
-	public String getEdmsDetail(Model model, EdmsVO edmsVO, String check) throws Exception{
+	public String getEdmsDetail(@AuthenticationPrincipal MemberVO memberVO, Model model, EdmsVO edmsVO, String check) throws Exception{
 		Map<String, Object> map = edmsService.getDetail(edmsVO, check);	
 		AprovalVO[] appline = edmsService.getApplineList(edmsVO, check);	
 		//EDMS_STATUS
@@ -74,7 +75,17 @@ public class EdmsController {
 		//3=결재반려
 		//4= 임시저장
 		//5= 결재완료		
-						
+		int checkComent = 0;
+		for(AprovalVO a : appline) {
+			
+			if(a.getAPRROVAL_COMENT()!=null) {
+				
+				checkComent = 1;
+				
+			}
+			
+		}
+		
 		Long type =(Long) map.get("EDMS_STATUS");		
 		
 		String checkType = "get";
@@ -83,10 +94,12 @@ public class EdmsController {
 			checkType = "create";			
 		}
 		
+		model.addAttribute("memberVO", memberVO);
 		model.addAttribute("document",check);
 		model.addAttribute("appline", appline);
 		model.addAttribute("edms", map);
 		model.addAttribute("checkType",checkType);	
+		model.addAttribute("checkComent", checkComent);
 		
 		return "EDMS/form";		
 		
@@ -177,14 +190,23 @@ public class EdmsController {
 	
 	
 	@PostMapping("crateStamp")
-	public String creatStemp(StampVO stampVO, MultipartFile img, Model model) throws Exception {
+//	@Transactional
+	public String creatStemp(@AuthenticationPrincipal MemberVO memberVO, StampVO stampVO, MultipartFile img, Model model) throws Exception {
 		
-		int result = edmsService.createStamp(stampVO, img);
+		stampVO.setMember_Id(memberVO.getMember_id());
+		
+		int result =edmsService.createStamp(stampVO, img);
+		 		
+			
 		
 		String msg = "등록이 완료되었습니다.";
 		String path = "/edms/list?check=recive";
+		
 		if(result==0) {
 			 msg = "등록실패.";			 
+		}
+		if(result==3) {			
+			msg = "변경되었습니다";
 		}
 		
 		model.addAttribute("msg", msg);
@@ -197,33 +219,75 @@ public class EdmsController {
 	
 		
 	
+	//결재 승인
+	@PostMapping("submit")
+	@ResponseBody
+	public Map<String, Object> edmsSubmit(@AuthenticationPrincipal MemberVO memberVO, EdmsVO edmsVO, AprovalVO aprovalVO, int tipo) throws Exception{	
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		aprovalVO.setMEMBER_ID(memberVO.getMember_id());// 현재사용자 정보 입력 
+		
+		// 기안서 내용을 저장.		
+		int result = edmsService.edmsSubmit(aprovalVO, edmsVO, tipo);
+		
+		String path = "list?check=aproved";
+		String msg ="반려하였습니다.";
+		
+		
+		if(result==3) {
+			msg="최종결재하였습니다.";		
+	
+		}else if(result==1 ) {
+			
+			msg = "결재하였습니다.";
+		}
+		
+		map.put("msg", msg);
+		map.put("path", path);		
+		map.put("result", result);		
+		
+		
+		
+		return map;
+		
+		
+	}
+	
 	
 	//jstree
 	@GetMapping("api/chart")
 	@ResponseBody
-	public List<Map<String, Object>> getMethodName() throws Exception {		
+	public List<Map<String, Object>> getMethodName(@AuthenticationPrincipal MemberVO memberVO) throws Exception {		
 //		 List<ChartVO> result =edmsService.getDeptList();
 		 List<Map<String, Object>> result =edmsService.getDeptChart();
-		 List<Map<String, Object>> temp = edmsService.getMemberChart();
-		 
-		 	 
-				  
-		 for(Map<String, Object> m : temp) {			 
-				 
+		 List<Map<String, Object>> empl = edmsService.getMemberChart();
+		 List<Map<String, Object>> temp = new ArrayList<>();
+		 Long mId = memberVO.getMember_id();
+	
+		 for(Map<String, Object> m : empl) {	 
+			
+			 System.out.println(m.get("MEMBER_ID"));			 		 
 			 m.replace("parent", "0", "#");
 			 m.put("type", "member");
+			 
+			 if(!m.get("MEMBER_ID").equals(mId)) { // 내 이름 제거
+				
+				 temp.add(m);				 
+			 }
 					
+			
 		 }
 		 	 
-		 
+		 System.out.println(temp);
 		 for(Map<String, Object> a : result) {			 
 				 
-			 a.replace("parent", "0", "#");
+			 a.replace("parent", "0" , "#");
 			 a.put("type", "dept");
 				
 		 }
 		 
-		 result.addAll(temp);		 	
+		 result.addAll(temp);			 
 		 
 		return result;		
 		

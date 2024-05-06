@@ -20,12 +20,18 @@ public class CalendarService {
 		return result;
 	}
 	
+	// 모든일정
+	public List<MemberVO> getAll(MemberVO memberVO)throws Exception{
+		List<MemberVO> memberVOs = calendarDAO.getAll(memberVO);
+		return memberVOs;
+	}
+	
 	//개인일정
 	public List<MemberVO> getPersonal(MemberVO memberVO)throws Exception{
 		List<MemberVO> memberVOs = calendarDAO.getPersonal(memberVO);
 		return memberVOs;
 	}
-	
+	//부서일정
 	public List<MemberVO> getDepartment(MemberVO memberVO) throws Exception{
 		List<MemberVO> memberVOs = calendarDAO.getDepartment(memberVO);
 		return memberVOs;

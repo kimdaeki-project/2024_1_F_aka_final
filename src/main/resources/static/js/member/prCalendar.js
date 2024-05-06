@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					start : data.start_date,
 					end : data.end_date,
 					/*color:'#FF6600',*/
-					url:'https://naver.com'	/* url 설정 Detail page*/
+					url:'https://localhost/calendar/'+data.calendar_id	/* url 설정 Detail page*/
 					
 				}
 				arr.push(dataObj);
@@ -104,31 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		      selectable: true,
 		      businessHours: true,
 		      dayMaxEvents: true, // allow "more" link when too many events
-		      customButtons: {	// 버튼추가로 생성
-		      	allButton: {
-					text:'전체',
-					click: function(){
-					alert('all');
-				  }
-				},
-			    departmentButton: {
-			      	text: '부서',
-			      	click: function() {
-			        alert('department');
-			      }
-			    },
-			    personalButton:{
-					text:'개인',
-					click:function(){
-					alert('personal');
-				  }
-				}
-			  },
-			  headerToolbar: {
-			    left: 'prev,next today',
-			    center: 'title',
-			    right: 'allButton,departmentButton,personalButton'
-			  },
 		      eventSources:[
 				  {
 					 googleCalendarId:'ko.south_korea#holiday@group.v.calendar.google.com',
@@ -143,10 +118,11 @@ document.addEventListener('DOMContentLoaded', function() {
     		});
     		calendar.render();
 		})
+
   });
 
-  
-  
+
+			
   
   
   

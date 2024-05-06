@@ -161,14 +161,14 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">일정 관리</span></li>
 
             <li class="menu-item">
-              <a href="/calendar/prDetail" class="menu-link">
+              <a href="/calendar/pr" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">개인 일정</div>
               </a>
             </li>
             
 			<li class="menu-item">
-              <a href="/calendar/drDetail" class="menu-link">
+              <a href="/calendar/dr" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">부서 일정</div>
               </a>

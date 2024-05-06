@@ -322,12 +322,7 @@ public class EdmsService {
 		return result;
 		
 		
-	}
-		
-	
-	
-	
-	
+	}		
 	
 	
 	private Date Date(long timeMillis) {

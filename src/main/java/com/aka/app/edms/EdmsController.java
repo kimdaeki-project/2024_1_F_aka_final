@@ -46,7 +46,7 @@ public class EdmsController {
 	public String getlist(@AuthenticationPrincipal MemberVO memberVO, EdmsVO edmsVO, Model model, Pager pager, String check) throws Exception {
 			
 	//list : 결재진행목록
-	//temp : 임시저장	
+	//temp : 임시저장	0
 	//done : 결재완료	
 		
 	Map<String, String> titles = chart.titles(check);
@@ -253,6 +253,22 @@ public class EdmsController {
 		
 		
 	}
+	
+	@GetMapping("importFrom")
+	@ResponseBody
+	public String importFrom(int formNo) {
+		
+		
+		if(formNo==2) {
+			
+			return "/EDMS/form/approvalrequest.jsp";
+			
+		}
+		
+		return "";
+	}
+	
+	
 	
 	
 	//jstree

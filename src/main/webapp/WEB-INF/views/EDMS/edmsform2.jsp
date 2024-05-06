@@ -99,13 +99,10 @@
 	<tbody>
 		<tr>
 			<td class="userTdG">				
-				  문서종류
+				문서종류 
 			</td>
-			<td class="userTdW">				
-				<select id="formType" name="edms_From_No" class="form-select color-dropdown" style="height: auto;" onchange="formChange()">
-                        <option value="1" selected >기안서</option>
-                        <option value="2">품의서</option>                     
-                      </select>
+			<td class="userTdW">	
+				<input type="text" name="edms_From_No" value="1">
 			</td>
 			<td class="userTdG">				
  				기&nbsp;안&nbsp;일
@@ -204,9 +201,6 @@
 </table>
  
  
-<div id="formImport">
-</div>
- 
 <table class="contentsTable" >
 	<colgroup> 
    <col width="116"> 
@@ -298,7 +292,7 @@
 	</colgroup> 
 	
 		<div class=" col-auto">		
-			<div class="col-12" style="background: rgb(221, 221, 221); zz
+			<div class="col-12" style="background: rgb(221, 221, 221); 
 				padding: 5px; 
 				border: 1px solid black; 
 				height: 25px; 

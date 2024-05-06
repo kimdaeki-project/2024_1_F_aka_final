@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">
-                        도장사진을 넣어 주세요
+                        Some quick example text to build on the card title and make up the bulk of the card's content.
                     </p>
                     <input type="file" multiple accept="image/*" name="img" onchange="readURL(this);"/>  
                     <button type="submit" class="btn btn-primary"> 도장등록</button>

@@ -19,13 +19,7 @@ let appLine = document.getElementById('appLine');
 
 
 
-//모달 불러오는 함수
 
-// addLineBtn.addEventListener('click', e=>{
-// 	console.log("1qewqeq");
-// 	fSch();
-    
-// })
 
 today.valueAsDate = new Date();
 
@@ -41,7 +35,32 @@ addBtn.addEventListener('click',function(){
 
 })
 
+ function formChange(){
+	
+	let formType = document.getElementById('formType');
+	let formNo = formType.value;
+	
+	let formImport = document.getElementById('formImport');
+	
+	if(formNo==1){
+		
+		formImport.innerHTML="";
+		return;
+		
+	}
+	
+	fetch('importFrom?formNo='+formNo,{		
+		method:"GET"
+		})
+		.then(data=>data.text())
+		.then(data=>{
+			console.log(data)
+			formImport.innerHTML = "";
+			formImport.innerHTML += data;
+		})		
 
+	
+}
 
 
 
@@ -129,17 +148,6 @@ function applyFrom(check1, check){
 
 }
 
-
-
-    //summit
-    // applyBtn.addEventListener('click', function(e){
-    // 	e.preventDefault;
-    // 	formelem.setAttribute("action","apply");
-    // 	formelem.setAttribute("method","post");
-    // 	formelem.setAttribute("enctype","multipart/form-data");
-    // 	formelem.submit();
-
-    // })
 
 
 function check(result){

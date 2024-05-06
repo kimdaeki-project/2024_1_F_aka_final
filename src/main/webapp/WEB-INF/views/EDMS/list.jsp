@@ -168,7 +168,65 @@
                   </table>
                 </div>
               </div>
-		  
+		  	<div class="demo-inline-spacing ml-6">
+
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+
+                <c:if test="${!pager.start}">
+                  <li class="page-item first">
+                    <a class="page-link" href="/edms/list?page=1&kind=${kind}$search=${search}" ><i class="tf-icon bx bx-chevrons-left"></i></a>
+                  </li>
+                </c:if> 
+				<c:if test="${!pager.before}">
+                  <li class="page-item prev"> <a class="page-link" href="/edms/list?page=${pager.startNum-1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-left"></i></a> </li>
+				</c:if>                  
+                  
+                  <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="page">
+                 	 <li class="page-item"><a class="page-link" href="/edms/list?check=${check}&page=${page}&kind=${kind}$search=${search}">${page}</a></li>
+                  </c:forEach>
+  
+  				
+                 <c:if test="${!pager.after}">
+                  <li class="page-item next">
+                    <a class="page-link" href="/edms/list?page=${pager.lastNum+1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-right"></i></a>
+                  </li>
+                 </c:if>
+                 
+ 				<c:if test="${!pager.last}">
+                  <li class="page-item last">
+                    <a class="page-link" href="/edms/list?page=${pager.totalPage}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                  </li>
+  					</c:if>		
+  		
+                </ul>
+                    
+              </nav>
+              
+               <div class="demo-inline-spacing ml-6">
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+                <li class="page-item first">
+                
+  					 <form class="d-flex" action="/edms/list"  method="get">
+  					 <input type="hidden" value="${check}" name="check">  				    <div class="col-md-3">
+                      <select id="selectTypeOpt" name="kind" class="form-select color-dropdown">
+                        <option value="kind1" selected>제목 + 내용</option>
+                        <option value="kind2">제목</option>
+                        <option value="kind3">내용</option>
+                        <c:if test="${check == 'recive' or check == 'aproved'}">
+                        <option value="kind4">작성자</option>                                         
+                        </c:if>
+                      </select>
+                    </div>
+                      <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" />
+                      <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </form>
+					</li>
+				</ul>
+				</nav>
+				</div>	
+			  </div>
 		  </div>
 			<%-- <c:import url="../temp/body.jsp"></c:import> --%>
             <!-- / Content -->

@@ -53,8 +53,7 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 	}
 	
 	public int createCheck(ScheduleVO scheduleVO) throws Exception{
-		memberDAO.createCheck(scheduleVO);
-		return 1;
+		return memberDAO.createCheck(scheduleVO);
 	}
 	
 	@Override

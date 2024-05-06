@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aka.app.schedule.ScheduleVO;
+
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/member*")
+@RequestMapping("/member**")
 @Slf4j
 public class MemberController {
 
@@ -114,7 +116,24 @@ public class MemberController {
 		
 		return "commons/result";
 	}
-	
-
+	// 출근누르고 퇴근으로 버튼 변하게하기
+	// 퇴근시간은 update로 그날이 지나지않으면 버튼안보이는걸로
+	// 출,퇴근 시간 jsp출력
+	@PostMapping("/mypage/schedule")
+	public String createCheck(ScheduleVO scheduleVO, Model model)throws Exception{
+		int result = memberService.createCheck(scheduleVO);
+		
+		String msg = "";
+		String path="";
+		
+		if(result > 0) {
+			msg = "출근하셨습니다.";
+			path = "/member/mypage";
+		}
+		model.addAttribute("msg",msg);
+		model.addAttribute("path",path);
+		
+		return "commons/result";
+	}
 }
 

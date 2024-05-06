@@ -69,8 +69,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 출석 -->
 	<insert id="createCheck" parameterType="scheduleVO">
 		INSERT INTO SCHEDULE 
-		(MEMBER_ID,SCHEDULE_ID,START_DATE,DATE) 
-		VALUES (#{member_id},#{schedule_id},NOW(),NOW())
+		(MEMBER_ID,START_DATE,DATE) 
+		VALUES (#{member_id},NOW(),NOW())
 	</insert>
 	
 	<!-- password 찾기했을때 -->
@@ -91,4 +91,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MEMBER_ID = #{member_id}
 		AND USER_ID = #{user_id}
 	</update>
+
 </mapper>

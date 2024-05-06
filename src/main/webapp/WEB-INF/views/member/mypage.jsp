@@ -24,9 +24,9 @@
 			<div class=" d-flex justify-content-center mt-2 p-2">
 				<img style="width:8rem; height:8rem;" class="rounded-circle" src="../img/profile.jpg">
 			</div>
-			<div class="my-3 mx-auto" style="width:5.8rem;">
+<!-- 			<div class="my-3 mx-auto" style="width:5.8rem;">
 			  <input class="form-control"  type="file" id="formFile" accept="image/jpg, image/jpeg, image/png"/>
-			</div>
+			</div> -->
 			<!-- <input type="file" class="btn btn-primary pb-1 mx-auto d-flex" style="width:7rem;">사진변경</input> -->
 			<div class="d-flex justify-content-center">
 				<span class="fs-4 py-2 d-flex justify-content-center">${member.username}</span>&nbsp;
@@ -50,9 +50,16 @@
 				<!-- 출근/퇴근 시간 -->
 			</div>
 			<div class="d-flex justify-content-center pb-3">
+				<span>출근 : 시간<br>퇴근 : 시간</span>
+			</div>
+			<div class="d-flex justify-content-center pb-3">
 				<!-- 숨기기 class="visually-hidden" -->
-				<button id="check" class="btn btn-primary">출근</button>
-				<button id="checkout" class="btn btn-danger visually-hidden">퇴근</button>
+				<form action="/member/mypage/schedule" method="POST">
+					<input type="text" id="schedule_id" name="schedule_id" value=${member.member_id} hidden>
+					<input type="text" id="member_id" name="member_id" value=${member.member_id} hidden>		
+					<button id="check" class="btn btn-primary">출근</button>
+					<button id="checkout" class="btn btn-danger visually-hidden">퇴근</button>
+				</form>
 			</div>
 		</div>
  		

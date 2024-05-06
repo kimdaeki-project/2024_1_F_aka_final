@@ -7,11 +7,34 @@ let updateMypage = document.getElementById('updateMypage');
 
 /* 출퇴버튼 이벤트 */
 check.addEventListener("click",()=>{
-	if(confirm("출근하시겠씁니까?")){
+	if(confirm("출근하시겠습니까?")){
 		check.classList.add('visually-hidden');
-		checkout.classList.remove('visually-hidden');		
+		checkout.classList.remove('visually-hidden');
+		createCheck();	
 	}
+	
+	
 });
+
+function createCheck(){
+	fetch("/member/mypage/schedule",{
+		method:"POST",
+		headers:{
+			"Content-Type": "application/json charset=utf-8"
+		},
+		body:JSON.stringify({
+			schedule_id:schduleId.value,
+			member_id:memberId.value,
+			start_date:startDate.value,
+			end_date:endDate.value,
+			date:date.value
+		})
+	})
+	.then(res => res.json())
+	e.preventDefault();
+	check.classList.add('visually-hidden');
+	checkout.classList.remove('visually-hidden');
+}
 
 let phone = document.getElementById("phone");
 let email = document.getElementById("email");

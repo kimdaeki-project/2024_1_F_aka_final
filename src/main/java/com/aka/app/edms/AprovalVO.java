@@ -2,6 +2,8 @@ package com.aka.app.edms;
 
 import java.sql.Date;
 
+import com.aka.app.util.StampVO;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +23,8 @@ public class AprovalVO {
 	private String USERNAME;
 	private Long READ;
 	private String POSITION_NAME;
+	private String STAMP_IMG;
 	
-	
+	private StampVO stampVO;
 	
 }

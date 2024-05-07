@@ -1,11 +1,13 @@
 package com.aka.app.edms;
 
+import java.sql.Date;
+
 import java.util.ArrayList;
+
 import java.util.HashMap;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.aka.app.member.MemberVO;
 import com.aka.app.util.FileManager;
+import com.aka.app.util.FileToPhotoEncoder;
 import com.aka.app.util.Pager;
+import com.aka.app.util.StampVO;
 
 
 @Service
@@ -26,10 +30,11 @@ public class EdmsService {
 	private EdmsDAO edmsDAO;
 	@Autowired
 	private FileManager fileManager;
+	@Autowired
+	private FileToPhotoEncoder fileToPhotoEncoder; 
 	@Value("${app.upload.edms}")
 	private String edmsFileUploadPath;
-	@Value("${app.upload.edmsTemp}")
-	private String edmsTempFileUploadPath;
+
 	
 	
 	
@@ -39,71 +44,77 @@ public class EdmsService {
 	@Transactional
 	public Map<String, Object> getDetail(EdmsVO edmsVO, String check) throws Exception{		
 		
-		Map<String, Object> edmsDetail = new HashMap<>();
-		
-		if(check.equals("pro")) {			
-		
-			edmsDetail.putAll(edmsDAO.getDetail(edmsVO));			
-			
-		}
+		Map<String, Object> edmsDetail = new HashMap<>();	
+		System.out.println("--------------------------------------------------"+edmsVO);
+		System.out.println("--------------------------------------------------"+edmsVO);
+		System.out.println("--------------------------------------------------"+edmsVO);
+		System.out.println("--------------------------------------------------"+edmsVO);
+
 		if(check.equals("temp")) {
-
-			edmsDetail.putAll(edmsDAO.getTempDetail(edmsVO));			
-		
-		}
-		if(check.equals("done")) {
+			System.out.println(edmsVO);
+			edmsDetail.putAll(edmsDAO.getTempDetail(edmsVO));		
+			return edmsDetail;
 			
-			edmsDetail.putAll(edmsDAO.getDetail(edmsVO));
 		}
-		if(check.equals("recive")) {
-
-			edmsDetail.putAll(edmsDAO.getDetail(edmsVO));			
+		edmsDetail.putAll(edmsDAO.getDetail(edmsVO));			
 		
-		}
+		
+		
 		return edmsDetail;
 		
 	}
 
 	
+	//파일 불러오기
+	public EdmsFileVO[] getFileList(EdmsVO edmsVO, String check) throws Exception {
+		
+		EdmsFileVO[] fileVO = null;
+		
+		if(check.equals("temp")) {
+			
+			fileVO = edmsDAO.tempFileList(edmsVO);		
+			
+			return fileVO;
+			
+		}
+		
+		fileVO = edmsDAO.fileList(edmsVO);
+		return fileVO;
+	}
+	
+	
+	//파일 상세 조회
+	public EdmsFileVO getFileDetail(EdmsFileVO edmsFileVO) throws Exception {
+		
+		return edmsDAO.getFileDetail(edmsFileVO);
+	}
+	
 	//결재선 조회
 	public AprovalVO[] getApplineList(EdmsVO edmsVO, String check) throws Exception{
 		
-		AprovalVO[] appline = null ;
+		AprovalVO[] appline = null ;							
 		
-		if(check.equals("pro")) {						
-		
-			appline = edmsDAO.getApplineList(edmsVO);
-			System.out.println(appline);
+		if(check.equals("temp")){
 			
-			
-		}
-		if(check.equals("temp")) { //수정요
+			appline = edmsDAO.getTempApplineList(edmsVO);
 
-			appline = edmsDAO.getApplineList(edmsVO);		
-		
-		}
-		if(check.equals("done")) {
+			return appline;
 			
-			appline = edmsDAO.getApplineList(edmsVO);
-		}
-		if(check.equals("recive")) {
-
-			appline = edmsDAO.getApplineList(edmsVO);		
-		
 		}
 		
+			appline = edmsDAO.getApplineList(edmsVO);			
+			
+	
 		return appline;
 		
 	}
 	
 	//목록 불러오기
-	public List<EdmsVO> getEdmsList(Pager pager, MemberVO memberVO, String check) throws Exception {
+	public List<Map<String,Object>> getEdmsList(Pager pager, MemberVO memberVO, String check) throws Exception {
 		
-		List<EdmsVO> result = getPages(pager, memberVO, check);			
+		List<Map<String,Object>> result = getPages(pager, memberVO, check);					
 		
-		
-		return result;
-		
+		return result;	
 		
 		
 	}
@@ -111,10 +122,10 @@ public class EdmsService {
 	
 	
 	//페이징 처리
-	public List<EdmsVO> getPages(Pager pager, MemberVO memberVO, String check) throws Exception{
+	public List<Map<String,Object>> getPages(Pager pager, MemberVO memberVO, String check) throws Exception{
 		
 		
-		List<EdmsVO> result = new ArrayList<>();		
+		List<Map<String,Object>> result = new ArrayList<>();		
 		
 		Map<String, Object> map = new HashMap<>();		
 		pager.makeIndex();		
@@ -160,12 +171,12 @@ public class EdmsService {
 			
 		}
 		
-		if(check.equals("approved")) {
+		if(check.equals("aproved")) {
 			
-			totalCount=edmsDAO.getReciveEdmsTotalCount(map);
+			totalCount=edmsDAO.getAprovedEdmsTotalCount(map);
 			pager.makeNum(totalCount);
 			map.put("Pager", pager);
-			result=edmsDAO.getReciveEdmsList(map);
+			result=edmsDAO.getAprovedEdmsList(map);
 			
 		}
 		
@@ -174,18 +185,15 @@ public class EdmsService {
 		
 	}
 
-	
-	
+		
 	
 	
 	//전자문서 저장
+	@Transactional
 	public int createEdms(EdmsVO edmsVO, Integer[] appAr, int check, MultipartFile[] files) throws Exception {
 		
 		//매개변수 int 1=저장 2=임시저장
-		int result = SaveEDMS(edmsVO, appAr, check, files);
-		
-		
-		
+		int result = SaveEDMS(edmsVO, appAr, check, files);		
 		
 		return result;
 		
@@ -208,9 +216,23 @@ public class EdmsService {
 		
 		//전자문서 저장
 		if(type == 1) {
+			//파이리추가후 
 			//임시저장문서 삭제
-			if(status==4) {							
-				result = edmsDAO.delectTempEdms(edmsVO);				
+			
+			if(status==4) {						
+				
+				EdmsFileVO[] fileVO = edmsDAO.tempFileList(edmsVO);
+				List<Object> fileTansfer = new ArrayList<>();
+				
+				for(EdmsFileVO f: fileVO) {
+					
+					fileTansfer.add(f);
+					
+				}
+				
+				result = edmsDAO.createTempEdmsAttchFile(fileTansfer);					
+				
+				result = edmsDAO.deleteTempEdms(edmsVO);				
 			}
 			
 			result = edmsDAO.createEdms(edmsVO);
@@ -223,13 +245,17 @@ public class EdmsService {
 			if(status==4) {							
 				result = edmsDAO.updateTempEdms(edmsVO);
 				
+		
 			}else {
-				
+				edmsVO.setEdms_Status(4L);
 				result = edmsDAO.createTempEdms(edmsVO);
 			}
 		}
 		
 		Long edmsNum = edmsVO.getEdms_No();
+		if(edmsNum==null) {
+			edmsNum=1L;
+		}
 		int i = 0;		
 		int count = appAr.length-1;
 		List<Map<String, Object>> list = new ArrayList<>();
@@ -245,12 +271,14 @@ public class EdmsService {
 			member.put("MEMBER_ID", appAr[count]);
 			member.put("APPROVAL_RANK", i);
 			member.put("EDMS_NO", edmsNum);
-			if((appAr.length-1)==count) {
-				member.put("APRROVAL_RESULT", 1);
+			member.put("APRROVAL_RESULT",0);
+			if((appAr.length-1)==i) {
+				member.replace("APRROVAL_RESULT", 1);
 			}
 			
 			count--;
 			i++;
+
 			list.add(member);
 			
 		}
@@ -279,27 +307,130 @@ public class EdmsService {
 				EdmsFileVO edmsFileVO = new EdmsFileVO();
 				edmsFileVO.setEdms_No(edmsNum);
 				edmsFileVO.setEdms_Attechfile_Name(edmsAttechfileName);
-				edmsFileVO.setEdms_AttechfileOri_Name(f.getOriginalFilename());
+				edmsFileVO.setEdms_Attechfile_Ori_Name(f.getOriginalFilename());
 				fileList.add(edmsFileVO);
 			}
 			int fileResult = 0;			
-			if(type==1) fileResult = edmsDAO.createEdmsAttchFile(fileList);
-			if(type==2) fileResult = edmsDAO.createTempEdmsAttchFile(fileList);
+ 			if(type==1) fileResult = edmsDAO.createEdmsAttchFile(fileList);
+ 			if(type==2) fileResult = edmsDAO.createTempEdmsAttchFile(fileList);
 					
-		}
-	
-		
-			
+		}			
 		return result;
 								
 	}
 	
 	
+	//1승인
+	//3최종승인
+	@Transactional
+	public int edmsSubmit(AprovalVO aprovalVO, EdmsVO edmsVO, int tipo) throws Exception {	
+		AprovalVO temp = edmsDAO.getAprovalInfo(aprovalVO);
+		aprovalVO.setMEMBER_ID(temp.getMEMBER_ID());
+		aprovalVO.setAPPROVAL_RANK(temp.getAPPROVAL_RANK());
+		Long rank = aprovalVO.getAPPROVAL_RANK();
+		
+		int result = 0;
+		
+		//반려
+		if(tipo==5) {
+			
+			aprovalVO.setAPRROVAL_RESULT(5L);
+			edmsVO.setEdms_Status(5L);
+			edmsDAO.updateAproval(aprovalVO);
+			result = edmsDAO.updateEdms(edmsVO);
+			return 5;
+			
+		}
+		
+		
+		aprovalVO.setAPRROVAL_RESULT(3L);//결재한사람 결재상태 변경 //3이 승인
+		edmsVO.setEdms_Status(1L); //문서상태를 결재 진행중으로 변경
+		result = edmsDAO.updateAproval(aprovalVO);
+		
+		if(rank==0) {			
+			//최종결재	
+			
+			edmsVO.setEdms_Status(3L);
+			edmsVO.setEdms_Apploval_Date(Date(System.currentTimeMillis()));
+			result = edmsDAO.updateEdms(edmsVO);
+			return 3;			
+		}
+		
+		
+		
+		 Long nextRank= rank-1;//다음결재자 선택
+		AprovalVO nextAprovalVO = new AprovalVO();
+		nextAprovalVO.setAPPROVAL_RANK(nextRank);
+		nextAprovalVO.setEDMS_NO(aprovalVO.getEDMS_NO());	
+		nextAprovalVO = edmsDAO.getNextAproval(nextAprovalVO); //다음 결재자 소환
+		
+		nextAprovalVO.setAPRROVAL_RESULT(1L); // 결재차례로 만듬		
+		
+		result = edmsDAO.updateNextAproval(nextAprovalVO);//결재차례로 변경
+		
+		
+		return result;
+		
+		
+	}		
+	
+	
+	private Date Date(long timeMillis) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//임시문서 삭제
+	public int deleteTempEdms(EdmsVO edmsVO) throws Exception {
+		
+		return edmsDAO.deleteTempEdms(edmsVO);
+		
+	}
 	
 	
 	
+	//도장
 	
+	//도장저장
+	@Transactional
+	public int createStamp(StampVO stampVO, MultipartFile img)  throws Exception{
+		
+				
+		if(img.isEmpty()) {
+			return 0;
+		}//서명이없으면 false		//서명사진이 없으면 실패
+		String img_result = fileToPhotoEncoder.encoderFPTS(img); // 파일을 BOLB로 변환		
+		stampVO.setStamp_Img(img_result);				//VO에 서명저장
+		
+		
+		int result = stampCount(stampVO); // 서명유무 확인
+		
+		if(result == 1 ) {
+			
+			edmsDAO.stampUpdate(stampVO); 
+			
+			result = 3;
+			return result; // 3 = 서명변경 
+			
+		}
 	
+		result = edmsDAO.createStamp(stampVO);		//1= 최초 서명 저장 확인
+		
+		return result;
+		
+		
+	}
+	
+	//도장유무 확인
+	public int stampCount(StampVO stampVO) throws Exception {
+		
+		//0 없음
+		//1 있음
+		int result = edmsDAO.stampCount(stampVO);
+		
+		return result; 
+		
+	}
 	
 	
 	

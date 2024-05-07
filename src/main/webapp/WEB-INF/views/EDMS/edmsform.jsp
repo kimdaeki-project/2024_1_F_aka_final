@@ -79,6 +79,12 @@
 								<img src="${list.stampVO.stamp_Img}" style="z-index: 1; height: 130%; width: 120%">								
 							</div>						
 						</c:when>
+						<c:when test="${list.APRROVAL_RESULT==5}">							
+							<div class="applineW" style="position: relative;">						
+								<span style="position: absolute;" >${list.USERNAME}</span>														
+								<img src="/img/reject.png" style="z-index: 1; height: 130%; width: 120%">								
+							</div>						
+						</c:when>
 						<c:otherwise>
 							<div class="applineW">${list.USERNAME}</div>
 						</c:otherwise>

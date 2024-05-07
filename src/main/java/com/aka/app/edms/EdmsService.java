@@ -1,7 +1,7 @@
 package com.aka.app.edms;
 
 import java.sql.Date;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import java.util.HashMap;
@@ -45,13 +45,9 @@ public class EdmsService {
 	public Map<String, Object> getDetail(EdmsVO edmsVO, String check) throws Exception{		
 		
 		Map<String, Object> edmsDetail = new HashMap<>();	
-		System.out.println("--------------------------------------------------"+edmsVO);
-		System.out.println("--------------------------------------------------"+edmsVO);
-		System.out.println("--------------------------------------------------"+edmsVO);
-		System.out.println("--------------------------------------------------"+edmsVO);
 
 		if(check.equals("temp")) {
-			System.out.println(edmsVO);
+			
 			edmsDetail.putAll(edmsDAO.getTempDetail(edmsVO));		
 			return edmsDetail;
 			
@@ -259,8 +255,7 @@ public class EdmsService {
 		int i = 0;		
 		int count = appAr.length-1;
 		List<Map<String, Object>> list = new ArrayList<>();
-		System.out.println(count);
-		System.out.println(); 
+	
 				
 		//결재선 저장
 		//셜재선 순서 지정 (0번이 최종결재자가 됨)
@@ -350,15 +345,14 @@ public class EdmsService {
 		if(rank==0) {			
 			//최종결재	
 			
-			edmsVO.setEdms_Status(3L);
-			edmsVO.setEdms_Apploval_Date(Date(System.currentTimeMillis()));
-			result = edmsDAO.updateEdms(edmsVO);
+			edmsVO.setEdms_Status(3L);			
+			result = edmsDAO.updateEdmsFinal(edmsVO);
 			return 3;			
 		}
+		edmsVO.setEdms_Status(1L); //문서상태를 결재 진행중으로 변경
+		edmsDAO.updateEdms(edmsVO);
 		
-		
-		
-		 Long nextRank= rank-1;//다음결재자 선택
+		 Long nextRank= rank-1;//다음결재자 선택 
 		AprovalVO nextAprovalVO = new AprovalVO();
 		nextAprovalVO.setAPPROVAL_RANK(nextRank);
 		nextAprovalVO.setEDMS_NO(aprovalVO.getEDMS_NO());	

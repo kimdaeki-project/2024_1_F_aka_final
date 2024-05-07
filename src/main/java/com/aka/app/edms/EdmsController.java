@@ -304,7 +304,7 @@ public class EdmsController {
 	
 		 for(Map<String, Object> m : empl) {	 
 			
-			 System.out.println(m.get("MEMBER_ID"));			 		 
+			 		 		 
 			 m.replace("parent", "0", "#");
 			 m.put("type", "member");
 			 
@@ -316,7 +316,7 @@ public class EdmsController {
 			
 		 }
 		 	 
-		 System.out.println(temp);
+		
 		 for(Map<String, Object> a : result) {			 
 				 
 			 a.replace("parent", "0" , "#");

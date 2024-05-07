@@ -71,7 +71,7 @@
                     <div class="card-body">
                       <h5 class="card-title">${vo.product_name}</h5>
                     	  <p class="card-text"> 상품 가격 : ${vo.product_price} 원</p>
-                      <p class="card-text">상품 개월수 : ${vo.product_date}</p>
+                      <p class="card-text">교육 기간 : ${vo.product_date} 개월</p>
                       <a href="/product/detail?product_num=${vo.product_num}" class="btn btn-outline-primary">상품 상세 보기</a>
                       <%-- <a href="/payment/checkout?product_num=${vo.product_num}" class="btn btn-outline-primary">상품 결제 하기</a> --%>
                     </div>

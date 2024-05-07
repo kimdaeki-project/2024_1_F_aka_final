@@ -109,6 +109,13 @@
                     </li>
                     <hr>
                     <li>
+                      <a class="dropdown-item" href="/payment/mylist">
+                        <i class="bx bx-user me-2"></i>
+                        <span class="align-middle">나의 결제 목록</span>
+                      </a>
+                    </li>
+                    <hr>
+                    <li>
                       <a class="dropdown-item" href="/member/logout">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>

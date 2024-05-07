@@ -46,14 +46,67 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
-			<c:import url="../temp/body.jsp"></c:import>
+			<div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4">Payment<span class="text-muted fw-light">/list</span></h4>
+				<div class="card">
+                <h5 class="card-header">나의 결제 목록</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                      	<th>상품 이름</th>
+                        <th>상품 가격</th>
+                        <th>결제자 이름</th>
+                        <th>전화 번호</th>
+                        <th>이메일</th>
+                      	<th>결제한 국가</th>
+                      	<th>결제된 화폐</th>
+                      	<th>결제 수단</th>
+                        <th>결제 번호</th>
+                        <th>상품 번호</th>
+                        <th>결제자 사원 번호</th>
+                        <th>주문 번호</th>                      	
+                      	<th>결제 시작 날짜</th>
+                      	<th>결제 승인 날짜</th>
+                      	<th>부가세</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                     <c:forEach items="${list}" var="vo">
+                      <tr>
+                        <td>${vo.order_name}</td>
+                        <td>${vo.amount}</td>
+                        <td>${vo.customer_name}</td>
+                        <td>${vo.customer_phone}</td>
+                        <td>${vo.customer_email}</td>
+                        <td>${vo.country}</td>
+                        <td>${vo.currency}</td>
+                        <td>${vo.method}</td>
+                        <td>${vo.payment_num}</td>
+                        <td>${vo.product_num}</td>
+                        <td>${vo.member_id}</td>
+                        <td>${vo.order_id}</td>                       
+                        <td>${vo.requested_at}</td>
+                        <td>${vo.approved_at}</td>
+                        <td>${vo.vat}</td>
+                      </tr>
+                     </c:forEach>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+             
+			</div>
+			
+			
+			
+				
             <!-- / Content -->
 
            
 
-          </div>
             <div class="content-backdrop fade"></div>
+          </div>
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
@@ -87,39 +140,5 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script>
-    let title = document.getElementById('title');
-    let startDate = document.getElementById('start_date');
-    let endDate = document.getElementById('end_date');  
-    let arr = []; 
-
-
-    fetch('/department/calendar',{
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json"
-		}
-		})
-		.then(res => res.json())
-		.then(dataArray => {
-			dataArray.forEach(data =>{
-				const dataObj = {
-					title : data.title,
-					start : data.start_date,
-					end : data.end_date,		
-				}
-				arr.push(dataObj);
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          events:arr
-        });
-        calendar.render();
-
-
-			})
-      });
-
-    </script>
   </body>
 </html>

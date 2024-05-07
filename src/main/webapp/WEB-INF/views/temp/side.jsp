@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
   <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
@@ -97,6 +98,7 @@
               </a>
             </li> -->
             
+            <sec:authorize access="hasAnyRole('EMPLOYEE', 'HR','CEO')">
             <!-- 전자 결제 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">전자 결제</span></li>
 
@@ -167,13 +169,15 @@
               </a>
             </li>
             
+            </sec:authorize>
 <!--             <li class="menu-item">
               <a href="/calendar/drDetail" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">부서 일정</div>
               </a>
             </li>             -->
-      
+      			
+      		<sec:authorize access="hasRole('HR')">  
              <!--수업 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">수업 관리</span></li>
 
@@ -191,7 +195,7 @@
                 <div data-i18n="Tables">비품 관리</div>
               </a>
             </li>        
-            
+            </sec:authorize>
             
              <!-- 상품 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">상품</span></li>
@@ -201,14 +205,16 @@
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">상품 리스트</div>
               </a>
-            </li>                           
+            </li>    
+            <sec:authorize access="hasRole('HR')">                       
             <li class="menu-item">
               <a href="/payment/list" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Tables">결제 리스트</div>
               </a>
             </li>  
-
+			</sec:authorize>
+			<sec:authorize access="hasAnyRole('EMPLOYEE', 'HR','CEO')">
              <!-- 게시판 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">게시판</span></li>                                   
             <li class="menu-item">
@@ -217,6 +223,6 @@
                 <div data-i18n="Tables">게시판</div>
               </a>
             </li>  
-                                    
+            </sec:authorize>
           </ul>
         </aside>

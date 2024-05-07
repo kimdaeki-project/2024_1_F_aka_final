@@ -205,7 +205,7 @@
                      	   </div>
                      	   
                      	   <div>
-                      		    4.메인페이지(기상청api데이터 출력)
+                      		    4.메인페이지(날씨 출력,월매출 출력)
                      	   </div>
                       </div>
                       </div>
@@ -337,7 +337,7 @@
           				arrdata.push(data.totalSales);
           			})
                 let myChart = new Chart(myCt, {
-                  type: 'bar',
+                  type: 'line',
                   data: {
                     labels: arrlabels,
                     datasets: [

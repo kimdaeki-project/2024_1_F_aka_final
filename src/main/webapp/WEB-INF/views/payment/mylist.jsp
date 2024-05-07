@@ -65,8 +65,7 @@
                         <th>결제 번호</th>
                         <th>상품 번호</th>
                         <th>결제자 사원 번호</th>
-                        <th>주문 번호</th>
-                      	<th>페이먼트키</th>
+                        <th>주문 번호</th>                      	
                       	<th>결제 시작 날짜</th>
                       	<th>결제 승인 날짜</th>
                       	<th>부가세</th>
@@ -86,8 +85,7 @@
                         <td>${vo.payment_num}</td>
                         <td>${vo.product_num}</td>
                         <td>${vo.member_id}</td>
-                        <td>${vo.order_id}</td>
-                        <td>${vo.payment_key}</td>
+                        <td>${vo.order_id}</td>                       
                         <td>${vo.requested_at}</td>
                         <td>${vo.approved_at}</td>
                         <td>${vo.vat}</td>

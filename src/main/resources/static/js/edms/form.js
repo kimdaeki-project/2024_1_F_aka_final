@@ -35,20 +35,26 @@ addBtn.addEventListener('click',function(){
 
 })
 
- function formChange(){
+ function formChange(){ //결재문서 변경
 	
 	let formType = document.getElementById('formType');
 	let formNo = formType.value;
+	let munser = document.getElementById("munser");
+	let opt = formType.options[formType.selectedIndex].text;
 	
 	let formImport = document.getElementById('formImport');
 	
 	if(formNo==1){
-		
+		munser.innerText = "";
+		munser.innerText = opt;
 		formImport.innerHTML="";
 		return;
 		
 	}
+	munser.innerText = "";
+	munser.innerText = opt;
 	
+	console.log(opt);
 	fetch('importFrom?formNo='+formNo,{		
 		method:"GET"
 		})
@@ -100,31 +106,7 @@ tempApplyBtn.addEventListener('click',function(){
 
 })
 
-//삭제
-deleteEdms.addEventListener('click', function(){
-	
-	if(confirm('삭제하시겠습니까??')){
-	let formData = new FormData(formelem);
-	fetch('deleteTempEdms',{
-		
-		 method: "POST",						
-            body: formData				
-            }).then(response => response.json())
-            .then(data=>{
-                console.log(data.path)
-                if(data.result==1){
-                    alert(data.msg);
-                    window.location.href=data.path;
-                    
-                }else{
-                    
-                    alert("실패하였습니다.")
-                }
-                
-            })					
-		
-	}
-	})
+
 	
 	
 

@@ -392,7 +392,7 @@ public class EdmsService {
 	//도장
 	
 	//도장저장
-	@Transactional
+	
 	public int createStamp(StampVO stampVO, MultipartFile img)  throws Exception{
 		
 				
@@ -403,7 +403,10 @@ public class EdmsService {
 		stampVO.setStamp_Img(img_result);				//VO에 서명저장
 		
 		
+		
 		int result = stampCount(stampVO); // 서명유무 확인
+		
+	
 		
 		if(result == 1 ) {
 			
@@ -415,6 +418,7 @@ public class EdmsService {
 		}
 	
 		result = edmsDAO.createStamp(stampVO);		//1= 최초 서명 저장 확인
+		
 		
 		return result;
 		

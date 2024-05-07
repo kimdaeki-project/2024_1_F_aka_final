@@ -193,9 +193,10 @@ public class EdmsController {
 	
 	
 	@PostMapping("crateStamp")
-//	@Transactional
-	public String creatStemp(@AuthenticationPrincipal MemberVO memberVO, StampVO stampVO, MultipartFile img, Model model) throws Exception {
+	@ResponseBody
+	public Map<String, Object>  creatStemp(@AuthenticationPrincipal MemberVO memberVO, StampVO stampVO, MultipartFile img, Model model) throws Exception {
 		
+		Map<String, Object> map = new HashMap<String, Object>();
 		stampVO.setMember_Id(memberVO.getMember_id());
 		
 		int result =edmsService.createStamp(stampVO, img);
@@ -212,10 +213,11 @@ public class EdmsController {
 			msg = "변경되었습니다";
 		}
 		
-		model.addAttribute("msg", msg);
-		model.addAttribute("path", path);
+		map.put("msg", msg);
+		map.put("path", path);		
+		map.put("result", result);
 		
-		return "/commons/result";
+		return map;
 		
 		
 	}

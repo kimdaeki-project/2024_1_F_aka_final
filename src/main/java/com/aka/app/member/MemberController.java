@@ -35,10 +35,8 @@ public class MemberController {
 	
 	@GetMapping("/login")
 	public String memberLogin(@ModelAttribute MemberVO memberVO, HttpSession session, Model model)throws Exception {
-		
 		Object obj=session.getAttribute("SPRING_SECURITY_CONTEXT");
 		
-		log.info("=====getName : {}=======",memberVO.getName());
 		if(obj == null) {
 			return "member/memberLogin";
 		}

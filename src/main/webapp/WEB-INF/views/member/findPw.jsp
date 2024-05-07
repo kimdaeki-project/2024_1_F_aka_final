@@ -140,8 +140,8 @@
 				  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="1" checked>
 				  <label class="btn btn-outline-primary" for="btnradio1">비밀번호 찾기</label>
 				
-				  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-				  <label class="btn btn-outline-primary" for="btnradio2">아이디 찾기</label>
+				  <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+				  <label class="btn btn-outline-primary" for="btnradio2">아이디 찾기</label> -->
 			  </div>
 				<div>
 	              <p class="my-3">회원가입에 사용한 이메일/아이디을 입력해주세요</p>

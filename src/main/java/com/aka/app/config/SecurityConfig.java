@@ -58,7 +58,7 @@ public class SecurityConfig {
 						(authorizeRequests)->
 											authorizeRequests
 											.requestMatchers("/", "/member/mypage","/board/**","/product/**","/payment/checkout","/payment/success","/payment/fail").authenticated()
-											.requestMatchers("/calendar", "/edms/**").hasAnyRole("CEO","HR","EMPLOYEE")
+											.requestMatchers("/calendar/**", "/edms/**").hasAnyRole("CEO","HR","EMPLOYEE")
 											.requestMatchers("/department/**","/student/**","/equipment/**","/payment/list").hasAnyRole("HR")
 											.anyRequest().permitAll()
 											)

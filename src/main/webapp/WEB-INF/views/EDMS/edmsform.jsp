@@ -32,8 +32,19 @@
   
 <div class="row">
 
-	 <div class="col-6 text-center align-self-center">
-		<h1>기안서</h1>
+	 <div class="col-6 text-center align-self-center" id="formTitle">
+		<c:choose>
+			<c:when test="${checkType=='create' and dtype!=4}">
+				<h1>기안서</h1>
+			</c:when>
+			<c:when test="${checkType =='get'}">
+				<h1>${edms.EDMS_FORM_NAME}</h1>
+			</c:when>
+			<c:when test="${checkType=='create' and dtype==4}">
+				<h1>${edms.EDMS_FORM_NAME}</h1>
+			</c:when>
+		
+		</c:choose>
 	</div>
 	
 	<div class="col-6">
@@ -95,7 +106,7 @@
        <col width="60"> 
        <col width="140"> 
       </colgroup> 
-    <c:if test="${checkType=='create'}">
+    <c:if test="${checkType=='create' and dtype!=4}">
 	<tbody>
 		<tr>
 			<td class="userTdG">				
@@ -152,14 +163,63 @@
    
    
    
+   <c:if test="${checkType=='create' and dtype==4}">
+	<tbody>
+		<tr>
+			<td class="userTdG">				
+				문서번호 
+			</td>
+			<td class="userTdW">	
+				<span>${edms.EDMS_NO}</span>
+				<input type="hidden" id="edms_No" name="edms_No" value="${edms.EDMS_NO}">
+			</td>
+			<td class="userTdG">				
+ 				기&nbsp;안&nbsp;일
+			</td>
+			<td class="userTdW">	
+				<span>${edms.EDMS_CREATE_DATE}</span>
+			</td>
+		</tr>
+		<tr style="height: 32px;">
+			<td class="userTdG">
+				
+ 				작&nbsp;성&nbsp;자
+			</td>
+			<td class="userTdW">	
+				<!-- <input type="hidden" name="edmsCreator" value="${member.username}"> -->
+				<span>${edms.USERNAME}</span>
+			</td>
+				<td class="userTdG">
+				사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;번
+			</td>
+			<td class="userTdW">					
+				<span>${edms.EDMS_CREATOR}</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="userTdG">	
+				부&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서
+			</td>
+			<td class="userTdW">
+				<span>${edms.DEPARTMENT_NAME}</span>
+			</td>
+			<td class="userTdG">
+				직&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;급
+			</td>
+			<td class="userTdW">					
+				<span>${edms.EDMS_CREATOR_POSITION}</span>
+			</td>
+		</tr>		
+	</tbody>
+   </c:if>
    <c:if test="${checkType=='get'}">
 	<tbody>
 		<tr>
 			<td class="userTdG">				
-				문서종류 
+				문서번호 
 			</td>
 			<td class="userTdW">	
-				<input type="text" name="edms_From_No" value="1">
+				<span>${edms.EDMS_NO}</span>
 				<input type="hidden" name="edms_No" value="${edms.EDMS_NO}">
 			</td>
 			<td class="userTdG">				
@@ -200,7 +260,7 @@
 			</td>
 		</tr>		
 	</tbody>
-   </c:if>      
+   </c:if>            
 </table>
  
  
@@ -229,11 +289,14 @@
 			<td class="userTdW">
 				<c:choose>
 					 
-					<c:when test="${checkType=='create'}">
+					<c:when test="${checkType=='create' and dtype!=4}">
 						<input name="edms_Title">						
 					</c:when>
 					<c:when test="${checkType=='get'}">
 						<span>${edms.EDMS_TITLE}</span>	
+					</c:when>
+					<c:when test="${checkType=='create' and dtype==4}">
+						${edms.EDMS_TITLE}
 					</c:when>
 				</c:choose> 
 				
@@ -249,11 +312,14 @@
 				<span  style="width: 100%; font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
 				<c:choose>
 					 
-					<c:when test="${checkType=='create'}">
+					<c:when test="${checkType=='create'and dtype!=4}">
 						 <textarea id="summernote" name="edms_Content">
 						 </textarea>
 					</c:when>
 					<c:when test="${checkType=='get'}">
+						${edms.EDMS_CONTENT}
+					</c:when>
+					<c:when test="${checkType=='create' and dtype==4}">
 						${edms.EDMS_CONTENT}
 					</c:when>
 				</c:choose> 
@@ -281,20 +347,37 @@
 			</td>
 			<td class="userTdW" style="height: auto;">		
 			<c:choose>					 
-					<c:when test="${checkType=='create'}">
-						<div id="fileUploadList" style="float: left;">
+					<c:when test="${checkType=='create'and dtype!=4}">
+										
+						<div id="fileUploadList" style="float: left;">						
 						</div>
-					 <input type="file" id="file" name="file" multiple="multiple">
-				 
-				 
+					 <input type="file" id="file" name="file" multiple="multiple">	 
+				 	
 					</c:when>
 					<c:when test="${checkType=='get' and not empty fileVOs}">
 						 <div>
-					<c:forEach items="${fileVOs}" var="file">
-						<a href="/edms/fileDown?edms_Attechfile_No=${file.edms_Attechfile_No}">${file.edms_Attechfile_Ori_Name}</a>
-					</c:forEach>
-				</div>
+							<c:forEach items="${fileVOs}" var="file">
+								<a href="/edms/fileDown?edms_Attechfile_No=${file.edms_Attechfile_No}">${file.edms_Attechfile_Ori_Name}</a>
+							</c:forEach>
+					</div>
 					</c:when>
+					<c:when test="${checkType=='create' and dtype==4}">
+						<div id="fileUploadList" style="float: left;">
+						</div>
+						 <input type="file" id="file" name="file" multiple="multiple">
+				
+						
+						 <div>
+							<c:forEach items="${fileVOs}" var="file">				 		
+								<a href="/edms/fileDown?edms_Attechfile_No=${file.edms_Attechfile_No}">${file.edms_Attechfile_Ori_Name}</a>
+								<input type="hidden" value="${file.edms_Attechfile_No}"/>					
+							</c:forEach>
+						</div>
+					</c:when>
+					
+					
+					
+					
 				</c:choose> 
 				
 				
@@ -313,8 +396,30 @@
 		<col width="116"> 
 		<col width="660"> 
 	</colgroup> 
-	
+		
+		
+		
 		<div class=" col-auto">		
+		
+		<c:forEach items="${appline}" var="list">	
+	
+			<c:if test="${not empty list.APRROVAL_COMENT }">			
+				<div>
+					<div class="userTdG" style="height: 30px;">	
+						<P> ${list.USERNAME} &nbsp;&nbsp;  ${list.POSITION_NAME}</P>
+					</div>
+					<div class="userTdW" style="height: auto;" name="APRROVAL_COMENT">	
+	
+						<textarea style="width:100%;">
+								${list.APRROVAL_COMENT}
+	
+						</textarea>
+						
+					</div>
+				</div>
+			</c:if>
+		</c:forEach> 		
+		
 			<div class="col-12" style="background: rgb(221, 221, 221); zz
 				padding: 5px; 
 				border: 1px solid black; 
@@ -327,9 +432,7 @@
 				추&nbsp;&nbsp;&nbsp;&nbsp;신
 			</div>			
 	
-			<div class="userTdG ">	
-				${memberVO.username}
-			</div>
+			
 			<div class="userTdW" style="height: auto;">
 				<textarea  id="summernote"  name="APRROVAL_COMENT">
 					
@@ -456,8 +559,11 @@
 	<div style="float: right;">
 	<button type="button" class="btn btn-success" id="applyBtn">제출</button>
 	<button type="button" class="btn btn-warning" id="tempApplyBtn">임시저장</button>
+	<button type="button" class="btn btn-danger" id="deleteEdms">삭제</button>
 	</div>
 </c:if>
+
+
 
 </span></span>
 <p style="font-family: &quot;맑은 고딕&quot;; font-size: 10pt; line-height: 20px; margin-top: 0px; margin-bottom: 0px;"><br></p>

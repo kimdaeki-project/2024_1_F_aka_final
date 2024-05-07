@@ -150,12 +150,7 @@
                   <a href="/edms/list?check=aproved" class="menu-link">
                     <div data-i18n="Text Divider">결재 내역</div>
                   </a>
-                </li>
-                 <li class="menu-item">
-                  <a href="/edms/ex/list" class="menu-link">
-                    <div data-i18n="Text Divider">검토</div>
-                  </a>
-                </li>               
+                </li>                                
               </ul>
             </li>
 

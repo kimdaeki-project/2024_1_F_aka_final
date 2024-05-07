@@ -34,8 +34,7 @@ public class EdmsService {
 	private FileToPhotoEncoder fileToPhotoEncoder; 
 	@Value("${app.upload.edms}")
 	private String edmsFileUploadPath;
-	@Value("${app.upload.edmsTemp}")
-	private String edmsTempFileUploadPath;
+
 	
 	
 	
@@ -46,16 +45,20 @@ public class EdmsService {
 	public Map<String, Object> getDetail(EdmsVO edmsVO, String check) throws Exception{		
 		
 		Map<String, Object> edmsDetail = new HashMap<>();	
-		
+		System.out.println("--------------------------------------------------"+edmsVO);
+		System.out.println("--------------------------------------------------"+edmsVO);
+		System.out.println("--------------------------------------------------"+edmsVO);
+		System.out.println("--------------------------------------------------"+edmsVO);
 
+		if(check.equals("temp")) {
+			System.out.println(edmsVO);
+			edmsDetail.putAll(edmsDAO.getTempDetail(edmsVO));		
+			return edmsDetail;
+			
+		}
 		edmsDetail.putAll(edmsDAO.getDetail(edmsVO));			
 		
 		
-		if(check.equals("temp")) {
-			
-			edmsDetail.putAll(edmsDAO.getTempDetail(edmsVO));			
-			
-		}
 		
 		return edmsDetail;
 		
@@ -91,6 +94,14 @@ public class EdmsService {
 		
 		AprovalVO[] appline = null ;							
 		
+		if(check.equals("temp")){
+			
+			appline = edmsDAO.getTempApplineList(edmsVO);
+
+			return appline;
+			
+		}
+		
 			appline = edmsDAO.getApplineList(edmsVO);			
 			
 	
@@ -99,9 +110,9 @@ public class EdmsService {
 	}
 	
 	//목록 불러오기
-	public List<EdmsVO> getEdmsList(Pager pager, MemberVO memberVO, String check) throws Exception {
+	public List<Map<String,Object>> getEdmsList(Pager pager, MemberVO memberVO, String check) throws Exception {
 		
-		List<EdmsVO> result = getPages(pager, memberVO, check);					
+		List<Map<String,Object>> result = getPages(pager, memberVO, check);					
 		
 		return result;	
 		
@@ -111,10 +122,10 @@ public class EdmsService {
 	
 	
 	//페이징 처리
-	public List<EdmsVO> getPages(Pager pager, MemberVO memberVO, String check) throws Exception{
+	public List<Map<String,Object>> getPages(Pager pager, MemberVO memberVO, String check) throws Exception{
 		
 		
-		List<EdmsVO> result = new ArrayList<>();		
+		List<Map<String,Object>> result = new ArrayList<>();		
 		
 		Map<String, Object> map = new HashMap<>();		
 		pager.makeIndex();		
@@ -205,9 +216,23 @@ public class EdmsService {
 		
 		//전자문서 저장
 		if(type == 1) {
+			//파이리추가후 
 			//임시저장문서 삭제
-			if(status==4) {							
-				result = edmsDAO.delectTempEdms(edmsVO);				
+			
+			if(status==4) {						
+				
+				EdmsFileVO[] fileVO = edmsDAO.tempFileList(edmsVO);
+				List<Object> fileTansfer = new ArrayList<>();
+				
+				for(EdmsFileVO f: fileVO) {
+					
+					fileTansfer.add(f);
+					
+				}
+				
+				result = edmsDAO.createTempEdmsAttchFile(fileTansfer);					
+				
+				result = edmsDAO.deleteTempEdms(edmsVO);				
 			}
 			
 			result = edmsDAO.createEdms(edmsVO);
@@ -220,8 +245,9 @@ public class EdmsService {
 			if(status==4) {							
 				result = edmsDAO.updateTempEdms(edmsVO);
 				
+		
 			}else {
-				
+				edmsVO.setEdms_Status(4L);
 				result = edmsDAO.createTempEdms(edmsVO);
 			}
 		}
@@ -281,12 +307,12 @@ public class EdmsService {
 				EdmsFileVO edmsFileVO = new EdmsFileVO();
 				edmsFileVO.setEdms_No(edmsNum);
 				edmsFileVO.setEdms_Attechfile_Name(edmsAttechfileName);
-				edmsFileVO.setEdms_Attechfile_Ori_Name(edmsAttechfileName);
+				edmsFileVO.setEdms_Attechfile_Ori_Name(f.getOriginalFilename());
 				fileList.add(edmsFileVO);
 			}
 			int fileResult = 0;			
-			if(type==1) fileResult = edmsDAO.createEdmsAttchFile(fileList);
-			if(type==2) fileResult = edmsDAO.createTempEdmsAttchFile(fileList);
+ 			if(type==1) fileResult = edmsDAO.createEdmsAttchFile(fileList);
+ 			if(type==2) fileResult = edmsDAO.createTempEdmsAttchFile(fileList);
 					
 		}			
 		return result;
@@ -354,7 +380,15 @@ public class EdmsService {
 		return null;
 	}
 
-
+	//임시문서 삭제
+	public int deleteTempEdms(EdmsVO edmsVO) throws Exception {
+		
+		return edmsDAO.deleteTempEdms(edmsVO);
+		
+	}
+	
+	
+	
 	//도장
 	
 	//도장저장

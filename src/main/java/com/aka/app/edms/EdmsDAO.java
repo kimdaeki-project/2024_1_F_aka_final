@@ -42,25 +42,24 @@ public interface EdmsDAO {
  	
 	//상신
 		//결재진행목록 불러오기
-		public List<EdmsVO> getEdmsList(Map<String, Object> map) throws Exception;
+		public List<Map<String,Object>> getEdmsList(Map<String, Object> map) throws Exception;
 		//총 글 갯수 가져오기 
 		public Long getEdmsTotalCount(Map<String, Object> map) throws Exception;
 		//결재완료목록 불러오기
-		public List<EdmsVO> getEdmsDoneList(Map<String, Object> map) throws Exception;
+		public List<Map<String,Object>> getEdmsDoneList(Map<String, Object> map) throws Exception;
 		public Long getEdmsDoneTotalCount(Map<String,Object> map) throws Exception;
 	
 	//수신		
 		//결재완료목록 불러오기
-		public List<EdmsVO> getReciveEdmsList(Map<String, Object> map) throws Exception;
+		public List<Map<String,Object>>getReciveEdmsList(Map<String, Object> map) throws Exception;
 		public Long getReciveEdmsTotalCount(Map<String,Object> map) throws Exception;
 		//결재목록 불러오기
-		public List<EdmsVO> getAprovedEdmsList(Map<String, Object> map) throws Exception;
+		public List<Map<String,Object>> getAprovedEdmsList(Map<String, Object> map) throws Exception;
 		public Long getAprovedEdmsTotalCount(Map<String,Object> map) throws Exception;
 		
 	
 	//임시문서
-	//임시문서 삭제
-	public int delectTempEdms(EdmsVO edmsVO) throws Exception;  
+	 
 	//임시문서저장
 	public int createTempEdms(EdmsVO edmsVO) throws Exception;
 		//임시문서 업데이트
@@ -71,16 +70,18 @@ public interface EdmsDAO {
 	//임시 파일 저장
 	public int createTempEdmsAttchFile(List<Object> list) throws Exception;
 	//결재진행목록 불러오기
-	public List<EdmsVO> getTempEdmsList(Map<String, Object> map) throws Exception;
+	public List<Map<String,Object>> getTempEdmsList(Map<String, Object> map) throws Exception;
 	//총 글 갯수 가져오기 
 	public Long getTempEdmsTotalCount(Map<String, Object> map) throws Exception;
 	//문서불러오기
 	public Map<String, Object> getTempDetail(EdmsVO edmsVO) throws Exception;	
+	//결재선 불러오기
+	public AprovalVO[] getTempApplineList(EdmsVO edmsVO) throws Exception;
 	//파일불러오기
 	public EdmsFileVO[] tempFileList(EdmsVO edmsVO) throws Exception;
 	
 	//임시문서 삭제
-	
+	public int deleteTempEdms(EdmsVO edmsVO) throws Exception;
  	
 	
 	//도장

@@ -13,49 +13,19 @@
 	<tbody>
 		<tr>
 			<td class="userTdG">				
-				문서종류 
+				 품&nbsp;&nbsp;명
 			</td>
 			<td class="userTdW">	
-				<input type="text" name="edms_From_No" value="1">
+				<input type="text" name="edms_Extra_Content">
 			</td>
 			<td class="userTdG">				
- 				기&nbsp;안&nbsp;일
+ 				사용금액
 			</td>
 			<td class="userTdW">	
-				<input type="date" id="today"  readonly >
+				<input type="text" name="edms_Extra_Number" >
 			</td>
 		</tr>
-		<tr style="height: 32px;">
-			<td class="userTdG">
-				
- 				작&nbsp;성&nbsp;자
-			</td>
-			<td class="userTdW">	
-				<!-- <input type="hidden" name="edmsCreator" value="${member.username}"> -->
-				<span>${member.username}</span>
-			</td>
-				<td class="userTdG">
-				사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;번
-			</td>
-			<td class="userTdW">	
-				<span>${member.member_id}</span>
-				<input type="hidden" name="edms_Creator" value="${member.member_id}">
-			</td>
-		</tr>
-		<tr>
-			<td class="userTdG">	
-				부&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서
-			</td>
-			<td class="userTdW">
-				<span>${deptName.DEPARTMENT_NAME}</span>
-			</td>
-			<td class="userTdG">
-				직&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;급
-			</td>
-			<td class="userTdW">	
-				<input type="hidden" name="edms_Creator_Position" value="${deptName.POSITION_NAME}">
-				<span>${deptName.POSITION_NAME}</span>
-			</td>
-		</tr>		
+		
+		
 	</tbody>
    </c:if>

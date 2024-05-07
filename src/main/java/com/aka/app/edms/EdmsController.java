@@ -50,7 +50,7 @@ public class EdmsController {
 	//done : 결재완료	
 		
 	Map<String, String> titles = chart.titles(check);
-	List<EdmsVO> edmsList = new ArrayList<>();
+	List<Map<String,Object>> edmsList = new ArrayList<>();
 			
 	//리스트 내용 불러오기
 			
@@ -58,7 +58,7 @@ public class EdmsController {
 	
 	model.addAttribute("check",check);
 	model.addAttribute("titles", titles);
-	model.addAttribute("list",edmsList);
+	model.addAttribute("edmsList",edmsList);
 	
 	return "EDMS/list";
 		 
@@ -95,6 +95,7 @@ public class EdmsController {
 			checkType = "create";			
 		}
 		
+		model.addAttribute("dtype", type);
 		model.addAttribute("fileVOs", fileVOs);
 		model.addAttribute("memberVO", memberVO);
 		model.addAttribute("document",check);
@@ -257,13 +258,12 @@ public class EdmsController {
 	}
 	
 	@GetMapping("importFrom")
-	@ResponseBody
 	public String importFrom(int formNo) {
 		
 		
 		if(formNo==2) {
 			
-			return "/EDMS/form/approvalrequest.jsp";
+			return "EDMS/form/approvalrequest";
 			
 		}
 		
@@ -271,6 +271,23 @@ public class EdmsController {
 	}
 	
 	
+	@PostMapping("deleteTempEdms")
+	@ResponseBody
+	public Map<String, Object> deleteTempEdms(EdmsVO edmsVO) throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int result = edmsService.deleteTempEdms(edmsVO);		
+		String msg = "삭제되었습니다.";
+		String path = "list?check=temp";
+		
+		map.put("msg", msg);
+		map.put("path", path);		
+		map.put("result", result);			
+		
+		return map;
+		
+	}
 	
 	
 	//jstree

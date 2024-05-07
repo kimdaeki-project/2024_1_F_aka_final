@@ -73,10 +73,14 @@
                         <th>${titles.no3}</th>
                         <th>${titles.no6}</th>
                         <th>${titles.no4}</th>          
+   						
+   						<c:if test="${ check == 'done'  or check == 'recive' or check == 'aproved'}">
+		                       
+                         <th>${titles.no7}</th> <!-- 결재일  -->
+                        </c:if>
                         
                        <c:if test="${check == 'pro' or check == 'done'  or check == 'recive' or check == 'aproved'}">
 		                       
-                         <th>${titles.no7}</th> <!-- 결재일  -->
                          
                          <th>${titles.no5}</th> <!--  결재상태  -->
                       
@@ -87,45 +91,47 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                     	<!-- // list= edmsvo list  -->
-                    <c:forEach items="${list}" var="list">
+                    <c:forEach items="${edmsList}" var="list">
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i>${list.edms_No}</td>
-                        <td>${list.edms_Title}</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> ${list.EDMS_NO} </td>
+                        <td>${list.EDMS_TITLE}</td>
                         <td>
-                         	<a href="/edms/getDetail?edms_No=${list.edms_No}&check=${check}">${list.edms_Content}</a>
+                         	<a href="/edms/getDetail?edms_No=${list.EDMS_NO}&check=${check}">${list.EDMS_CONTENT}</a>
                         </td>
                           <td>
-                        	${list.edms_From_No}
+                        	${list.EDMS_FORM_NAME}
                         </td>   
                         <td>
-                        	${list.edms_Create_Date}
+                        	${list.EDMS_CREATE_DATE}
                         </td>   
-                          
+                           <c:if test="${ check == 'done'  or check == 'recive' or check == 'aproved'}">
+		                       
+		                         <td>${list.EDMS_APPROVAL_DATE}</td> <!-- 결재일  -->
+                        	</c:if>
                         	 <c:if test="${check == 'pro' or check == 'done'  or check == 'recive' or check == 'aproved'}">
 		                       
-		                         <td>${list.edms_Apploval_Date}</td> <!-- 결재일  -->
 		                         
 		                         <c:choose>                        	
-		                        		<c:when test="${list.edms_Status eq 0}">
+		                        		<c:when test="${list.EDMS_STATUS eq 0}">
 			                        		<td>
 			                          			<span class="badge bg-label-success">결재전</span>
 			                        		</td>
 			                        	</c:when>
 			                        	
-			                        	<c:when test="${list.edms_Status eq 1}">
+			                        	<c:when test="${list.EDMS_STATUS eq 1}">
 			                        		<td>
 			                          			<span class="badge bg-label-success">결재중</span>
 			                        		</td>
 			                        	</c:when>                       	
 			                  
 			                        	
-			                        	<c:when test="${list.edms_Status eq 3}">
+			                        	<c:when test="${list.EDMS_STATUS eq 3}">
 			                        		<td>
 			                          			<span class="badge bg-label-primary">승인</span>
 			                        		</td>
 			                        	</c:when>                        	
 			                        	
-			                        	<c:when test="${list.edms_Status eq 5}">
+			                        	<c:when test="${list.EDMS_STATUS eq 5}">
 			                        		<td>
 			                          			<span class="badge bg-label-secondary">반려</span>
 			                        		</td>

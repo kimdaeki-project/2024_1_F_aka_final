@@ -33,7 +33,7 @@ public class FileDownView extends AbstractView {
 			EdmsFileVO fileVO = (EdmsFileVO)model.get("fileVO");
 			
 			String uri = request.getRequestURI();
-			//폴더명 notice/
+			//폴더명 /
 			uri = uri.substring(1, uri.lastIndexOf("/")+1);
 			
 			File file = new File(base+uri, fileVO.getEdms_Attechfile_Name());

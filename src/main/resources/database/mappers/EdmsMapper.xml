@@ -68,12 +68,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getDetail" parameterType="EdmsVO" resultType="Map">
 		
-		SELECT  EDMS_NO	,EDMS_FORM_NO ,EDMS_CREATOR ,EDMS_TITLE	,EDMS_CONTENT ,EDMS_STATUS ,EDMS_APPROVAL_DATE	,EDMS_CREATE_DATE	,EDMS_EXP_DATE	,EDMS_USE	,EDMS_EXTRA_DATE1	,EDMS_EXTRA_DATE2	,EDMS_EXTRA_COINTENTS	,EDMS_EXTRA_NUMBER	,EDMS_CREATOR_POSITION	,MEMBER_ID	,EMAIL ,USER_ID ,USERNAME ,ROLE_ID, POSITION_ID ,DEPARTMENT_ID
-		 FROM EDMS  
+		SELECT * FROM EDMS  
 
 			LEFT JOIN `MEMBER` 
 			ON EDMS_CREATOR =  MEMBER_ID 
-		
+			LEFT JOIN EDMS_FORM
+			USING(EDMS_FORM_NO)
+			
 		WHERE EDMS_NO  = #{edms_No} 
 		
 	
@@ -163,11 +164,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 </sql> 
 		
 	<!-- 결재목록 가져오기 -->	
-		<select id="getEdmsList" parameterType="Map" resultType="EdmsVO">
+		<select id="getEdmsList" parameterType="Map" resultType="Map">
 		
 			SELECT * FROM EDMS 
 				LEFT JOIN MEMBER
-				ON MEMBER.MEMBER_ID = EDMS.EDMS_CREATOR				
+				ON MEMBER.MEMBER_ID = EDMS.EDMS_CREATOR
+				LEFT JOIN EDMS_FORM 
+				USING (EDMS_FORM_NO)
 			WHERE EDMS_CREATOR = #{MemberVO.member_id} AND (EDMS_STATUS = 1 OR EDMS_STATUS = 0)
 			
 			 <include refid="search">	
@@ -190,12 +193,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 결재완료 문서 가져오기  -->
 		
-	<select id="getEdmsDoneList" resultType="EdmsVO" parameterType="Map">
+	<select id="getEdmsDoneList" resultType="Map" parameterType="Map">
 	
 		SELECT * FROM EDMS 
 			LEFT JOIN MEMBER
 			ON MEMBER.MEMBER_ID = EDMS.EDMS_CREATOR 
-			
+			LEFT JOIN EDMS_FORM 
+			USING (EDMS_FORM_NO)
 		WHERE EDMS_CREATOR = #{MemberVO.member_id} AND (EDMS_STATUS = 5 OR EDMS_STATUS = 3)
 		
 		<include refid="search"></include>
@@ -213,12 +217,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 수신결재  -->
 	
 	
-	<select id="getReciveEdmsList" parameterType="Map" resultType="EdmsVO">
+	<select id="getReciveEdmsList" parameterType="Map" resultType="Map">
 		SELECT * FROM APRROVAL 
 			LEFT JOIN EDMS 
 			USING (EDMS_NO)
 			LEFT JOIN MEMBER
 			ON MEMBER.MEMBER_ID = EDMS_CREATOR
+			LEFT JOIN EDMS_FORM 
+			USING (EDMS_FORM_NO)
 		WHERE APRROVAL.MEMBER_ID = #{MemberVO.member_id}  AND APRROVAL_RESULT = 1 
 			
 			 <include refid="searchDone">	
@@ -238,6 +244,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				USING (EDMS_NO)
 				LEFT JOIN MEMBER
 				ON MEMBER.MEMBER_ID = EDMS_CREATOR
+				LEFT JOIN EDMS_FORM 
+				USING (EDMS_FORM_NO)
 			WHERE APRROVAL.MEMBER_ID = #{MemberVO.member_id}  AND APRROVAL_RESULT = 1
 
 			 <include refid="searchDone">
@@ -247,13 +255,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 결재내역  -->
 	
 	
-	<select id="getAprovedEdmsList" parameterType="Map" resultType="EdmsVO">
+	<select id="getAprovedEdmsList" parameterType="Map" resultType="Map">
 		SELECT * FROM APRROVAL 
 			LEFT JOIN EDMS
 			USING (EDMS_NO)
 			LEFT JOIN MEMBER
 			ON MEMBER.MEMBER_ID = EDMS_CREATOR
-		WHERE APRROVAL.MEMBER_ID = #{MemberVO.member_id} AND (EDMS_STATUS = 3 or EDMS_STATUS = 5)
+			LEFT JOIN EDMS_FORM 
+			USING (EDMS_FORM_NO)
+		WHERE APRROVAL.MEMBER_ID = #{MemberVO.member_id} AND (APRROVAL_RESULT = 3 or APRROVAL_RESULT = 5)
 			
 			 <include refid="searchDone">	
 				
@@ -268,9 +278,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="getAprovedEdmsTotalCount" resultType="Long" parameterType="Map">
 			
 			SELECT COUNT(EDMS_NO) FROM APRROVAL 
-				LEFT JOIN EDMS e 
+				LEFT JOIN EDMS 
 				USING (EDMS_NO)
-			WHERE APRROVAL.MEMBER_ID = #{MemberVO.member_id}  AND (EDMS_STATUS = 3 or EDMS_STATUS = 5)
+				LEFT JOIN MEMBER
+				ON MEMBER.MEMBER_ID = EDMS_CREATOR
+			WHERE APRROVAL.MEMBER_ID = #{MemberVO.member_id}  AND (APRROVAL_RESULT = 3 or APRROVAL_RESULT = 5)
 
 			 <include refid="searchDone">
 			</include>
@@ -330,9 +342,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 임시문서 삭제  -->
 
-	<delete id="delectTempEdms" parameterType="EdmsVO">
+	<delete id="deleteTempEdms" parameterType="EdmsVO">
 	
-		DELETE FROM TEMP_EDMS WHERE EDMS_NO = #{edmsNo}
+		DELETE FROM TEMP_EDMS WHERE EDMS_NO = #{edms_No}
 	
 	</delete>
 <!-- 임시문서 업데이트  -->
@@ -349,6 +361,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							,EDMS_EXTRA_COINTENTS = #{edms_Extra_Content}
 							,EDMS_EXTRA_NUMBER = #{edms_Extra_Number}
 							,EDMS_CREATOR_POSITION = #{edms_Creator_Position}
+							,EDMS_FORM_NO = #{edms_From_No}
 		WHERE EDMS_NO = #{edms_No}							
 									
 	
@@ -365,7 +378,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT MAX(EDMS_NO) FROM TEMP_EDMS
 		</selectKey>
 			INSERT INTO TEMP_EDMS (EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
-				VALUES(#{edms_From_No}, #{edms_Creator}, #{edms_Title}, #{edms_Content}, #{edms_Status}, #{edms_Create_Date}, #{edms_Creator_Position})
+				VALUES(#{edms_From_No}, #{edms_Creator}, #{edms_Title}, #{edms_Content}, #{edms_Status}, NOW(), #{edms_Creator_Position})
 	</insert>
 	
 	<insert id="createTempApproval" parameterType="java.util.List">
@@ -377,25 +390,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
 		
 	</insert>
+	
 	<insert id="createTempEdmsAttchFile" parameterType="List">
-			INSERT INTO TEMP_EDMS_ATTECHFILE (EDMS_NO, EDMS_ATTECHFILE_NAME	,EDMS_ATTECHFILE_ORI_NAME)
+			INSERT INTO TEMP_EDMS_ATTECHFILE (EDMS_NO, EDMS_ATTECHFILE_NAME,EDMS_ATTECHFILE_ORI_NAME)
 		<foreach collection="list" index="index" item="EdmsFileVO"  separator=",">
 				VALUES(#{EdmsFileVO.edms_No}, #{EdmsFileVO.edms_Attechfile_Name}, #{EdmsFileVO.edms_Attechfile_Ori_Name})
 		</foreach>
 	</insert>
-
+	
+	<select id="getTempApplineList" parameterType="EdmsVO" resultMap="aprovalResultMap">
+	
+			SELECT * FROM TEMP_APRROVAL
+				LEFT JOIN MEMBER
+				USING (MEMBER_ID)
+				LEFT JOIN POSITIONRANK
+				USING (POSITION_ID)
+				LEFT JOIN STAMP 
+				USING (MEMBER_ID)			
+			WHERE EDMS_NO = #{edms_No} ORDER BY APPROVAL_RANK DESC
+	</select>
 
 <!-- 임시문서 불러오기  -->
 
 
 	<select id="getTempDetail" parameterType="EdmsVO" resultType="Map">
 		
-		SELECT * FROM TEMP_EDMS te 
+		SELECT * FROM TEMP_EDMS  
 
-			LEFT JOIN `MEMBER` m 
-			ON te.EDMS_CREATOR =  m.MEMBER_ID 
-		
-		WHERE te.EDMS_NO  = #{edms_No}
+			LEFT JOIN `MEMBER` 
+			ON EDMS_CREATOR =  MEMBER_ID 
+			LEFT JOIN EDMS_FORM
+			USING(EDMS_FORM_NO)
+			
+		WHERE EDMS_NO  = #{edms_No} 
 		
 		
 	</select>
@@ -406,9 +433,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 임시결재목록 가져오기 --> 
 		
 		
-		<select id="getTempEdmsList" parameterType="Map" resultType="EdmsVO">
+		<select id="getTempEdmsList" parameterType="Map" resultType="Map">
 		
-			SELECT * FROM TEMP_EDMS WHERE EDMS_CREATOR = #{MemberVO.member_id}
+			SELECT * FROM TEMP_EDMS 
+				LEFT JOIN EDMS_FORM
+				USING(EDMS_FORM_NO)
+			WHERE EDMS_CREATOR = #{MemberVO.member_id}
 			
 			 <include refid="search">	
 				
@@ -427,7 +457,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</include>
 			
 		</select>
-			
+		
+		
 
 
 	

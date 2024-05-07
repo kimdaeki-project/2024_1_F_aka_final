@@ -13,6 +13,8 @@ const applyOn = document.getElementById('applyOn');
 const closeBtn = document.getElementById('closeBtn');
 const delBtn = document.getElementById('delBtn');//결제선에서 제거하는 버튼
 const tempApplyBtn = document.getElementById('tempApplyBtn');
+const deleteEdms = document.getElementById('deleteEdms');
+
 let today = document.getElementById('today');
 let appLine = document.getElementById('appLine');
 
@@ -20,8 +22,6 @@ let appLine = document.getElementById('appLine');
 
 
 
-
-today.valueAsDate = new Date();
 
 addLineBtn.addEventListener('shown.bs.modal',function(){		
     myInput.focus()				
@@ -99,6 +99,35 @@ tempApplyBtn.addEventListener('click',function(){
     applyFrom(2,"temp");
 
 })
+
+//삭제
+deleteEdms.addEventListener('click', function(){
+	
+	if(confirm('삭제하시겠습니까??')){
+	let formData = new FormData(formelem);
+	fetch('deleteTempEdms',{
+		
+		 method: "POST",						
+            body: formData				
+            }).then(response => response.json())
+            .then(data=>{
+                console.log(data.path)
+                if(data.result==1){
+                    alert(data.msg);
+                    window.location.href=data.path;
+                    
+                }else{
+                    
+                    alert("실패하였습니다.")
+                }
+                
+            })					
+		
+	}
+	})
+	
+	
+
 
 
 //폼 저장 함수(1=저장, 2=임시저장)

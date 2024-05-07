@@ -3,6 +3,7 @@ package com.aka.app.student;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,10 +23,10 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/student/*")
 public class StudentController {
-	@Autowired
-	private  MemberService memberService;
+	
 	@Autowired
 	private StudentService studentService;
+	
 	
 	
 	//학생 수정 페이지
@@ -74,8 +75,7 @@ public class StudentController {
 	@PostMapping("create")
 	public String createStudent(MemberVO memberVO,Model model) throws Exception {
 		String msg = "수강생 등록 실패";
-		memberVO.setDepartment_id(5L);
-		int result = memberService.add(memberVO);
+		int result = studentService.createStudent(memberVO);
 		if(result==1) {
 			msg = "수강생 등록 성공";
 		}

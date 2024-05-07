@@ -10,13 +10,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aka.app.calendar.CalendarVO;
 import com.aka.app.member.MemberVO;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/department/*")
 public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService; 
+	
+	
+	//부서별 캘린더
+	@ResponseBody
+	@GetMapping("calendar")
+	public List<CalendarVO> departmentCalendar(HttpSession session) throws Exception {
+		return departmentService.departmentCalendar(session);
+	}
 	
 	//부서소속 사원리스트
 	@GetMapping("member")

@@ -7,6 +7,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 	
+	
+	
+	
+	
+	
+	<!-- 총매출 -->
+ 	<select id="totalSales" resultMap="getTotalResult">
+ 	SELECT DATE_FORMAT
+ 	(
+ 	REQUESTED_AT
+ 	,'%Y-%m'
+ 	) 
+ 	AS month 
+    ,SUM(AMOUNT) 
+    AS totalSales
+    FROM PAYMENT
+    GROUP BY month;
+ 	</select>
+ 	<resultMap type="Map"  id="getTotalResult" >
+	<id column="month" property="month" javaType="String"/>
+	<result column="totalSales" property="totalSales" javaType="Long"/>
+	</resultMap>
+ 	
+ 	
+	
 	<!-- 결제 목록 찾기 -->
 	<sql id="search">
 	<where>
@@ -41,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<include refid="search"></include>
 	</select>
 	
-	<!-- 결제 목록 -->
+	<!--HR 결제 목록 -->
 	<select id="getPaymentList" parameterType="Pager">
 	SELECT * 
 	FROM PAYMENT
@@ -50,6 +75,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	LIMIT 
 	#{startIndex}
 	,#{perPage}
+	</select>
+	
+	<!-- 개인 결제 목록 -->
+	<select id="getMyPaymentList">
+	SELECT * 
+	FROM PAYMENT
+	WHERE MEMBER_ID=#{member_id}
 	</select>
 	
 	<!-- 결제 생성 -->

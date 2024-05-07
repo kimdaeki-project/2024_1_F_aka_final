@@ -2,51 +2,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
+<!-- 차트 Js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+
+
+
+
+
+			
+			<!-- Content -->
+			<!-- order 0 -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="row">
                 <div class="col-lg-8 mb-4 order-0">
                   <div class="card">
                     <div class="d-flex align-items-end row">
-                    
-                    
-                <!-- 공지사항 시작 -->
-	                      <div class="col-sm-13">
-                       			<div class="card">
-           						     <h5 class="card-header">공지사항</h5>
-               							 <div class="table-responsive text-nowrap">
-                							  <table class="table table-hover">
-                 							   <thead class="table-light">
-                 							     <tr>
-                 							       <th>공지사항 번호</th>
-                 							       <th>제목</th>
-                  							       <th>작성일</th>                      
-              						 	        </tr>
-                    							</thead>
-                  
-                  							  <tbody class="table-border-bottom-0">
-                     						  <c:forEach items="${list}" var="vo">
-                    
-                    						   <tr>
-                       							 <td class="w-25">${vo.board_num}</td>
-                       							 <td><i class="fab fa-angular fa-lg text-danger me-3"></i><a href="/board/detail?board_num=${vo.board_num}"><strong>${vo.board_head}</strong></a></td>
-                       							 <td class="w-25">${vo.board_date}</td>                       
-                     						   </tr>
-                      
-                   							  </c:forEach>
-                   							 </tbody>
-                 							 </table>
-              								  </div>
-            							 </div>
-                    			</div>
-            			<!-- 공지사항 끝 -->					  
-			 
+                      <div class="col-sm-13">
+                        <div class="card-body">
+                          <canvas id="myChart" width="300" height="124"></canvas>
+                          
+                        </div>
+                      </div>
+                      <div class="col-sm-5 text-center text-sm-left">
+                        <div class="card-body pb-0 px-0 px-md-4">
+                        
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <!-- 사진 시작 -->
+
+
+
+				<!-- order 1 -->
                 <div class="col-lg-4 col-md-4 order-1">
                   <div class="row">
-                    <div class="">
+                    <div class="mb-4">
                       <div class="card">
                         <div class="card-body">
                            <div  id="carouselExample-cf"  class="carousel carousel-dark slide carousel-fade"   data-bs-ride="carousel"  >
@@ -92,33 +84,56 @@
                         </div>
                       </div>
                     </div>
+                    
+                  </div>
+                </div>
+
+                
+               	<!-- order 2 -->
+                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                  <div class="card">
+                    <div class="row row-bordered g-0">
+                      <div class="col-md-13">
+                        <div class="card-body">
+                          <h5 class="card-header">공지사항</h5>
+							<div class="table-responsive text-nowrap">
+								<table class="table table-hover">
+									<thead class="table-light">
+										<tr>
+											<th>공지사항 번호</th>
+											<th>제목</th>
+											<th>작성일</th>
+										</tr>
+									</thead>
+									<tbody class="table-border-bottom-0">
+										<c:forEach items="${list}" var="vo">
+
+											<tr>
+												<td class="w-25">${vo.board_num}</td>
+												<td><i class="fab fa-angular fa-lg text-danger me-3"></i><a
+													href="/board/detail?board_num=${vo.board_num}"><strong>${vo.board_head}</strong></a></td>
+												<td class="w-25">${vo.board_date}</td>
+											</tr>
+
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
                 
-
-				<!-- 사진 끝 -->
-                
-                
-             <!-- Calender --> 
-            	<div class="col-12 col-lg-8 order-3 order-md-3 order-lg-2 mb-2">
-                  <div class="card">
-                    <div class="row row-bordered g-0">
-                      <div class="col-md-10">          
-            			 <div class="card-header m-0 me-2 pb-3" id='calendar'></div>
-             
-          	        </div>  
-             	  </div>
-                </div>
-              </div>
-             <!-- Calender End-->
-                  
-                  <div class="col-lg-4 col-md-4 order-4">
+                <!-- order 3 -->
+                <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
                   <div class="row">
-                    <div class="">
+                    <div class="mb-4">
                       <div class="card">
-                        <div class="card-body">
-                           	<!-- Accordion -->
+                         <div class="card-body">
+               
               <h2 class="mt-4">프로젝트 소개</h2>
               <div class="row">
                 <div class="col-md mb-4 mb-md-0">
@@ -190,7 +205,7 @@
                      	   </div>
                      	   
                      	   <div>
-                      		    4.메인페이지(기상청api데이터 출력)
+                      		    4.메인페이지(날씨 출력,월매출 출력)
                      	   </div>
                       </div>
                       </div>
@@ -256,14 +271,85 @@
                   </div>
                 </div>
               </div>
-              <!--/ Accordion -->
+    
+                        
+                        </div>
+                      </div>
+                    </div>
+                   </div>
+                  </div>
+                  
+                  
+                  <!-- order 4 -->
+                <div class="col-12 col-lg-8 order-4 order-md-3 order-lg-2 mb-4">
+                  <div class="card">
+                    <div class="row row-bordered g-0">
+                      <div class="col-md-13">
+                        <div class="card-body">
+                          <div class="card-header m-0 me-2 pb-3" id='calendar'></div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                
+				<!-- order 5 -->
+                <!-- <div class="col-12 col-md-8 col-lg-4 order-5 order-md-2">
+                  <div class="row">
+                    <div class="col-6 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                         order 5
+                        </div>
+                      </div>
+                    </div>
+                   </div>
+                  </div> -->
                   
-                </div>
-              </div>
+                  
+                  
+                  
+                  
+                  
+               </div>
+             </div>
               
+              
+            <!-- / Content -->
+
+                  
+                
+              
+              <script>
+              let myCt = document.getElementById('myChart');
+              let arrlabels = [];
+              let arrdata = [];
+              fetch("/payment/total",{
+          		method: "GET",
+          		headers: {
+          			"Content-Type": "application/json"
+          		}
+          		})
+          		.then(res => res.json())
+          		.then(dataArray => {
+          			dataArray.forEach((data) =>{
+                  arrlabels.push(data.month);
+          				arrdata.push(data.totalSales);
+          			})
+                let myChart = new Chart(myCt, {
+                  type: 'line',
+                  data: {
+                    labels: arrlabels,
+                    datasets: [
+                      {
+                        label: '월 매출',
+                        data: arrdata
+                      }
+                    ]
+                  },
+                });
+              });
+             
+              
+              </script>
             

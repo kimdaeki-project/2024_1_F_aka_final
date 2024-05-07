@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	let arr = [];
 	//let target = document.getElementById('target_object');
     
-    fetch('/calendar/getSchedule',{
+    fetch('/calendar/prDetail',{
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json"
@@ -83,12 +83,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.then(res => res.json())
 		.then(dataArray => {
-			dataArray.forEach(data =>{
+			/* db에서 가져온 일정들 dataObj객체에 담아서 arr 리스트에 push */
+			dataArray.forEach(data => {
 				const dataObj = {
 					title : data.title,
 					start : data.start_date,
 					end : data.end_date,
-					url:'https://naver.com'	/* url 설정 Detail page*/
+					/*color:'#FF6600',*/
+					url:'https://localhost/calendar/'+data.calendar_id	/* url 설정 Detail page*/
 					
 				}
 				arr.push(dataObj);
@@ -102,49 +104,25 @@ document.addEventListener('DOMContentLoaded', function() {
 		      selectable: true,
 		      businessHours: true,
 		      dayMaxEvents: true, // allow "more" link when too many events
-		      customButtons: {	// 버튼추가로 생성
-		      	allButton: {
-					text:'전체',
-					click: function(){
-					alert('all');
-				  }
-				},
-			    departmentButton: {
-			      	text: '부서',
-			      	click: function() {
-			        alert('department');
-			      }
-			    },
-			    personalButton:{
-					text:'개인',
-					click:function(){
-					alert('personal');
-				  }
-				}
-			  },
-			  headerToolbar: {
-			    left: 'prev,next today',
-			    center: 'title',
-			    right: 'allButton,departmentButton,personalButton'
-			  },
 		      eventSources:[
-			     {
-				    googleCalendarId: '5b75938aada2d3092b44447721c74a5887f74bffb5a36367bf9ac6f23209eba3@group.calendar.google.com'
-				 },
-				 {
+				  {
 					 googleCalendarId:'ko.south_korea#holiday@group.v.calendar.google.com',
 					 color:'#FF9900'
-				 }
-			  ],
-		      events:arr
+				 },
+				 arr
+				 
+			  ]
+		      /*events:arr*/
+	
 		    
     		});
     		calendar.render();
 		})
+
   });
 
-  
-  
+
+			
   
   
   

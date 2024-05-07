@@ -24,7 +24,7 @@
     	  #calendar {
 		   max-width: 1250px;
 		   max-height: 850px;
-		   margin: 0 auto;
+		   margin: 0px auto;
 		 }
     </style>
 	<c:import url="../temp/head.jsp"></c:import>
@@ -34,8 +34,8 @@
   		<c:import url="../temp/side.jsp"></c:import>
   	
   	
-  	
     	<div id='calendar'>
+
     		<span class="d-flex justify-content-end">
    				<button class="mt-3 btn btn-danger" data-bs-toggle="modal" data-bs-target="#addSchedule" style="width:120px;">일정추가</button>
    			</span>
@@ -105,7 +105,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script type="text/javascript" src="../js/member/calendar.js"></script>
+    <script type="text/javascript" src="../js/member/drCalendar.js"></script>
     
     <script src='https://fastly.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.11/index.global.min.js'></script>
   </body>

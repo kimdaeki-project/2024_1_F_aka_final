@@ -23,7 +23,7 @@
     <style>
     	  #calendar {
 		   max-width: 1250px;
-		   max-height: 850px;
+		   max-height: 800px;
 		   margin: 0px auto;
 		 }
     </style>
@@ -72,7 +72,7 @@
 				  <option value="2">부서일정</option>
 				</select>
 				<!-- <input type="date" name="update_date" id="update_date" hidden/> -->
-				<input type="text" name="member_id" id="member_id" value="${member.member_id}">
+				<input type="text" name="member_id" id="member_id" value="${member.member_id}" hidden>
 		      </div>
 		      
 		      <div class="modal-footer">

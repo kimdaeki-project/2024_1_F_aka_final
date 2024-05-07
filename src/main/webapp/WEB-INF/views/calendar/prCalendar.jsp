@@ -8,39 +8,40 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="../assets/"
+  data-assets-path="/assets/"
   data-template="vertical-menu-template-free"
 >
-  <head>
-  	
-    <meta charset='utf-8' />
+<head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
     <title>Calendar</title>
-    
-    <script>
-
-
-    </script>
     <style>
     	  #calendar {
 		   max-width: 1250px;
-		   max-height: 850px;
-		   margin: 0 auto;
+		   max-height: 800px;
+		   margin: 0px auto;
 		 }
     </style>
-	<c:import url="../temp/head.jsp"></c:import>
-	</head>
-	<body>
-  		<c:import url="../temp/nav.jsp"></c:import>
-  		<c:import url="../temp/side.jsp"></c:import>
-  	
-  	
-  	
-    	<div id='calendar'>
-    		<span class="d-flex justify-content-end">
-   				<button class="mt-3 btn btn-danger" data-bs-toggle="modal" data-bs-target="#addSchedule" style="width:120px;">일정추가</button>
-   			</span>
-    	</div>	
     
+    <meta name="description" content="" />
+    <script src="/assets/vendor/js/helpers.js"></script>
+    <script src="/assets/js/config.js"></script>
+   <!--link import  -->
+    <c:import url="../temp/head.jsp"></c:import>
+</head>
+	<body>
+		<c:import url="../temp/side.jsp"></c:import>
+       	<c:import url="../temp/nav.jsp"></c:import>
+        
+		<div id='calendar'>
+	   		<span class="d-flex justify-content-end">
+				<button class="mt-3 btn btn-danger" data-bs-toggle="modal" data-bs-target="#addSchedule" style="width:120px;">일정추가</button>
+			</span>
+	   	</div>		
+
 		<!-- Modal -->
 		<div class="modal fade" id="addSchedule" tabindex="-1" aria-labelledby="addScheduleLabel" aria-hidden="true">
 		  <div class="modal-dialog">
@@ -72,7 +73,7 @@
 				  <option value="2">부서일정</option>
 				</select>
 				<!-- <input type="date" name="update_date" id="update_date" hidden/> -->
-				<input type="text" name="member_id" id="member_id" value="${member.member_id}">
+				<input type="text" name="member_id" id="member_id" value="${member.member_id}" hidden>
 		      </div>
 		      
 		      <div class="modal-footer">

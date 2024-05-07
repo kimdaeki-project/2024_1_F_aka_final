@@ -37,7 +37,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<id column="ROLE_ID" property="role_id"/>
 			<result column="NAME" property="name"/>
 		</association>
+
 		<association property="departmentVO" javaType="DepartmentVO">
+			<id column="DEPARTMENT_ID" property="department_id"/>
 			<result column="DEPARTMENT_SUPER_ID" property="department_super_id"/>
 			<result column="DEPARTMENT_NAME" property="department_name"/>
 			<result column="SORTORDER" property="sortorder"/>
@@ -60,16 +62,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			PROFIL, PROFIL_ORI, POSITION_ID,DEPARTMENT_ID)
 		VALUES(
 		#{member_id}, #{email}, NOW(), NOW(),#{phone}, #{address}, #{detail_address}, 
-		#{postCode}, #{user_id}, #{password}, #{username}, 4, #{customer_key}
+		#{postCode}, #{user_id}, #{password}, #{username}, #{role_id}, #{customer_key}
 		,null,null,#{position_id},#{department_id})
 	</insert>
 	
 	<!-- 출석 -->
 	<insert id="createCheck" parameterType="scheduleVO">
 		INSERT INTO SCHEDULE 
-		(MEMBER_ID,SCHEDULE_ID,START_DATE,DATE) 
-		VALUES (#{member_id},#{schedule_id},NOW(),NOW())
+		(MEMBER_ID,START_DATE,DATE) 
+		VALUES (#{member_id},NOW(),NOW())
 	</insert>
+	<!-- 퇴근 -->
+	<update id="updateEndDate" parameterType="memberVO">
+		UPDATE SCHEDULE SET END_DATE = NOW() 
+		WHERE 
+			MEMBER_ID = #{member_id}  
+		AND
+			DATE = (SELECT DATE_FORMAT(NOW(),'%Y-%m-%d'))
+	</update>
+	
+	<select id="getSchedule" parameterType="MemberVO" resultType="ScheduleVO">
+		SELECT * FROM SCHEDULE
+		WHERE 
+			DATE = DATE_FORMAT(NOW(), '%Y-%m-%d')
+		AND 
+			MEMBER_ID = #{member_id}
+	</select>
 	
 	<!-- password 찾기했을때 -->
 	<update id="updatePw" parameterType="MemberVO">
@@ -89,4 +107,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MEMBER_ID = #{member_id}
 		AND USER_ID = #{user_id}
 	</update>
+
 </mapper>

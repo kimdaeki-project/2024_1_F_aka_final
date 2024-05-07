@@ -25,28 +25,61 @@ public class CalendarController {
 	@Autowired
 	private CalendarService calendarService;
 	
-	   @GetMapping("")
+	   @GetMapping("pr")
+	   public String prCalendar(HttpSession session, Model model) throws Exception{
+		   Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+		   SecurityContextImpl securityContextImpl = (SecurityContextImpl)obj;
+		   MemberVO memberVO = (MemberVO)securityContextImpl.getAuthentication().getPrincipal();
+		   
+		   List<MemberVO> memberVOs = calendarService.getPersonal(memberVO);
+		   log.info("start : {}",securityContextImpl.getAuthentication().getPrincipal().toString());
+		   
+		   model.addAttribute("memberList",memberVOs);
+		   model.addAttribute("member",memberVO);
+		   return "calendar/prCalendar";
+	   }
+	   
+	  
+	  @GetMapping("/prDetail")
+	  @ResponseBody 
+	  public List<CalendarVO> getPersonal(HttpSession session)throws Exception{
+		  Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+		  SecurityContextImpl securityContextImpl = (SecurityContextImpl)obj;
+		  MemberVO memberVO = (MemberVO)securityContextImpl.getAuthentication().getPrincipal();
+		  log.info("controller member : {}",memberVO);
+		  List<MemberVO> memberVOs = calendarService.getPersonal(memberVO);
+		  log.info("calendarVOs : {}",memberVOs.get(0).getCalendarVOs());
+		  List<CalendarVO> calendarVOs = memberVOs.get(0).getCalendarVOs();
+		  return calendarVOs;
+	  }
+	  
+	   @GetMapping("dr")
 	   public String drCalendar(HttpSession session, Model model) throws Exception{
 		   Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
 		   SecurityContextImpl securityContextImpl = (SecurityContextImpl)obj;
 		   MemberVO memberVO = (MemberVO)securityContextImpl.getAuthentication().getPrincipal();
 		   
-		   List<CalendarVO> calendarVOs = calendarService.getCalendar(memberVO);
-		   log.info(securityContextImpl.getAuthentication().getPrincipal().toString());
+		   List<MemberVO> memberVOs = calendarService.getPersonal(memberVO);
+		   log.info("start : {}",securityContextImpl.getAuthentication().getPrincipal().toString());
 		   
-		   model.addAttribute("calendarList",calendarVOs);
+		   model.addAttribute("memberList",memberVOs);
 		   model.addAttribute("member",memberVO);
-		   return "calendar/calendar";
+		   return "calendar/drCalendar";
 	   }
-	
 	  
-	  @GetMapping("/getSchedule")
+	  @GetMapping("/drDetail")
 	  @ResponseBody 
-	  public List<CalendarVO> getCalendar(MemberVO memberVO)throws Exception{
-		  log.info(memberVO.toString());
-		  List<CalendarVO> calendarVOs = calendarService.getCalendar(memberVO);
+	  public List<CalendarVO> getDepartment(HttpSession session)throws Exception{
+		  Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+		  SecurityContextImpl securityContextImpl = (SecurityContextImpl)obj;
+		  MemberVO memberVO = (MemberVO)securityContextImpl.getAuthentication().getPrincipal();
+		  log.info("controller member : {}",memberVO);
+		  List<MemberVO> memberVOs = calendarService.getDepartment(memberVO);
+		  log.info("calendarVOs : {}",memberVOs.get(0).getCalendarVOs());
+		  List<CalendarVO> calendarVOs = memberVOs.get(0).getCalendarVOs();
 		  return calendarVOs;
 	  }
+
 	
 	  @PostMapping("/create")
 	  @ResponseBody

@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import com.aka.app.calendar.CalendarVO;
 import com.aka.app.department.DepartmentVO;
 import com.aka.app.member.groups.MemberUpdateGroup;
 
@@ -52,6 +53,8 @@ public class MemberVO implements UserDetails, OAuth2User{
 	
 	private RoleVO roleVO;
 	private DepartmentVO departmentVO;
+	
+	private List<CalendarVO> calendarVOs;
 	
 	// security
 	@Override

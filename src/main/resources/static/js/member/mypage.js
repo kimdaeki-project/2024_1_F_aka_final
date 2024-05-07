@@ -5,13 +5,6 @@ let checkout = document.getElementById('checkout');
 
 let updateMypage = document.getElementById('updateMypage');
 
-/* 출퇴버튼 이벤트 */
-check.addEventListener("click",()=>{
-	if(confirm("출근하시겠씁니까?")){
-		check.classList.add('visually-hidden');
-		checkout.classList.remove('visually-hidden');		
-	}
-});
 
 let phone = document.getElementById("phone");
 let email = document.getElementById("email");

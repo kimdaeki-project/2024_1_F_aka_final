@@ -50,15 +50,32 @@
 				<!-- 출근/퇴근 시간 -->
 			</div>
 			<div class="d-flex justify-content-center pb-3">
-				<span>출근 : 시간<br>퇴근 : 시간</span>
+				<span>
+					<c:if test="${schedule.start_date ne null}">
+						출근 : ${schedule.start_date}<br>
+					</c:if>
+					<c:if test="${schedule.end_date ne null}">
+						퇴근 : ${schedule.end_date} 
+					</c:if>
+					
+					<%-- <br><fmt:parseDate value="${schedule.end_date}" pattern="HH:mm:ss"></fmt:parseDate> --%>
+				</span>
 			</div>
 			<div class="d-flex justify-content-center pb-3">
 				<!-- 숨기기 class="visually-hidden" -->
 				<form action="/member/mypage/schedule" method="POST">
-					<input type="text" id="schedule_id" name="schedule_id" value=${member.member_id} hidden>
-					<input type="text" id="member_id" name="member_id" value=${member.member_id} hidden>		
-					<button id="check" class="btn btn-primary">출근</button>
-					<button id="checkout" class="btn btn-danger visually-hidden">퇴근</button>
+					<input type="text" id="schedule_id" name="schedule_id" value="${schedule.schedule_id}" hidden>
+					<input type="text" id="member_id" name="member_id" value="${member.member_id}" hidden>
+					<c:if test="${schedule.start_date eq null}">	
+						<button id="check" class="btn btn-primary">출근</button>
+					</c:if>
+				</form>
+				<form action="/member/mypage/scheduleout" method="POST">
+					<input type="text" id="schedule_id" name="schedule_id" value="${schedule.schedule_id}" hidden>
+					<input type="text" id="member_id" name="member_id" value="${member.member_id}" hidden>
+					<c:if test="${schedule.end_date eq null and schedule.start_date ne null}">
+						<button id="checkout" class="btn btn-danger" >퇴근</button>
+					</c:if>
 				</form>
 			</div>
 		</div>

@@ -56,6 +56,14 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		return memberDAO.createCheck(scheduleVO);
 	}
 	
+	public int updateEndDate(MemberVO memberVO)throws Exception{
+		return memberDAO.updateEndDate(memberVO);
+	}
+	
+	public ScheduleVO getSchedule(MemberVO memberVO) throws Exception{
+		return memberDAO.getSchedule(memberVO);
+	}
+	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		log.info("userRequest === {}",userRequest);

@@ -72,6 +72,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(MEMBER_ID,START_DATE,DATE) 
 		VALUES (#{member_id},NOW(),NOW())
 	</insert>
+	<!-- 퇴근 -->
+	<update id="updateEndDate" parameterType="memberVO">
+		UPDATE SCHEDULE SET END_DATE = NOW() 
+		WHERE 
+			MEMBER_ID = #{member_id}  
+		AND
+			DATE = (SELECT DATE_FORMAT(NOW(),'%Y-%m-%d'))
+	</update>
+	
+	<select id="getSchedule" parameterType="MemberVO" resultType="ScheduleVO">
+		SELECT * FROM SCHEDULE
+		WHERE 
+			DATE = DATE_FORMAT(NOW(), '%Y-%m-%d')
+		AND 
+			MEMBER_ID = #{member_id}
+	</select>
 	
 	<!-- password 찾기했을때 -->
 	<update id="updatePw" parameterType="MemberVO">

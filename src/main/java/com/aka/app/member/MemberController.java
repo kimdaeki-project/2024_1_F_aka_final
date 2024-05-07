@@ -79,9 +79,11 @@ public class MemberController {
 		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl)obj;
 		log.info("SecurityContextImpl === {}",securityContextImpl.getAuthentication().getPrincipal());
-		
-		
+		MemberVO memberVO = (MemberVO)securityContextImpl.getAuthentication().getPrincipal();
+		ScheduleVO scheduleVO = memberService.getSchedule(memberVO);
+		log.info("mypage scheduleVO : {}", scheduleVO);
 		model.addAttribute("member", securityContextImpl.getAuthentication().getPrincipal());
+		model.addAttribute("schedule", scheduleVO);
 		return "member/mypage";
 	}
 	
@@ -127,9 +129,27 @@ public class MemberController {
 		String path="";
 		
 		if(result > 0) {
-			msg = "출근하셨습니다.";
+			msg = "출근.";
 			path = "/member/mypage";
 		}
+		model.addAttribute("msg",msg);
+		model.addAttribute("path",path);
+		
+		return "commons/result";
+	}
+	
+	@PostMapping("/mypage/scheduleout")
+	public String updateEndDate(Model model, MemberVO memberVO) throws Exception{
+		int result = memberService.updateEndDate(memberVO);
+		
+		String msg = "";
+		String path = "";
+		
+		if(result > 0) {
+			msg = "퇴근";
+			path="/member/mypage";
+		}
+		
 		model.addAttribute("msg",msg);
 		model.addAttribute("path",path);
 		

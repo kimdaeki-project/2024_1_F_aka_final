@@ -16,6 +16,11 @@ public interface MemberDAO {
 	public int updateMyinfo(MemberVO memberVO) throws Exception;
 	// 비밀번호찾기 (아이디가 있는지)
 	public int getFindUser(MemberVO memberVO)throws Exception;
-	// 근태기록
+	// 출근
 	public int createCheck(ScheduleVO scheduleVO)throws Exception;
+	// 퇴근
+	public int updateEndDate(MemberVO memberVO) throws Exception;
+	
+	//기록
+	public ScheduleVO getSchedule(MemberVO memberVO)throws Exception;
 }

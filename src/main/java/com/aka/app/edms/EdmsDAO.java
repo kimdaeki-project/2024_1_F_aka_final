@@ -33,6 +33,8 @@ public interface EdmsDAO {
 	public int updateAproval(AprovalVO aprovalVO) throws Exception;
 	//문서의 상태를 변경
 	public int updateEdms(EdmsVO edmsVO) throws Exception;
+	
+	public int updateEdmsFinal(EdmsVO edmsVO) throws Exception;
 	//다음결재자 상태 변경
 	public int updateNextAproval(AprovalVO aprovalVO) throws Exception;
 	//파일 불러오기

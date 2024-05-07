@@ -176,7 +176,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 <include refid="search">	
 				
 			</include> 
-			ORDER BY EDMS_NO DESC
+			ORDER BY EDMS.EDMS_NO DESC
 			LIMIT #{Pager.startIndex},#{Pager.perPage}
 			
 		</select>
@@ -204,7 +204,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<include refid="search"></include>
 		
-		ORDER BY EDMS_NO DESC
+		ORDER BY EDMS.EDMS_NO DESC
 		LIMIT #{Pager.startIndex},#{Pager.perPage}
 	</select>
 	
@@ -230,7 +230,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 <include refid="searchDone">	
 				
 			</include> 
-			ORDER BY EDMS_NO DESC
+			ORDER BY EDMS.EDMS_NO DESC
 			LIMIT #{Pager.startIndex},#{Pager.perPage} 
 			
 		</select>
@@ -268,7 +268,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 <include refid="searchDone">	
 				
 			</include> 
-			ORDER BY EDMS_NO DESC
+			ORDER BY EDMS.EDMS_NO DESC
 			LIMIT #{Pager.startIndex},#{Pager.perPage}
 			
 		</select>
@@ -329,8 +329,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE EDMS_NO = #{edms_No}
 	</update>
 	<update id="updateEdmsFinal" parameterType="EdmsVO">
-		UPDATE EDMS SET EDMS_STATUS = #{edms_Status} 
-						EDMS_APPROVAL_DATE = #{edms_Apploval_Date}
+		UPDATE EDMS SET EDMS_STATUS = #{edms_Status}, 
+						EDMS_APPROVAL_DATE =  NOW()
 		WHERE EDMS_NO = #{edms_No}
 	</update>
 

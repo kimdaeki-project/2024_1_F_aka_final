@@ -35,7 +35,15 @@
 	 <div class="col-6 text-center align-self-center" id="formTitle">
 		<c:choose>
 			<c:when test="${checkType=='create' and dtype!=4}">
-				<h1>기안서</h1>
+			<div>
+				<h1>
+					<select id="formType" name="edms_From_No" class="form-select color-dropdown" style="height: auto;" onchange="formChange()">
+			                        <option value="1" selected >기안서</option>
+			                        <option value="2">품의서</option>                     
+                      </select>
+                 </h1>
+			</div>
+						
 			</c:when>
 			<c:when test="${checkType =='get'}">
 				<h1>${edms.EDMS_FORM_NAME}</h1>
@@ -69,6 +77,12 @@
 							<div class="applineW" style="position: relative;">						
 								<span style="position: absolute;" >${list.USERNAME}</span>														
 								<img src="${list.stampVO.stamp_Img}" style="z-index: 1; height: 130%; width: 120%">								
+							</div>						
+						</c:when>
+						<c:when test="${list.APRROVAL_RESULT==5}">							
+							<div class="applineW" style="position: relative;">						
+								<span style="position: absolute;" >${list.USERNAME}</span>														
+								<img src="/img/reject.png" style="z-index: 1; height: 130%; width: 120%">								
 							</div>						
 						</c:when>
 						<c:otherwise>
@@ -109,14 +123,11 @@
     <c:if test="${checkType=='create' and dtype!=4}">
 	<tbody>
 		<tr>
-			<td class="userTdG">				
-				  문서종류
+			<td class="userTdG" >				
+				문서종류
 			</td>
-			<td class="userTdW">				
-				<select id="formType" name="edms_From_No" class="form-select color-dropdown" style="height: auto;" onchange="formChange()">
-                        <option value="1" selected >기안서</option>
-                        <option value="2">품의서</option>                     
-                      </select>
+			<td class="userTdW" id="munser">				
+				기안서
 			</td>
 			<td class="userTdG">				
  				기&nbsp;안&nbsp;일
@@ -559,7 +570,35 @@
 	<div style="float: right;">
 	<button type="button" class="btn btn-success" id="applyBtn">제출</button>
 	<button type="button" class="btn btn-warning" id="tempApplyBtn">임시저장</button>
+	<c:if test="${dtype==4}">
 	<button type="button" class="btn btn-danger" id="deleteEdms">삭제</button>
+	<script type="text/javascript">
+	//삭제
+	deleteEdms.addEventListener('click', function(){
+		
+		if(confirm('삭제하시겠습니까??')){
+		let formData = new FormData(formelem);
+		fetch('deleteTempEdms',{
+			
+			 method: "POST",						
+	            body: formData				
+	            }).then(response => response.json())
+	            .then(data=>{
+	                console.log(data.path)
+	                if(data.result==1){
+	                    alert(data.msg);
+	                    window.location.href=data.path;
+	                    
+	                }else{
+	                    
+	                    alert("실패하였습니다.")
+	                }
+	                
+	            })					
+			
+		}
+		})</script>
+	</c:if>
 	</div>
 </c:if>
 

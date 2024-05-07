@@ -2,15 +2,13 @@ package com.aka.app.edms;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Map;
+
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 
-@Setter
-@Getter
+
+
 @Data
 public class EdmsVO {
 

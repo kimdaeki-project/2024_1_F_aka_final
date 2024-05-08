@@ -71,7 +71,7 @@
 
 
 
-					<!-- Modal -->
+		<!-- Modal -->
 		<div class="modal fade" id="addSchedule" tabindex="-1" aria-labelledby="addScheduleLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">

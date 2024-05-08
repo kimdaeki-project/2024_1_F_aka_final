@@ -217,7 +217,7 @@
             <li class="menu-item">
               <a href="/board/list" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Tables">게시판</div>
+                <div data-i18n="Tables">공지사항</div>
               </a>
             </li>  
             </sec:authorize>

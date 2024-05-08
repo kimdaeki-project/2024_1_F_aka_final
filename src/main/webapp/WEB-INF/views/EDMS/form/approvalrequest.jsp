@@ -9,7 +9,7 @@
        <col width="60"> 
        <col width="140"> 
       </colgroup> 
-    <c:if test="${checkType=='create'}">
+  
 	<tbody>
 		<tr>
 			<td class="userTdG">				
@@ -28,4 +28,4 @@
 		
 		
 	</tbody>
-   </c:if>
+ 

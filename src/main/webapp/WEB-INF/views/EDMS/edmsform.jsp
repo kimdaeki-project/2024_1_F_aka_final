@@ -295,6 +295,14 @@
 <div id="formImport">
 </div>
  
+<c:if test="${checkType=='get'}">
+ <c:if test="${ edms.EDMS_FORM_NO==2}">
+ 	
+ 	<c:import url="form/approvalrequest.jsp"></c:import>
+ 	
+ </c:if>
+</c:if> 
+ 
 <table class="contentsTable" >
 	<colgroup> 
    <col width="116"> 

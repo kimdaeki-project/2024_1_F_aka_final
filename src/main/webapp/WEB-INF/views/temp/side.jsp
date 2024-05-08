@@ -174,7 +174,10 @@
                 <div data-i18n="Tables">부서 일정</div>
               </a>
             </li>
+            </sec:authorize>
       
+      		
+      		<sec:authorize access="hasRole('HR')">
              <!--수업 관리 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">수업 관리</span></li>
 
@@ -192,8 +195,8 @@
                 <div data-i18n="Tables">비품 관리</div>
               </a>
             </li>        
-            </sec:authorize>
             
+            </sec:authorize>
              <!-- 상품 -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">상품</span></li>
 

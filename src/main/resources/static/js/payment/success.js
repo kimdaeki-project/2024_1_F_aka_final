@@ -31,7 +31,7 @@
       const orderIdElement = document.getElementById("orderId");
       const amountElement = document.getElementById("amount");
       alert("결제 성공 !!!");
-      location.href = "/product/list";
+      location.href = "/payment/mylist";
       orderIdElement.textContent = "주문번호: " + orderId;
       amountElement.textContent = "결제 금액: " + amount;
       paymentKeyElement.textContent = "paymentKey: " + paymentKey;

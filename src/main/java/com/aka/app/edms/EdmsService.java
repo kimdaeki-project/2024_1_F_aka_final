@@ -226,6 +226,7 @@ public class EdmsService {
 					
 				}
 				
+
 				result = edmsDAO.createEdmsAttchFile(fileTansfer);					
 				
 				result = edmsDAO.deleteTempEdms(edmsVO);				

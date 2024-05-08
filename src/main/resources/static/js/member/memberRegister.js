@@ -29,7 +29,7 @@ userid.addEventListener("focusout", ()=>{
 	let userIdReg = /^(?![0-9])(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,12}$/;
 	
 	if(!userIdReg.test(userid.value)){
-		errId.innerHTML	= `<span style="color: red;">숫자와 영어를 섞어사용해주세요</span>`;
+		errId.innerHTML	= `<span style="color: red;">숫자와 영어를 혼용해주세요</span>`;
 	}
 });
 

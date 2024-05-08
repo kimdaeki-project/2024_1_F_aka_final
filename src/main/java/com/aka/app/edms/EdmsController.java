@@ -147,7 +147,7 @@ public class EdmsController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		 
 		
-		// 기안서 내용을 저장.		
+		// 기안서 내용을 저장.			
 		int result = edmsService.createEdms(edmsVO, appAr, type, file);
 		
 		String msg = "결재가 정상적으로 전송되었습니다.";

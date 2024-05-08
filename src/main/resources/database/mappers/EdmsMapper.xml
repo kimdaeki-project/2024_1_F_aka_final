@@ -352,7 +352,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateTempEdms" parameterType="EdmsVO">
 	
 		
-		UPDATE TEMP_EDMS SET EDMS_FORM_NO = #{edms_FromNo}							
+		UPDATE TEMP_EDMS SET EDMS_FORM_NO = #{edms_From_No}							
 							,EDMS_TITLE = #{edms_Title}
 							,EDMS_CONTENT = #{edms_Content}											
 							,EDMS_CREATE_DATE = NOW()							
@@ -375,7 +375,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createTempEdms" parameterType="EdmsVO">
 		<selectKey keyProperty="edms_No" resultType="Long" order="BEFORE"> 
 		<!-- EDMS_NO 동시사용  -->
-			SELECT MAX(EDMS_NO) FROM TEMP_EDMS
+			SELECT MAX(EDMS_NO)+1 FROM TEMP_EDMS
 		</selectKey>
 			INSERT INTO TEMP_EDMS (EDMS_FORM_NO, EDMS_CREATOR, EDMS_TITLE, EDMS_CONTENT, EDMS_STATUS, EDMS_CREATE_DATE, EDMS_CREATOR_POSITION)
 				VALUES(#{edms_From_No}, #{edms_Creator}, #{edms_Title}, #{edms_Content}, #{edms_Status}, NOW(), #{edms_Creator_Position})

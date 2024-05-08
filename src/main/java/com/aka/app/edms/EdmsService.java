@@ -226,7 +226,8 @@ public class EdmsService {
 					
 				}
 				
-				result = edmsDAO.createTempEdmsAttchFile(fileTansfer);					
+
+				result = edmsDAO.createEdmsAttchFile(fileTansfer);					
 				
 				result = edmsDAO.deleteTempEdms(edmsVO);				
 			}
@@ -241,7 +242,7 @@ public class EdmsService {
 			if(status==4) {							
 				result = edmsDAO.updateTempEdms(edmsVO);
 				
-		
+				return result;
 			}else {
 				edmsVO.setEdms_Status(4L);
 				result = edmsDAO.createTempEdms(edmsVO);
@@ -332,7 +333,7 @@ public class EdmsService {
 			aprovalVO.setAPRROVAL_RESULT(5L);
 			edmsVO.setEdms_Status(5L);
 			edmsDAO.updateAproval(aprovalVO);
-			result = edmsDAO.updateEdms(edmsVO);
+			result = edmsDAO.updateEdmsFinal(edmsVO);
 			return 5;
 			
 		}

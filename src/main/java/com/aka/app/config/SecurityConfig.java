@@ -125,7 +125,7 @@ public class SecurityConfig {
 
 	@Bean
 	public AccessDeniedHandler accessDeniedHandler() {
-		log.warn("accessDeniedHandler");
+		log.info("accessDeniedHandler");
 		return (request, response, e) -> {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			request.setAttribute("msg","권한이 없는 사용자입니다."); 

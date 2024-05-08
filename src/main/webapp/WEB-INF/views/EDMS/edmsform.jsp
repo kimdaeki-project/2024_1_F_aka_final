@@ -141,6 +141,7 @@
 		<tr>
 			<td class="userTdG" >				
 				문서종류
+				
 			</td>
 			<td class="userTdW" id="munser">				
 				기안서
@@ -194,7 +195,8 @@
 	<tbody>
 		<tr>
 			<td class="userTdG">				
-				문서번호 
+				문서번호  
+				<input type="hidden" value=" ${edms.EDMS_STATUS}" name="edms_Status">
 			</td>
 			<td class="userTdW">	
 				<span>${edms.EDMS_NO}</span>
@@ -600,6 +602,7 @@
 	<button type="button" class="btn btn-success" id="applyBtn">제출</button>
 	<button type="button" class="btn btn-warning" id="tempApplyBtn">임시저장</button>
 	<c:if test="${dtype==4}">
+	
 	<button type="button" class="btn btn-danger" id="deleteEdms">삭제</button>
 	<script type="text/javascript">
 	//삭제

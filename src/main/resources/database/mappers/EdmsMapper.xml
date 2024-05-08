@@ -352,7 +352,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateTempEdms" parameterType="EdmsVO">
 	
 		
-		UPDATE TEMP_EDMS SET EDMS_FORM_NO = #{edms_FromNo}							
+		UPDATE TEMP_EDMS SET EDMS_FORM_NO = #{edms_From_No}							
 							,EDMS_TITLE = #{edms_Title}
 							,EDMS_CONTENT = #{edms_Content}											
 							,EDMS_CREATE_DATE = NOW()							

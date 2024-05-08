@@ -2,20 +2,18 @@ package com.aka.app.edms;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Map;
+
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 
-@Setter
-@Getter
+
+
 @Data
 public class EdmsVO {
 
 	private Long edms_No;
-	private String edms_From_No;
+	private Long edms_From_No;
 	private Long edms_Creator;
 	private String edms_Title;	
 	private String edms_Content;
@@ -32,6 +30,8 @@ public class EdmsVO {
 	
 	
 	private List<EdmsFileVO> fileVOs; 
+	
+	
 	
 }
 	

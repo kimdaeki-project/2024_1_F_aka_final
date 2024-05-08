@@ -1,4 +1,6 @@
 
+
+
 const addLineBtn = document.getElementById("addLineBtn"); //모달 여는 버튼
 const addBtn = document.getElementById("addBtn"); //모달 확인버튼
 const myModal = document.getElementById('myModal');
@@ -11,21 +13,15 @@ const applyOn = document.getElementById('applyOn');
 const closeBtn = document.getElementById('closeBtn');
 const delBtn = document.getElementById('delBtn');//결제선에서 제거하는 버튼
 const tempApplyBtn = document.getElementById('tempApplyBtn');
+const deleteEdms = document.getElementById('deleteEdms');
+
 let today = document.getElementById('today');
 let appLine = document.getElementById('appLine');
 
 
 
 
-//모달 불러오는 함수
 
-// addLineBtn.addEventListener('click', e=>{
-// 	console.log("1qewqeq");
-// 	fSch();
-    
-// })
-
-today.valueAsDate = new Date();
 
 addLineBtn.addEventListener('shown.bs.modal',function(){		
     myInput.focus()				
@@ -39,7 +35,38 @@ addBtn.addEventListener('click',function(){
 
 })
 
+ function formChange(){ //결재문서 변경
+	
+	let formType = document.getElementById('formType');
+	let formNo = formType.value;
+	let munser = document.getElementById("munser");
+	let opt = formType.options[formType.selectedIndex].text;
+	
+	let formImport = document.getElementById('formImport');
+	
+	if(formNo==1){
+		munser.innerText = "";
+		munser.innerText = opt;
+		formImport.innerHTML="";
+		return;
+		
+	}
+	munser.innerText = "";
+	munser.innerText = opt;
+	
+	console.log(opt);
+	fetch('importFrom?formNo='+formNo,{		
+		method:"GET"
+		})
+		.then(data=>data.text())
+		.then(data=>{
+			console.log(data)
+			formImport.innerHTML = "";
+			formImport.innerHTML += data;
+		})		
 
+	
+}
 
 
 
@@ -78,6 +105,11 @@ tempApplyBtn.addEventListener('click',function(){
     applyFrom(2,"temp");
 
 })
+
+
+	
+	
+
 
 
 //폼 저장 함수(1=저장, 2=임시저장)
@@ -129,17 +161,6 @@ function applyFrom(check1, check){
 
 
 
-    //summit
-    // applyBtn.addEventListener('click', function(e){
-    // 	e.preventDefault;
-    // 	formelem.setAttribute("action","apply");
-    // 	formelem.setAttribute("method","post");
-    // 	formelem.setAttribute("enctype","multipart/form-data");
-    // 	formelem.submit();
-
-    // })
-
-
 function check(result){
 
     console.log(result.edmsTitle)
@@ -155,23 +176,20 @@ function check(result){
 // jstree 초기화 함수
 
 
-function fSch() {
-        console.log("껌색할께영");
-        $('#jstree').jstree(true).search($("#schName").val());
-    }
 
     //중요 속성, original, icon, state
     // root node는 parent를 #       
     $.jstree.defaults.core.themes.variant = "large";      
 
     //일반적으로 요렇게만 사용해도 충분!
+
     $("#jstree").jstree({
         "plugins": ["search","wholerow","types" ],
         "check_callback": true,  // 요거이 없으면, create_node 안먹음
         'core': {
             'data':{
-                "url": 'api/chart',
-                'dataType':'json' // ajax로 요청할 URL
+                "url": '/edms/api/chart',
+                'dataType':'json' // ajax로 요청할 URL                
                 } 				
             },
         "types":{
@@ -186,6 +204,10 @@ function fSch() {
         
     });    
 
+function fSch() {
+        console.log("껌색할께영");
+        $('#jstree').jstree(true).search($("#schName").val());
+    }
 
 
     //이벤트
@@ -194,7 +216,7 @@ function fSch() {
     });
 
     // Node 열렸을 땡
-    let isAdded = false;     
+  		let isAdded = false;     
     // Node 선택했을 땡
     //member임시 저장 변수
         let tem;

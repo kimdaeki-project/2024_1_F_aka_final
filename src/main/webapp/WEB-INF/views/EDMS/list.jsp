@@ -71,25 +71,73 @@
                         <th>${titles.no1}</th>
                         <th>${titles.no2}</th>
                         <th>${titles.no3}</th>
-                        <th>${titles.no4}</th>
-                        <th>${titles.no5}</th>
+                        <th>${titles.no6}</th>
+                        <th>${titles.no4}</th>          
+   						
+   						<c:if test="${ check == 'done'  or check == 'recive' or check == 'aproved'}">
+		                       
+                         <th>${titles.no7}</th> <!-- 결재일  -->
+                        </c:if>
+                        
+                       <c:if test="${check == 'pro' or check == 'done'  or check == 'recive' or check == 'aproved'}">
+		                       
+                         
+                         <th>${titles.no5}</th> <!--  결재상태  -->
+                      
+                        </c:if>
+                        
+                        
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                     	<!-- // list= edmsvo list  -->
-                    <c:forEach items="${list}" var="list">
+                    <c:forEach items="${edmsList}" var="list">
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i>${list.edms_No}</td>
-                        <td>${list.edms_Title}</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> ${list.EDMS_NO} </td>
+                        <td>${list.EDMS_TITLE}</td>
                         <td>
-                         	<a href="/edms/getDetail?edms_No=${list.edms_No}&check=${check}">${list.edms_Content}</a>
+                         	<a href="/edms/getDetail?edms_No=${list.EDMS_NO}&check=${check}">${list.EDMS_CONTENT}</a>
                         </td>
+                          <td>
+                        	${list.EDMS_FORM_NAME}
+                        </td>   
                         <td>
-                        	${list.edms_Create_Date}
-                        </td>
-                        <td>
-                          	${list.edms_Status}
-                        </td>
+                        	${list.EDMS_CREATE_DATE}
+                        </td>   
+                           <c:if test="${ check == 'done'  or check == 'recive' or check == 'aproved'}">
+		                       
+		                         <td>${list.EDMS_APPROVAL_DATE}</td> <!-- 결재일  -->
+                        	</c:if>
+                        	 <c:if test="${check == 'pro' or check == 'done'  or check == 'recive' or check == 'aproved'}">
+		                       
+		                         
+		                         <c:choose>                        	
+		                        		<c:when test="${list.EDMS_STATUS eq 0}">
+			                        		<td>
+			                          			<span class="badge bg-label-success">결재전</span>
+			                        		</td>
+			                        	</c:when>
+			                        	
+			                        	<c:when test="${list.EDMS_STATUS eq 1}">
+			                        		<td>
+			                          			<span class="badge bg-label-success">결재중</span>
+			                        		</td>
+			                        	</c:when>                       	
+			                  
+			                        	
+			                        	<c:when test="${list.EDMS_STATUS eq 3}">
+			                        		<td>
+			                          			<span class="badge bg-label-primary">승인</span>
+			                        		</td>
+			                        	</c:when>                        	
+			                        	
+			                        	<c:when test="${list.EDMS_STATUS eq 5}">
+			                        		<td>
+			                          			<span class="badge bg-label-secondary">반려</span>
+			                        		</td>
+			                        	</c:when>   
+		                        </c:choose>
+	                        </c:if>
                       </tr>
                     </c:forEach><!-- 
                        <tr>
@@ -126,7 +174,65 @@
                   </table>
                 </div>
               </div>
-		  
+		  	<div class="demo-inline-spacing ml-6">
+
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+
+                <c:if test="${!pager.start}">
+                  <li class="page-item first">
+                    <a class="page-link" href="/edms/list?page=1&kind=${kind}$search=${search}" ><i class="tf-icon bx bx-chevrons-left"></i></a>
+                  </li>
+                </c:if> 
+				<c:if test="${!pager.before}">
+                  <li class="page-item prev"> <a class="page-link" href="/edms/list?page=${pager.startNum-1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-left"></i></a> </li>
+				</c:if>                  
+                  
+                  <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="page">
+                 	 <li class="page-item"><a class="page-link" href="/edms/list?check=${check}&page=${page}&kind=${kind}$search=${search}">${page}</a></li>
+                  </c:forEach>
+  
+  				
+                 <c:if test="${!pager.after}">
+                  <li class="page-item next">
+                    <a class="page-link" href="/edms/list?page=${pager.lastNum+1}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevron-right"></i></a>
+                  </li>
+                 </c:if>
+                 
+ 				<c:if test="${!pager.last}">
+                  <li class="page-item last">
+                    <a class="page-link" href="/edms/list?page=${pager.totalPage}&kind=${kind}$search=${search}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                  </li>
+  					</c:if>		
+  		
+                </ul>
+                    
+              </nav>
+              
+               <div class="demo-inline-spacing ml-6">
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+                <li class="page-item first">
+                
+  					 <form class="d-flex" action="/edms/list"  method="get">
+  					 <input type="hidden" value="${check}" name="check">  				    <div class="col-md-3">
+                      <select id="selectTypeOpt" name="kind" class="form-select color-dropdown">
+                        <option value="kind1" selected>제목 + 내용</option>
+                        <option value="kind2">제목</option>
+                        <option value="kind3">내용</option>
+                        <c:if test="${check == 'recive' or check == 'aproved'}">
+                        <option value="kind4">작성자</option>                                         
+                        </c:if>
+                      </select>
+                    </div>
+                      <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" />
+                      <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </form>
+					</li>
+				</ul>
+				</nav>
+				</div>	
+			  </div>
 		  </div>
 			<%-- <c:import url="../temp/body.jsp"></c:import> --%>
             <!-- / Content -->

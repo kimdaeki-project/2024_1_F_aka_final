@@ -32,15 +32,19 @@
     />
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
     <meta name="description" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
     <script src="/assets/vendor/js/helpers.js"></script>
     <script src="/assets/js/config.js"></script>
    <!--link import  -->
-    <c:import url="../temp/head.jsp"></c:import>
-    <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> 	
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+     <c:import url="../temp/head.jsp"></c:import>
+     <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
+     <!-- jsree -->
+     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> 	
+	  <script src="https://fastly.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	  <link href="https://fastly.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet"> 
+
+    <c:import url="/js/edms/form.css"></c:import>
+	
 	
 
   </head>
@@ -64,12 +68,7 @@
 
           <!-- Content wrapper -->
          <c:import url="edmsform.jsp"></c:import>
-        <!-- include libraries(jQuery, bootstrap) -->     
-
-
-			<%-- <c:import url="../temp/body.jsp"></c:import> --%>
-            <!-- / Content -->
-	<%-- 		<c:import url="../EDMS/${path}.jsp"></c:import> --%>
+   
            
 
             <div class="content-backdrop fade"></div>
@@ -91,7 +90,11 @@
     <script src="/assets/vendor/libs/jquery/jquery.js"></script>   
     <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="/assets/vendor/js/menu.js"></script>
-   
+    <script src="/assets/vendor/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
+    
+
     <!-- endbuild -->
 
     <!-- Vendors JS -->
@@ -106,7 +109,14 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
-    
+    <c:if test="${checkType =='create'}">
+
+    <!-- JSTREE -->
+   
+   <script src="/js/edms/form.js"></script>
+   
+   </c:if>
+
    
     
     

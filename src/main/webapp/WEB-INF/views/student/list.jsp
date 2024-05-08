@@ -39,7 +39,7 @@
         <div class="layout-page">
           <!-- Navbar -->
 
-          <c:import url="../temp/nav.jsp"></c:import>
+  		<c:import url="../temp/nav.jsp"></c:import>
 
           <!-- / Navbar -->
 

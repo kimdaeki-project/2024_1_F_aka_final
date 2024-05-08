@@ -18,7 +18,14 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Department Calendar</title>
+    <style>
+    	  #calendar {
+		   max-width: 1250px;
+		   max-height: 700px;
+		   margin: 0px auto;
+		 }
+    </style>
     <meta name="description" content="" />
     <script src="/assets/vendor/js/helpers.js"></script>
     <script src="/assets/js/config.js"></script>
@@ -64,7 +71,7 @@
 
 
 
-					<!-- Modal -->
+		<!-- Modal -->
 		<div class="modal fade" id="addSchedule" tabindex="-1" aria-labelledby="addScheduleLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -95,13 +102,13 @@
 				  <option value="2">부서일정</option>
 				</select>
 				<!-- <input type="date" name="update_date" id="update_date" hidden/> -->
-				<input type="text" name="member_id" id="member_id" value="${member.member_id}">
+				<input type="text" name="member_id" id="member_id" value="${member.member_id}" hidden>
 		      </div>
-		      
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 		        <button class="btn btn-primary" onclick='create()'>일정추가</button>
 		      </div>
+		      
 		      </form>
 		    </div>
 		  </div>

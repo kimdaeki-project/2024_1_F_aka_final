@@ -10,10 +10,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.aka.app.member.MemberService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
@@ -30,6 +32,9 @@ public class SecurityConfig {
 	@Autowired
 	private SecurityLoginFailureHandler loginFailureHandler;
 
+//	@Autowired
+//	private CustomAccessDeniedHandler accessDeniedHandler;
+	
 	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() throws Exception{
@@ -40,7 +45,8 @@ public class SecurityConfig {
 						.requestMatchers("/js/**")
 						.requestMatchers("/libs/**")
 						.requestMatchers("/scss/**")
-						.requestMatchers("/tasks/**");
+						.requestMatchers("/tasks/**")
+						.requestMatchers("/error");
 		
 	}
 	
@@ -58,12 +64,14 @@ public class SecurityConfig {
 						(authorizeRequests)->
 											authorizeRequests
 											.requestMatchers("/", "/member/mypage","/board/**","/product/**","/payment/checkout","/payment/success","/payment/fail").authenticated()
-											.requestMatchers("/calendar", "/edms/**").hasAnyRole("CEO","HR","EMPLOYEE")
+											.requestMatchers("/calendar/**", "/edms/**").hasAnyRole("CEO","HR","EMPLOYEE")
 											.requestMatchers("/department/**","/student/**","/equipment/**","/payment/list").hasAnyRole("HR")
 											.anyRequest().permitAll()
 											)
 	
-				
+				.exceptionHandling((exceptionConfig)->
+					exceptionConfig.accessDeniedHandler(accessDeniedHandler())
+				)
 				.formLogin(
 						(login)->
 								login	
@@ -114,7 +122,16 @@ public class SecurityConfig {
 						
 		return security.build();
 	}
-	
 
-	
+	@Bean
+	public AccessDeniedHandler accessDeniedHandler() {
+		log.info("accessDeniedHandler");
+		return (request, response, e) -> {
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			request.setAttribute("msg","권한이 없는 사용자입니다."); 
+			request.setAttribute("path", "/");
+			request.getRequestDispatcher("/error/redirect").forward(request, response);
+		};
+	}
+
 }

@@ -91,8 +91,8 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		log.info("oAuth2User == {} == ",oAuth2User.toString());
 		log.info("oAuth2User, Map == {} == ",map.toString());
 		RoleVO roleVO = new RoleVO();
-		roleVO.setName("NORMAL");
-		
+		roleVO.setName("ROLE_EMPLOYEE");
+		memberVO.setUser_id(oAuth2User.getName());
 		memberVO.setRole_id(1L);
 		return memberVO;
 	}
@@ -121,13 +121,12 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		log.info(memberVO.getPassword());
 		
 		memberVO.setDepartment_id(1L);
+		// 회원 권한 정보 (role) 
 		memberVO.setRole_id(4L);
 		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
 		memberVO.setCustomer_key("TEST_customer1234abc-"+System.currentTimeMillis());
 		int result = memberDAO.add(memberVO);
 		
-		// 회원 권한 정보
-		//role 
 		return result; 
 	}
 	

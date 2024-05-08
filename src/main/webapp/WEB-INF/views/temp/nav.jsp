@@ -42,21 +42,26 @@
                 
                 <li class="nav-item lh-1 me-3">
                 	<!-- 사원정보 이름 직급 -->
-                	<span class="fs-6">${member.username}</span>
-					<c:if test="${member.position_id == 1}">
+                	<c:if test="${sessionMember.user_id ne null}">
+                		<span class="fs-6">${sessionMember.username}</span>
+                	</c:if>
+					<c:if test="${sessionMember.position_id == 0}">
+						<small style="font-size:12px;">대표</small>
+					</c:if>
+					<c:if test="${sessionMember.position_id == 2}">
+						<small style="font-size:12px;">임원</small>
+					</c:if>
+					<c:if test="${sessionMember.position_id == 3}">
 						<small style="font-size:12px;">사원</small>
 					</c:if>
-					<c:if test="${member.position_id == 2}">
-						<small style="font-size:12px;"></small>
+					<c:if test="${sessionMember.position_id == 4}">
+						<small style="font-size:12px;">대리</small>
 					</c:if>
-					<c:if test="${member.position_id == 3}">
-						<small style="font-size:12px;"></small>
+					<c:if test="${sessionMember.position_id == 5}">
+						<small style="font-size:12px;">부장</small>
 					</c:if>
-					<c:if test="${member.position_id == 4}">
-						<small style="font-size:12px;"></small>
-					</c:if>
-					<c:if test="${member.position_id == 5}">
-						<small style="font-size:12px;"></small>
+					<c:if test="${sessionMember.position_id == 6}">
+						<small style="font-size:12px;">과장</small>
 					</c:if>
                 </li>
 
@@ -78,21 +83,26 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">${member.username}</span>
-							<c:if test="${member.position_id == 1}">
+                          	<c:if test="${sessionMember.user_id ne null}">
+                            	<span class="fw-semibold d-block">${sessionMember.username}</span>
+                            </c:if>
+							<c:if test="${sessionMember.position_id == 0}">
+								<small class="text-muted">대표</small>
+							</c:if>
+							<c:if test="${sessionMember.position_id == 2}">
+								<small class="text-muted">임원</small>
+							</c:if>
+							<c:if test="${sessionMember.position_id == 3}">
 								<small class="text-muted">사원</small>
 							</c:if>
-							<c:if test="${member.position_id == 2}">
-								<small class="text-muted"></small>
+							<c:if test="${sessionMember.position_id == 4}">
+								<small class="text-muted">대리</small>
 							</c:if>
-							<c:if test="${member.position_id == 3}">
-								<small class="text-muted"></small>
+							<c:if test="${sessionMember.position_id == 5}">
+								<small class="text-muted">과장</small>
 							</c:if>
-							<c:if test="${member.position_id == 4}">
-								<small class="text-muted"></small>
-							</c:if>
-							<c:if test="${member.position_id == 5}">
-								<span class="fs-4 py-2 d-flex justify-content-center"></span>
+							<c:if test="${sessionMember.position_id == 6}">
+								<small class="text-muted">부장</small>
 							</c:if>
                           </div>
                         </div>

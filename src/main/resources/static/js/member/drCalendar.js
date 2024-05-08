@@ -29,7 +29,7 @@ document.getElementById('end_date').addEventListener('change', function() {
 
 function move(e){
 	alert("추가완료");
-	location.href="/calendar";	
+	location.href="/calendar/dr";	
 }
 	
 
@@ -61,7 +61,7 @@ function create(){
 		.then(res => res)
 		.then(res => move(res))
 		.catch(error => {
-		console.log(error+"왜");
+		console.log(error);
 	})
 }
 
@@ -70,11 +70,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 	fixTime();
 
- 
-
-	let arr = [];
-	//let target = document.getElementById('target_object');
-    
+	const b = {title:'1',start:'2020-05-01',end:'2020-05-01'}
+	let arr = [b];
+	
     fetch('/calendar/drDetail',{
 		method: "GET",
 		headers: {
@@ -84,7 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		.then(res => res.json())
 		.then(dataArray => {
 			/* db에서 가져온 일정들 dataObj객체에 담아서 arr 리스트에 push */
-			dataArray.forEach(data => {
+			if(dataArray.length > 0){
+				dataArray.forEach(data => {
 				const dataObj = {
 					title : data.title,
 					start : data.start_date,
@@ -92,9 +91,11 @@ document.addEventListener('DOMContentLoaded', function() {
 					/*color:'#FF6600',*/
 					url:'https://localhost/calendar/'+data.calendar_id	/* url 설정 Detail page*/
 					
-				}
-				arr.push(dataObj);
-			})
+					}
+					arr.push(dataObj);
+				})
+			}
+			
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 			  googleCalendarApiKey:'AIzaSyCzFcwzDWPTcM8eLqcBQ7nlSmig8VMDwGw',
 		  	  expandRows: true,		  //크기조절 
@@ -112,8 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				 },
 				 arr
 				 
-			  ]
-		      /*events:arr*/
+			  ],
+		      events:{title:'1',start:'2020-05-01',end:'2020-05-01'}
 	
 		    
     		});

@@ -35,10 +35,8 @@ public class MemberController {
 	
 	@GetMapping("/login")
 	public String memberLogin(@ModelAttribute MemberVO memberVO, HttpSession session, Model model)throws Exception {
-		
 		Object obj=session.getAttribute("SPRING_SECURITY_CONTEXT");
 		
-		log.info("=====getName : {}=======",memberVO.getName());
 		if(obj == null) {
 			return "member/memberLogin";
 		}
@@ -118,9 +116,7 @@ public class MemberController {
 		
 		return "commons/result";
 	}
-	// 출근누르고 퇴근으로 버튼 변하게하기
-	// 퇴근시간은 update로 그날이 지나지않으면 버튼안보이는걸로
-	// 출,퇴근 시간 jsp출력
+
 	@PostMapping("/mypage/schedule")
 	public String createCheck(ScheduleVO scheduleVO, Model model)throws Exception{
 		int result = memberService.createCheck(scheduleVO);

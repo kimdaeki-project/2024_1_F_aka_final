@@ -332,7 +332,7 @@ public class EdmsService {
 			aprovalVO.setAPRROVAL_RESULT(5L);
 			edmsVO.setEdms_Status(5L);
 			edmsDAO.updateAproval(aprovalVO);
-			result = edmsDAO.updateEdms(edmsVO);
+			result = edmsDAO.updateEdmsFinal(edmsVO);
 			return 5;
 			
 		}

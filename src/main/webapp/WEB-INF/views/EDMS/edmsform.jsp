@@ -101,6 +101,22 @@
 			
 			</c:forEach> 
  		</c:if>
+		<c:if test="${dtype==4 && not empty appline}">
+		
+			<c:forEach items="${appline}" var="list">		
+				
+				<div class="col-auto ps-0 pe-0">
+					<div class="applineG">${list.POSITION_NAME}</div>						
+					<div class="applineW">${list.USERNAME}</div>				
+					<div class="applineG">${list.APPROVAL_DATE }</div>
+					<input type="hidden" class="appForm" value="${list.MEMBER_ID}">
+				</div> 
+			
+			</c:forEach> 
+			
+ 		</c:if>
+			
+			
 			
 		</div>
 		
@@ -183,6 +199,7 @@
 			<td class="userTdW">	
 				<span>${edms.EDMS_NO}</span>
 				<input type="hidden" id="edms_No" name="edms_No" value="${edms.EDMS_NO}">
+				<input type="hidden" name="edms_From_No" value="${edms.EDMS_FORM_NO}">
 			</td>
 			<td class="userTdG">				
  				기&nbsp;안&nbsp;일
@@ -197,7 +214,7 @@
  				작&nbsp;성&nbsp;자
 			</td>
 			<td class="userTdW">	
-				<!-- <input type="hidden" name="edmsCreator" value="${member.username}"> -->
+				<input type="hidden" name="edms_Creator" value="${edms.EDMS_CREATOR}"> 
 				<span>${edms.USERNAME}</span>
 			</td>
 				<td class="userTdG">
@@ -307,7 +324,7 @@
 						<span>${edms.EDMS_TITLE}</span>	
 					</c:when>
 					<c:when test="${checkType=='create' and dtype==4}">
-						${edms.EDMS_TITLE}
+						<input name="edms_Title" value="${edms.EDMS_TITLE}">
 					</c:when>
 				</c:choose> 
 				
@@ -331,7 +348,11 @@
 						${edms.EDMS_CONTENT}
 					</c:when>
 					<c:when test="${checkType=='create' and dtype==4}">
-						${edms.EDMS_CONTENT}
+						<textarea id="summernote" name="edms_Content">
+						
+						 ${edms.EDMS_CONTENT}
+						
+						 </textarea>
 					</c:when>
 				</c:choose> 
 				</span> 

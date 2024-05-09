@@ -50,12 +50,6 @@ gohyo7@gmail.com
 +  3.스케쥴 관리 구현(Full Calendar)
 
 
-#### 팀원 안인권 
-+  1.인사관리
-+  2.수업 관리
-+  3.강의실 관리
-
-
 
 ![메인화면](https://github.com/dirokim/aka_final/blob/develop/20240426_163830.png)
 

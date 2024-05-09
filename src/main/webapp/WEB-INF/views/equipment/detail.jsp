@@ -84,10 +84,7 @@
                         <td class="align-middle"><small class="text-light fw-semibold">상세 설명</small></td>
                           <td class="py-4">
                        		 <div class="input-group input-group-merge speech-to-text">
-                        		<textarea class="form-control" placeholder="Say it" rows="2">${vo.equipment_contents}</textarea>
-                        		<span class="input-group-text">
-                          		<i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
-                        		</span>
+                        		<p class="lead mb-0">${vo.equipment_contents}</p>
                     		 </div>
                           </td>
                         </tr>                                                

@@ -81,28 +81,28 @@
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">아이디</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="user_id" id="basic-default-name" placeholder="재고 수량을 입력하세요" />
+                            <input type="text" class="form-control" name="user_id" id="basic-default-name" placeholder="아이디를 입력하세요" />
                           </div>
                         </div>
                         
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">패스워드</label>
                           <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" id="basic-default-name" placeholder="재고 수량을 입력하세요" />                        
+                            <input type="password" class="form-control" name="password" id="basic-default-name" placeholder="패스워드를 입력하세요" />                        
                           </div>
                         </div>
                         
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">이메일</label>
                           <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="basic-default-name" placeholder="재고 수량을 입력하세요" />                         
+                            <input type="email" class="form-control" name="email" id="basic-default-name" placeholder="이메일를 입력하세요" />                         
                           </div>
                         </div>
                         
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">주소</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="address" id="basic-default-name" placeholder="재고 수량을 입력하세요" />                            
+                            <input type="text" class="form-control" name="address" id="basic-default-name" placeholder="주소를 입력하세요" />                            
                           </div>
                         </div>
                   		

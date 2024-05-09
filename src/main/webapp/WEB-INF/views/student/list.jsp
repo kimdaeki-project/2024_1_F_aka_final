@@ -71,7 +71,7 @@
                      <c:forEach items="${list}" var="vo">
                       <tr>
                         <td>${vo.member_id}</td>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i><a href="#"><strong>${vo.username}</strong></a></td>
+                        <td>${vo.username}</td>
                         <td>${vo.phone}</td>
                         <td>${vo.email}</td>
                         <td>${vo.user_id}</td>

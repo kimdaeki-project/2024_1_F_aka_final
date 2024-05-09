@@ -24,7 +24,7 @@ public  class BoardCustomView extends AbstractView{
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 			BoardFileVO vo = (BoardFileVO)model.get("vo");
-			File file = new File("D:/upload/board/",vo.getFilename());
+			File file = new File("/home/ubuntu/upload/board/",vo.getFilename());
 			response.setCharacterEncoding("UTF-8");
 			response.setContentLengthLong(file.length());
 			String oriName = URLEncoder.encode(vo.getOrifilename(),"UTF-8");

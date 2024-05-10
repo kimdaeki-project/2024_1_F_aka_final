@@ -54,6 +54,12 @@ gohyo7@gmail.com
 +  배포 도메인 주소   <http://gdj75.shop>
 +  아이디 : hire1234 / 비밀번호 : 11
 
-![메인화면](https://github.com/dirokim/aka_final/blob/develop/20240426_163830.png)
 
-
+### : 구현
+---
+#### 메인페이지
+![메인페이지](./images/mainpage.gif)
+#### 공지사항 추가
+![공지사항 추가](./images/boardcreate.gif)
+#### 공지사항 수정
+![공지사항 수정](./images/boardupdate.gif)

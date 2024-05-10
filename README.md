@@ -59,7 +59,3 @@ gohyo7@gmail.com
 ---
 #### 메인페이지
 ![메인페이지](./images/mainpage.gif)
-#### 공지사항 추가
-![공지사항 추가](./images/boardcreate.gif)
-#### 공지사항 수정
-![공지사항 수정](./images/boardupdate.gif)

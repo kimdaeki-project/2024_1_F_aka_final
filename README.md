@@ -1,3 +1,16 @@
+```
+교육원 : 구디아카데미
+강 사 : 김대기
+과정명 : 클라우드 활용 자바개발자 양성과정
+기 간 :  2024.3 ~ 2024.5
+프로젝트 : Final Project
+주 제 : 오프라인 학원에서 사용하는 그룹웨어
+팀 원 : 고민효, 김승균, 안인권, 조민우
+GitHub URL : https://github.com/dirokim/aka_final
+최종 Branch : Mater
+```
+
+
 # AKA FINAL 
 ---
 ### : 배포
